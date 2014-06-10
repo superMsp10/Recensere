@@ -61,6 +61,12 @@
      <None Include="Assets\Photon Unity Networking\readme.txt" />
      <None Include="Assets\Plugins\Photon3Unity3D.xml" />
      <None Include="Assets\Photon Unity Networking\changelog.txt" />
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>Assets\Photon Unity Networking\Editor\PhotonNetwork\Newtonsoft.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="Photon3Unity3D">
+ <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Users\Mahan\Documents\MahanWorkspace\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>
@@ -78,12 +84,6 @@
  </Reference>
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>C:\Users\Mahan\Documents\MahanWorkspace\Unity\Editor\Data\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>Assets\Photon Unity Networking\Editor\PhotonNetwork\Newtonsoft.Json.dll</HintPath>
- </Reference>
- <Reference Include="Photon3Unity3D">
- <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
