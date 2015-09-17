@@ -36,7 +36,6 @@ public class GameManeger : MonoBehaviour
 				menuCam.SetActive (false);
 				p = PhotonNetwork.Instantiate (playerInstantiate.name, MySS.transform.position, Quaternion.identity, 0, null);
 				player myPlayer = p.GetComponent<player> ();
-				myPlayer.thisCam.gameObject.SetActive (true);
 				myPlayer.networkInit ();
 
 		

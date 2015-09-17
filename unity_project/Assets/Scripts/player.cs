@@ -4,6 +4,7 @@ using System.Collections;
 public class player : MonoBehaviour
 {
 		public Camera thisCam;
+		public MonoBehaviour[] networkSet;
 		// Use this for initialization
 		void Start ()
 		{
@@ -12,6 +13,11 @@ public class player : MonoBehaviour
 		public void networkInit ()
 		{
 				Debug.Log ("hello");
+				thisCam.gameObject.SetActive (true);
+				foreach (MonoBehaviour m in networkSet) {
+						m.enabled = true;
+				}
+
 		}
 	
 		// Update is called once per frame
