@@ -7,6 +7,8 @@ public class defaultArena : Map
 		{
 				arenaSize = size;
 				tileTypes.Add (tileDictionary.thisM.floorTile);
+				wallTypes.Add (tileDictionary.thisM.wallTile);
+
 				
 		}
 
@@ -15,5 +17,11 @@ public class defaultArena : Map
 				
 				return tileTypes [0];
 		}
+		public override Tile getWall (int index)
+		{
+		
+				return wallTypes [0];
+		}
+
 
 }
