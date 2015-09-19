@@ -13,7 +13,7 @@ public class MapGenerator
 		public Tile[][] generateMap (Transform parent)
 		{
 
-				Tile[][] genTiles;
+				Tile[][] genTiles = null;
 				for (int x = 0; x < thisMap.arenaSize; x++) {
 						for (int y = 0; y < thisMap.arenaSize; y++) {
 								Debug.Log ("hello");

@@ -6,6 +6,7 @@ public class GameManeger : MonoBehaviour
 		public static GameManeger thisM;
 		public GameObject menuCam;
 		public GameObject playerInstantiate;
+		public Transform levelStart;
 		private SpawnSpot[] SS;
 		private SpawnSpot MySS;
 
@@ -31,6 +32,7 @@ public class GameManeger : MonoBehaviour
 		{
 
 				MapGenerator gen = new MapGenerator (Map.firstMap);
+				gen.generateMap (levelStart);
 
 		}
 

@@ -5,21 +5,20 @@ public abstract class Map
 {
 		public static defaultArena firstMap = new defaultArena (17);
 		public  int arenaSize;
-		public List<Tile> tileTypes;
+		public List<Tile> tileTypes = new List<Tile> ();
 
 		public Map (int size)
 		{
 				arenaSize = size;
 		}
 
-		public GameObject getTile (int index)
+		public  virtual Tile getTile (int index)
 		{
-				GameObject g = null;
 				if (index > 0 && index < tileTypes.Count) {
-						g = tileTypes [index];
+						return tileTypes [index];
 
 				}
-				return GameObject.Instantiate (g);
+				return null;
 		}
 
 

@@ -160,13 +160,25 @@
      <Compile Include="Assets\Scripts\GameManeger.cs" />
      <Compile Include="Assets\Scripts\Map.cs" />
      <Compile Include="Assets\Scripts\MapGenerator.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatChannel.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatClient.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatDisconnectCause.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatEventCode.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatOperationCode.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatParameterCode.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatPeer.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatState.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatUserStatus.cs" />
+     <Compile Include="Assets\Scripts\Plugins\ChatApi\IChatClientListener.cs" />
+     <Compile Include="Assets\Scripts\Plugins\WebSocket\WebSocket.cs" />
      <Compile Include="Assets\Scripts\SpawnSpot.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\defaultArena.cs" />
      <Compile Include="Assets\Scripts\player.cs" />
+     <Compile Include="Assets\Scripts\tileDictionary.cs" />
      <None Include="Assets\Photon Unity Networking\Demos\MarcoPolo-Tutorial\marcopolo-readme.txt" />
-     <None Include="Assets\Plugins\Photon3Unity3D.xml" />
-     <None Include="Assets\Plugins\release_history.txt" />
+     <None Include="Assets\Scripts\Plugins\Photon3Unity3D.xml" />
+     <None Include="Assets\Scripts\Plugins\release_history.txt" />
      <None Include="Assets\Photon Unity Networking\Demos\DemoBoxes\Resources\eurof_tt.txt" />
      <None Include="Assets\Photon Unity Networking\Demos\DemoPickup\Assets\3dFont\3dText.shader" />
      <None Include="Assets\Photon Unity Networking\readme.txt" />
@@ -184,10 +196,10 @@
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Photon3Unity3D">
- <HintPath>M:/ProducedGames/bomberMan/unity_project/Assets/Plugins/Photon3Unity3D.dll</HintPath>
+ <HintPath>M:/ProducedGames/bomberMan/unity_project/Assets/Scripts/Plugins/Photon3Unity3D.dll</HintPath>
  </Reference>
  <Reference Include="websocket-sharp">
- <HintPath>M:/ProducedGames/bomberMan/unity_project/Assets/Plugins/WebSocket/websocket-sharp.dll</HintPath>
+ <HintPath>M:/ProducedGames/bomberMan/unity_project/Assets/Scripts/Plugins/WebSocket/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
@@ -195,10 +207,6 @@
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{89E40A3E-5086-C4C7-05D0-974E1AFE9663}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
