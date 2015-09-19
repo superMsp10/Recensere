@@ -30,7 +30,7 @@ public class GameManeger : MonoBehaviour
 		void generateArena ()
 		{
 
-				MapGenerator gen = new MapGenerator ();
+				MapGenerator gen = new MapGenerator (Map.firstMap);
 
 		}
 

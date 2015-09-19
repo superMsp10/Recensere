@@ -1,18 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Map
 {
+		public static defaultArena firstMap = new defaultArena (17);
+		public static int arenaSize;
+		public List<Tile> tileTypes;
 
-		// Use this for initialization
-		void Start ()
+		public Map (int size)
 		{
-	
+				arenaSize = size;
 		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
-	
-		}
+
+
+		
 }
