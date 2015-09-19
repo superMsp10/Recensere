@@ -4,9 +4,21 @@ using System.Collections;
 public class MapGenerator
 {
 		public static Transform startPos;
-
+		Map thisMap;
 		public MapGenerator (Map map)
 		{
-				Debug.Log ("hello");
+				thisMap = map;
+		}
+
+		public Tile[][] generateMap (Transform parent)
+		{
+
+				Tile[][] genTiles;
+				for (int x = 0; x < thisMap.arenaSize; x++) {
+						for (int y = 0; y < thisMap.arenaSize; y++) {
+								Debug.Log ("hello");
+						}
+				}
+				return genTiles;
 		}
 }

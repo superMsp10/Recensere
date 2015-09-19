@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Tile
+public abstract class Tile:MonoBehaviour
 {
 		public static int tileSize = 4;
 		//----------------Tiles-------------------//

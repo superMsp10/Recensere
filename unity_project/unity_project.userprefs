@@ -1,10 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\defaultArena.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tile.cs">
     <Files>
-      <File FileName="Assets\Scripts\Map.cs" Line="7" Column="30" />
-      <File FileName="Assets\Scripts\GameManeger.cs" Line="33" Column="1" />
+      <File FileName="Assets\Scripts\Map.cs" Line="8" Column="19" />
+      <File FileName="Assets\Scripts\GameManeger.cs" Line="8" Column="39" />
       <File FileName="Assets\Scripts\defaultArena.cs" Line="6" Column="43" />
+      <File FileName="Assets\Scripts\MapGenerator.cs" Line="19" Column="29" />
+      <File FileName="Assets\Scripts\Tile.cs" Line="4" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
