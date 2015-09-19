@@ -6,13 +6,18 @@ public class Connect :  Photon.MonoBehaviour
 
 
 		public byte Version = 1;
+		public bool offline = false;
 
 		// Use this for initialization
 		void Start ()
 		{
-
 				PhotonNetwork.autoJoinLobby = false;    // we join randomly. always. no need to join a lobby to get the list of rooms.
-				PhotonNetwork.ConnectUsingSettings (Version.ToString ());
+		
+
+				if (offline) 
+						PhotonNetwork.offlineMode = true;
+				else
+						PhotonNetwork.ConnectUsingSettings (Version.ToString ());
 
 		}
 

@@ -12,7 +12,6 @@ public class player : MonoBehaviour
 
 		public void networkInit ()
 		{
-				Debug.Log ("hello");
 				thisCam.gameObject.SetActive (true);
 				foreach (MonoBehaviour m in networkSet) {
 						m.enabled = true;

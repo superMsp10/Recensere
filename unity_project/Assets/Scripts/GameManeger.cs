@@ -8,11 +8,17 @@ public class GameManeger : MonoBehaviour
 		public GameObject playerInstantiate;
 		private SpawnSpot[] SS;
 		private SpawnSpot MySS;
-		// Use this for initialization
-		void Start ()
+
+		void Awake ()
 		{
 				if (thisM == null)
 						thisM = this;
+
+		}
+		// Use this for initialization
+		void Start ()
+		{
+				
 		}
 	
 		// Update is called once per frame
@@ -21,10 +27,18 @@ public class GameManeger : MonoBehaviour
 	
 		}
 
+		void generateArena ()
+		{
+
+				MapGenerator gen = new MapGenerator ();
+
+		}
+
 		public void OnConnected ()
 		{
-				Debug.Log ("Connected in GameManager");
+				//Debug.Log ("Connected in GameManager");
 				instantiatePlayer ();
+				generateArena ();
 		}
 
 		void instantiatePlayer ()
