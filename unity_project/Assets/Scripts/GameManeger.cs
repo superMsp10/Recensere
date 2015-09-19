@@ -9,6 +9,7 @@ public class GameManeger : MonoBehaviour
 		public Transform levelStart;
 		private SpawnSpot[] SS;
 		private SpawnSpot MySS;
+		public Tile[,] liveTiles;
 
 		void Awake ()
 		{
@@ -32,7 +33,8 @@ public class GameManeger : MonoBehaviour
 		{
 
 				MapGenerator gen = new MapGenerator (Map.firstMap);
-				gen.generateMap (levelStart);
+				liveTiles = gen.generateMap (levelStart);
+
 
 		}
 

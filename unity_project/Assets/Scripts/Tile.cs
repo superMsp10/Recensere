@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class Tile:MonoBehaviour
 {
-		public static int tileSize = 4;
+		public int tileSize = 4;
 
 
 		public Tile (int size)
