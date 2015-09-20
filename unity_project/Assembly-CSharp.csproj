@@ -157,17 +157,9 @@
      <Compile Include="Assets\Photon Unity Networking\UtilityScripts\TimeKeeper.cs" />
      <Compile Include="Assets\Scripts\Connect.cs" />
      <Compile Include="Assets\Scripts\DefaultTile.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameManeger.cs" />
-     <Compile Include="Assets\Scripts\IntVector2.cs" />
      <Compile Include="Assets\Scripts\Map.cs" />
      <Compile Include="Assets\Scripts\MapGenerator.cs" />
-     <Compile Include="Assets\Scripts\Maze.cs" />
-     <Compile Include="Assets\Scripts\MazeCell.cs" />
-     <Compile Include="Assets\Scripts\MazeCellEdge.cs" />
-     <Compile Include="Assets\Scripts\MazeDirection.cs" />
-     <Compile Include="Assets\Scripts\MazePassage.cs" />
-     <Compile Include="Assets\Scripts\MazeWall.cs" />
      <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatChannel.cs" />
      <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatClient.cs" />
      <Compile Include="Assets\Scripts\Plugins\ChatApi\ChatDisconnectCause.cs" />
