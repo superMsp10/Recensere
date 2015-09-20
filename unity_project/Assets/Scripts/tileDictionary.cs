@@ -8,6 +8,8 @@ public  class tileDictionary : MonoBehaviour
 		//----------------Tiles-------------------//
 		public   DefaultTile floorTile;
 		public   DefaultTile wallTile;
+		public   DefaultTile border;
+
 
 		void Awake ()
 		{

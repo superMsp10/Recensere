@@ -10,6 +10,15 @@ public class MapGenerator
 				thisMap = map;
 		}
 
+		enum Direction
+		{
+				North = 0,
+				East = 90,
+				South = 180,
+				West = 270}
+		;
+		
+
 		public Tile[,] generateMap (Transform levStart)
 		{
 
@@ -17,6 +26,9 @@ public class MapGenerator
 				Tile t;
 				Vector3 pos;
 				GameObject g;
+				GameObject trans = new GameObject ();
+				trans.name = "Tiles";
+				trans.transform.SetParent (levStart, false);
 				for (int x = 0; x < thisMap.arenaSize; x++) {
 						for (int y = 0; y < thisMap.arenaSize; y++) {
 								t = thisMap.getTile (0);
@@ -24,8 +36,8 @@ public class MapGenerator
 								g = (GameObject)GameObject.Instantiate (t.gameObject, pos, t.transform.rotation);
 //								t = g.GetComponent<Tile> ();
 								genTiles [x, y] = g.GetComponent<Tile> ();
-								g.name = (x + (y * thisMap.arenaSize)).ToString ();
-								g.transform.SetParent (levStart, false);
+								g.name = "X" + (x).ToString () + "Y" + (y).ToString ();
+								g.transform.SetParent (trans.transform, false);
 
 
 						}
@@ -40,6 +52,7 @@ public class MapGenerator
 				Tile t;
 				Vector3 pos;
 				GameObject g;
+				generateBorders (levStart);
 				for (int x = 0; x < genTiles.GetLength(0); x++) {
 						for (int y = 0; y < genTiles.GetLength(1); y++) {
 //								t = thisMap.getWall (0);
@@ -51,46 +64,44 @@ public class MapGenerator
 //								g.transform.SetParent (levStart, false);
 //								rotateWall (g);
 //				
-								if (y == 0) {
-										t = thisMap.getWall (0);
-										pos = new Vector3 (x * t.tileSize, t.tileSize, y * t.tileSize);
-										g = (GameObject)GameObject.Instantiate (t.gameObject, pos, t.transform.rotation);
-										//								t = g.GetComponent<Tile> ();
-										genTiles [x, y] = g.GetComponent<Tile> ();
-										g.name = "wall" + (x + (y * thisMap.arenaSize)).ToString ();
-										g.transform.SetParent (levStart, false);
-										//rotateWall (g);
-								} else if (x == 0) {
-										t = thisMap.getWall (0);
-										pos = new Vector3 (x * t.tileSize, t.tileSize, y * t.tileSize);
-										g = (GameObject)GameObject.Instantiate (t.gameObject, pos, new Quaternion (0, 90, 0, 90));
-										//								t = g.GetComponent<Tile> ();
-										genTiles [x, y] = g.GetComponent<Tile> ();
-										g.name = "wall" + (x + (y * thisMap.arenaSize)).ToString ();
-										g.transform.SetParent (levStart, false);
-										//rotateWall (g);
-								} else if (y == genTiles.GetLength (1) - 2) {
-										t = thisMap.getWall (0);
-										pos = new Vector3 (x * t.tileSize, t.tileSize, y * t.tileSize);
-										g = (GameObject)GameObject.Instantiate (t.gameObject, pos, new Quaternion (0, 0, 0, 0));
-										//								t = g.GetComponent<Tile> ();
-										genTiles [x, y] = g.GetComponent<Tile> ();
-										g.name = "wall" + (x + (y * thisMap.arenaSize)).ToString ();
-										g.transform.SetParent (levStart, false);
-										//rotateWall (g);
-								} else if (x == genTiles.GetLength (0) - 2) {
-										t = thisMap.getWall (0);
-										pos = new Vector3 (x * t.tileSize, t.tileSize, y * t.tileSize);
-										g = (GameObject)GameObject.Instantiate (t.gameObject, pos, new Quaternion (0, 90, 0, 90));
-										//								t = g.GetComponent<Tile> ();
-										genTiles [x, y] = g.GetComponent<Tile> ();
-										g.name = "wall" + (x + (y * thisMap.arenaSize)).ToString ();
-										g.transform.SetParent (levStart, false);
-										//rotateWall (g);
-								}
+						
 						}
 				}
 				return genTiles;
+		}
+
+		void generateBorders (Transform levStart)
+		{
+				GameObject g;
+				GameObject trans = new GameObject ();
+				trans.name = "Borders";
+				trans.transform.SetParent (levStart, false);
+
+				Tile t = tileDictionary.thisM.border;
+				for (int x =0; x < thisMap.arenaSize; x++) {
+						g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (x * t.tileSize, t.tileSize, 0), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+						//	g.transform.localScale *= -1;
+						g.name = "BorderX + " + x;
+						g.transform.SetParent (trans.transform, false);
+
+						g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x + 1) * t.tileSize, 0, thisMap.arenaSize * t.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+						g.transform.localScale *= -1;
+						g.name = "BorderX2 + " + x;
+						g.transform.SetParent (trans.transform, false);
+
+						g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (0, 0, (x + 1) * t.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
+						g.transform.localScale *= -1;
+						g.name = "BorderY + " + x;
+						g.transform.SetParent (trans.transform, false);
+
+						g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (thisMap.arenaSize * t.tileSize, t.tileSize, (x) * t.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
+						//g.transform.localScale *= -1;
+						g.name = "BorderY2 + " + x;
+						g.transform.SetParent (trans.transform, false);
+
+				}
+
+
 		}
 
 
