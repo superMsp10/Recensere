@@ -21,7 +21,7 @@ public class MapGenerator
 
 		public Tile[,] generateMap (Transform levStart)
 		{
-
+				generateSpawnSpots (levStart, thisMap.getTile (0).tileSize);
 				Tile[,] genTiles = new Tile[thisMap.arenaSize, thisMap.arenaSize];
 				Tile t;
 				Vector3 pos;
@@ -68,6 +68,37 @@ public class MapGenerator
 						}
 				}
 				return genTiles;
+		}
+
+		void generateSpawnSpots (Transform levStart, int tileSize)
+		{
+
+				GameObject g;
+				GameObject trans = new GameObject ();
+				GameObject spawn = tileDictionary.thisM.spawnSpot.gameObject;
+				trans.name = "_SpawnSpots";
+				trans.transform.SetParent (levStart, false);
+				g = (GameObject)GameObject.Instantiate (spawn, new Vector3 (0.5f, 5f, 0.5f), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+				//	g.transform.localScale *= -1;
+				g.name = "SpawnSpot + " + 1;
+				g.transform.SetParent (trans.transform, false);
+
+				g = (GameObject)GameObject.Instantiate (spawn, new Vector3 ((thisMap.arenaSize * tileSize) - 0.5f, 5f, 0.5f), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+				//	g.transform.localScale *= -1;
+				g.name = "SpawnSpot + " + 2;
+				g.transform.SetParent (trans.transform, false);
+
+				g = (GameObject)GameObject.Instantiate (spawn, new Vector3 ((thisMap.arenaSize * tileSize) - 0.5f, 5f, (thisMap.arenaSize * tileSize) - 0.5f), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+				//	g.transform.localScale *= -1;
+				g.name = "SpawnSpot + " + 3;
+				g.transform.SetParent (trans.transform, false);
+
+				g = (GameObject)GameObject.Instantiate (spawn, new Vector3 (0.5f, 5f, (thisMap.arenaSize * tileSize) - 0.5f), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+				//	g.transform.localScale *= -1;
+				g.name = "SpawnSpot + " + 4;
+				g.transform.SetParent (trans.transform, false);
+
+
 		}
 
 		void generateBorders (Transform levStart)

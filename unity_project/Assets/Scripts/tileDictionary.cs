@@ -9,6 +9,7 @@ public  class tileDictionary : MonoBehaviour
 		public   DefaultTile floorTile;
 		public   DefaultTile wallTile;
 		public   DefaultTile border;
+		public SpawnSpot spawnSpot;
 
 
 		void Awake ()

@@ -5,7 +5,14 @@ public class GameManeger : MonoBehaviour
 {
 		public static GameManeger thisM;
 		public GameObject menuCam;
+
+		//PlayerStuff------------------------------------------//
+
 		public GameObject playerInstantiate;
+		public player myPlayer;
+
+		//LevelStuf------------------------------------------//
+
 		public Transform levelStart;
 		private SpawnSpot[] SS;
 		private SpawnSpot MySS;
@@ -39,27 +46,46 @@ public class GameManeger : MonoBehaviour
 				liveTiles = gen.generateWall (levelStart);
 
 
-
 		}
 
 		public void OnConnected ()
 		{
 				//Debug.Log ("Connected in GameManager");
-				instantiatePlayer ();
 				generateArena ();
+				instantiatePlayer ();
+
 		}
 
 		void instantiatePlayer ()
 		{
 				GameObject p;
 				SS = FindObjectsOfType<SpawnSpot> ();
-				MySS = SS [Random.Range (0, SS.Length)];
+				int playerID = PhotonNetwork.countOfPlayers;
+				MySS = SS [playerID % 4];
 
-				menuCam.SetActive (false);
 				p = PhotonNetwork.Instantiate (playerInstantiate.name, MySS.transform.position, Quaternion.identity, 0, null);
-				player myPlayer = p.GetComponent<player> ();
-				myPlayer.networkInit ();
+				myPlayer = p.GetComponent<player> ();
+				myPlayer.playerID = playerID;
+				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
+
+				Respwan ();
 
 		
 		}
+
+		public void Respwan ()
+		{
+				menuCam.SetActive (false);
+				myPlayer.networkInit ();
+
+		}
+
+		public void NetworkDisable ()
+		{
+				menuCam.SetActive (true);
+				myPlayer.networkDisable ();
+		}
+
+
+
 }
