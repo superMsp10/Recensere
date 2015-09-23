@@ -37,8 +37,30 @@ public class player : MonoBehaviour
 
 		public static Color getPlayerColour (int playerID)
 		{
-				Color c = new Color (playerID, playerID, playerID);
+				int team = playerID % 4;
+				switch (team) {
+				case 0:
+						return Color.blue;
+						break;
 
-				return Color.green;
+				case 1:
+						return Color.red;
+						break;
+
+				case 2:
+						return Color.green;
+						break;
+
+				case 3:
+						return Color.magenta;
+						break;
+
+			
+				default:
+						break;
+				}
+
+				return Color.blue;
+
 		}
 }
