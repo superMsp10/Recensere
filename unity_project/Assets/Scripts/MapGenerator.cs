@@ -45,29 +45,36 @@ public class MapGenerator
 				return genTiles;
 		}
 
-		public Tile[,] generateWall (Transform levStart)
+		public void generateWall (Transform levStart)
 		{
 		
-				Tile[,] genTiles = new Tile[thisMap.arenaSize + 2, thisMap.arenaSize + 2];
 				Tile t;
 				Vector3 pos;
 				GameObject g;
+				GameObject trans = new GameObject ();
+				trans.name = "Walls";
+				trans.transform.SetParent (levStart, false);
 				generateBorders (levStart);
-				for (int x = 0; x < genTiles.GetLength(0); x++) {
-						for (int y = 0; y < genTiles.GetLength(1); y++) {
-//								t = thisMap.getWall (0);
-//								pos = new Vector3 (x * t.tileSize, t.tileSize, y * t.tileSize);
-//								g = (GameObject)GameObject.Instantiate (t.gameObject, pos, t.transform.rotation);
-//								//								t = g.GetComponent<Tile> ();
-//								genTiles [x, y] = g.GetComponent<Tile> ();
-//								g.name = "wall" + (x + (y * thisMap.arenaSize)).ToString ();
-//								g.transform.SetParent (levStart, false);
-//								rotateWall (g);
-//				
-						
+				t = thisMap.getWall (0);
+
+				for (int x = 0; x < thisMap.arenaSize; x++) {
+						for (int y = 0; y < thisMap.arenaSize; y++) {
+								if (y != 0) {
+										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x) * t.tileSize, t.tileSize, y * t.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+										//	g.transform.localScale *= -1;
+										g.name = "walX + " + x + " walY + " + y;
+										g.transform.SetParent (trans.transform, false);
+								}
+								if (x != 0) {
+										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (x * t.tileSize, t.tileSize, (y) * t.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
+										//	g.transform.localScale *= -1;
+										g.name = "walX + " + x + " walY + " + y;
+										g.transform.SetParent (trans.transform, false);
+								}
 						}
 				}
-				return genTiles;
+
+
 		}
 
 		void generateSpawnSpots (Transform levStart, int tileSize)
@@ -137,28 +144,28 @@ public class MapGenerator
 
 
 
-		void rotateWall (GameObject g)
-		{
-				int i = Random.Range (0, 3);
-				int rotation = 90;
-				
-				switch (i) {
-	
-				case 0:
-						rotation = 0;
-						break;
-				case 1:
-						rotation = 180;
-						break;
-				case 2:
-						rotation = 270;
-						break;
-
-		
-						rotation = 0;
-				}
-				g.transform.rotation = new Quaternion (0, -rotation, 0, rotation);
-
-		}
+//		void rotateWall (GameObject g)
+//		{
+//				int i = Random.Range (0, 3);
+//				int rotation = 90;
+//				
+//				switch (i) {
+//	
+//				case 0:
+//						rotation = 0;
+//						break;
+//				case 1:
+//						rotation = 180;
+//						break;
+//				case 2:
+//						rotation = 270;
+//						break;
+//
+//		
+//						rotation = 0;
+//				}
+//				g.transform.rotation = new Quaternion (0, -rotation, 0, rotation);
+//
+//		}
 
 }

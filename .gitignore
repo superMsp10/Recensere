@@ -52,6 +52,8 @@ Icon
 *.pidb
 *.booproj
 
+unity_project\Library\
+
 # Unity3D generated meta files
 *.pidb.meta
 
