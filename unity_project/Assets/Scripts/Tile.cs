@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Tile:MonoBehaviour
+public abstract class Tile:MonoBehaviour, Health
 {
+		public	float health;
+		public	string lastAttacker;
+
 		public int tileSize = 4;
 
 
@@ -10,5 +13,34 @@ public abstract class Tile:MonoBehaviour
 		{
 				tileSize = size;
 		}
+		public	void takeDamage (int damage, string attacker)
+		{
+				health -= damage;
+				lastAttacker = attacker;
+				if (health <= 0) {
+						Destroy ();
+				}
+
+		}
+		public	void Destroy ()
+		{
+				Destroy (gameObject);
+		}
+		public	string lastDamageBy ()
+		{
+				return lastAttacker;
+		}
+
+		public float HP {
+				get {
+						return health; 
+				}
+				set {
+						health = value; 
+				}
+		}
+
+
+
 	
 }
