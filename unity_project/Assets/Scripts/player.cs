@@ -35,6 +35,10 @@ public class player : MonoBehaviour
 	
 		}
 
+		void OnControllerColliderHit (ControllerColliderHit hit)
+		{
+				Debug.Log ("hello");
+		}
 		public static Color getPlayerColour (int playerID)
 		{
 				int team = playerID % 4;

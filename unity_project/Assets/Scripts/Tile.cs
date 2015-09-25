@@ -22,6 +22,11 @@ public abstract class Tile:MonoBehaviour, Health
 				}
 
 		}
+
+		void OnControllerColliderHit (ControllerColliderHit hit)
+		{
+				Debug.Log ("hello");
+		}
 		public	void Destroy ()
 		{
 				Destroy (gameObject);
