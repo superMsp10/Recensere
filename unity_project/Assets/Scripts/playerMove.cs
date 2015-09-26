@@ -5,7 +5,13 @@ public class playerMove : MonoBehaviour
 {
 
 		public float speed;
+		public float jumpPower;
+
 		Rigidbody rigidbod;
+		public bool jumped = false;
+		public bool grounded = false;
+		public	Transform feets;
+		public LayerMask whatGround;
 
 		void Start ()
 		{
@@ -14,14 +20,40 @@ public class playerMove : MonoBehaviour
 
 		void FixedUpdate ()
 		{
+				checkMovement ();
+				checkJump ();
+		}
+
+		void checkJump ()
+		{
+				grounded = Physics.Linecast (transform.position, feets.position, whatGround);
+				if (grounded && Input.GetAxis ("Jump") > 0) {
+						jump ();
+
+				}
+		}
+
+		void jump ()
+		{
+				Debug.Log ("hello");
+				rigidbod.AddForce (transform.up * jumpPower);
+
+		}
+
+		void checkMovement ()
+		{
 				float moveHorizontal = Input.GetAxis ("Horizontal");
+	
 				float moveVertical = Input.GetAxis ("Vertical");
 		
-				Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-				rigidbod.velocity = movement * speed;
+				if (moveVertical > 0)
+						rigidbod.AddForce (transform.forward * speed);
+				else if (moveVertical < 0)
+						rigidbod.AddForce (transform.forward * -speed);
 		
-				rigidbod.position = new Vector3 (rigidbod.position.x, 0.0f, rigidbod.position.z);
-		
-				//	rigidbod.rotation = Quaternion.Euler (0.0f, 0.0f, rigidbod.velocity.x * -tilt);
+				if (moveHorizontal > 0)
+						rigidbod.AddForce (transform.right * speed);
+				else if (moveHorizontal < 0)
+						rigidbod.AddForce (transform.right * -speed);
 		}
 }
