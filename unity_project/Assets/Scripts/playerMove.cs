@@ -4,7 +4,10 @@ using System.Collections;
 public class playerMove : MonoBehaviour
 {
 
-		public float speed;
+		public float speed;		
+		public float speedLimitMultiplier;
+
+
 		public float jumpPower;
 
 		Rigidbody rigidbod;
@@ -35,7 +38,6 @@ public class playerMove : MonoBehaviour
 
 		void jump ()
 		{
-				Debug.Log ("hello");
 				rigidbod.AddForce (transform.up * jumpPower);
 
 		}
@@ -45,7 +47,7 @@ public class playerMove : MonoBehaviour
 				float moveHorizontal = Input.GetAxis ("Horizontal");
 	
 				float moveVertical = Input.GetAxis ("Vertical");
-		
+				if (rigidbod.velocity.magnitude < speed * speedLimitMultiplier)
 				if (moveVertical > 0)
 						rigidbod.AddForce (transform.forward * speed);
 				else if (moveVertical < 0)
