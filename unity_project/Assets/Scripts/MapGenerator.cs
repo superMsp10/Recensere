@@ -122,13 +122,13 @@ public class MapGenerator
 						g.name = "BorderX + " + x;
 						g.transform.SetParent (trans.transform, false);
 
-						g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x + 1) * t.tileSize, 0, thisMap.arenaSize * t.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
-						g.transform.localScale *= -1;
+						g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x) * t.tileSize, t.tileSize, thisMap.arenaSize * t.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+						//g.transform.localScale *= -1;
 						g.name = "BorderX2 + " + x;
 						g.transform.SetParent (trans.transform, false);
 
-						g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (0, 0, (x + 1) * t.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
-						g.transform.localScale *= -1;
+						g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (0, t.tileSize, (x) * t.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
+						//		g.transform.localScale *= -1;
 						g.name = "BorderY + " + x;
 						g.transform.SetParent (trans.transform, false);
 

@@ -5,6 +5,10 @@ public class playerMove : MonoBehaviour
 {
 
 		public float speed;		
+		public float fly_speed;		
+
+		public float og_speed;		
+
 		public float speedLimitMultiplier;
 
 
@@ -47,6 +51,10 @@ public class playerMove : MonoBehaviour
 				float moveHorizontal = Input.GetAxis ("Horizontal");
 	
 				float moveVertical = Input.GetAxis ("Vertical");
+				if (grounded) {
+						speed = og_speed;
+				} else
+						speed = og_speed * fly_speed;
 				if (rigidbod.velocity.magnitude < speed * speedLimitMultiplier)
 				if (moveVertical > 0)
 						rigidbod.AddForce (transform.forward * speed);
