@@ -53,13 +53,13 @@ public class MapGenerator
 								g.transform.SetParent (trans.transform, false);
 
 								if (y != 0) {
-										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x) * wall.tileSize + 0.01f, wall.tileSize, y * wall.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+										g = (GameObject)GameObject.Instantiate (wall.gameObject, new Vector3 ((x) * wall.tileSize + 0.01f, wall.tileSize, y * wall.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
 										//	g.transform.localScale *= -1;
 										g.name = "walX + " + x + " walY + " + y;
 										g.transform.SetParent (trans2.transform, false);
 								}
 								if (x != 0) {
-										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (x * wall.tileSize, wall.tileSize, (y) * wall.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
+										g = (GameObject)GameObject.Instantiate (wall.gameObject, new Vector3 (x * wall.tileSize, wall.tileSize, (y) * wall.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
 										//	g.transform.localScale *= -1;
 										g.name = "walX + " + x + " walY + " + y;
 										g.transform.SetParent (trans2.transform, false);
