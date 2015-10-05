@@ -41,7 +41,7 @@ public class GameManeger : MonoBehaviour
 
 				MapGenerator gen = new MapGenerator (Map.firstMap);
 				liveTiles = gen.generateMap (levelStart);
-				gen.generateWall (levelStart);
+				//	gen.generateWall (levelStart);
 
 
 		}
