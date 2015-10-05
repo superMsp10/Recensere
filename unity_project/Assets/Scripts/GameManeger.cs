@@ -52,6 +52,7 @@ public class GameManeger : MonoBehaviour
 				generateArena ();
 				instantiatePlayer ();
 
+
 		}
 
 		void instantiatePlayer ()

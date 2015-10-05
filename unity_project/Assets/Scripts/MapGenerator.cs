@@ -8,6 +8,7 @@ public class MapGenerator
 		public MapGenerator (Map map)
 		{
 				thisMap = map;
+
 		}
 
 		enum Direction
@@ -47,7 +48,6 @@ public class MapGenerator
 
 		public void generateWall (Transform levStart)
 		{
-		
 				Tile t;
 				Vector3 pos;
 				GameObject g;
@@ -60,7 +60,7 @@ public class MapGenerator
 				for (int x = 0; x < thisMap.arenaSize; x++) {
 						for (int y = 0; y < thisMap.arenaSize; y++) {
 								if (y != 0) {
-										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x) * t.tileSize, t.tileSize, y * t.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x) * t.tileSize + 0.01f, t.tileSize, y * t.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
 										//	g.transform.localScale *= -1;
 										g.name = "walX + " + x + " walY + " + y;
 										g.transform.SetParent (trans.transform, false);
