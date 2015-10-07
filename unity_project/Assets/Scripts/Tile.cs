@@ -13,15 +13,13 @@ public abstract class Tile:MonoBehaviour, Health
 		{
 				tileSize = size;
 		}
-		public	bool takeDamage (float damage, string attacker)
+		public	void takeDamage (float damage, string attacker)
 		{
 				health -= damage;
 				lastAttacker = attacker;
 				if (health <= 0) {
 						Destroy ();
-						return true;
 				}
-				return false;
 
 		}
 
@@ -52,9 +50,7 @@ public abstract class Tile:MonoBehaviour, Health
 				//		Rigidbody r = collision.collider.attachedRigidbody;
 				float sdm = GameManeger.speedToDamageMultiplier;
 				if (collision.relativeVelocity.magnitude > health * sdm) {
-						if (takeDamage (sdm * collision.relativeVelocity.magnitude, collision.collider.name)) {
-								collision.collider.attachedRigidbody.velocity = collision.relativeVelocity;
-						}
+						takeDamage (sdm * collision.relativeVelocity.magnitude, collision.collider.name);
 				}
 		
 		}
