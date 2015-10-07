@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public  class tileDictionary : MonoBehaviour
@@ -6,9 +6,9 @@ public  class tileDictionary : MonoBehaviour
 
 		public static tileDictionary thisM;
 		//----------------Tiles-------------------//
-		public   DefaultTile floorTile;
-		public   DefaultTile wallTile;
-		public   DefaultTile border;
+		public   Tile floorTile;
+		public   Tile wallTile;
+		public   Tile border;
 		public SpawnSpot spawnSpot;
 
 

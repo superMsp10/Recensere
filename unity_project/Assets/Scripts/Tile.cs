@@ -13,6 +13,7 @@ public abstract class Tile:MonoBehaviour, Health
 		{
 				tileSize = size;
 		}
+//		[PunRPC]
 		public	void takeDamage (float damage, string attacker)
 		{
 				health -= damage;
