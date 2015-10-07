@@ -5,6 +5,8 @@ public abstract class Tile:MonoBehaviour, Health
 {
 		public	float health;
 		public	string lastAttacker;
+		public int xPos;
+		public int yPos;
 
 		public int tileSize = 4;
 
@@ -13,8 +15,8 @@ public abstract class Tile:MonoBehaviour, Health
 		{
 				tileSize = size;
 		}
-//		[PunRPC]
-		public	void takeDamage (float damage, string attacker)
+
+		public	virtual void takeDamage (float damage, string attacker)
 		{
 				health -= damage;
 				lastAttacker = attacker;
@@ -22,6 +24,16 @@ public abstract class Tile:MonoBehaviour, Health
 						Destroy ();
 				}
 
+		}
+
+		public	virtual void syncDamage (float damage, string attacker)
+		{
+				health -= damage;
+				lastAttacker = attacker;
+				if (health <= 0) {
+						Destroy ();
+				}
+		
 		}
 
 		void OnControllerColliderHit (ControllerColliderHit hit)
