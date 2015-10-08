@@ -44,14 +44,14 @@ public class GameManeger : MonoBehaviour
 		public void sendFloorTileDamage (float damage, string attacker, int x, int y)
 		{
 				Debug.Log ("send floor dmg");
-				p.RPC ("syncFloorTileDamage", PhotonTargets.AllBufferedViaServer, damage, attacker, x, y);
+				p.RPC ("syncFloorTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y);
 		
 		}
 
 		public void sendWallTileDamage (float damage, string attacker, int x, int y, bool yWall)
 		{
 				Debug.Log ("send wall dmg");
-				p.RPC ("syncWallTileDamage", PhotonTargets.AllBufferedViaServer, damage, attacker, x, y, yWall);
+				p.RPC ("syncWallTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y, yWall);
 
 		
 		}
