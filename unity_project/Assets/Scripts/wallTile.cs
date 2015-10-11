@@ -21,6 +21,8 @@ public class wallTile : Tile
 						Destroy ();
 				}
 
+				
+
 				GameManeger.thisM.sendWallTileDamage (damage, attacker, xPos, yPos, yWall);
 		
 		}

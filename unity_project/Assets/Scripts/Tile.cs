@@ -8,6 +8,7 @@ public abstract class Tile:MonoBehaviour, Health
 		public int xPos;
 		public int yPos;
 
+
 		public int tileSize = 4;
 
 
@@ -36,10 +37,7 @@ public abstract class Tile:MonoBehaviour, Health
 		
 		}
 
-		void OnControllerColliderHit (ControllerColliderHit hit)
-		{
-				Debug.Log ("hello");
-		}
+
 		public	void Destroy ()
 		{
 				Destroy (gameObject);
@@ -64,6 +62,9 @@ public abstract class Tile:MonoBehaviour, Health
 				float sdm = GameManeger.speedToDamageMultiplier;
 				if (collision.relativeVelocity.magnitude > health * sdm) {
 						takeDamage (sdm * collision.relativeVelocity.magnitude, collision.collider.name);
+						Quaternion hitRotation = Quaternion.FromToRotation (collision.contacts [0].normal, Vector3.forward);
+						GameObject g = (GameObject)Instantiate (tileDictionary.thisM.hitDecal, collision.contacts [0].point, hitRotation);
+						g.transform.position = g.transform.position - (collision.contacts [0].normal * 0.001f);
 				}
 		
 		}

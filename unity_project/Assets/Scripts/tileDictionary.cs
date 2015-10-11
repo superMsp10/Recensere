@@ -9,7 +9,11 @@ public  class tileDictionary : MonoBehaviour
 		public   Tile floorTile;
 		public   Tile wallTile;
 		public   Tile border;
+
+
+		//----------------Other Stuff-------------------//
 		public SpawnSpot spawnSpot;
+		public GameObject hitDecal;
 
 
 		void Awake ()
