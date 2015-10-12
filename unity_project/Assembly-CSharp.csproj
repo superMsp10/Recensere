@@ -173,6 +173,7 @@
      <Compile Include="Assets\Scripts\Plugins\ChatApi\IChatClientListener.cs" />
      <Compile Include="Assets\Scripts\Plugins\WebSocket\WebSocket.cs" />
      <Compile Include="Assets\Scripts\SpawnSpot.cs" />
+     <Compile Include="Assets\Scripts\Test.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\defaultArena.cs" />
      <Compile Include="Assets\Scripts\floorTile.cs" />

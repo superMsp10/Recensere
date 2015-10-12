@@ -10,6 +10,8 @@ public class floorTile : Tile
 		{
 		}
 
+
+
 		public	override void takeDamage (float damage, string attacker)
 		{
 //				Debug.Log ("take dmg");
