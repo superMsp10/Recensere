@@ -5,6 +5,9 @@ public abstract class Tile:MonoBehaviour, Health
 {
 		public	float health;
 		public	string lastAttacker;
+		public int xPos;
+		public int yPos;
+
 
 		public int tileSize = 4;
 
@@ -13,7 +16,8 @@ public abstract class Tile:MonoBehaviour, Health
 		{
 				tileSize = size;
 		}
-		public	void takeDamage (float damage, string attacker)
+
+		public	virtual void takeDamage (float damage, string attacker)
 		{
 				health -= damage;
 				lastAttacker = attacker;
@@ -23,10 +27,17 @@ public abstract class Tile:MonoBehaviour, Health
 
 		}
 
-		void OnControllerColliderHit (ControllerColliderHit hit)
+		public	virtual void syncDamage (float damage, string attacker)
 		{
-				Debug.Log ("hello");
+				health -= damage;
+				lastAttacker = attacker;
+				if (health <= 0) {
+						Destroy ();
+				}
+		
 		}
+
+
 		public	void Destroy ()
 		{
 				Destroy (gameObject);
@@ -51,6 +62,8 @@ public abstract class Tile:MonoBehaviour, Health
 				float sdm = GameManeger.speedToDamageMultiplier;
 				if (collision.relativeVelocity.magnitude > health * sdm) {
 						takeDamage (sdm * collision.relativeVelocity.magnitude, collision.collider.name);
+						EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point);
+		
 				}
 		
 		}
