@@ -62,9 +62,8 @@ public abstract class Tile:MonoBehaviour, Health
 				float sdm = GameManeger.speedToDamageMultiplier;
 				if (collision.relativeVelocity.magnitude > health * sdm) {
 						takeDamage (sdm * collision.relativeVelocity.magnitude, collision.collider.name);
-						Quaternion hitRotation = Quaternion.FromToRotation (collision.contacts [0].normal, Vector3.forward);
-						GameObject g = (GameObject)Instantiate (tileDictionary.thisM.hitDecal, collision.contacts [0].point, hitRotation);
-						g.transform.position = g.transform.position - (collision.contacts [0].normal * 0.001f);
+						EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point);
+		
 				}
 		
 		}
