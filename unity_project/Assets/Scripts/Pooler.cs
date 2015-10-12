@@ -6,73 +6,60 @@ public class Pooler : MonoBehaviour
 		public List<GameObject> active = new List<GameObject> ();
 		public List<GameObject> useable = new List<GameObject> ();
 		public GameObject original;
-		int max, min;
+		int max;
 
 
-		public Pooler (int min, int max, GameObject org)
+		public Pooler (int max, GameObject org)
 		{
 				original = org;
-				Poolable p;
-			
-
-//				for (int i = 0; i < min; i++) {
-//						p = Instantiate (org).GetComponent<Poolable> ();
-//						if (p == null) {
-//								Debug.LogError (org.name + " is not poolable");
-//						} else {
-//								useable.Add (p);
-//								p.reset (false);
-//						}
-//					
-//				}
+				this.max = max;
 		}
 
 		public GameObject getObject ()
 		{
-				GameObject ret;
+				GameObject ret = null;
 				if (active.Count > max) {
-						return null;
+//						Debug.Log ("Active: " + active.Count);
+//						Debug.Log ("Max: " + max);
+
+						ret = active [0];
+						active.Remove (ret);
+						useable.Add (ret);
+
+				} else if ((useable.Count - 1) < 1) {
+//						Debug.Log ("Useable" + useable.Count);
+						Poolable p;
+						useable.Add (Instantiate (original)); 
+						ret = useable [useable.Count - 1];
+						ret.name = "ObjectPooled: " + (useable.Count + active.Count).ToString ();		
+						p = ret.GetComponent<Poolable> ();
+						if (p == null) {
+								Debug.LogError (original.name + " is not poolable");
+						} else {
+								p.reset (false);
+						}
+						
+						ret = useable [useable.Count - 1];
+
+				} else {
+						ret = useable [useable.Count - 1];
+
 				}
 
-//				if ((useable.Count - 1) < min) {
-//						Poolable p;
-//						for (int i = 0; i < min -  (useable.Count - 1); i++) {
-//								p = Instantiate (original).GetComponent<Poolable> ();
-//								if (p == null) {
-//										Debug.LogError (original.name + " is not poolable");
-//								} else {
-//										useable.Add (p);
-//										p.reset (false);
-//								}
-//						}
-//				}
-//				Debug.Log (useable.Count);
-//
-//				ret = useable [0];
-//				active.Add (ret);
-//				useable.Remove (ret);
-//				ret.reset (true);
-//				Debug.Log (useable.Count);
 
-				useable.Add (Instantiate (original)); 
-				ret = useable [0];
-				useable.RemoveAt (0);
+				
+				useable.Remove (ret);
 				active.Add (ret);
 
-//				ret.name = "ObjectPooled: " + (useable.Count + active.Count).ToString ();
-////				useable.Remove (ret);
-//				
-//				ret.GetComponent<Poolable> ().reset (true);
-
-
+				ret.GetComponent<Poolable> ().reset (true);
 				return ret;
 				
 		}
 
-//		public void disposeObject (Poolable p)
-//		{
-//				useable.Add (p);
-//				active.Remove (p);
-//				p.reset (false);
-//		}
+		public void disposeObject (Poolable p)
+		{
+				active.Remove (p.gameobject);
+				useable.Add (p.gameobject);
+				p.reset (false);
+		}
 }

@@ -17,7 +17,7 @@ public class EffectsManager : MonoBehaviour
 		void Start ()
 		{
 				crackFX = tileDictionary.thisM.hitDecal;	
-				crackPooler = new Pooler (3, 5, crackFX);
+				crackPooler = new Pooler (10, crackFX);
 
 		}
 	
@@ -32,7 +32,7 @@ public class EffectsManager : MonoBehaviour
 
 				Quaternion hitRotation = Quaternion.FromToRotation (normal, Vector3.forward);
 				GameObject g = crackPooler.getObject ();
-				Debug.Log ("Crack Pooler get objects2 are: " + g);
+				g.transform.parent = transform;
 
 				g.transform.position = point - (normal * 0.001f);
 				g.transform.rotation = hitRotation;
