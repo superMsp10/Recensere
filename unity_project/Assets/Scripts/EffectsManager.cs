@@ -6,6 +6,9 @@ public class EffectsManager : MonoBehaviour
 		public static EffectsManager thisM;
 		private GameObject crackFX;
 		public Pooler crackPooler = null;
+		public float decalReset;
+		public int maxDecals;
+
 
 		void Awake ()
 		{
@@ -17,7 +20,7 @@ public class EffectsManager : MonoBehaviour
 		void Start ()
 		{
 				crackFX = tileDictionary.thisM.hitDecal;	
-				crackPooler = new Pooler (10, crackFX);
+				crackPooler = new Pooler (maxDecals, crackFX);
 
 		}
 	
@@ -36,6 +39,7 @@ public class EffectsManager : MonoBehaviour
 
 				g.transform.position = point - (normal * 0.001f);
 				g.transform.rotation = hitRotation;
+				g.GetComponent<Timer> ().StartTimer (decalReset);
 
 		}
 }
