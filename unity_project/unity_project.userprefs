@@ -1,13 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Test.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\floorTile.cs">
     <Files>
-      <File FileName="Assets\Scripts\floorTile.cs" Line="13" Column="1" />
+      <File FileName="Assets\Scripts\floorTile.cs" Line="23" Column="1" />
       <File FileName="Assets\Scripts\GameManeger.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\wallTile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Tile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\tileDictionary.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Test.cs" Line="22" Column="105" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
