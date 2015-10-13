@@ -6,6 +6,7 @@ public class GameManeger : MonoBehaviour
 		public static GameManeger thisM;
 		public GameObject menuCam;
 		public	static float speedToDamageMultiplier = 0.25f;
+		public static byte Version = 1;
 
 
 		//PlayerStuff------------------------------------------//

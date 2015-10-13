@@ -5,22 +5,22 @@ public class Connect :  Photon.MonoBehaviour
 {
 
 
-		public byte Version = 1;
 		public bool offline = false;
-
+		private byte Version = GameManeger.Version;
+	
 		// Use this for initialization
-		void Start ()
+		public	void TryConnectToServer ()
 		{
 				PhotonNetwork.autoJoinLobby = false;    // we join randomly. always. no need to join a lobby to get the list of rooms.
 		
-
+		
 				if (offline) 
 						PhotonNetwork.offlineMode = true;
 				else
 						PhotonNetwork.ConnectUsingSettings (Version.ToString ());
-
+		
 		}
-
+	
 		public virtual void OnConnectedToMaster ()
 		{
 				if (PhotonNetwork.networkingPeer.AvailableRegions != null)
