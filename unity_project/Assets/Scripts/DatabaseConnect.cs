@@ -28,12 +28,13 @@ public class DatabaseConnect : MonoBehaviour
 						if (gameVersion == databaseVersion) {
 								GetComponent<Connect> ().TryConnectToServer ();
 						} else {
-				
+								Debug.LogError ("Database ERROR: Server and Client are on different versions. Please uypdate to the newest version of the game.");
+
 						}
 			
 			
 				} else {
-						Debug.Log ("ERROR: " + www.error);
+						Debug.LogError ("ERROR: " + www.error);
 				}        
 				www.Dispose ();
 		}
