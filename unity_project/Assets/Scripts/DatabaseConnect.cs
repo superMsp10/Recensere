@@ -24,8 +24,10 @@ public class DatabaseConnect : MonoBehaviour
 						JSONObject j = JSONObject.Parse (www.text);
 						int gameVersion = GameManeger.Version;		
 						int databaseVersion = (int)j.GetNumber ("Version");
-			
+						Debug.Log ("Connected to the database");
 						if (gameVersion == databaseVersion) {
+								Debug.Log ("Server and client versions match, starting program");
+
 								GetComponent<Connect> ().TryConnectToServer ();
 						} else {
 								Debug.LogError ("Database ERROR: Server and Client are on different versions. Please uypdate to the newest version of the game.");
