@@ -33,13 +33,13 @@ public class GameManeger : MonoBehaviour
 
 	
 		// Update is called once per frame
-		void Update ()
-		{
-				if (Input.GetMouseButton (0)) {
-						//	p.RPC ("message", PhotonTargets.All);
-				}
-	
-		}
+//		void Update ()
+//		{
+//				if (Input.GetMouseButton (0)) {
+//						//	p.RPC ("message", PhotonTargets.All);
+//				}
+//	
+//		}
 
 
 		public void sendFloorTileDamage (float damage, string attacker, int x, int y)
