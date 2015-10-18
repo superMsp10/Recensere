@@ -14,11 +14,15 @@ public class Connect :  Photon.MonoBehaviour
 				PhotonNetwork.autoJoinLobby = false;    // we join randomly. always. no need to join a lobby to get the list of rooms.
 		
 		
-				if (offline) 
+				if (offline) {
 						PhotonNetwork.offlineMode = true;
-				else
+						Debug.Log ("Offline Mode!");
+
+				} else {
+						Debug.Log ("Connecting using settings");
+
 						PhotonNetwork.ConnectUsingSettings (Version.ToString ());
-		
+				}
 		}
 	
 		public virtual void OnConnectedToMaster ()

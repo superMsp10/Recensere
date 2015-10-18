@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Pooler : MonoBehaviour
+public class Pooler
 {
 		public List<GameObject> active = new List<GameObject> ();
 		public List<GameObject> useable = new List<GameObject> ();
@@ -18,7 +18,7 @@ public class Pooler : MonoBehaviour
 		public GameObject getObject ()
 		{
 				GameObject ret = null;
-				if (active.Count > max) {
+				if (active.Count >= max) {
 //						Debug.Log ("Active: " + active.Count);
 //						Debug.Log ("Max: " + max);
 
@@ -26,10 +26,10 @@ public class Pooler : MonoBehaviour
 						active.Remove (ret);
 						useable.Add (ret);
 
-				} else if ((useable.Count - 1) < 1) {
+				} else if ((useable.Count - 1) < 0) {
 //						Debug.Log ("Useable" + useable.Count);
 						Poolable p;
-						useable.Add (Instantiate (original)); 
+						useable.Add (GameObject.Instantiate (original)); 
 						ret = useable [useable.Count - 1];
 						ret.name = "ObjectPooled: " + (useable.Count + active.Count).ToString ();		
 						p = ret.GetComponent<Poolable> ();
@@ -50,8 +50,11 @@ public class Pooler : MonoBehaviour
 				
 				useable.Remove (ret);
 				active.Add (ret);
+				if (ret == null) {
+						Debug.LogError ("Poolable object has been destroyed externally; Effects will not work properly");
 
-				ret.GetComponent<Poolable> ().reset (true);
+				} else
+						ret.GetComponent<Poolable> ().reset (true);
 				return ret;
 				
 		}

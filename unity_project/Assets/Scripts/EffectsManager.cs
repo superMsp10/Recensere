@@ -5,7 +5,11 @@ public class EffectsManager : MonoBehaviour
 {
 		public static EffectsManager thisM;
 		private GameObject crackFX;
-		public Pooler crackPooler = null;
+
+		[HideInInspector]
+		public Pooler
+				crackPooler = null;
+
 		public float decalReset;
 		public int maxDecals;
 

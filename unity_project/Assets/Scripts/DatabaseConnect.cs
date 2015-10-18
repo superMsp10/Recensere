@@ -24,17 +24,29 @@ public class DatabaseConnect : MonoBehaviour
 						JSONObject j = JSONObject.Parse (www.text);
 						int gameVersion = GameManeger.Version;		
 						int databaseVersion = (int)j.GetNumber ("Version");
-			
+						Debug.Log ("Connected to the database");
 						if (gameVersion == databaseVersion) {
-								GetComponent<Connect> ().TryConnectToServer ();
+								Debug.Log ("Server and client versions match, starting program");
+								UIManager.thisM.changeUI (UIManager.thisM.startUI);
+//								GetComponent<Connect> ().TryConnectToServer ();
 						} else {
-								Debug.LogError ("Database ERROR: Server and Client are on different versions. Please uypdate to the newest version of the game.");
+								Debug.LogError ("Database ERROR: Server and Client are on different versions. Please update to the newest version of the game.");
+								ErrorUI error = UIManager.thisM.connectError.GetComponent<ErrorUI> ();
+								error.desciption.text = "Server and Client are on different versions. Please update to the latest version of the game.";
+								error.title.text = "Outdated Version";
+
+								UIManager.thisM.changeUI (UIManager.thisM.connectError);
 
 						}
 			
 			
 				} else {
 						Debug.LogError ("ERROR: " + www.error);
+						ErrorUI error = UIManager.thisM.connectError.GetComponent<ErrorUI> ();
+						error.desciption.text = "Your device is not connected to the internet. Please connect to the Internet to continue.";
+						error.title.text = "No Connection";
+			
+						UIManager.thisM.changeUI (UIManager.thisM.connectError);
 				}        
 				www.Dispose ();
 		}
