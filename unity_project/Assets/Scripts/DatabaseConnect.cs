@@ -27,7 +27,7 @@ public class DatabaseConnect : MonoBehaviour
 						Debug.Log ("Connected to the database");
 						if (gameVersion == databaseVersion) {
 								Debug.Log ("Server and client versions match, starting program");
-
+								UIManager.thisM.changeUI (UIManager.thisM.startUI);
 //								GetComponent<Connect> ().TryConnectToServer ();
 						} else {
 								Debug.LogError ("Database ERROR: Server and Client are on different versions. Please uypdate to the newest version of the game.");
