@@ -8,17 +8,26 @@ using Boomlagoon.JSON;
 public class DatabaseConnect : MonoBehaviour
 {
 		public InputField getId;
-	
+		public static DatabaseConnect thisM;
 		public InputField postDataName;
 		public InputField postData;
 		public Text console;
+
+		public	string username, password;
 	
-		private string url = "http://bbman-supermsp10.rhcloud.com/Utilities";
-	
+		private string url = "http://bbman-supermsp10.rhcloud.com/";
+
+		void Awake ()
+		{
+				if (thisM == null)
+						thisM = this;
+		
+		}
+
 		IEnumerator Start ()
 		{
 				WWW www;
-				www = new WWW (url + "/560f2a96e4b09f9838bbf46a");
+				www = new WWW (url + "Utilities/560f2a96e4b09f9838bbf46a");
 				yield return www;
 				if (www.error == null) {
 						JSONObject j = JSONObject.Parse (www.text);
@@ -65,20 +74,26 @@ public class DatabaseConnect : MonoBehaviour
 				}        
 				www.Dispose ();
 		}
-		IEnumerator postHttp ()
+		IEnumerator iCreateAccount ()
 		{
 		
 				WWWForm wForm;
 		
 				wForm = new WWWForm ();
-				wForm.AddField (postDataName.text, postData.text);
+				wForm.AddField ("username", username);
+				wForm.AddField ("password", password);
+
 		
-		
-				yield return new WWW ("https://bbman-supermsp10.rhcloud.com/Utilities", wForm);
-				console.text = "post";
-				Debug.Log ("hello");
+				yield return new WWW (url + "/createAccount", wForm);
 		}
-	
+
+		public void createAccount (string username, string password)
+		{
+				this.username = username;
+				this.password = password;
+
+				StartCoroutine ("iCreateAccount");
+		}
 	
 		// Update is called once per frame
 		void Update ()
@@ -89,7 +104,7 @@ public class DatabaseConnect : MonoBehaviour
 		public void post ()
 		{
 				Debug.Log ("Post: " + postDataName.text + ": " + postData.text);
-				StartCoroutine (postHttp ());
+				//	StartCoroutine (postHttp ());
 		
 		}
 	

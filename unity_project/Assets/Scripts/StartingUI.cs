@@ -25,7 +25,7 @@ public class StartingUI : MonoBehaviour,UIState
 		public void CreateAccount ()
 		{
 				if (validateUsername (userName.text) && validatePassword (password.text)) {
-						Debug.Log ("hello");
+						DatabaseConnect.thisM.createAccount (userName.text, password.text);
 				}
 		
 
