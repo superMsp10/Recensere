@@ -61,12 +61,45 @@ public class DatabaseConnect : MonoBehaviour
 		{
 
 				WWW www;
-	
-				www = new WWW (url + "Utilities/560f2a96e4b09f9838bbf46a");
+		
+				WWWForm wForm;
+		
+				www = new WWW (url + "checkUser/" + username);
 				yield return www;
+				if (www.error == null) {
+						bool exists = bool.Parse (www.text);
+						if (exists) {
+								wForm = new WWWForm ();
+								wForm.AddField ("username", username);
+								wForm.AddField ("password", password);
+								www = new WWW (url + "/login", wForm);
+								yield return  www;
+								if (www.error == null) {
+										bool logged = bool.Parse (www.text);
 
+										if (logged) {
+
+										} else {
+												StartingUI error = UIManager.thisM.startUI.GetComponent<StartingUI> ();
+												error.error.text = "Wrong Password";
+										}
+
+								} else {
+										Debug.LogError ("ERROR: " + www.error);
+										displayConnectionError ();
+								}
+						} else {
+								StartingUI error = UIManager.thisM.startUI.GetComponent<StartingUI> ();
+								error.error.text = "An account with the username " + username + " does not exist";
+						}
+				} else {
+						Debug.LogError ("ERROR: " + www.error);
+						displayConnectionError ();
+				}
+
+		
 		}
-
+	
 		IEnumerator iCheckAccount ()
 		{
 		
@@ -128,7 +161,7 @@ public class DatabaseConnect : MonoBehaviour
 				this.username = username;
 				this.password = password;
 		
-				StartCoroutine ("iCreateAccount");
+				StartCoroutine ("iLogin");
 		}
 
 		public void checkAccount (string username)

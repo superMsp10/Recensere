@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StartingUI : MonoBehaviour,UIState
 {
 		public Text userName;
-		public Text password;
+		public InputField password;
 		public Text error;
 
 		public void StartUI ()
@@ -34,7 +34,7 @@ public class StartingUI : MonoBehaviour,UIState
 		public void login ()
 		{
 				if (validateUsername (userName.text) && validatePassword (password.text)) {
-						DatabaseConnect.thisM.checkAccount (userName.text);
+						DatabaseConnect.thisM.login (userName.text, password.text);
 				}
 		
 		
@@ -44,11 +44,11 @@ public class StartingUI : MonoBehaviour,UIState
 		{
 
 				if (s.Length < 3) {
-						error.text = "Username has to be longer than 3 characters, please choose a longer username to continue";
+						error.text = "Username has to be longer than 3 characters, please consider a longer username to continue";
 						return false;
 				} 
 				if (s.Length > 15) {
-						error.text = "Username has to be shorter than 15 characters, please choose a shorter username to continue";
+						error.text = "Username has to be shorter than 15 characters, please consider a shorter username to continue";
 						return false;
 				} 
 				if (s.Contains (" ")) {
@@ -61,7 +61,6 @@ public class StartingUI : MonoBehaviour,UIState
 		}
 		bool validatePassword (string s)
 		{
-		
 				if (s.Length < 5) {
 						error.text = "Password has to be longer than 5 characters, please choose a longer password to continue";
 						return false;
