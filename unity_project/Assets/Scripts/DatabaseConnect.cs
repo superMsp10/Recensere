@@ -51,40 +51,68 @@ public class DatabaseConnect : MonoBehaviour
 			
 				} else {
 						Debug.LogError ("ERROR: " + www.error);
-						ErrorUI error = UIManager.thisM.connectError.GetComponent<ErrorUI> ();
-						error.desciption.text = "Your device is not connected to the internet. Please connect to the Internet to continue.";
-						error.title.text = "No Connection";
-			
-						UIManager.thisM.changeUI (UIManager.thisM.connectError);
+						displayConnectionError ();
+
 				}        
 				www.Dispose ();
 		}
+
+		IEnumerator iLogin ()
+		{
+
+				WWW www;
 	
-	
-		IEnumerator getHttp ()
+				www = new WWW (url + "Utilities/560f2a96e4b09f9838bbf46a");
+				yield return www;
+
+		}
+
+		IEnumerator iCheckAccount ()
 		{
 		
 				WWW www;
-				www = new WWW (url);
+		
+				www = new WWW (url + "checkUser/" + username);
 				yield return www;
 				if (www.error == null) {
-						console.text = www.text;
+						bool exists = bool.Parse (www.text);
 				} else {
-						Debug.Log ("ERROR: " + www.error);
-				}        
+						Debug.LogError ("ERROR: " + www.error);
+						displayConnectionError ();
+				}
 				www.Dispose ();
+
 		}
+
+
+
 		IEnumerator iCreateAccount ()
 		{
-		
-				WWWForm wForm;
-		
-				wForm = new WWWForm ();
-				wForm.AddField ("username", username);
-				wForm.AddField ("password", password);
+				WWW www;
 
+				WWWForm wForm;
+
+				www = new WWW (url + "checkUser/" + username);
+				yield return www;
+				if (www.error == null) {
+						bool exists = bool.Parse (www.text);
+						if (!exists) {
+								wForm = new WWWForm ();
+								wForm.AddField ("username", username);
+								wForm.AddField ("password", password);
+				
+				
+								yield return new WWW (url + "/createAccount", wForm);
+						} else {
+								StartingUI error = UIManager.thisM.startUI.GetComponent<StartingUI> ();
+								error.error.text = "An account with the username " + username + " exists, please consider a different username to continue";
+						}
+				} else {
+						Debug.LogError ("ERROR: " + www.error);
+						displayConnectionError ();
+				}
 		
-				yield return new WWW (url + "/createAccount", wForm);
+			
 		}
 
 		public void createAccount (string username, string password)
@@ -94,6 +122,29 @@ public class DatabaseConnect : MonoBehaviour
 
 				StartCoroutine ("iCreateAccount");
 		}
+
+		public void login (string username, string password)
+		{
+				this.username = username;
+				this.password = password;
+		
+				StartCoroutine ("iCreateAccount");
+		}
+
+		public void checkAccount (string username)
+		{
+				this.username = username;
+				StartCoroutine ("iCheckAccount");
+		}
+
+		void displayConnectionError ()
+		{
+				ErrorUI error = UIManager.thisM.connectError.GetComponent<ErrorUI> ();
+				error.desciption.text = "Your device is not connected to the internet. Please connect to the Internet to continue.";
+				error.title.text = "No Connection";
+		
+				UIManager.thisM.changeUI (UIManager.thisM.connectError);
+		}
 	
 		// Update is called once per frame
 		void Update ()
@@ -101,18 +152,5 @@ public class DatabaseConnect : MonoBehaviour
 		
 		}
 	
-		public void post ()
-		{
-				Debug.Log ("Post: " + postDataName.text + ": " + postData.text);
-				//	StartCoroutine (postHttp ());
 		
-		}
-	
-		public void get ()
-		{
-				Debug.Log ("Get: " + getId.text);
-				StartCoroutine (getHttp ());
-		
-				//	getHttp ();
-		}
 }

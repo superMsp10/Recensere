@@ -31,6 +31,15 @@ public class StartingUI : MonoBehaviour,UIState
 
 		}
 
+		public void login ()
+		{
+				if (validateUsername (userName.text) && validatePassword (password.text)) {
+						DatabaseConnect.thisM.checkAccount (userName.text);
+				}
+		
+		
+		}
+
 		bool validateUsername (string s)
 		{
 
