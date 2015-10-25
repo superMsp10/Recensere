@@ -78,7 +78,7 @@ public class DatabaseConnect : MonoBehaviour
 										bool logged = bool.Parse (www.text);
 
 										if (logged) {
-
+												Debug.Log ("Logged In");
 										} else {
 												StartingUI error = UIManager.thisM.startUI.GetComponent<StartingUI> ();
 												error.error.text = "Wrong Password";
