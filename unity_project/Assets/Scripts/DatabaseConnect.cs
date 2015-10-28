@@ -12,8 +12,9 @@ public class DatabaseConnect : MonoBehaviour
 		public InputField postDataName;
 		public InputField postData;
 		public Text console;
+		public  UIManager thisUI;
 
-		public	string username, password;
+		string username, password;
 	
 		private string url = "http://bbman-supermsp10.rhcloud.com/";
 
@@ -36,16 +37,16 @@ public class DatabaseConnect : MonoBehaviour
 						Debug.Log ("Connected to the database");
 						if (gameVersion == databaseVersion) {
 								Debug.Log ("Server and client versions match, starting program");
-								Debug.Log (UIManager.thisM);
-								UIManager.thisM.changeUI (UIManager.thisM.startUI);
+//								Debug.Log (thisUI);
+								thisUI.changeUI (thisUI.startUI);
 //								GetComponent<Connect> ().TryConnectToServer ();
 						} else {
 								Debug.LogError ("Database ERROR: Server and Client are on different versions. Please update to the newest version of the game.");
-								ErrorUI error = UIManager.thisM.connectError.GetComponent<ErrorUI> ();
+								ErrorUI error = thisUI.connectError.GetComponent<ErrorUI> ();
 								error.desciption.text = "Server and Client are on different versions. Please update to the latest version of the game.";
 								error.title.text = "Outdated Version";
 
-								UIManager.thisM.changeUI (UIManager.thisM.connectError);
+								thisUI.changeUI (thisUI.connectError);
 
 						}
 			
@@ -79,9 +80,10 @@ public class DatabaseConnect : MonoBehaviour
 										bool logged = bool.Parse (www.text);
 
 										if (logged) {
+												changeToGameScene ();
 												Debug.Log ("Logged In");
 										} else {
-												StartingUI error = UIManager.thisM.startUI.GetComponent<StartingUI> ();
+												StartingUI error = thisUI.startUI.GetComponent<StartingUI> ();
 												error.error.text = "Wrong Password";
 										}
 
@@ -90,7 +92,7 @@ public class DatabaseConnect : MonoBehaviour
 										displayConnectionError ();
 								}
 						} else {
-								StartingUI error = UIManager.thisM.startUI.GetComponent<StartingUI> ();
+								StartingUI error = thisUI.startUI.GetComponent<StartingUI> ();
 								error.error.text = "An account with the username " + username + " does not exist";
 						}
 				} else {
@@ -137,8 +139,9 @@ public class DatabaseConnect : MonoBehaviour
 				
 				
 								yield return new WWW (url + "/createAccount", wForm);
+								changeToGameScene ();
 						} else {
-								StartingUI error = UIManager.thisM.startUI.GetComponent<StartingUI> ();
+								StartingUI error = thisUI.startUI.GetComponent<StartingUI> ();
 								error.error.text = "An account with the username " + username + " exists, please consider a different username to continue";
 						}
 				} else {
@@ -173,11 +176,17 @@ public class DatabaseConnect : MonoBehaviour
 
 		void displayConnectionError ()
 		{
-				ErrorUI error = UIManager.thisM.connectError.GetComponent<ErrorUI> ();
+				ErrorUI error = thisUI.connectError.GetComponent<ErrorUI> ();
 				error.desciption.text = "Your device is not connected to the internet. Please connect to the Internet to continue.";
 				error.title.text = "No Connection";
 		
-				UIManager.thisM.changeUI (UIManager.thisM.connectError);
+				thisUI.changeUI (thisUI.connectError);
+		}
+
+		void changeToGameScene ()
+		{
+				Application.LoadLevel ("level1");
+
 		}
 	
 		// Update is called once per frame

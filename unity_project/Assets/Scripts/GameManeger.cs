@@ -25,8 +25,13 @@ public class GameManeger : MonoBehaviour
 
 		void Awake ()
 		{
-				if (thisM == null)
+				if (thisM == null) {
 						thisM = this;
+						DontDestroyOnLoad (gameObject);
+
+				} else {
+						Destroy (gameObject);
+				}
 
 		}
 		

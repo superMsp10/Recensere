@@ -20,18 +20,14 @@ Loading M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_D
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.116 seconds
+- Completed reload, in  0.189 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_Data\Managed\System.dll (this message is harmless)
-Null
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: c48 -> priority: 1 
+  Thread -> id: 2a0 -> priority: 1 
 Connected to the database
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
@@ -43,10 +39,4 @@ Server and client versions match, starting program
 _scripts (UIManager)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at UIManager.changeUI (UnityEngine.GameObject ui) [0x00000] in <filename unknown>:0 
-  at DatabaseConnect+<Start>c__Iterator3.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
 

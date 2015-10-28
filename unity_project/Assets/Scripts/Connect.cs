@@ -9,7 +9,7 @@ public class Connect :  Photon.MonoBehaviour
 		private byte Version = GameManeger.Version;
 	
 		// Use this for initialization
-		public	void TryConnectToServer ()
+		void Start ()
 		{
 				PhotonNetwork.autoJoinLobby = false;    // we join randomly. always. no need to join a lobby to get the list of rooms.
 		
