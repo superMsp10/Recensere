@@ -4,7 +4,6 @@ using System.Collections;
 public class GameManeger : MonoBehaviour
 {
 		public static GameManeger thisM;
-		public GameObject menuCam;
 		public	static float speedToDamageMultiplier = 0.25f;
 		public static byte Version = 1;
 
@@ -15,11 +14,7 @@ public class GameManeger : MonoBehaviour
 		public player myPlayer;
 
 		//LevelStuf------------------------------------------//
-
-		public Transform levelStart;
-		private SpawnSpot[] SS;
-		private SpawnSpot MySS;
-		public Tile[,] liveTiles;
+		public Level currLevel;
 		public PhotonView p;
 
 
@@ -30,7 +25,7 @@ public class GameManeger : MonoBehaviour
 						DontDestroyOnLoad (gameObject);
 
 				} else {
-						Destroy (gameObject);
+//						Destroy (gameObject);
 				}
 
 		}
@@ -67,7 +62,7 @@ public class GameManeger : MonoBehaviour
 		public void syncFloorTileDamage (float damage, string attacker, int x, int y)
 		{
 //				Debug.Log ("sync floor");
-				liveTiles [x, y].syncDamage (damage, attacker);
+				currLevel.liveTiles [x, y].syncDamage (damage, attacker);
 
 		}
 
@@ -75,7 +70,7 @@ public class GameManeger : MonoBehaviour
 		public void syncWallTileDamage (float damage, string attacker, int x, int y, bool yWall)
 		{
 //				Debug.Log ("sync wall");
-				floorTile t = (floorTile)liveTiles [x, y];
+				floorTile t = (floorTile)currLevel.liveTiles [x, y];
 				if (yWall) {
 						t.yTile.syncDamage (damage, attacker);
 				} else {
@@ -87,52 +82,32 @@ public class GameManeger : MonoBehaviour
 		
 		}
 
-		void generateArena ()
-		{
-
-				MapGenerator gen = new MapGenerator (Map.firstMap);
-				liveTiles = gen.generateMap (levelStart);
-				//	gen.generateWall (levelStart);
-
-
-		}
-
-		public void OnConnected ()
-		{
-				//Debug.Log ("Connected in GameManager");
-				generateArena ();
-				instantiatePlayer ();
-
-
-		}
-
-		void instantiatePlayer ()
+		public	void instantiatePlayer ()
 		{
 				GameObject p;
-				SS = FindObjectsOfType<SpawnSpot> ();
 				int playerID = PhotonNetwork.countOfPlayers;
-				MySS = SS [playerID % 4];
 
-				p = PhotonNetwork.Instantiate (playerInstantiate.name, MySS.transform.position, Quaternion.identity, 0, null);
+				p = PhotonNetwork.Instantiate (playerInstantiate.name, 
+		                               FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position,
+		                               Quaternion.identity, 0, null);
+
 				myPlayer = p.GetComponent<player> ();
 				myPlayer.playerID = playerID;
 				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
 
 				Respwan ();
-
-		
 		}
 
 		public void Respwan ()
 		{
-				menuCam.SetActive (false);
+				currLevel.cam.SetActive (false);
 				myPlayer.networkInit ();
 
 		}
 
 		public void NetworkDisable ()
 		{
-				menuCam.SetActive (true);
+				currLevel.cam.SetActive (true);
 				myPlayer.networkDisable ();
 		}
 

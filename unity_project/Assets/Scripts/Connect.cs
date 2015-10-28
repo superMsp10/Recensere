@@ -49,7 +49,7 @@ public class Connect :  Photon.MonoBehaviour
 	
 		public void OnJoinedRoom ()
 		{
-				GameManeger.thisM.OnConnected ();
+				GameManeger.thisM.currLevel.OnConnected ();
 		}
 	
 		public void OnJoinedLobby ()
