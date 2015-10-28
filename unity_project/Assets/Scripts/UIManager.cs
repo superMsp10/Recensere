@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
 		{
 				if (thisM == null)
 						thisM = this;
+//				Debug.Log (startUI);
 		
 		}
 
