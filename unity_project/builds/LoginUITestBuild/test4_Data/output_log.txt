@@ -20,14 +20,14 @@ Loading M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_D
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.189 seconds
+- Completed reload, in  0.061 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\LoginUITestBuild\test4_Data\Managed\System.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2a0 -> priority: 1 
+  Thread -> id: f60 -> priority: 1 
 Connected to the database
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
@@ -36,7 +36,29 @@ Server and client versions match, starting program
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-_scripts (UIManager)
+Logged In
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 5.305148 ms
+PhotonView ID duplicate found: 1. New: View (0)1 on _Scripts (scene) old: View (0)1 on _Scripts (scene). Maybe one wasn't destroyed on scene load?! Check for 'DontDestroyOnLoad'. Destroying old entry, adding new.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 410.
+Total: 0.541567 ms (FindLiveObjects: 0.039472 ms CreateObjectMapping: 0.029604 ms MarkObjects: 0.457095 ms  DeleteObjects: 0.014210 ms)
+
+Connecting using settings
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room. Calling: PhotonNetwork.JoinRandomRoom();
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one. Calling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
