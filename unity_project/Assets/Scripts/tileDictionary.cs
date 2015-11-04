@@ -9,7 +9,8 @@ public  class tileDictionary : MonoBehaviour
 		public   Tile floorTile;
 		public   Tile wallTile;
 		public   Tile border;
-
+		public   GameObject destroyedFloorTile;
+		public   GameObject destroyedWallTile;
 
 		//----------------Other Stuff-------------------//
 		public SpawnSpot spawnSpot;
