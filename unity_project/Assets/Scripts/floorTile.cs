@@ -14,26 +14,10 @@ public class floorTile : Tile
 
 		public	override void takeDamage (float damage, string attacker)
 		{
-//				Debug.Log ("take dmg");
-				health -= damage;
-				lastAttacker = attacker;
-				if (health <= 0) {
-						Destroy ();
-				}
+				base.takeDamage (damage, attacker);
 
 				GameManeger.thisM.sendFloorTileDamage (damage, attacker, xPos, yPos);
 		
 		}
-
-		public	override void syncDamage (float damage, string attacker)
-		{
-//				Debug.Log ("sync dmg");
-
-				health -= damage;
-				lastAttacker = attacker;
-				if (health <= 0) {
-						Destroy ();
-				}
-
-		}
+	
 }

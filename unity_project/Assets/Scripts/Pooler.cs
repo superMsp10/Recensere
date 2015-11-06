@@ -19,9 +19,6 @@ public class Pooler
 		{
 				GameObject ret = null;
 				if (active.Count >= max) {
-//						Debug.Log ("Active: " + active.Count);
-//						Debug.Log ("Max: " + max);
-
 						ret = active [0];
 						active.Remove (ret);
 						useable.Add (ret);
