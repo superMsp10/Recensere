@@ -40,8 +40,6 @@ public abstract class Tile:MonoBehaviour, Health
 
 		public	void Destroy ()
 		{
-
-
 				DestroyedTileManager.thisM.addDestroyedWall (gameObject.transform.position, gameObject.transform.rotation);
 				Destroy (gameObject);
 			

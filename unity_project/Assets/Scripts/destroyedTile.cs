@@ -8,9 +8,10 @@ public class destroyedTile : MonoBehaviour,Poolable,Timer
 						return gameObject;
 				}
 		}
-		public	void reset (bool on)
+		public	virtual void reset (bool on)
 		{
 				gameObject.SetActive (on);
+				
 		}
 	
 	
