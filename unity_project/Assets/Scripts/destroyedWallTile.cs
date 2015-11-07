@@ -9,7 +9,6 @@ public class destroyedWallTile : destroyedTile
 				if (!on) {
 						Transform t;
 						Transform prefabTransform = tileDictionary.thisM.destroyedWallTile.transform;
-						Debug.Log (on);
 						for (int i = 0; i <transform.childCount; i++) {
 								t = transform.GetChild (i);
 

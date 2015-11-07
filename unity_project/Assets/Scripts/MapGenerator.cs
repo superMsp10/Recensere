@@ -4,14 +4,15 @@ using System.Collections;
 public class MapGenerator
 {
 		public static Transform startPos;
-		Map thisMap;
+		protected Map thisMap;
+
 		public MapGenerator (Map map)
 		{
 				thisMap = map;
 
 		}
 
-		enum Direction
+		public enum Direction
 		{
 				North = 0,
 				East = 90,
@@ -20,7 +21,7 @@ public class MapGenerator
 		;
 		
 
-		public Tile[,] generateMap (Transform levStart)
+		public virtual Tile[,] generateMap (Transform levStart)
 		{
 				generateSpawnSpots (levStart, thisMap.getTile (0).tileSize);
 				Tile[,] genTiles = new Tile[thisMap.arenaSize, thisMap.arenaSize];
@@ -83,37 +84,37 @@ public class MapGenerator
 				return genTiles;
 		}
 
-		public void generateWall (Transform levStart)
-		{
-				Tile t;
-				GameObject g;
-				GameObject trans = new GameObject ();
-				trans.name = "Walls";
-				trans.transform.SetParent (levStart, false);
-				generateBorders (levStart);
-				t = thisMap.getWall (0);
+//		public virtual void generateWall (Transform levStart)
+//		{
+//				Tile t;
+//				GameObject g;
+//				GameObject trans = new GameObject ();
+//				trans.name = "Walls";
+//				trans.transform.SetParent (levStart, false);
+//				generateBorders (levStart);
+//				t = thisMap.getWall (0);
+//		
+//				for (int x = 0; x < thisMap.arenaSize; x++) {
+//						for (int y = 0; y < thisMap.arenaSize; y++) {
+//								if (y != 0) {
+//										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x) * t.tileSize + 0.01f, t.tileSize, y * t.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
+//										//	g.transform.localScale *= -1;
+//										g.name = "walX + " + x + " walY + " + y;
+//										g.transform.SetParent (trans.transform, false);
+//								}
+//								if (x != 0) {
+//										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (x * t.tileSize, t.tileSize, (y) * t.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
+//										//	g.transform.localScale *= -1;
+//										g.name = "walX + " + x + " walY + " + y;
+//										g.transform.SetParent (trans.transform, false);
+//								}
+//						}
+//				}
+//		
+//		
+//		}
 
-				for (int x = 0; x < thisMap.arenaSize; x++) {
-						for (int y = 0; y < thisMap.arenaSize; y++) {
-								if (y != 0) {
-										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 ((x) * t.tileSize + 0.01f, t.tileSize, y * t.tileSize), new Quaternion (0, (float)Direction.North, 0, (float)Direction.North));
-										//	g.transform.localScale *= -1;
-										g.name = "walX + " + x + " walY + " + y;
-										g.transform.SetParent (trans.transform, false);
-								}
-								if (x != 0) {
-										g = (GameObject)GameObject.Instantiate (t.gameObject, new Vector3 (x * t.tileSize, t.tileSize, (y) * t.tileSize), new Quaternion (0, (float)Direction.East, 0, -(float)Direction.East));
-										//	g.transform.localScale *= -1;
-										g.name = "walX + " + x + " walY + " + y;
-										g.transform.SetParent (trans.transform, false);
-								}
-						}
-				}
-
-
-		}
-
-		void generateSpawnSpots (Transform levStart, int tileSize)
+		protected virtual	void generateSpawnSpots (Transform levStart, int tileSize)
 		{
 
 				GameObject g;
@@ -144,7 +145,7 @@ public class MapGenerator
 
 		}
 
-		void generateBorders (Transform levStart)
+		protected virtual void generateBorders (Transform levStart)
 		{
 				GameObject g;
 				GameObject trans = new GameObject ();

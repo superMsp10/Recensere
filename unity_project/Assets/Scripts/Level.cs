@@ -27,7 +27,9 @@ public abstract class Level : MonoBehaviour
 		void generateArena ()
 		{
 		
-				MapGenerator gen = new MapGenerator (Map.firstMap);
+//				MapGenerator gen = new MapGenerator (Map.firstMap);
+				HeightMapGenerator gen = new HeightMapGenerator (Map.firstMap, -0.05f);
+
 				liveTiles = gen.generateMap (levelStart);
 				//	gen.generateWall (levelStart);
 		
