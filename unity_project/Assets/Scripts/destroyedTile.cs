@@ -30,7 +30,7 @@ public class destroyedTile : MonoBehaviour,Poolable,Timer
 		}
 		public void TimerComplete ()
 		{
-				DestroyedTileManager.thisM.destroyedWallPooler.disposeObject (this);
+				DestroyedTileManager.thisWall.destroyedWallPooler.disposeObject (this);
 		}
 
 }

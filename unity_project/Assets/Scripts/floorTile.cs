@@ -10,8 +10,13 @@ public class floorTile : Tile
 		{
 		}
 
-
-
+		public	override void Destroy ()
+		{
+				DestroyedTileManager.thisFloor.addDestroyedWall (gameObject.transform.position, gameObject.transform.rotation);
+				Destroy (gameObject);
+		
+		}
+	
 		public	override void takeDamage (float damage, string attacker)
 		{
 				base.takeDamage (damage, attacker);

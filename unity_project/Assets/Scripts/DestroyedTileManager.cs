@@ -4,7 +4,9 @@ using System.Collections.Generic;
 public class DestroyedTileManager : MonoBehaviour
 {
 
-		public static DestroyedTileManager thisM;
+		public static DestroyedTileManager thisWall;
+		public static DestroyedTileManager thisFloor;
+
 		private GameObject destroyedWallFX;
 	
 		[HideInInspector]
@@ -13,18 +15,30 @@ public class DestroyedTileManager : MonoBehaviour
 	
 		public float wallReset;
 		public int maxWalls;
+		public bool floor;
 	
 	
 		void Awake ()
 		{
-				if (thisM == null)
-						thisM = this;
+				if (!floor) {
+						if (thisWall == null)
+								thisWall = this;
+				} else {
+						if (thisFloor == null)
+								thisFloor = this;
+				}
 		
 		}
 	
 		void Start ()
 		{
-				destroyedWallFX = tileDictionary.thisM.destroyedWallTile;	
+				if (!floor) {
+						destroyedWallFX = tileDictionary.thisM.destroyedWallTile;	
+
+				} else {
+						destroyedWallFX = tileDictionary.thisM.destroyedFloorTile;	
+
+				}
 				destroyedWallPooler = new Pooler (maxWalls, destroyedWallFX);
 		
 		}
