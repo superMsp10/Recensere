@@ -19,6 +19,8 @@ public abstract class Tile:MonoBehaviour, Health
 
 		public	virtual void takeDamage (float damage, string attacker)
 		{
+				if (health <= 0)
+						return;
 				health -= damage;
 				lastAttacker = attacker;
 				if (health <= 0) {
