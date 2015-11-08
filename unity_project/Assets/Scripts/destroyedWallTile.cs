@@ -11,7 +11,7 @@ public class destroyedWallTile : destroyedTile
 						Transform prefabTransform = tileDictionary.thisM.destroyedWallTile.transform;
 						for (int i = 0; i <transform.childCount; i++) {
 								t = transform.GetChild (i);
-
+								t.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 								t.localPosition = prefabTransform.GetChild (i).localPosition;
 								t.localRotation = prefabTransform.GetChild (i).localRotation;
 

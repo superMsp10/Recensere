@@ -7,6 +7,7 @@ public abstract class Tile:MonoBehaviour, Health
 		public	string lastAttacker;
 		public int xPos;
 		public int yPos;
+		public	bool takeDmg = true;
 
 
 		public int tileSize = 4;
@@ -63,8 +64,9 @@ public abstract class Tile:MonoBehaviour, Health
 		{
 				//		Rigidbody r = collision.collider.attachedRigidbody;
 				float sdm = GameManeger.speedToDamageMultiplier;
-				if (collision.relativeVelocity.magnitude > health * sdm) {
-						takeDamage (sdm * collision.relativeVelocity.magnitude, collision.collider.name);
+				if (takeDmg && collision.relativeVelocity.magnitude > 1) {
+						takeDamage (Mathf.Pow (collision.relativeVelocity.magnitude, sdm), collision.collider.name);
+						Debug.Log (Mathf.Pow (collision.relativeVelocity.magnitude, sdm) + "Mag: " + collision.relativeVelocity.magnitude);
 						EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point);
 		
 				}

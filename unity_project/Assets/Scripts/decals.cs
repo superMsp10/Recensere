@@ -11,6 +11,9 @@ public class decals : MonoBehaviour,Poolable,Timer
 		public	void reset (bool on)
 		{
 				gameObject.SetActive (on);
+
+				if (!on)
+						CancelTimer ();
 		}
 
 

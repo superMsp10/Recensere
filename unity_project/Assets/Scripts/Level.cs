@@ -24,17 +24,13 @@ public abstract class Level : MonoBehaviour
 	
 		}
 
-		void generateArena ()
+		public virtual void  generateArena ()
 		{
-		
-//				MapGenerator gen = new MapGenerator (Map.firstMap);
-				HeightMapGenerator gen = new HeightMapGenerator (Map.firstMap, -0.05f);
-
+				MapGenerator gen = new MapGenerator (Map.firstMap);
 				liveTiles = gen.generateMap (levelStart);
-				//	gen.generateWall (levelStart);
-		
-		
 		}
+
+
 
 		public void OnConnected ()
 		{

@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManeger : MonoBehaviour
 {
 		public static GameManeger thisM;
-		public	static float speedToDamageMultiplier = 0.25f;
+		public	static float speedToDamageMultiplier = 1f;
 		public static byte Version = 1;
 
 

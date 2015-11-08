@@ -11,6 +11,8 @@ public class destroyedTile : MonoBehaviour,Poolable,Timer
 		public	virtual void reset (bool on)
 		{
 				gameObject.SetActive (on);
+				if (!on)
+						CancelTimer ();
 				
 		}
 	
