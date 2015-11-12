@@ -3,6 +3,8 @@ using System.Collections;
 
 public class decals : MonoBehaviour,Poolable,Timer
 {
+		public ParticleSystem dust;
+
 		public GameObject gameobject {
 				get {
 						return gameObject;
@@ -12,8 +14,12 @@ public class decals : MonoBehaviour,Poolable,Timer
 		{
 				gameObject.SetActive (on);
 
-				if (!on)
+				if (!on) {
 						CancelTimer ();
+						dust.Stop ();
+
+				} else
+						dust.Play ();
 		}
 
 
