@@ -3,7 +3,7 @@
 public interface Health
 {
 
-		void takeDamage (float damage, string attacker);
+		bool takeDamage (float damage, string attacker);
 		void syncDamage (float damage, string attacker);
 
 		void Destroy ();

@@ -18,15 +18,17 @@ public abstract class Tile:MonoBehaviour, Health
 				tileSize = size;
 		}
 
-		public	virtual void takeDamage (float damage, string attacker)
+		public	virtual bool takeDamage (float damage, string attacker)
 		{
 				if (health <= 0)
-						return;
+						return false;
 				health -= damage;
 				lastAttacker = attacker;
 				if (health <= 0) {
 						Destroy ();
+						return true;
 				}
+				return false;
 
 		}
 
@@ -64,8 +66,12 @@ public abstract class Tile:MonoBehaviour, Health
 		{
 				//		Rigidbody r = collision.collider.attachedRigidbody;
 				float sdm = GameManeger.speedToDamageMultiplier;
-				if (takeDmg && collision.relativeVelocity.magnitude > 1) {
-						takeDamage (Mathf.Pow (collision.relativeVelocity.magnitude, sdm), collision.collider.name);
+				if (takeDmg && collision.relativeVelocity.magnitude > 3) {
+						if (takeDamage (Mathf.Pow (collision.relativeVelocity.magnitude, sdm), collision.collider.name)) {
+								if (collision.collider.attachedRigidbody != null)
+										collision.collider.attachedRigidbody.velocity *= sdm;
+
+						}
 						EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point);
 		
 				}

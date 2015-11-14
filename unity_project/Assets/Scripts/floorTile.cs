@@ -17,9 +17,9 @@ public class floorTile : Tile
 		
 		}
 	
-		public	override void takeDamage (float damage, string attacker)
+		public	override bool takeDamage (float damage, string attacker)
 		{
-				base.takeDamage (damage, attacker);
+				return base.takeDamage (damage, attacker);
 
 				GameManeger.thisM.sendFloorTileDamage (damage, attacker, xPos, yPos);
 		
