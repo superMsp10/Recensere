@@ -12,11 +12,11 @@ public class wallTile : Tile
 
 		public	override bool takeDamage (float damage, string attacker)
 		{
+				Debug.Log ("Take Damage From Wall Tile");
 
-
-				return base.takeDamage (damage, attacker);
 				GameManeger.thisM.sendWallTileDamage (damage, attacker, xPos, yPos, yWall);
-		
+				return base.takeDamage (damage, attacker);
+
 		}
 
 		public	override void Destroy ()

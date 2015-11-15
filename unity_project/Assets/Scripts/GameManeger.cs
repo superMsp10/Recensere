@@ -6,6 +6,7 @@ public class GameManeger : MonoBehaviour
 		public static GameManeger thisM;
 		public	static float speedToDamageMultiplier = 1f;
 		public static byte Version = 2;
+		public LayerMask def;
 
 
 		//PlayerStuff------------------------------------------//
@@ -44,14 +45,14 @@ public class GameManeger : MonoBehaviour
 
 		public void sendFloorTileDamage (float damage, string attacker, int x, int y)
 		{
-//				Debug.Log ("send floor dmg");
+				Debug.Log ("send floor dmg");
 				p.RPC ("syncFloorTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y);
 		
 		}
 
 		public void sendWallTileDamage (float damage, string attacker, int x, int y, bool yWall)
 		{
-//				Debug.Log ("send wall dmg");
+				Debug.Log ("send wall dmg");
 				p.RPC ("syncWallTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y, yWall);
 
 		
@@ -61,7 +62,7 @@ public class GameManeger : MonoBehaviour
 		[PunRPC]
 		public void syncFloorTileDamage (float damage, string attacker, int x, int y)
 		{
-//				Debug.Log ("sync floor");
+				Debug.Log ("sync floor");
 				currLevel.liveTiles [x, y].syncDamage (damage, attacker);
 
 		}
@@ -69,7 +70,7 @@ public class GameManeger : MonoBehaviour
 		[PunRPC]
 		public void syncWallTileDamage (float damage, string attacker, int x, int y, bool yWall)
 		{
-//				Debug.Log ("sync wall");
+				Debug.Log ("sync wall");
 				floorTile t = (floorTile)currLevel.liveTiles [x, y];
 				if (yWall) {
 						t.yTile.syncDamage (damage, attacker);
@@ -94,6 +95,7 @@ public class GameManeger : MonoBehaviour
 				myPlayer = p.GetComponent<player> ();
 				myPlayer.playerID = playerID;
 				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
+				p.layer = def;
 
 				Respwan ();
 		}

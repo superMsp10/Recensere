@@ -20,6 +20,8 @@ public abstract class Tile:MonoBehaviour, Health
 
 		public	virtual bool takeDamage (float damage, string attacker)
 		{
+				Debug.Log ("Take Damage From Tile");
+
 				if (health <= 0)
 						return false;
 				health -= damage;
@@ -34,6 +36,8 @@ public abstract class Tile:MonoBehaviour, Health
 
 		public	virtual void syncDamage (float damage, string attacker)
 		{
+				Debug.Log ("Sync Damage From Tile");
+
 				health -= damage;
 				lastAttacker = attacker;
 				if (health <= 0) {
@@ -66,6 +70,7 @@ public abstract class Tile:MonoBehaviour, Health
 		{
 				//		Rigidbody r = collision.collider.attachedRigidbody;
 				float sdm = GameManeger.speedToDamageMultiplier;
+				Debug.Log ("Collision Enter at Tile");
 				if (takeDmg && collision.relativeVelocity.magnitude > 3) {
 						if (takeDamage (Mathf.Pow (collision.relativeVelocity.magnitude, sdm), collision.collider.name)) {
 								if (collision.collider.attachedRigidbody != null)

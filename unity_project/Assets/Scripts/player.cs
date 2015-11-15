@@ -17,6 +17,7 @@ public class player : MonoBehaviour
 				foreach (MonoBehaviour m in networkSet) {
 						m.enabled = true;
 				}
+				GetComponent<Rigidbody> ().useGravity = true;
 
 		}
 
