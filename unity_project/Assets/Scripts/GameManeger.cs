@@ -5,7 +5,7 @@ public class GameManeger : MonoBehaviour
 {
 		public static GameManeger thisM;
 		public	static float speedToDamageMultiplier = 1f;
-		public static byte Version = 1;
+		public static byte Version = 2;
 
 
 		//PlayerStuff------------------------------------------//
