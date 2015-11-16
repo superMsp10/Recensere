@@ -21,6 +21,7 @@ public class wallTile : Tile
 
 		public	override void Destroy ()
 		{
+				Debug.Log (gameObject);
 				DestroyedTileManager.thisWall.addDestroyedWall (gameObject.transform.position, gameObject.transform.rotation);
 				Destroy (gameObject);
 		
