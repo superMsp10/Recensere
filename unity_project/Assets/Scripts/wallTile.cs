@@ -12,8 +12,6 @@ public class wallTile : Tile
 
 		public	override bool takeDamage (float damage, string attacker)
 		{
-				Debug.Log ("Take Damage From Wall Tile");
-
 				GameManeger.thisM.sendWallTileDamage (damage, attacker, xPos, yPos, yWall);
 				return base.takeDamage (damage, attacker);
 

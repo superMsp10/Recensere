@@ -14,4 +14,8 @@ public interface Health
 
 		}
 
+		float Sturdyness {
+				get;
+		}
+
 }

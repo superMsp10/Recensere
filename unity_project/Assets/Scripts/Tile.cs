@@ -8,6 +8,7 @@ public abstract class Tile:MonoBehaviour, Health
 		public int xPos;
 		public int yPos;
 		public	bool takeDmg = true;
+		public float Sturdy = 10f;
 
 
 		public int tileSize = 4;
@@ -66,12 +67,18 @@ public abstract class Tile:MonoBehaviour, Health
 				}
 		}
 
+		public float Sturdyness {
+				get {
+						return Sturdy; 
+				}
+	
+		}
+
 		void OnCollisionEnter (Collision collision)
 		{
-				//		Rigidbody r = collision.collider.attachedRigidbody;
 				float sdm = GameManeger.speedToDamageMultiplier;
 //				Debug.Log ("Collision Enter at Tile");
-				if (takeDmg && collision.relativeVelocity.magnitude > 3) {
+				if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {
 						if (takeDamage (Mathf.Pow (collision.relativeVelocity.magnitude, sdm), collision.collider.name)) {
 								if (collision.collider.attachedRigidbody != null)
 										collision.collider.attachedRigidbody.velocity *= sdm;
