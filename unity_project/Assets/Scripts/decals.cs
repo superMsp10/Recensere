@@ -17,6 +17,7 @@ public class decals : MonoBehaviour,Poolable,Timer
 				if (!on) {
 						CancelTimer ();
 						dust.Stop ();
+						gameobject.transform.localScale = new Vector3 (1, 1, 1);
 
 				} else
 						dust.Play ();

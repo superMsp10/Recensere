@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public abstract class Tile:MonoBehaviour, Health
+public abstract class Tile:MonoBehaviour, Health, Attachable
 {
 		public	float health;
 		public	string lastAttacker;
@@ -9,6 +9,7 @@ public abstract class Tile:MonoBehaviour, Health
 		public int yPos;
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
+		public List<Poolable> Attached = new List<Poolable> ();
 
 
 		public int tileSize = 4;
@@ -72,6 +73,23 @@ public abstract class Tile:MonoBehaviour, Health
 						return Sturdy; 
 				}
 	
+		}
+
+		public List<Poolable> attached {
+				get {
+						return Attached; 
+				}
+		
+		}
+
+		public	 void attach (GameObject g)
+		{
+				return lastAttacker;
+		}
+
+		public	 void detach (GameObject g)
+		{
+				return lastAttacker;
 		}
 
 		void OnCollisionEnter (Collision collision)
