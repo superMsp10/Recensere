@@ -52,9 +52,11 @@ public abstract class Tile:MonoBehaviour, Health, Attachable
 
 		public virtual	void Destroy ()
 		{
+				for (int i = 0; Attached.Count>0; i++) {
+						Debug.Log ("hello");
+						detach (Attached [0].gameobject);
 
-				for (int i = 0; i <Attached.Count; i++) {
-						detach (Attached [i].gameobject);
+
 				}
 
 				Destroy (gameObject);
@@ -119,7 +121,7 @@ public abstract class Tile:MonoBehaviour, Health, Attachable
 						EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point, this);
 						if (takeDamage (Mathf.Pow (collision.relativeVelocity.magnitude, sdm), collision.collider.name)) {
 								if (collision.collider.attachedRigidbody != null) {
-//										collision.collider.attachedRigidbody.velocity *= sdm;
+										collision.collider.attachedRigidbody.velocity *= sdm;
 								}
 						}
 
