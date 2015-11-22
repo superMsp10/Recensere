@@ -5,10 +5,7 @@ public class wallTile : Tile
 {
 		public bool yWall = false;
 
-		public wallTile (int size) : base (size)
-		{
 
-		}
 
 		public	override bool takeDamage (float damage, string attacker)
 		{
@@ -19,10 +16,9 @@ public class wallTile : Tile
 
 		public	override void Destroy ()
 		{
-				Debug.Log (gameObject);
+//				Debug.Log (gameObject);
 				DestroyedTileManager.thisWall.addDestroyedWall (gameObject.transform.position, gameObject.transform.rotation);
-				Destroy (gameObject);
-		
+				base.Destroy ();
 		}
 	
 }

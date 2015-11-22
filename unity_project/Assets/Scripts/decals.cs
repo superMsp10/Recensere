@@ -4,6 +4,7 @@ using System.Collections;
 public class decals : MonoBehaviour,Poolable,Timer
 {
 		public ParticleSystem dust;
+		public Tile t;
 
 		public GameObject gameobject {
 				get {
@@ -39,6 +40,9 @@ public class decals : MonoBehaviour,Poolable,Timer
 		}
 		public void TimerComplete ()
 		{
+				if (t != null) {
+						t.detach (gameobject);
+				}
 				EffectsManager.thisM.crackPooler.disposeObject (this);
 		}
 

@@ -29,21 +29,24 @@ public class EffectsManager : MonoBehaviour
 		}
 	
 
-		public void addWallCracks (Vector3 normal, Vector3 point)
+		public void addWallCracks (Vector3 normal, Vector3 point, Tile t)
 		{
-			 
-				if (crackFX == null) {
-						Debug.Log ("No crackFX");
-						return;
+				if (t.attached.Count < t.limit) {
+						if (crackFX == null) {
+								Debug.Log ("No crackFX");
+								return;
+						}
+
+						Quaternion hitRotation = Quaternion.FromToRotation (normal, Vector3.forward);
+						GameObject g = crackPooler.getObject ();
+						g.transform.parent = transform;
+
+						g.transform.position = point - (normal * 0.001f);
+						g.transform.rotation = hitRotation;
+						g.GetComponent<Timer> ().StartTimer (decalReset);
+						t.attach (g);
+
+
 				}
-
-				Quaternion hitRotation = Quaternion.FromToRotation (normal, Vector3.forward);
-				GameObject g = crackPooler.getObject ();
-				g.transform.parent = transform;
-
-				g.transform.position = point - (normal * 0.001f);
-				g.transform.rotation = hitRotation;
-				g.GetComponent<Timer> ().StartTimer (decalReset);
-
 		}
 }

@@ -7,6 +7,10 @@ public interface Attachable
 				get;
 		} 
 
+		int limit {
+				get;
+		} 
+
 		void attach (GameObject g);
 		void detach (GameObject g);
 

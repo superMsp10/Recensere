@@ -9,15 +9,16 @@ public abstract class Tile:MonoBehaviour, Health, Attachable
 		public int yPos;
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
-		public List<Poolable> Attached = new List<Poolable> ();
+		public int decalLimit;
+		List<Poolable> Attached;
 
 
 		public int tileSize = 4;
 
 
-		public Tile (int size)
+		void Start ()
 		{
-				tileSize = size;
+				Attached = new List<Poolable> ();
 		}
 
 		public	virtual bool takeDamage (float damage, string attacker)
@@ -51,6 +52,11 @@ public abstract class Tile:MonoBehaviour, Health, Attachable
 
 		public virtual	void Destroy ()
 		{
+
+				for (int i = 0; i <Attached.Count; i++) {
+						detach (Attached [i].gameobject);
+				}
+
 				Destroy (gameObject);
 			
 		}
@@ -75,6 +81,13 @@ public abstract class Tile:MonoBehaviour, Health, Attachable
 	
 		}
 
+		public int limit {
+				get {
+						return decalLimit; 
+				}
+		
+		}
+
 		public List<Poolable> attached {
 				get {
 						return Attached; 
@@ -84,12 +97,18 @@ public abstract class Tile:MonoBehaviour, Health, Attachable
 
 		public	 void attach (GameObject g)
 		{
-				return lastAttacker;
+
+				if (g != null) {
+						Attached.Add (g.GetComponent<Poolable> ());
+				} else
+						Debug.Log ("Game object you are trying to attach is null");
 		}
 
 		public	 void detach (GameObject g)
 		{
-				return lastAttacker;
+				Attached.Remove (g.GetComponent<Poolable> ());
+				EffectsManager.thisM.crackPooler.disposeObject (g.GetComponent<Poolable> ());
+
 		}
 
 		void OnCollisionEnter (Collision collision)
@@ -97,12 +116,13 @@ public abstract class Tile:MonoBehaviour, Health, Attachable
 				float sdm = GameManeger.speedToDamageMultiplier;
 //				Debug.Log ("Collision Enter at Tile");
 				if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {
+						EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point, this);
 						if (takeDamage (Mathf.Pow (collision.relativeVelocity.magnitude, sdm), collision.collider.name)) {
-								if (collision.collider.attachedRigidbody != null)
-										collision.collider.attachedRigidbody.velocity *= sdm;
-
+								if (collision.collider.attachedRigidbody != null) {
+//										collision.collider.attachedRigidbody.velocity *= sdm;
+								}
 						}
-						EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point);
+
 		
 				}
 		

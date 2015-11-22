@@ -6,15 +6,13 @@ public class floorTile : Tile
 		public wallTile yTile;
 		public wallTile xTile;
 
-		public floorTile (int size) : base (size)
-		{
-		}
+
 
 		public	override void Destroy ()
 		{
 				DestroyedTileManager.thisFloor.addDestroyedWall (gameObject.transform.position, gameObject.transform.rotation);
-				Destroy (gameObject);
-		
+				base.Destroy ();
+
 		}
 	
 		public	override bool takeDamage (float damage, string attacker)
