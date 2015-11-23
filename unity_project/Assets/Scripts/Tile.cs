@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class Tile:MonoBehaviour, Health, Attachable
+public abstract class Tile: MonoBehaviour, Health, Attachable
 {
 		public	float health;
 		public	string lastAttacker;
