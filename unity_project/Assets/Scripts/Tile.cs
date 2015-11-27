@@ -52,12 +52,13 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 
 		public virtual	void Destroy ()
 		{
-				for (int i = 0; Attached.Count>0; i++) {
-						detach (Attached [0].gameobject);
+				if (Attached != null) {
+						for (int i = 0; Attached.Count>0; i++) {
+								detach (Attached [0].gameobject);
 
 
+						}
 				}
-
 				Destroy (gameObject);
 			
 		}

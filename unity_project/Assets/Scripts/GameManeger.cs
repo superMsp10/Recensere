@@ -63,7 +63,11 @@ public class GameManeger : MonoBehaviour
 		public void syncFloorTileDamage (float damage, string attacker, int x, int y)
 		{
 //				Debug.Log ("sync floor");
-				currLevel.liveTiles [x, y].syncDamage (damage, attacker);
+				if (currLevel.liveTiles [x, y] != null) {
+						currLevel.liveTiles [x, y].syncDamage (damage, attacker);
+				} else {
+						Debug.Log ("X :" + x + ", Y :" + y + " damaged by :" + attacker + " after being destroyed");
+				}
 
 		}
 
@@ -72,15 +76,17 @@ public class GameManeger : MonoBehaviour
 		{
 //				Debug.Log ("sync wall");
 				floorTile t = (floorTile)currLevel.liveTiles [x, y];
-				if (yWall) {
-						t.yTile.syncDamage (damage, attacker);
+				if (t .yTile != null || t.xTile != null) {
+						if (yWall) {
+								t.yTile.syncDamage (damage, attacker);
+						} else {
+								t.xTile.syncDamage (damage, attacker);
+				
+						}
 				} else {
-						t.xTile.syncDamage (damage, attacker);
-
+						Debug.Log ("X :" + x + ", Y :" + y + " damaged by :" + attacker + " after being destroyed");
 				}
 
-
-		
 		}
 
 		public	void instantiatePlayer ()
