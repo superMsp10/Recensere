@@ -24,5 +24,10 @@ public class floorTile : Tile
 
 		
 		}
+
+		public override void addFX (Collision collision, float dmg)
+		{
+				EffectsManager.thisM.addFloorCracks (collision.contacts [0].normal, collision.contacts [0].point, this, dmg / HP);
+		}
 	
 }
