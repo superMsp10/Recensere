@@ -16,7 +16,7 @@ public class GameManeger : MonoBehaviour
 
 		//LevelStuf------------------------------------------//
 		public Level currLevel;
-		public PhotonView p;
+		public	PhotonView p;
 
 
 		void Awake ()
@@ -26,9 +26,8 @@ public class GameManeger : MonoBehaviour
 						DontDestroyOnLoad (gameObject);
 
 				} else {
-//						Destroy (gameObject);
+						Debug.Log ("FX Exists");
 				}
-
 		}
 		
 

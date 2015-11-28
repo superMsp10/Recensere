@@ -3,8 +3,6 @@ using System.Collections;
 
 public class wallTile : Tile
 {
-		public bool yWall = false;
-
 
 
 		public	override bool takeDamage (float damage, string attacker)

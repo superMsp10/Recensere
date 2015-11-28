@@ -10,6 +10,7 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
 		public int decalLimit;
+		public bool yWall = false;
 		List<Poolable> Attached;
 
 
@@ -119,11 +120,13 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 //				Debug.Log ("Collision Enter at Tile");
 				float dmg = Mathf.Pow (collision.relativeVelocity.magnitude, sdm);
 				if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {
-						EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point, this, dmg / HP);
+						
 						if (takeDamage (dmg, collision.collider.name)) {
 								if (collision.collider.attachedRigidbody != null) {
 										collision.collider.attachedRigidbody.velocity *= sdm;
 								}
+						} else {
+								EffectsManager.thisM.addCracks (collision.contacts [0].normal, collision.contacts [0].point, this, dmg / HP);
 						}
 
 		
