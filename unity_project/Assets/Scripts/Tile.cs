@@ -126,12 +126,17 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 										collision.collider.attachedRigidbody.velocity *= sdm;
 								}
 						} else {
-								EffectsManager.thisM.addCracks (collision.contacts [0].normal, collision.contacts [0].point, this, dmg / HP);
+								addFX (collision, dmg);
 						}
 
 		
 				}
 		
+		}
+
+		public virtual void addFX (Collision c, float dmg)
+		{
+				Debug.Log ("Default FX Call");
 		}
 
 	

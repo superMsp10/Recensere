@@ -18,6 +18,11 @@ public class wallTile : Tile
 				DestroyedTileManager.thisWall.addDestroyedWall (gameObject.transform.position, gameObject.transform.rotation);
 				base.Destroy ();
 		}
+
+		public override void addFX (Collision collision, float dmg)
+		{
+				EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point, this, dmg / HP);
+		}
 	
 }
 
