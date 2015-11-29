@@ -15,7 +15,7 @@ public abstract class Level : MonoBehaviour
 		void Start ()
 		{
 //				cam = FindObjectOfType<Camera> ().gameObject;
-				GameManeger.thisM.currLevel = this;
+				GameManager.thisM.currLevel = this;
 		}
 	
 		// Update is called once per frame
@@ -36,7 +36,7 @@ public abstract class Level : MonoBehaviour
 		{
 				//Debug.Log ("Connected in GameManager");
 				generateArena ();
-				GameManeger.thisM.instantiatePlayer ();
+				GameManager.thisM.instantiatePlayer ();
 		
 		
 		}

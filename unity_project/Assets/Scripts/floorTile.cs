@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class floorTile : Tile
@@ -19,7 +19,7 @@ public class floorTile : Tile
 		{
 //				Debug.Log ("Take Damage From Floor Tile");
 
-				GameManeger.thisM.sendFloorTileDamage (damage, attacker, xPos, yPos);
+				GameManager.thisM.sendFloorTileDamage (damage, attacker, xPos, yPos);
 				return base.takeDamage (damage, attacker);
 
 		

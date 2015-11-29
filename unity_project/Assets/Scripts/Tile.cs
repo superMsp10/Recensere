@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public abstract class Tile: MonoBehaviour, Health, Attachable
@@ -116,7 +116,7 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 
 		void OnCollisionEnter (Collision collision)
 		{
-				float sdm = GameManeger.speedToDamageMultiplier;
+				float sdm = GameManager.speedToDamageMultiplier;
 //				Debug.Log ("Collision Enter at Tile");
 				float dmg = Mathf.Pow (collision.relativeVelocity.magnitude, sdm);
 				if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Connect :  Photon.MonoBehaviour
@@ -6,7 +6,7 @@ public class Connect :  Photon.MonoBehaviour
 
 
 		public bool offline = false;
-		private byte Version = GameManeger.Version;
+		private byte Version = GameManager.Version;
 	
 		// Use this for initialization
 		void Start ()
@@ -49,14 +49,14 @@ public class Connect :  Photon.MonoBehaviour
 	
 		public void OnJoinedRoom ()
 		{
-				GameManeger.thisM.currLevel.OnConnected ();
+				GameManager.thisM.currLevel.OnConnected ();
 
 //				Invoke ("OnConnect", 1f);
 		}
 
 		void OnConnect ()
 		{
-				GameManeger.thisM.currLevel.OnConnected ();
+				GameManager.thisM.currLevel.OnConnected ();
 
 		}
 	

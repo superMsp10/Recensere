@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class EffectsManager : MonoBehaviour
@@ -80,7 +80,7 @@ public class EffectsManager : MonoBehaviour
 		public void syncWallCracks (Vector3 normal, Vector3 point, float dmgPercent, int x, int y, bool yWall)
 		{
 				Tile t = null;
-				floorTile floort = (floorTile)GameManeger.thisM.currLevel.liveTiles [x, y];
+				floorTile floort = (floorTile)GameManager.thisM.currLevel.liveTiles [x, y];
 				if (floort .yTile != null || floort.xTile != null) {
 						if (yWall) {
 								t = floort .yTile;
@@ -117,7 +117,7 @@ public class EffectsManager : MonoBehaviour
 		[PunRPC]
 		public void syncFloorCracks (Vector3 normal, Vector3 point, float dmgPercent, int x, int y)
 		{
-				Tile t = GameManeger.thisM.currLevel.liveTiles [x, y];
+				Tile t = GameManager.thisM.currLevel.liveTiles [x, y];
 				if (t.attached.Count < t.limit) {
 						if (crackFX == null) {
 								Debug.Log ("No crackFX");

@@ -32,7 +32,7 @@ public class DatabaseConnect : MonoBehaviour
 				yield return www;
 				if (www.error == null) {
 						JSONObject j = JSONObject.Parse (www.text);
-						int gameVersion = GameManeger.Version;		
+						int gameVersion = GameManager.Version;		
 						int databaseVersion = (int)j.GetNumber ("Version");
 						Debug.Log ("Connected to the database");
 						if (gameVersion == databaseVersion) {

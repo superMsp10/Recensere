@@ -7,7 +7,7 @@ public class wallTile : Tile
 
 		public	override bool takeDamage (float damage, string attacker)
 		{
-				GameManeger.thisM.sendWallTileDamage (damage, attacker, xPos, yPos, yWall);
+				GameManager.thisM.sendWallTileDamage (damage, attacker, xPos, yPos, yWall);
 				return base.takeDamage (damage, attacker);
 
 		}

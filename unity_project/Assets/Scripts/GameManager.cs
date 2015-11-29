@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class GameManeger : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-		public static GameManeger thisM;
+		public static GameManager thisM;
 		public	static float speedToDamageMultiplier = 1f;
 		public static byte Version = 2;
 		public LayerMask def;

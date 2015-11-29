@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 981fed93cd9f6ef4f970773a5f4f57ef
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - holding: {instanceID: 0}
+  - slot: {instanceID: 0}
+  - empty: {fileID: 21300000, guid: ff3ab08f72a7f074b8f76a6eb2094c2b, type: 3}
+  - outline: {instanceID: 0}
+  - amountText: {instanceID: 0}
+  - clickSound: {fileID: 8300000, guid: e9e61438290dd0545bd192046f645ab4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
