@@ -50,15 +50,9 @@ public class Connect :  Photon.MonoBehaviour
 		public void OnJoinedRoom ()
 		{
 				GameManager.thisM.currLevel.OnConnected ();
-
-//				Invoke ("OnConnect", 1f);
 		}
 
-		void OnConnect ()
-		{
-				GameManager.thisM.currLevel.OnConnected ();
 
-		}
 	
 		public void OnJoinedLobby ()
 		{
