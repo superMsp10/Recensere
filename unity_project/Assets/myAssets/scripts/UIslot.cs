@@ -112,7 +112,7 @@ public class UIslot : MonoBehaviour
 				if (holding.onUse ()) {
 						amount -= 1;
 						amountText.text = amount.ToString ();
-						AudioManager.thisAM.playerFX.PlayOneShot (clickSound);
+//						AudioManager.thisAM.playerFX.PlayOneShot (clickSound);
 						if (amount <= 0) {
 								changeHolding (null);
 								amountText.text = "";
@@ -129,7 +129,7 @@ public class UIslot : MonoBehaviour
 								
 								GameObject p = (GameObject)Instantiate (holding.phisical.gameObject, playerPos, Quaternion.identity);
 								tmp = p.GetComponent<pickups> ();
-								tmp.thisLevel = thisM.currentLevel;
+//								tmp.thisLevel = thisM.currentLevel;
 								tmp.pickable = false;
 								tmp.amount = amount;
 								Invoke ("resetPickable", tmp.resetPickup);

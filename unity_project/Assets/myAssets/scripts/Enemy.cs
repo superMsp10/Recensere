@@ -18,11 +18,11 @@ public class Enemy : Mob1
 		{
 
 		
-				thisManage = gameManager.thisM;
-				thisLevel.addEntity (this);
-				GetComponent<Rigidbody2D>().centerOfMass = centerOfMass;
+//				thisManage = gameManager.thisM;
+//				thisLevel.addEntity (this);
+				GetComponent<Rigidbody2D> ().centerOfMass = centerOfMass;
 				thisAnim = GetComponent<Animator> ();
-				thisAudio = AudioManager.thisAM.playerFX;
+//				thisAudio = AudioManager.thisAM.playerFX;
 				if (randomAttributes)
 						resetAttributes ();
 				checkNecesseries ();
@@ -70,7 +70,7 @@ public class Enemy : Mob1
 		{
 		
 				if (grounded) {
-						GetComponent<Rigidbody2D>().AddForce (new Vector2 (0, jumpF));
+						GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpF));
 						if (!jumpedSound) {
 								playJumpSound ();
 								jumpedSound = true;
@@ -85,7 +85,7 @@ public class Enemy : Mob1
 		new protected void checkFacing ()
 		{
 		
-				if (Mathf.Abs (GetComponent<Rigidbody2D>().velocity.x) > 1) {
+				if (Mathf.Abs (GetComponent<Rigidbody2D> ().velocity.x) > 1) {
 						thisAttributes.moving = true;
 			
 				} else if (attacking) {
@@ -105,7 +105,7 @@ public class Enemy : Mob1
 								sideBody.gameObject.SetActive (false);
 								frontBody.gameObject.SetActive (true);
 						}
-						if (GetComponent<Rigidbody2D>().velocity.y < -20 && !attacking) {
+						if (GetComponent<Rigidbody2D> ().velocity.y < -20 && !attacking) {
 				
 								falling = true;
 								front = true;

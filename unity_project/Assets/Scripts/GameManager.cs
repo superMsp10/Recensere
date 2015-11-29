@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 		public	static float speedToDamageMultiplier = 1f;
 		public static byte Version = 2;
 		public LayerMask def;
-
+		public bool paused = false;
 
 		//PlayerStuff------------------------------------------//
 
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 						DontDestroyOnLoad (gameObject);
 
 				} else {
-						Debug.Log ("FX Exists");
+						Debug.Log ("GameManager Exists");
 				}
 		}
 		

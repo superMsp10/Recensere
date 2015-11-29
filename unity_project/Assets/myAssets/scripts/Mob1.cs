@@ -46,7 +46,7 @@ public class Mob1 : Entity
 		public Transform sideBody;
 		public bool animated = false;
 		public bool detectedFacing = false;
-		public AudioSource thisAudio;
+//		public AudioSource thisAudio;
 		public AudioClip  jumpClip;
 		public AudioClip  stepClip;
 		public AudioClip  landClip;
@@ -120,8 +120,8 @@ public class Mob1 : Entity
 		{
 				if (thisAttributes.HP <= 0)
 						die ();
-				if (transform.position.y < thisLevel.deathHeight)
-						thisAttributes.HP = 0;
+//				if (transform.position.y < thisLevel.deathHeight)
+//						thisAttributes.HP = 0;
 		}
 
 		protected void checkFacing ()
@@ -162,32 +162,32 @@ public class Mob1 : Entity
 		public virtual void stepSound ()
 		{
 		
-				thisAudio.PlayOneShot (stepClip);
+//				thisAudio.PlayOneShot (stepClip);
 
 		}
 
 		public virtual void playJumpSound ()
 		{
-				if (thisAudio == null) {
-			
-//						thisAudio = AudioManager.thisAM.playerFX;
-				}
-				thisAudio.PlayOneShot (jumpClip);
+//				if (thisAudio == null) {
+//			
+////						thisAudio = AudioManager.thisAM.playerFX;
+//				}
+//				thisAudio.PlayOneShot (jumpClip);
 		
 		}
 		public virtual void playLandSound ()
 		{
-				if (thisAudio == null) {
-			
-//						thisAudio = AudioManager.thisAM.playerFX;
-				}
-				thisAudio.PlayOneShot (landClip);
-		
+//				if (thisAudio == null) {
+//			
+////						thisAudio = AudioManager.thisAM.playerFX;
+//				}
+//				thisAudio.PlayOneShot (landClip);
+//		
 		}
 		public virtual void playMoveSound ()
 		{
 		
-				thisAudio.PlayOneShot (movingClip, 0.5f);
+//				thisAudio.PlayOneShot (movingClip, 0.5f);
 		
 		}
 
@@ -250,11 +250,11 @@ public class Mob1 : Entity
 		public virtual void takeDmg (float damage)
 		{
 				thisAttributes.HP -= damage;
-				if (thisAudio == null) {
-			
-						thisAudio = AudioManager.thisAM.playerFX;
-				}
-				thisAudio.PlayOneShot (dmgClip);
+//				if (thisAudio == null) {
+//			
+//						thisAudio = AudioManager.thisAM.playerFX;
+//				}
+//				thisAudio.PlayOneShot (dmgClip);
 				healthbar.value = thisAttributes.HP;
 		}
 		
