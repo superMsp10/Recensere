@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 
-public class invManager : slotCollection
+public class invManager : slotCollection,UIState
 {
 		
 		private GameManager thismanage;
@@ -30,7 +30,7 @@ public class invManager : slotCollection
 	
 		void Update ()
 		{
-				if (thismanage.paused) {
+				if (!thismanage.paused) {
 						if (Input.GetAxisRaw ("slotChange") > 0 || Input.GetKeyDown (KeyCode.W)) {
 								selectSlot (selectedId + 1);
 						} else if (Input.GetAxisRaw ("slotChange") < 0 || Input.GetKeyDown (KeyCode.S)) {
@@ -42,6 +42,24 @@ public class invManager : slotCollection
 				}
 				
 		}
+
+		public void StartUI ()
+		{
+				gameObject.SetActive (true);
+		
+		}
+	
+		public void EndUI ()
+		{
+				gameObject.SetActive (false);
+		
+		}
+	
+		public	void UpdateUI ()
+		{
+		
+		}
+
 		public void selectSlot (int i)
 		{
 				if (i >= 0 && i < slots.Capacity) {

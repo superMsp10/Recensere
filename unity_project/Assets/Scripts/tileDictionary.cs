@@ -15,6 +15,7 @@ public  class tileDictionary : MonoBehaviour
 		//----------------Other Stuff-------------------//
 		public SpawnSpot spawnSpot;
 		public GameObject hitDecal;
+		public GameObject inGameUI;
 
 
 		void Awake ()
