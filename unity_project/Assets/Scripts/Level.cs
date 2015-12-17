@@ -37,8 +37,8 @@ public abstract class Level : MonoBehaviour
 				//Debug.Log ("Connected in GameManager");
 				generateArena ();
 				GameManager.thisM.instantiatePlayer ();
-		
-		
+				//TODO change to player slots ui here
+
 		}
 	
 }
