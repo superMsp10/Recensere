@@ -27,13 +27,13 @@ public class invManager : slotCollection,UIState
 
 				selectSlot (0);
 		}
-	
+
 		void Update ()
 		{
 				if (!thismanage.paused) {
-						if (Input.GetAxisRaw ("slotChange") > 0 || Input.GetKeyDown (KeyCode.W)) {
+						if (Input.GetAxisRaw ("slotChangeWheel") > 0 || Input.GetKeyDown (KeyCode.E)) {
 								selectSlot (selectedId + 1);
-						} else if (Input.GetAxisRaw ("slotChange") < 0 || Input.GetKeyDown (KeyCode.S)) {
+						} else if (Input.GetAxisRaw ("slotChangeWheel") < 0 || Input.GetKeyDown (KeyCode.Q)) {
 								selectSlot (selectedId - 1);
 						}
 						if (Input.GetButtonDown ("InvSelected") && selected.holding != null) {
