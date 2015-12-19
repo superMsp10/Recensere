@@ -16,64 +16,57 @@ using System.Net.Sockets;
 /// <remarks>Incompatible with Windows 8 Store/Phone API.</remarks>
 public class PingMonoEditor : PhotonPing
 {
-    private Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+		private Socket sock = new Socket (AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-    public override bool StartPing(string ip)
-    {
-        base.Init();
+		public override bool StartPing (string ip)
+		{
+				base.Init ();
 
-        try
-        {
-            sock.ReceiveTimeout = 5000;
-            sock.Connect(ip, 5055);
+				try {
+						sock.ReceiveTimeout = 5000;
+						sock.Connect (ip, 5055);
 
-            PingBytes[PingBytes.Length - 1] = PingId;
-            sock.Send(PingBytes);
-            PingBytes[PingBytes.Length - 1] = (byte)(PingId - 1);
-        }
-        catch (Exception e)
-        {
-            sock = null;
-            Console.WriteLine(e);
-        }
+						PingBytes [PingBytes.Length - 1] = PingId;
+						sock.Send (PingBytes);
+						PingBytes [PingBytes.Length - 1] = (byte)(PingId - 1);
+				} catch (Exception e) {
+						sock = null;
+						Console.WriteLine (e);
+				}
 
-        return false;
-    }
+				return false;
+		}
 
-    public override bool Done()
-    {
-        if (this.GotResult || sock == null)
-        {
-            return true;
-        }
+		public override bool Done ()
+		{
+				if (this.GotResult || sock == null) {
+						return true;
+				}
 
-        if (sock.Available <= 0)
-        {
-            return false;
-        }
+				if (sock.Available <= 0) {
+						return false;
+				}
 
-        int read = sock.Receive(PingBytes, SocketFlags.None);
-        //Debug.Log("Got: " + SupportClass.ByteArrayToString(PingBytes));
-        bool replyMatch = PingBytes[PingBytes.Length - 1] == PingId && read == PingLength;
-        if (!replyMatch) Debug.Log("ReplyMatch is false! ");
+				int read = sock.Receive (PingBytes, SocketFlags.None);
+				//Debug.Log("Got: " + SupportClass.ByteArrayToString(PingBytes));
+				bool replyMatch = PingBytes [PingBytes.Length - 1] == PingId && read == PingLength;
+				if (!replyMatch)
+						Debug.Log ("ReplyMatch is false! ");
 
 
-        this.Successful = read == PingBytes.Length && PingBytes[PingBytes.Length - 1] == PingId;
-        this.GotResult = true;
-        return true;
-    }
+				this.Successful = read == PingBytes.Length && PingBytes [PingBytes.Length - 1] == PingId;
+				this.GotResult = true;
+				return true;
+		}
 
-    public override void Dispose()
-    {
-        try
-        {
-            sock.Close();
-        }
-        catch
-        {
-        }
-        sock = null;
-    }
+		public override void Dispose ()
+		{
+				try {
+						sock.Close ();
+				} catch {
+				}
+				sock = null;
+		}
 
 }
 #endif
@@ -82,128 +75,109 @@ public class PingMonoEditor : PhotonPing
 
 public class PhotonPingManager
 {
-    public bool UseNative;
-    public static int Attempts = 5;
-    public static bool IgnoreInitialAttempt = true;
-    public static int MaxMilliseconsPerPing = 800;  // enter a value you're sure some server can beat (have a lower rtt)
+		public bool UseNative;
+		public static int Attempts = 5;
+		public static bool IgnoreInitialAttempt = true;
+		public static int MaxMilliseconsPerPing = 800;  // enter a value you're sure some server can beat (have a lower rtt)
 
 
-    public Region BestRegion
-    {
-        get
-        {
-            Region result = null;
-            int bestRtt = Int32.MaxValue;
-            foreach (Region region in PhotonNetwork.networkingPeer.AvailableRegions)
-            {
-                Debug.Log("BestRegion checks region: " + region);
-                if (region.Ping != 0 && region.Ping < bestRtt)
-                {
-                    bestRtt = region.Ping;
-                    result = region;
-                }
-            }
+		public Region BestRegion {
+				get {
+						Region result = null;
+						int bestRtt = Int32.MaxValue;
+						foreach (Region region in PhotonNetwork.networkingPeer.AvailableRegions) {
+								Debug.Log ("BestRegion checks region: " + region);
+								if (region.Ping != 0 && region.Ping < bestRtt) {
+										bestRtt = region.Ping;
+										result = region;
+								}
+						}
 
-            return (Region)result;
-        }
-    }
+						return (Region)result;
+				}
+		}
 
-    public bool Done { get { return this.PingsRunning == 0; } }
-    private int PingsRunning;
+		public bool Done { get { return this.PingsRunning == 0; } }
+		private int PingsRunning;
 
 
-    /// <remarks>
-    /// Affected by frame-rate of app, as this Coroutine checks the socket for a result once per frame.
-    /// </remarks>
-    public IEnumerator PingSocket(Region region)
-    {
-        region.Ping = Attempts*MaxMilliseconsPerPing;
+		/// <remarks>
+		/// Affected by frame-rate of app, as this Coroutine checks the socket for a result once per frame.
+		/// </remarks>
+		public IEnumerator PingSocket (Region region)
+		{
+				region.Ping = Attempts * MaxMilliseconsPerPing;
 
-        this.PingsRunning++;        // TODO: Add try-catch to make sure the PingsRunning are reduced at the end and that the lib does not crash the app
-        PhotonPing ping;
-        //Debug.Log("PhotonHandler.PingImplementation " + PhotonHandler.PingImplementation);
-        if (PhotonHandler.PingImplementation == typeof(PingNativeDynamic))
-        {
-            Debug.Log("Using constructor for new PingNativeDynamic()"); // it seems on android, the Activator can't find the default Constructor
-            ping = new PingNativeDynamic();
-        }
-        else if (PhotonHandler.PingImplementation == typeof(PingMono))
-        {
-            ping = new PingMono();  // using this type explicitly saves it from IL2CPP bytecode stripping
-        }
-        else
-        {
-            ping = (PhotonPing) Activator.CreateInstance(PhotonHandler.PingImplementation);
-        }
+				this.PingsRunning++;        // : Add try-catch to make sure the PingsRunning are reduced at the end and that the lib does not crash the app
+				PhotonPing ping;
+				//Debug.Log("PhotonHandler.PingImplementation " + PhotonHandler.PingImplementation);
+				if (PhotonHandler.PingImplementation == typeof(PingNativeDynamic)) {
+						Debug.Log ("Using constructor for new PingNativeDynamic()"); // it seems on android, the Activator can't find the default Constructor
+						ping = new PingNativeDynamic ();
+				} else if (PhotonHandler.PingImplementation == typeof(PingMono)) {
+						ping = new PingMono ();  // using this type explicitly saves it from IL2CPP bytecode stripping
+				} else {
+						ping = (PhotonPing)Activator.CreateInstance (PhotonHandler.PingImplementation);
+				}
 
-        //Debug.Log("Ping is: " + ping + " type " + ping.GetType());
+				//Debug.Log("Ping is: " + ping + " type " + ping.GetType());
 
-        float rttSum = 0.0f;
-        int replyCount = 0;
+				float rttSum = 0.0f;
+				int replyCount = 0;
 
 
-        // PhotonPing.StartPing() requires a plain IP address without port (on all but Windows 8 platforms).
-        // So: remove port and do the DNS-resolving if needed
-        string cleanIpOfRegion = region.HostAndPort;
-        int indexOfColon = cleanIpOfRegion.LastIndexOf(':');
-        if (indexOfColon > 1)
-        {
-            cleanIpOfRegion = cleanIpOfRegion.Substring(0, indexOfColon);
-        }
-        cleanIpOfRegion = ResolveHost(cleanIpOfRegion);
-        //Debug.Log("Resolved and port-less IP is: " + cleanIpOfRegion);
+				// PhotonPing.StartPing() requires a plain IP address without port (on all but Windows 8 platforms).
+				// So: remove port and do the DNS-resolving if needed
+				string cleanIpOfRegion = region.HostAndPort;
+				int indexOfColon = cleanIpOfRegion.LastIndexOf (':');
+				if (indexOfColon > 1) {
+						cleanIpOfRegion = cleanIpOfRegion.Substring (0, indexOfColon);
+				}
+				cleanIpOfRegion = ResolveHost (cleanIpOfRegion);
+				//Debug.Log("Resolved and port-less IP is: " + cleanIpOfRegion);
 
 
-        for (int i = 0; i < Attempts; i++)
-        {
-            bool overtime = false;
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+				for (int i = 0; i < Attempts; i++) {
+						bool overtime = false;
+						Stopwatch sw = new Stopwatch ();
+						sw.Start ();
 
-            try
-            {
-                ping.StartPing(cleanIpOfRegion);
-            }
-            catch (Exception e)
-            {
-                Debug.Log("catched: " + e);
-                this.PingsRunning--;
-                break;
-            }
+						try {
+								ping.StartPing (cleanIpOfRegion);
+						} catch (Exception e) {
+								Debug.Log ("catched: " + e);
+								this.PingsRunning--;
+								break;
+						}
 
 
-            while (!ping.Done())
-            {
-                if (sw.ElapsedMilliseconds >= MaxMilliseconsPerPing)
-                {
-                    overtime = true;
-                    break;
-                }
-                yield return 0; // keep this loop tight, to avoid adding local lag to rtt.
-            }
-            int rtt = (int)sw.ElapsedMilliseconds;
+						while (!ping.Done()) {
+								if (sw.ElapsedMilliseconds >= MaxMilliseconsPerPing) {
+										overtime = true;
+										break;
+								}
+								yield return 0; // keep this loop tight, to avoid adding local lag to rtt.
+						}
+						int rtt = (int)sw.ElapsedMilliseconds;
 
 
-            if (IgnoreInitialAttempt && i == 0)
-            {
-                // do nothing.
-            }
-            else if (ping.Successful && !overtime)
-            {
-                rttSum += rtt;
-                replyCount++;
-                region.Ping = (int)((rttSum) / replyCount);
-                //Debug.Log("region " + region.Code + " RTT " + region.Ping + " success: " + ping.Successful + " over: " + overtime);
-            }
+						if (IgnoreInitialAttempt && i == 0) {
+								// do nothing.
+						} else if (ping.Successful && !overtime) {
+								rttSum += rtt;
+								replyCount++;
+								region.Ping = (int)((rttSum) / replyCount);
+								//Debug.Log("region " + region.Code + " RTT " + region.Ping + " success: " + ping.Successful + " over: " + overtime);
+						}
 
-            yield return new WaitForSeconds(0.1f);
-        }
+						yield return new WaitForSeconds (0.1f);
+				}
 
-        this.PingsRunning--;
+				this.PingsRunning--;
 
-        //Debug.Log("this.PingsRunning: " + this.PingsRunning + " this debug: " + ping.DebugString);
-        yield return null;
-    }
+				//Debug.Log("this.PingsRunning: " + this.PingsRunning + " this debug: " + ping.DebugString);
+				yield return null;
+		}
 
 #if UNITY_WINRT && !UNITY_EDITOR
 
@@ -214,42 +188,35 @@ public class PhotonPingManager
 
 #else
 
-    /// <summary>
-    /// Attempts to resolve a hostname into an IP string or returns empty string if that fails.
-    /// </summary>
-    /// <param name="hostName">Hostname to resolve.</param>
-    /// <returns>IP string or empty string if resolution fails</returns>
-    public static string ResolveHost(string hostName)
-    {
-        try
-        {
-            IPAddress[] address = Dns.GetHostAddresses(hostName);
+		/// <summary>
+		/// Attempts to resolve a hostname into an IP string or returns empty string if that fails.
+		/// </summary>
+		/// <param name="hostName">Hostname to resolve.</param>
+		/// <returns>IP string or empty string if resolution fails</returns>
+		public static string ResolveHost (string hostName)
+		{
+				try {
+						IPAddress[] address = Dns.GetHostAddresses (hostName);
 
-            if (address.Length == 1)
-            {
-                return address[0].ToString();
-            }
+						if (address.Length == 1) {
+								return address [0].ToString ();
+						}
 
-            // if we got more addresses, try to pick a IPv4 one
-            for (int index = 0; index < address.Length; index++)
-            {
-                IPAddress ipAddress = address[index];
-                if (ipAddress != null)
-                {
-                    string ipString = ipAddress.ToString();
-                    if (ipString.IndexOf('.') >= 0)
-                    {
-                        return ipString;
-                    }
-                }
-            }
-        }
-        catch (System.Exception e)
-        {
-            Debug.Log("Exception caught! " + e.Source + " Message: " + e.Message);
-        }
+						// if we got more addresses, try to pick a IPv4 one
+						for (int index = 0; index < address.Length; index++) {
+								IPAddress ipAddress = address [index];
+								if (ipAddress != null) {
+										string ipString = ipAddress.ToString ();
+										if (ipString.IndexOf ('.') >= 0) {
+												return ipString;
+										}
+								}
+						}
+				} catch (System.Exception e) {
+						Debug.Log ("Exception caught! " + e.Source + " Message: " + e.Message);
+				}
 
-        return String.Empty;
-    }
+				return String.Empty;
+		}
 #endif
 }

@@ -11,8 +11,12 @@ public class UIManager : MonoBehaviour
 
 		void Awake ()
 		{
-				if (thisM == null)
+				if (thisM == null) {
 						thisM = this;
+						DontDestroyOnLoad (gameObject);
+				} else {
+						Debug.Log ("GameManager Exists");
+				}
 //				Debug.Log (startUI);
 		
 		}

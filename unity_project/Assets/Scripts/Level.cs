@@ -37,8 +37,7 @@ public abstract class Level : MonoBehaviour
 				//Debug.Log ("Connected in GameManager");
 				generateArena ();
 				GameManager.thisM.instantiatePlayer ();
-		
-		
+				UIManager.thisM.changeUI (tileDictionary.thisM.inGameUI);
 		}
 	
 }

@@ -109,10 +109,10 @@ public class UIslot : MonoBehaviour
 
 		public void Use ()
 		{
+//				Debug.Log ("Used");
 				if (holding.onUse ()) {
 						amount -= 1;
 						amountText.text = amount.ToString ();
-//						AudioManager.thisAM.playerFX.PlayOneShot (clickSound);
 						if (amount <= 0) {
 								changeHolding (null);
 								amountText.text = "";
@@ -122,6 +122,8 @@ public class UIslot : MonoBehaviour
 
 		public virtual void onClick ()
 		{
+//				Debug.Log ("On click to drop");
+
 				if (holding != null) {
 						holding.onDrop ();
 						if (thisM.myPlayer != null) {
@@ -140,6 +142,8 @@ public class UIslot : MonoBehaviour
 
 		public void onSelect ()
 		{
+//				Debug.Log ("On select");
+
 				if (holding != null)
 						holding.onSelect ();
 				selected = true;
