@@ -14,6 +14,9 @@ public class invManager : slotCollection,UIState
 		public int selectedId;
 		public Holdable give;
 
+
+		public GameObject paused;
+
 		void Awake ()
 		{
 
@@ -57,7 +60,8 @@ public class invManager : slotCollection,UIState
 	
 		public	void UpdateUI ()
 		{
-		
+				UIManager.thisM.changeUI (paused);
+
 		}
 
 		public void selectSlot (int i)
