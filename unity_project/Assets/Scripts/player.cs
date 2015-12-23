@@ -1,14 +1,77 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class player : MonoBehaviour
+public class player : MonoBehaviour,Health
 {
-		public Camera thisCam;
+		//Health
+		public	float health;
+		public	string lastAttacker;
+		public	bool takeDmg = true;
+		public float Sturdy = 10f;
+	
+		//Network
 		public MonoBehaviour[] networkSet;
 		public int playerID;
-		// Use this for initialization
+
+		public Camera thisCam;
+
 		void Start ()
 		{
+		}
+
+		public	virtual bool takeDamage (float damage, string attacker)
+		{
+				//				Debug.Log ("Take Damage From Tile");
+		
+				if (health <= 0)
+						return false;
+				health -= damage;
+				lastAttacker = attacker;
+				if (health <= 0) {
+						Destroy ();
+						return true;
+				}
+				return false;
+		
+		}
+	
+		public	virtual void syncDamage (float damage, string attacker)
+		{
+				//				Debug.Log ("Sync Damage From Tile");
+		
+				health -= damage;
+				lastAttacker = attacker;
+				if (health <= 0) {
+						Destroy ();
+				}
+		
+		}
+	
+	
+		public virtual	void Destroy ()
+		{
+				Destroy (gameObject);
+		
+		}
+		public	 string lastDamageBy ()
+		{
+				return lastAttacker;
+		}
+	
+		public float HP {
+				get {
+						return health; 
+				}
+				set {
+						health = value; 
+				}
+		}
+	
+		public float Sturdyness {
+				get {
+						return Sturdy; 
+				}
+		
 		}
 
 		public void networkInit ()

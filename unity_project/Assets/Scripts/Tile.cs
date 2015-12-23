@@ -3,14 +3,19 @@ using System.Collections.Generic;
 
 public abstract class Tile: MonoBehaviour, Health, Attachable
 {
+		//Health
 		public	float health;
 		public	string lastAttacker;
-		public int xPos;
-		public int yPos;
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
-		public int decalLimit;
+
+		//Tile Transform
+		public int xPos;
+		public int yPos;
 		public bool yWall = false;
+
+		//Decal
+		public int decalLimit;
 		List<Poolable> Attached;
 
 
