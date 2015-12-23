@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
 				currLevel.cam.SetActive (true);
 				myPlayer.networkDisable ();
 				dead = true;
-				UIManager.thisM.currentUI.EndUI ();
+				UIManager.thisM.changeUI (tileDictionary.thisM.pauseUI);
 		}
 
 

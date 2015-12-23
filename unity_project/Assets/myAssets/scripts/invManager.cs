@@ -27,7 +27,6 @@ public class invManager : slotCollection,UIState
 		void Start ()
 		{
 				thismanage = GameManager.thisM;
-
 				selectSlot (0);
 		}
 
