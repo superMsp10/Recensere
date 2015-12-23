@@ -4,7 +4,6 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
 		public static GameManager thisM;
-		public	static float speedToDamageMultiplier = 1f;
 		public static byte Version = 2;
 		public LayerMask def;
 		public bool paused = false;
@@ -13,12 +12,15 @@ public class GameManager : MonoBehaviour
 
 		public GameObject playerInstantiate;
 		public player myPlayer;
+		public bool dead = true;
 
 		//LevelStuf------------------------------------------//
 		public Level currLevel;
 		public	PhotonView p;
+		public	static float speedToDamageMultiplier = 1f;
 
-
+	
+	
 		void Awake ()
 		{
 				if (thisM == null) {
@@ -102,20 +104,27 @@ public class GameManager : MonoBehaviour
 				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
 				p.layer = def;
 
-				Respwan ();
+				NetworkEnable ();
 		}
 
-		public void Respwan ()
+		public void NetworkEnable ()
 		{
+				int playerID = PhotonNetwork.countOfPlayers;
+				myPlayer.transform.position = FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position;
+				myPlayer.transform.rotation = Quaternion.identity;
 				currLevel.cam.SetActive (false);
 				myPlayer.networkInit ();
+				dead = false;
+				UIManager.thisM.changeUI (tileDictionary.thisM.inGameUI);
 
 		}
-
+	
 		public void NetworkDisable ()
 		{
 				currLevel.cam.SetActive (true);
 				myPlayer.networkDisable ();
+				dead = true;
+				UIManager.thisM.currentUI.EndUI ();
 		}
 
 

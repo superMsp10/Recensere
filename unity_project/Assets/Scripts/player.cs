@@ -5,6 +5,7 @@ public class player : MonoBehaviour,Health
 {
 		//Health
 		public	float health;
+		public float originalHealth;
 		public	string lastAttacker;
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
@@ -81,7 +82,7 @@ public class player : MonoBehaviour,Health
 						m.enabled = true;
 				}
 				GetComponent<Rigidbody> ().useGravity = true;
-
+				health = originalHealth;
 		}
 
 		public void networkDisable ()

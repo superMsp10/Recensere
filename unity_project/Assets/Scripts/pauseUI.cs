@@ -21,4 +21,17 @@ public class pauseUI : MonoBehaviour,UIState
 				Debug.Log ("hello");
 				UIManager.thisM.changeUI (inGame);
 		}
+
+		public	void Respawn ()
+		{
+				GameManager.thisM.NetworkDisable ();
+				Invoke ("Spawn", 5.0f);
+
+		}
+
+		void Spawn ()
+		{
+				GameManager.thisM.NetworkEnable ();
+
+		}
 }
