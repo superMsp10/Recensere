@@ -17,7 +17,6 @@ public class StartingUI : MonoBehaviour,UIState
 	
 		public void EndUI ()
 		{
-
 				gameObject.SetActive (false);
 
 		}

@@ -53,6 +53,11 @@ public class pauseUI : MonoBehaviour,UIState
 
 		}
 
+		public	void Disconnect ()
+		{
+				Application.LoadLevel ("StartUIScene");
+		}
+
 		void Spawn ()
 		{
 				GameManager.thisM.NetworkEnable ();
