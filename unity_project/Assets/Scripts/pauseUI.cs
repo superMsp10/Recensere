@@ -15,6 +15,9 @@ public class pauseUI : MonoBehaviour,UIState
 		public void StartUI ()
 		{
 				gameObject.SetActive (true);
+				GameManager.thisM.paused = true;
+
+
 				if (GameManager.thisM.dead) {
 						respawnButton.SetActive (false);
 						back.SetActive (false);

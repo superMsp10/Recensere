@@ -48,7 +48,8 @@ public class invManager : slotCollection,UIState
 		public void StartUI ()
 		{
 				gameObject.SetActive (true);
-		
+				GameManager.thisM.paused = false;
+
 		}
 	
 		public void EndUI ()

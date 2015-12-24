@@ -15,6 +15,8 @@ public class player : MonoBehaviour,Health
 		public int playerID;
 
 		public Camera thisCam;
+		public MouseLook look;
+		public MouseLook look2;
 
 		void Start ()
 		{

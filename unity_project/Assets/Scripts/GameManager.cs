@@ -6,13 +6,14 @@ public class GameManager : MonoBehaviour
 		public static GameManager thisM;
 		public static byte Version = 2;
 		public LayerMask def;
-		public bool paused = false;
 
 		//PlayerStuff------------------------------------------//
 
 		public GameObject playerInstantiate;
 		public player myPlayer;
 		public bool dead = true;
+		bool pause = false;
+
 
 		//LevelStuf------------------------------------------//
 		public Level currLevel;
@@ -29,6 +30,25 @@ public class GameManager : MonoBehaviour
 
 				} else {
 						Debug.Log ("GameManager Exists");
+				}
+		}
+
+		public bool paused {
+				get {
+						return pause; 
+				}
+				set {
+						pause = value; 
+						if (value == true) {
+								foreach (MonoBehaviour m in myPlayer.networkSet) {
+										m.enabled = false;
+								}
+						} else {
+								foreach (MonoBehaviour m in myPlayer.networkSet) {
+										m.enabled = true;
+								}
+						}
+
 				}
 		}
 		
