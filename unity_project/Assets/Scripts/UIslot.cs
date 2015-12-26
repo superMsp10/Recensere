@@ -91,7 +91,7 @@ public class UIslot : MonoBehaviour
 		{
 //				Debug.Log ("Used");
 				if (holding.onUse ()) {
-						amount -= 1;
+						amount = holding.amount;
 						if (amount <= 0) {
 								changeHolding (null);
 						}
