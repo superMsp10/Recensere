@@ -32,7 +32,6 @@ public class invManager : slotCollection,UIState
 //				if (giveOnStart != null) {
 //
 //				}
-				Debug.Log (SlotsWithHoldable (null).Count);
 				selectSlot (0);
 		}
 	

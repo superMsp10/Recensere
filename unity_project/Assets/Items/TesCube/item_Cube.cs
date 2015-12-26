@@ -4,24 +4,31 @@ using System.Collections;
 public class item_Cube : MonoBehaviour,Holdable
 {
 
-		//Holdable
+		//Holdable Stuff
 		public Sprite _holdUI;
 		bool _pickable;
 		public int _amount;
+		
+		//Item Stuff
+		public Rigidbody r;
 
-		// Use this for initialization
 		void Start ()
 		{
 	
 		}
 	
-		// Update is called once per frame
 		void Update ()
 		{
 	
 		}
 
-		//Holdable
+		//Item------------------------------------------//
+		void OnCollisionEnter (Collision collision)
+		{
+				Debug.Log ("OnCollisionEnter, Cube and Player");
+		}
+		
+		//Holdable------------------------------------------//
 		public Sprite holdUI {
 				get {
 						return _holdUI; 
@@ -96,5 +103,7 @@ public class item_Cube : MonoBehaviour,Holdable
 				Debug.Log ("ResetPick by Cube");
 
 		}
+		
+		
 
 }

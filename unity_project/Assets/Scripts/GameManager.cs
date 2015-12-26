@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
 		public static GameManager thisM;
 		public static byte Version = 2;
-		public LayerMask def;
+		public string PlayerLayer;
 
 		//PlayerStuff------------------------------------------//
 
@@ -33,6 +33,46 @@ public class GameManager : MonoBehaviour
 				}
 		}
 
+		//Player------------------------------------------//
+		public	void instantiatePlayer ()
+		{
+				GameObject p;
+				int playerID = PhotonNetwork.countOfPlayers;
+		
+				p = PhotonNetwork.Instantiate (playerInstantiate.name, 
+		                               FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position,
+		                               Quaternion.identity, 0, null);
+		
+				myPlayer = p.GetComponent<player> ();
+				myPlayer.playerID = playerID;
+				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
+
+				p.layer = LayerMask.NameToLayer (PlayerLayer);
+
+				NetworkEnable ();
+		}
+	
+		public void NetworkEnable ()
+		{
+				int playerID = PhotonNetwork.countOfPlayers;
+				myPlayer.transform.position = FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position;
+				myPlayer.transform.rotation = Quaternion.identity;
+				currLevel.cam.SetActive (false);
+				myPlayer.networkInit ();
+				dead = false;
+				UIManager.thisM.changeUI (tileDictionary.thisM.inGameUI);
+		
+		}
+	
+		public void NetworkDisable ()
+		{
+				currLevel.cam.SetActive (true);
+				myPlayer.networkDisable ();
+				dead = true;
+				UIManager.thisM.changeUI (tileDictionary.thisM.pauseUI);
+		}
+
+		//UI------------------------------------------//
 		public bool paused {
 				get {
 						return pause; 
@@ -53,17 +93,7 @@ public class GameManager : MonoBehaviour
 		}
 		
 
-	
-		// Update is called once per frame
-//		void Update ()
-//		{
-//				if (Input.GetMouseButton (0)) {
-//						//	p.RPC ("message", PhotonTargets.All);
-//				}
-//	
-//		}
-
-
+		//Tile------------------------------------------//
 		public void sendFloorTileDamage (float damage, string attacker, int x, int y)
 		{
 //				Debug.Log ("send floor dmg");
@@ -78,8 +108,7 @@ public class GameManager : MonoBehaviour
 
 		
 		}
-
-
+	
 		[PunRPC]
 		public void syncFloorTileDamage (float damage, string attacker, int x, int y)
 		{
@@ -109,44 +138,5 @@ public class GameManager : MonoBehaviour
 				}
 
 		}
-
-		public	void instantiatePlayer ()
-		{
-				GameObject p;
-				int playerID = PhotonNetwork.countOfPlayers;
-
-				p = PhotonNetwork.Instantiate (playerInstantiate.name, 
-		                               FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position,
-		                               Quaternion.identity, 0, null);
-
-				myPlayer = p.GetComponent<player> ();
-				myPlayer.playerID = playerID;
-				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
-				p.layer = def;
-
-				NetworkEnable ();
-		}
-
-		public void NetworkEnable ()
-		{
-				int playerID = PhotonNetwork.countOfPlayers;
-				myPlayer.transform.position = FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position;
-				myPlayer.transform.rotation = Quaternion.identity;
-				currLevel.cam.SetActive (false);
-				myPlayer.networkInit ();
-				dead = false;
-				UIManager.thisM.changeUI (tileDictionary.thisM.inGameUI);
-
-		}
-	
-		public void NetworkDisable ()
-		{
-				currLevel.cam.SetActive (true);
-				myPlayer.networkDisable ();
-				dead = true;
-				UIManager.thisM.changeUI (tileDictionary.thisM.pauseUI);
-		}
-
-
 
 }
