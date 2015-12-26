@@ -5,7 +5,7 @@ public class Holdable : MonoBehaviour
 {
 
 		public Sprite holdUI;
-		public GameManager thisManage;
+		protected GameManager thisManage;
 		public pickups phisical;
 		public int stackSize;
 		public bool weapon = false;
