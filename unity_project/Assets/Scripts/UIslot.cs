@@ -8,13 +8,14 @@ public class UIslot : MonoBehaviour
 		public Image slot;
 		public Sprite empty;
 		public Image outline;
-		public int amount;
+		int _amount;
 		public Text amountText;
 		public bool selected = false;
 		public AudioClip clickSound;
 		protected	GameManager thisM;
 		Vector2 playerPos;
 		protected pickups tmp;
+
 		void Start ()
 		{
 
@@ -22,20 +23,36 @@ public class UIslot : MonoBehaviour
 				selected = false;
 		}
 
+		public int amount {
+				get {
+						return _amount; 
+				}
+				set {
+						if (value <= 0) {
+								amountText.transform.parent.gameObject.SetActive (false);
+								amountText.text = "";
+								_amount = 0; 
+								
+						} else {
+								amountText.text = amount.ToString ();
+								amountText.transform.parent.gameObject.SetActive (true);
+								_amount = value;
+						}
+				}
+		}
 
 		
 
 		public void changeHolding (Holdable h)
 		{
 				if (h == null) {
-						amountText.transform.parent.gameObject.SetActive (false);
 
 						if (holding != null)
 								holding.onDrop ();
+
 						slot.sprite = empty;
 						holding = null;
 						amount = 0;
-						amountText.text = "";
 				} else {
 						
 						holding = h;
@@ -51,71 +68,32 @@ public class UIslot : MonoBehaviour
 		public void changeHolding (Holdable h, int amounts)
 		{
 
-				if (h == null) {
+				if (h == null || amounts <= 0) {
 						if (holding != null)
 								holding.onDrop ();
 						slot.sprite = empty;
 						holding = null;
 						amount = 0;
-						amountText.text = "";
 				} else { 
 						if (holding != null)
 								holding.onDrop ();
-						if (holding != h) {
-								holding = h;
-								holding.onPickup ();
-						}
 
 						amount = amounts;
 						slot.sprite = h.holdUI;
-						amountText.text = amount.ToString ();
-						amountText.transform.parent.gameObject.SetActive (true);
 
 						if (selected)
 								holding.onSelect ();
-						else
-								holding.onDeselect ();
 				}
 		}
-
-		public void changeHolding (Holdable h, int amounts, bool update)
-		{
-		
-				if (h == null) {
-						if (holding != null)
-								holding.onDrop ();
-						slot.sprite = empty;
-						holding = null;
-						amount = 0;
-						amountText.text = "";
-				} else { 
-						if (holding != h) {
-								holding = h;
-								holding.onPickup ();
-						}
-			
-						amount = amounts;
-						slot.sprite = h.holdUI;
-						amountText.text = amount.ToString ();
-						amountText.transform.parent.gameObject.SetActive (true);
-						if (update) {
-								if (selected)
-										holding.onSelect ();
-								else
-										holding.onDeselect ();
-						}
-				}
-		}
+	
 
 		public void Use ()
 		{
 //				Debug.Log ("Used");
 				if (holding.onUse ()) {
 						amount -= 1;
-						amountText.text = amount.ToString ();
 						if (amount <= 0) {
 								changeHolding (null);
-								amountText.text = "";
 						}
 				}
 		}

@@ -8,15 +8,16 @@ public class invManager : slotCollection,UIState
 		
 		private GameManager thismanage;
 		public static invManager thisInv;
-		public UIslot selected;
+
+		public UIslot SelectedSlot;
+		public int SelectedInt;
+
 		public Color highlighted;
 		public Color normal;
-		public int selectedId;
-		public Holdable give;
-
-
+		public Holdable giveOnStart;
 		public GameObject paused;
 
+		//Mono stuff
 		void Awake ()
 		{
 
@@ -24,32 +25,38 @@ public class invManager : slotCollection,UIState
 						thisInv = this;
 
 		}
+
 		void Start ()
 		{
 				thismanage = GameManager.thisM;
+//				if (giveOnStart != null) {
+//
+//				}
+				Debug.Log (SlotsWithHoldable (null).Count);
 				selectSlot (0);
 		}
-
+	
 		void Update ()
 		{
 				if (!thismanage.paused) {
 						if (Input.GetAxisRaw ("slotChangeWheel") > 0 || Input.GetKeyDown (KeyCode.E)) {
-								selectSlot (selectedId + 1);
+								selectSlot (SelectedInt + 1);
 						} else if (Input.GetAxisRaw ("slotChangeWheel") < 0 || Input.GetKeyDown (KeyCode.Q)) {
-								selectSlot (selectedId - 1);
+								selectSlot (SelectedInt - 1);
 						}
-						if (Input.GetButtonDown ("InvSelected") && selected.holding != null) {
-								selected.Use ();
+						if (Input.GetButtonDown ("InvSelected") && SelectedSlot.holding != null) {
+								SelectedSlot.Use ();
 						}
 				}
 				
 		}
 
+		//UIState stuff
 		public void StartUI ()
 		{
 				gameObject.SetActive (true);
 				GameManager.thisM.paused = false;
-
+		
 		}
 	
 		public void EndUI ()
@@ -61,20 +68,21 @@ public class invManager : slotCollection,UIState
 		public	void UpdateUI ()
 		{
 				UIManager.thisM.changeUI (paused);
-
+		
 		}
 
+		//slot collection stuff
 		public void selectSlot (int i)
 		{
 				if (i >= 0 && i < slots.Capacity) {
-						selectedId = i;
-						if (selected != null) {
-								selected.outline.color = normal;
-								selected.onDeselect ();
+						SelectedInt = i;
+						if (SelectedSlot != null) {
+								SelectedSlot.outline.color = normal;
+								SelectedSlot.onDeselect ();
 						}
-						selected = slots [i];
-						selected.outline.color = highlighted;
-						selected.onSelect ();
+						SelectedSlot = slots [i];
+						SelectedSlot.outline.color = highlighted;
+						SelectedSlot.onSelect ();
 						
 				}
 		}
@@ -94,8 +102,8 @@ public class invManager : slotCollection,UIState
 				for (int i = 0; i <  slots.Count; i ++) {
 			
 						if (slots [i].holding == null) {
-								slots [i].changeHolding (give, 500);
-								if (give.weapon) {
+								slots [i].changeHolding (giveOnStart, 500);
+								if (giveOnStart.weapon) {
 										slots [i].onClick ();
 								}
 								return;

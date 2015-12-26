@@ -13,7 +13,7 @@ public class slotCollection : MonoBehaviour
 
 		}
 
-		public bool changeNextSlot (Holdable h)
+		bool changeNextSlot (Holdable h)
 		{
 
 				for (int i = 0; i <  slots.Count; i ++) {
@@ -28,54 +28,73 @@ public class slotCollection : MonoBehaviour
 
 		public int addHoldable (Holdable h, int amount)
 		{
-				
-				for (int i = 0; i <  slots.Count; i ++) {
-
-						if (slots [i].holding == null || slots [i].holding == h && slots [i].amount < h.stackSize) {
-								int total = slots [i].amount + amount;
-								if (total > h.stackSize) {
-										amount = total - h.stackSize;
-										slots [i].changeHolding (h, h.stackSize);
-									
+//		check for existing stacks
+				List<UIslot> returnSlots = SlotsWithHoldable (h);
+				if (returnSlots.Count > 0) {
+						foreach (var s in returnSlots) {
+								int space = h.stackSize - s.amount;
+								if (space > amount) {
+										s.amount += amount;
+										return 0;
 								} else {
-										slots [i].changeHolding (h, total);
-										amount = 0;
-										return 0; 
+										s.amount += space;
+										amount -= space;
 								}
 						}
-						
-
 				}
+
+//		create new stacks
+				foreach (var s in slots) {
+						if (s.holding == null) {
+								if (amount > h.stackSize) {
+										s.changeHolding (h, h.stackSize);
+										amount -= h.stackSize;
+								} else {
+										s.amount += amount;
+										return 0;
+								}
+						}
+				}
+			
 				return amount;
 		}
 
 		public int takeItem (Holdable h, int amount)
 		{
-				
-				foreach (UIslot u in slots) {
-						if (u.holding == h) {
-								if (u.amount > amount) {
-										u.changeHolding (u.holding, u.amount - amount);
+				List<UIslot> returnSlots = SlotsWithHoldable (h);
+				if (returnSlots.Count > 0) {
+						foreach (var s in returnSlots) {
+								int left = amount - s.amount;
+								if (left <= 0) {
+										s.amount -= amount;
 										return 0;
-								} else if (u.amount < amount) {
-										int am = u.amount;
-										
-										return amount - am;
 								} else {
-
-										u.changeHolding (null);
-										return 0;
+										s.changeHolding (null);
+										amount -= left;
 								}
 						}
 				}
+
 				return amount;
 
 		}
-		public void changeSlot (Holdable h, int i)
+
+		void changeSlot (Holdable h, int i)
+		{
+				slots [i].changeHolding (h);
+		}
+
+		public List<UIslot> SlotsWithHoldable (Holdable h)
 		{
 
-				slots [i].changeHolding (h);
-			
+				List<UIslot> returnSlots = new List<UIslot> ();
+
+				foreach (var s in slots) {
+						if (s.holding == h)
+								returnSlots.Add (s);
+				}
+
+				return returnSlots;
 
 		}
 
