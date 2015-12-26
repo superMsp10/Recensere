@@ -103,9 +103,6 @@ public class invManager : slotCollection,UIState
 			
 						if (slots [i].holding == null) {
 								slots [i].changeHolding (giveOnStart, 500);
-								if (giveOnStart.weapon) {
-										slots [i].onClick ();
-								}
 								return;
 						}
 				}

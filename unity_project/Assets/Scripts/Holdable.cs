@@ -1,43 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Holdable : MonoBehaviour
+public interface Holdable
 {
 
-		public Sprite holdUI;
-		protected GameManager thisManage;
-		public pickups phisical;
-		public int stackSize;
-		public bool weapon = false;
-		public string description;
-		public void Start ()
-		{
-				thisManage = GameManager.thisM;
-
+		Sprite holdUI {
+				get;
+		}
+		int  stackSize {
+				get;
+		}
+		string description {
+				get;
+		}
+		bool pickable {
+				get;
+		}
+		int amount {
+				get;
+				set;
 		}
 
 
 
-		public virtual bool  onUse ()
-		{
-				return false;
+	
+		bool  onUse ();
+		void  onSelect ();
+		void  onDeselect ();
+		void  onPickup ();
+		void  onDrop (
+//		if (thisM.myPlayer != null) {
+//		playerPos = thisM.myPlayer.transform.position;
+//		
+//		GameObject p = (GameObject)Instantiate (holding.phisical.gameObject, playerPos, Quaternion.identity);
+//		tmp = p.GetComponent<pickups> ();
+//		//								tmp.thisLevel = thisM.currentLevel;
+//		tmp.pickable = false;
+//		tmp.amount = amount;
+//		Invoke ("resetPickable", tmp.resetPickup);
+//		changeHolding (null);
+//	}
+		);
 
-		}
-		public virtual void  onSelect ()
-		{
-		}
-		public virtual void  onDeselect ()
-		{
-		}
-		public virtual void  onPickup ()
-		{
-
-		}
-
-		public virtual void  onDrop ()
-		{
-				
-		}
+		void resetPick ();
 
 
 }
