@@ -43,8 +43,13 @@ public class invManager : slotCollection,UIState
 						} else if (Input.GetAxisRaw ("slotChangeWheel") < 0 || Input.GetKeyDown (KeyCode.Q)) {
 								selectSlot (SelectedInt - 1);
 						}
-						if (Input.GetButtonDown ("InvSelected") && SelectedSlot.holding != null) {
-								SelectedSlot.Use ();
+						if (SelectedSlot.holding != null) {
+								if (Input.GetButtonDown ("InvSelected")) {
+										SelectedSlot.buttonDown ();
+								}
+								if (Input.GetButtonUp ("InvSelected")) {
+										SelectedSlot.holding.buttonUP ();
+								}
 						}
 				}
 				

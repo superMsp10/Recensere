@@ -24,7 +24,9 @@ public interface Holdable
 
 
 	
-		bool  onUse ();
+		bool  buttonDown ();
+		void  buttonUP ();
+
 		void  onSelect ();
 		void  onDeselect ();
 		void  onPickup ();

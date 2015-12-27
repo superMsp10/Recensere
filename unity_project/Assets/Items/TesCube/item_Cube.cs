@@ -13,6 +13,8 @@ public class item_Cube : MonoBehaviour,Holdable
 		public Rigidbody r;
 		player p;
 		public string itemLayer;
+		public Color normal;
+		public Color highlighted;
 	
 		//Item------------------------------------------//
 		void OnCollisionEnter (Collision collision)
@@ -60,10 +62,16 @@ public class item_Cube : MonoBehaviour,Holdable
 						_amount = value; 
 				}
 		}
-		public	bool  onUse ()
+		public	bool  buttonDown ()
 		{
-				Debug.Log ("onUse by Cube");
+				Debug.Log ("buttonDown by Cube");
+				
 				return false;
+		}
+		public	void  buttonUP ()
+		{
+				Debug.Log ("buttonUP by Cube");
+				
 		}
 		public	void  onSelect ()
 		{

@@ -79,13 +79,13 @@ public class UIslot : MonoBehaviour
 		}
 	
 
-		public void Use ()
+		public void buttonDown ()
 		{
 //				Debug.Log ("Used");
-				if (holding.onUse ()) {
+				if (holding.buttonDown ()) {
 						amount = holding.amount;
 						if (amount <= 0) {
-								changeHolding (null);
+								clearHolding ();
 						}
 				}
 		}
@@ -107,8 +107,6 @@ public class UIslot : MonoBehaviour
 				if (holding != null)
 						holding.onSelect ();
 				selected = true;
-
-
 
 		}
 
