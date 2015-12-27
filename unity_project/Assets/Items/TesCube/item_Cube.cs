@@ -15,7 +15,21 @@ public class item_Cube : MonoBehaviour,Holdable
 		public string itemLayer;
 		public Color normal;
 		public Color highlighted;
-	
+		float timeStarted;
+		float timeEnded;
+
+		bool startedHold = false;
+
+		public	void updateItem ()
+		{
+
+				if (startedHold) {
+						GetComponent<Renderer> ().material.color = Color.Lerp (normal, highlighted, Time.time - timeStarted);
+				} else {
+						GetComponent<Renderer> ().material.color = normal;
+				}
+		
+		}
 		//Item------------------------------------------//
 		void OnCollisionEnter (Collision collision)
 		{
@@ -65,13 +79,16 @@ public class item_Cube : MonoBehaviour,Holdable
 		public	bool  buttonDown ()
 		{
 				Debug.Log ("buttonDown by Cube");
-				
+				timeStarted = Time.time;
+				startedHold = true;
 				return false;
 		}
 		public	void  buttonUP ()
 		{
 				Debug.Log ("buttonUP by Cube");
-				
+				timeEnded = Time.time;
+
+				startedHold = false;
 		}
 		public	void  onSelect ()
 		{
