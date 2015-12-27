@@ -4,16 +4,19 @@ using UnityEngine.UI;
 
 public class UIslot : MonoBehaviour
 {
-		public Holdable holding;
-		public Image slot;
-		public Image outline;
-		int _amount;
-		public Text amountText;
-		public bool selected = false;
-		public AudioClip clickSound;
 		protected	GameManager thisM;
-		Vector2 playerPos;
-		protected pickups tmp;
+
+		//Holding
+		public Holdable holding;
+		int _amount;
+		public bool selected = false;
+	
+		//Visuals
+		public Image slot;
+		public Sprite defaultSlotImage;
+		public Image outline;
+		public Text amountText;
+		public AudioClip clickSound;
 
 		void Start ()
 		{
@@ -43,29 +46,7 @@ public class UIslot : MonoBehaviour
 
 		
 
-		public void changeHolding (Holdable h)
-		{
-				if (h == null) {
-
-						if (holding != null)
-								holding.onDrop ();
-
-						slot.sprite = null;
-						holding = null;
-						amount = 0;
-				} else {
-						
-						holding = h;
-						holding.onPickup ();
-						slot.sprite = h.holdUI;
-						amount = 1;
-						amountText.text = "1";
-						if (selected)
-								holding.onSelect ();
-				}
-		}
-
-		public void changeHolding (Holdable h, int amounts)
+		public void changeHolding (Holdable h, int amounts = 0)
 		{
 				Debug.Log ("UI slot change holding. Amount: " + amounts);
 				if (holding != null) {
@@ -75,20 +56,26 @@ public class UIslot : MonoBehaviour
 
 				if (h == null || amounts <= 0) {
 						Debug.Log ("UI slot change holding,\n parameter holdable is null");
-
-						slot.sprite = null;
-						holding = null;
-						amount = 0;
+						clearHolding ();
+					
 				} else { 
 
 						holding = h;
 						amount = amounts;
 						slot.sprite = holding.holdUI;
 						Debug.Log ("UI slot change holding,\n changed to new holding");
-
+						holding.onPickup ();
 						if (selected)
 								holding.onSelect ();
 				}
+		}
+
+		public void clearHolding ()
+		{
+				Debug.Log ("UI slot clear holding");
+				slot.sprite = defaultSlotImage;
+				holding = null;
+				amount = 0;
 		}
 	
 
@@ -110,6 +97,7 @@ public class UIslot : MonoBehaviour
 				if (holding != null) {
 						holding.onDrop ();
 				}
+				clearHolding ();
 		}
 
 		public void onSelect ()
@@ -130,11 +118,6 @@ public class UIslot : MonoBehaviour
 						holding.onDeselect ();
 				selected = false;
 
-		}
-		void resetPickable ()
-		{
-				tmp.pickable = true;
-		
 		}
 }
 

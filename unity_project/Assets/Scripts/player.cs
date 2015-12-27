@@ -18,6 +18,11 @@ public class player : MonoBehaviour,Health
 		public MouseLook look;
 		public MouseLook look2;
 
+		//Items
+		public Transform left_hand;
+		public Transform right_hand;
+		public string handLayer;
+
 		void Start ()
 		{
 		}

@@ -11,23 +11,16 @@ public class item_Cube : MonoBehaviour,Holdable
 		
 		//Item Stuff
 		public Rigidbody r;
-
-		void Start ()
-		{
+		player p;
+		public string itemLayer;
 	
-		}
-	
-		void Update ()
-		{
-	
-		}
-
 		//Item------------------------------------------//
 		void OnCollisionEnter (Collision collision)
 		{
 				if (pickable) {
 						if (collision.collider.gameObject.layer == LayerMask.NameToLayer (GameManager.thisM.PlayerLayer)) {
 								Debug.Log ("OnCollisionEnter, Cube and Player Amount: " + _amount);
+								p = GameManager.thisM.myPlayer;
 								invManager.thisInv.addHoldable (this, _amount);
 								_pickable = false;
 						}
@@ -75,38 +68,41 @@ public class item_Cube : MonoBehaviour,Holdable
 		public	void  onSelect ()
 		{
 				Debug.Log ("onSelect by Cube");
+				gameObject.SetActive (true);
 
 		}
 		public void  onDeselect ()
 		{
 				Debug.Log ("onDeselect by Cube");
+				gameObject.SetActive (false);
 
 		}
 		public	void  onPickup ()
 		{
 				Debug.Log ("onPickup by Cube");
+				_pickable = false;
+				r.isKinematic = true;
+				gameObject.layer = LayerMask.NameToLayer (p.handLayer);
+				transform.parent = p.left_hand;
+				transform.position = p.left_hand.position;
+				gameObject.SetActive (false);
 
 		}
 		public	void  onDrop ()
 		{
 				Debug.Log ("onDrop by Cube");
-
-				//		if (thisM.myPlayer != null) {
-				//		playerPos = thisM.myPlayer.transform.position;
-				//		
-				//		GameObject p = (GameObject)Instantiate (holding.phisical.gameObject, playerPos, Quaternion.identity);
-				//		tmp = p.GetComponent<pickups> ();
-				//		//								tmp.thisLevel = thisM.currentLevel;
-				//		tmp.pickable = false;
-				//		tmp.amount = amount;
-				//		Invoke ("resetPickable", tmp.resetPickup);
-				//		changeHolding (null);
-				//	}
+				r.isKinematic = false;
+				gameObject.layer = LayerMask.NameToLayer (itemLayer);
+				transform.parent = GameManager.thisM.currLevel.items;
+				transform.position = p.transform.position;
+				gameObject.SetActive (true);
+				Invoke ("resetPick", 5.0f);
 		}
 	
 		public	void resetPick ()
 		{
 				Debug.Log ("ResetPick by Cube");
+				_pickable = true;
 
 		}
 		

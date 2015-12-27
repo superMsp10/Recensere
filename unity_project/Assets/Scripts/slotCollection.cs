@@ -90,6 +90,13 @@ public class slotCollection : MonoBehaviour
 
 		}
 
+		public void removeItemBySlot (int slotNumber)
+		{
+				slots [slotNumber].clearHolding ();
+		}
+
+		
+
 		void changeSlot (Holdable h, int i)
 		{
 				slots [i].changeHolding (h);

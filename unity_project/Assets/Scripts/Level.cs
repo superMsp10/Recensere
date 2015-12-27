@@ -4,6 +4,8 @@ using System.Collections;
 public abstract class Level : MonoBehaviour
 {
 		public Transform levelStart;
+		public Transform items;
+
 		private SpawnSpot[] sS;
 		private SpawnSpot mySS;
 		public Tile[,] liveTiles;
