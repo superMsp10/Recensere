@@ -6,7 +6,7 @@ public class item_Cube : MonoBehaviour,Holdable
 
 		//Holdable Stuff
 		public Sprite _holdUI;
-		bool _pickable;
+		public bool _pickable;
 		public int _amount;
 		
 		//Item Stuff
@@ -25,7 +25,13 @@ public class item_Cube : MonoBehaviour,Holdable
 		//Item------------------------------------------//
 		void OnCollisionEnter (Collision collision)
 		{
-				Debug.Log ("OnCollisionEnter, Cube and Player");
+				if (pickable) {
+						if (collision.collider.gameObject.layer == LayerMask.NameToLayer (GameManager.thisM.PlayerLayer)) {
+								Debug.Log ("OnCollisionEnter, Cube and Player Amount: " + _amount);
+								invManager.thisInv.addHoldable (this, _amount);
+								_pickable = false;
+						}
+				}
 		}
 		
 		//Holdable------------------------------------------//
