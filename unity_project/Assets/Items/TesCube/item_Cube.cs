@@ -105,6 +105,8 @@ public class item_Cube : MonoBehaviour,Holdable
 		public	void  onPickup ()
 		{
 				Debug.Log ("onPickup by Cube");
+				GetComponent<Renderer> ().material.color = normal;
+
 				_pickable = false;
 				r.isKinematic = true;
 				gameObject.layer = LayerMask.NameToLayer (p.handLayer);
@@ -116,10 +118,12 @@ public class item_Cube : MonoBehaviour,Holdable
 		public	void  onDrop ()
 		{
 				Debug.Log ("onDrop by Cube");
+				GetComponent<Renderer> ().material.color = normal;
+
 				r.isKinematic = false;
 				gameObject.layer = LayerMask.NameToLayer (itemLayer);
 				transform.parent = GameManager.thisM.currLevel.items;
-				transform.position = p.transform.position;
+//				transform.position = p.transform.position;
 				gameObject.SetActive (true);
 				Invoke ("resetPick", 5.0f);
 		}
