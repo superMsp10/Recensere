@@ -10,21 +10,65 @@ ModelImporter:
     100004: Cube_001
     100006: Cube_002
     100008: Turq_Head
+    100010: Armature
+    100012: Chest_001
+    100014: Head
+    100016: LowerArm_L
+    100018: LowerLeg_L
+    100020: Torso
+    100022: TurqBody
+    100024: UpperArm_L
+    100026: UpperLeg_L
+    100028: Chest
+    100030: Foot_L
+    100032: Foot_R
+    100034: LegControl_L
+    100036: LegControl_R
+    100038: LowerArm_R
+    100040: LowerLeg_R
+    100042: Toe_L
+    100044: Toe_R
+    100046: UpperArm_R
+    100048: UpperLeg_R
+    100050: Root
     400000: //RootNode
     400002: Cube
     400004: Cube_001
     400006: Cube_002
     400008: Turq_Head
+    400010: Armature
+    400012: Chest_001
+    400014: Head
+    400016: LowerArm_L
+    400018: LowerLeg_L
+    400020: Torso
+    400022: TurqBody
+    400024: UpperArm_L
+    400026: UpperLeg_L
+    400028: Chest
+    400030: Foot_L
+    400032: Foot_R
+    400034: LegControl_L
+    400036: LegControl_R
+    400038: LowerArm_R
+    400040: LowerLeg_R
+    400042: Toe_L
+    400044: Toe_R
+    400046: UpperArm_R
+    400048: UpperLeg_R
+    400050: Root
     2300000: //RootNode
     2300002: Cube
     2300004: Cube_001
     2300006: Cube_002
     2300008: Turq_Head
+    2300010: TurqBody
     3300000: //RootNode
     3300002: Cube
     3300004: Cube_001
     3300006: Cube_002
     3300008: Turq_Head
+    3300010: TurqBody
     4300000: Cube
     4300002: Cube_002
     4300004: Cube_001
@@ -32,6 +76,7 @@ ModelImporter:
     4300008: TurqBody
     7400000: Default Take
     9500000: //RootNode
+    13700000: TurqBody
   materials:
     importMaterials: 0
     materialName: 0
