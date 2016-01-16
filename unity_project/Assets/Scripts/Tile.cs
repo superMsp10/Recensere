@@ -8,6 +8,11 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 		public	string lastAttacker;
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
+		float orgHealth;
+
+		//Health Representation
+		Renderer thisRender;
+		public Color damaged;
 
 		//Tile Transform
 		public int xPos;
@@ -25,6 +30,10 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 		void Start ()
 		{
 				Attached = new List<Poolable> ();
+				orgHealth = health;
+				thisRender = GetComponent<Renderer> ();
+				if (thisRender == null)
+						Debug.Log ("No renderer found on this object, damage color representation will not suceed");
 		}
 
 		public	virtual bool takeDamage (float damage, string attacker)
@@ -33,7 +42,7 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 
 				if (health <= 0)
 						return false;
-				health -= damage;
+				HP -= damage;
 				lastAttacker = attacker;
 				if (health <= 0) {
 						Destroy ();
@@ -47,7 +56,7 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 		{
 //				Debug.Log ("Sync Damage From Tile");
 
-				health -= damage;
+				HP -= damage;
 				lastAttacker = attacker;
 				if (health <= 0) {
 						Destroy ();
@@ -79,6 +88,8 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 				}
 				set {
 						health = value; 
+						thisRender.material.color = Color.Lerp (damaged, Color.white, health / orgHealth);
+
 				}
 		}
 
