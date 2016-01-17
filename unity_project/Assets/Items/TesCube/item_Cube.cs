@@ -111,13 +111,21 @@ public class item_Cube : MonoBehaviour,Holdable
 
 				//Projectile Stuff
 				GameObject g = projectilePooler.getObject ();
-				g.transform.parent = transform;
+				//Set Transform to this and reset Timer
+				g.transform.SetParent (tileDictionary.thisM.projectiles, true);
 				g.transform.position = transform.position;
 				g.transform.rotation = transform.rotation;
 				g.GetComponent<Timer> ().StartTimer (itemReset);
 				g.GetComponent<cube_Projectile> ().thisPooler = this;
-				//Set Transform to this and reset Timer
-				g.GetComponent<Rigidbody> ().AddForce (p.left_hand.forward * (Time.time - timeStarted) / wantedTime * throwMultiplier);
+				//Apply Force
+				float force = 0f;
+				float heldTime = Time.time - timeStarted;
+				if (heldTime > wantedTime)
+						force = throwMultiplier;
+				else
+						force = (heldTime / wantedTime) * throwMultiplier;
+				g.GetComponent<Rigidbody> ().AddForce (p.left_hand.forward * force);
+
 				startedHold = false;
 		}
 		public	void  onSelect ()

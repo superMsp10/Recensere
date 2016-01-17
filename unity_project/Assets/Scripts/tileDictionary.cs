@@ -18,6 +18,8 @@ public  class tileDictionary : MonoBehaviour
 		public GameObject inGameUI;
 		public GameObject pauseUI;
 
+		public Transform projectiles;
+
 
 		void Awake ()
 		{
