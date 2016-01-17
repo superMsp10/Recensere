@@ -9,6 +9,15 @@ public class item_Cube : MonoBehaviour,Holdable
 		public bool _pickable;
 		public int _amount;
 		
+		//Pooler
+		[HideInInspector]
+		public Pooler
+				projectilePooler = null;
+		public float itemReset;
+		public int maxItems;
+		public GameObject projectile;
+		public float throwMultiplier;
+
 		//Item Stuff
 		public Rigidbody r;
 		player p;
@@ -17,20 +26,26 @@ public class item_Cube : MonoBehaviour,Holdable
 		public Color highlighted;
 		float timeStarted;
 		float timeEnded;
+		public float wantedTime;
 
 		bool startedHold = false;
 
+		void Start ()
+		{
+				projectilePooler = new Pooler (maxItems, projectile);
+		}
+
+		//Item------------------------------------------//
 		public	void updateItem ()
 		{
-
+		
 				if (startedHold) {
-						GetComponent<Renderer> ().material.color = Color.Lerp (normal, highlighted, Time.time - timeStarted);
+						GetComponent<Renderer> ().material.color = Color.Lerp (normal, highlighted, (Time.time - timeStarted) / wantedTime);
 				} else {
 						GetComponent<Renderer> ().material.color = normal;
 				}
 		
 		}
-		//Item------------------------------------------//
 		void OnCollisionEnter (Collision collision)
 		{
 				if (pickable) {
@@ -41,6 +56,12 @@ public class item_Cube : MonoBehaviour,Holdable
 								_pickable = false;
 						}
 				}
+		}
+
+		public	void detach (GameObject g)
+		{
+				projectilePooler.disposeObject (g.GetComponent<Poolable> ());
+		
 		}
 		
 		//Holdable------------------------------------------//
@@ -88,6 +109,15 @@ public class item_Cube : MonoBehaviour,Holdable
 				Debug.Log ("buttonUP by Cube");
 				timeEnded = Time.time;
 
+				//Projectile Stuff
+				GameObject g = projectilePooler.getObject ();
+				g.transform.parent = transform;
+				g.transform.position = transform.position;
+				g.transform.rotation = transform.rotation;
+				g.GetComponent<Timer> ().StartTimer (itemReset);
+				g.GetComponent<cube_Projectile> ().thisPooler = this;
+				//Set Transform to this and reset Timer
+				g.GetComponent<Rigidbody> ().AddForce (p.left_hand.forward * (Time.time - timeStarted) / wantedTime * throwMultiplier);
 				startedHold = false;
 		}
 		public	void  onSelect ()
@@ -119,7 +149,7 @@ public class item_Cube : MonoBehaviour,Holdable
 		{
 				Debug.Log ("onDrop by Cube");
 				GetComponent<Renderer> ().material.color = normal;
-
+				r.velocity = Vector3.zero;
 				r.isKinematic = false;
 				gameObject.layer = LayerMask.NameToLayer (itemLayer);
 				transform.parent = GameManager.thisM.currLevel.items;

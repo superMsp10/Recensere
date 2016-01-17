@@ -126,8 +126,6 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 		public	 void detach (GameObject g)
 		{
 				Attached.Remove (g.GetComponent<Poolable> ());
-				EffectsManager.thisM.crackPooler.disposeObject (g.GetComponent<Poolable> ());
-
 		}
 
 		void OnCollisionEnter (Collision collision)

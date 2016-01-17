@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class decals : MonoBehaviour,Poolable,Timer
+public class cube_Projectile : MonoBehaviour,Poolable,Timer
 {
-		public ParticleSystem dust;
-		public Tile t;
-
+		public Rigidbody r;
+		public item_Cube thisPooler;
 		public GameObject gameobject {
 				get {
 						return gameObject;
@@ -14,25 +13,20 @@ public class decals : MonoBehaviour,Poolable,Timer
 		public	void reset (bool on)
 		{
 				gameObject.SetActive (on);
+				r.isKinematic = !on;
 
-				if (!on) {
-						CancelTimer ();
-						dust.Stop ();
-						gameobject.transform.localScale = new Vector3 (1, 1, 1);
+				if (on) {
+						r.velocity = Vector3.zero;
+				}
 
-				} else
-						dust.Play ();
 		}
-
-
-
 
 		public void StartTimer (float time)
 		{
 				Invoke ("TimerComplete", time);
-
+		
 		}
-
+	
 		public void CancelTimer ()
 		{
 				CancelInvoke ("TimerComplete");
@@ -40,11 +34,10 @@ public class decals : MonoBehaviour,Poolable,Timer
 		}
 		public void TimerComplete ()
 		{
-				if (t != null) {
-						t.detach (gameobject);
-				} 
-				EffectsManager.thisM.crackPooler.disposeObject (this);
+				if (thisPooler != null) {
+						thisPooler.detach (gameobject);
+				}
 		}
 
-
+	
 }
