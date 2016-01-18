@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 		{
 				if (thisM == null) {
 						thisM = this;
-						DontDestroyOnLoad (gameObject);
+//						DontDestroyOnLoad (gameObject);
 
 				} else {
 						Debug.Log ("GameManager Exists");
