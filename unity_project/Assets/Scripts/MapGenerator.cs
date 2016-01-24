@@ -20,6 +20,15 @@ public class MapGenerator
 				West = 270}
 		;
 		
+		public virtual Tile[,] findTiles (Transform levStart)
+		{
+				Transform tiles = levStart.Find ("Tiles");
+				if (tiles == null)
+						Debug.Log ("No transform named Tiles in levelStart transform");
+
+				return null;
+
+		}
 
 		public virtual Tile[,] generateMap (Transform levStart)
 		{
@@ -35,7 +44,6 @@ public class MapGenerator
 				floorTile currentTile;
 				GameObject trans2 = new GameObject ();
 				trans2.name = "Walls";
-
 				trans.transform.SetParent (levStart, false);
 				generateBorders (levStart);
 				wall = thisMap.getWall (0);
