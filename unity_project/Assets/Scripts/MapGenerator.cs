@@ -23,10 +23,19 @@ public class MapGenerator
 		public virtual Tile[,] findTiles (Transform levStart)
 		{
 				Transform tiles = levStart.Find ("Tiles");
-				if (tiles == null)
+				if (tiles == null) {
 						Debug.Log ("No transform named Tiles in levelStart transform");
+						return null;
+				}
+				Tile[,] genTiles = new Tile[thisMap.arenaSize, thisMap.arenaSize];
 
-				return null;
+				for (int x = 0; x < thisMap.arenaSize; x++) {
+						for (int y = 0; y < thisMap.arenaSize; y++) {
+								string name = "X" + (x).ToString () + "Y" + (y).ToString ();
+								genTiles [x, y] = tiles.FindChild (name).GetComponent<Tile> ();
+						}
+				}
+				return genTiles;
 
 		}
 
