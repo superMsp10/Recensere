@@ -35,8 +35,8 @@ public class Connect :  Photon.MonoBehaviour
 	
 		public virtual void OnPhotonRandomJoinFailed ()
 		{
-				if (PhotonNetwork.GetRoomList ().Length < 1)
-						PhotonNetwork.CreateRoom (null, new RoomOptions () { maxPlayers = 8 }, null);
+//				if (PhotonNetwork.GetRoomList ().Length < 1)
+				PhotonNetwork.CreateRoom (null, new RoomOptions () { maxPlayers = 8 }, null);
 				Debug.Log ("OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one. Calling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
 		}
 	

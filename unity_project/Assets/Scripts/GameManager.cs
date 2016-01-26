@@ -24,13 +24,7 @@ public class GameManager : MonoBehaviour
 	
 		void Awake ()
 		{
-				if (thisM == null) {
-						thisM = this;
-//						DontDestroyOnLoad (gameObject);
-
-				} else {
-						Debug.Log ("GameManager Exists");
-				}
+				thisM = this;
 		}
 
 		//Player------------------------------------------//

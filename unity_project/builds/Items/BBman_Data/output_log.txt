@@ -20,14 +20,14 @@ Loading M:\ProducedGames\bomberMan\unity_project\builds\Items\BBman_Data\Managed
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\Items\BBman_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading M:\ProducedGames\bomberMan\unity_project\builds\Items\BBman_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\Items\BBman_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.105 seconds
+- Completed reload, in  0.200 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\Items\BBman_Data\Managed\System.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: e74 -> priority: 1 
+  Thread -> id: f4 -> priority: 1 
 Connected to the database
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
@@ -41,14 +41,14 @@ Logged In
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.467191 ms
+UnloadTime: 5.001284 ms
 GameManager Exists
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
 
 Unloading 27 unused Assets to reduce memory usage. Loaded Objects now: 7162.
-Total: 2.460764 ms (FindLiveObjects: 0.403022 ms CreateObjectMapping: 0.211576 ms MarkObjects: 1.730114 ms  DeleteObjects: 0.113683 ms)
+Total: 2.201828 ms (FindLiveObjects: 0.406971 ms CreateObjectMapping: 0.237235 ms MarkObjects: 1.444333 ms  DeleteObjects: 0.112894 ms)
 
 Connecting using settings
  
@@ -62,42 +62,43 @@ OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we cr
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-X :16, Y :16 damaged by :Cube after being destroyed
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 9.297968 ms
+GameManager Exists
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-X :16, Y :16 damaged by :Cube after being destroyed
+
+Unloading 67 unused Assets to reduce memory usage. Loaded Objects now: 743.
+Total: 1.176308 ms (FindLiveObjects: 0.040262 ms CreateObjectMapping: 0.050131 ms MarkObjects: 0.999467 ms  DeleteObjects: 0.085262 ms)
+
+Connected to the database
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-NullReferenceException
-  at (wrapper managed-to-native) UnityEngine.Renderer:get_material ()
-  at Tile.set_HP (Single value) [0x00000] in <filename unknown>:0 
-  at Tile.syncDamage (Single damage, System.String attacker) [0x00000] in <filename unknown>:0 
-  at GameManager.syncWallTileDamage (Single damage, System.String attacker, Int32 x, Int32 y, Boolean yWall) [0x00000] in <filename unknown>:0 
-  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
-  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
-Rethrow as TargetInvocationException: Exception has been thrown by the target of an invocation.
-  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
-  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <filename unknown>:0 
-  at NetworkingPeer.ExecuteRpc (ExitGames.Client.Photon.Hashtable rpcData, .PhotonPlayer sender) [0x00000] in <filename unknown>:0 
-  at NetworkingPeer.OnEvent (ExitGames.Client.Photon.EventData photonEvent) [0x00000] in <filename unknown>:0 
-  at ExitGames.Client.Photon.PeerBase.DeserializeMessageAndCallback (System.Byte[] inBuff) [0x00000] in <filename unknown>:0 
-  at ExitGames.Client.Photon.EnetPeer.DispatchIncomingCommands () [0x00000] in <filename unknown>:0 
-  at ExitGames.Client.Photon.PhotonPeer.DispatchIncomingCommands () [0x00000] in <filename unknown>:0 
-  at PhotonHandler.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-X :16, Y :0 damaged by :Player_BBMan(Clone) after being destroyed
+Server and client versions match, starting program
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-X :13, Y :0 damaged by :Player_BBMan(Clone) after being destroyed
+Logged In
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-X :16, Y :16 damaged by :Cube after being destroyed
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.036572 ms
+GameManager Exists
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+
+Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 7162.
+Total: 3.604714 ms (FindLiveObjects: 0.441313 ms CreateObjectMapping: 0.176841 ms MarkObjects: 2.792351 ms  DeleteObjects: 0.192630 ms)
+
+Connecting using settings
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectUsingSettings() failed. Can only connect while in state 'Disconnected'. Current state: Connected
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
