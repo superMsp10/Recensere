@@ -26,5 +26,10 @@ public class destroyedWallTile : destroyedTile
 
 		
 		}
+
+		public override void TimerComplete ()
+		{
+				DestroyedTileManager.thisWall.destroyedWallPooler.disposeObject (this);
+		}
 }
 

@@ -30,9 +30,9 @@ public class destroyedTile : MonoBehaviour,Poolable,Timer
 				CancelInvoke ("TimerComplete");
 		
 		}
-		public void TimerComplete ()
+		public virtual void TimerComplete ()
 		{
-				DestroyedTileManager.thisWall.destroyedWallPooler.disposeObject (this);
+				Debug.Log ("Default DesTile timer Complete");
 		}
 
 }
