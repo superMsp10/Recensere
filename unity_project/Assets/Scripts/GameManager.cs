@@ -66,6 +66,11 @@ public class GameManager : MonoBehaviour
 				UIManager.thisM.changeUI (tileDictionary.thisM.pauseUI);
 		}
 
+		public void NetworkDisconnect ()
+		{
+				PhotonNetwork.Disconnect ();
+		}
+
 		//UI------------------------------------------//
 		public bool paused {
 				get {
