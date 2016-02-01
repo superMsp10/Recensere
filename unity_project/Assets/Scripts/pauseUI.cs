@@ -8,8 +8,9 @@ public class pauseUI : MonoBehaviour,UIState
 		public GameObject back;
 		public GameObject respawnButton;
 		public Text console;
-
-		public string message = "";
+		public string deathMessage;
+		public Color originalColor;
+		public Color respawnColor;
 
 
 		public void StartUI ()
@@ -21,7 +22,7 @@ public class pauseUI : MonoBehaviour,UIState
 				if (GameManager.thisM.dead) {
 						respawnButton.SetActive (false);
 						back.SetActive (false);
-						console.text = message;
+//						console.text = message;
 
 				} else {
 						back.SetActive (true);
@@ -45,22 +46,35 @@ public class pauseUI : MonoBehaviour,UIState
 						UIManager.thisM.changeUI (inGame);
 		}
 
-		public	void Respawn ()
-		{
-				message = "<b><color=red>Death</color> by sucide</b>, Respawing in <i><color=blue>5</color> seconds</i>";
-				GameManager.thisM.NetworkDisable ();
-				Invoke ("Spawn", 5.0f);
-
-		}
-
 		public	void Disconnect ()
 		{
 				GameManager.thisM.NetworkDisconnect ();
 				Application.LoadLevel ("StartUIScene");
 		}
 
-		void Spawn ()
+		public void button_respawn ()
 		{
-				GameManager.thisM.NetworkEnable ();
+				deathMessage = "<b><color=red>Death</color> by suicide</b>;";
+				GameManager.thisM.NetworkDisable ();
+				StartCoroutine (Respawn (5f));
 		}
+
+		public IEnumerator Respawn (float seconds)
+		{
+				float orgSecs = seconds;
+				while (seconds>0) {
+
+						console.text = deathMessage +
+								" Respawing in <i><color=#" +
+								Color.Lerp (originalColor, respawnColor, seconds / orgSecs).GetHashCode () +
+								">" + seconds.ToString () + "</color> seconds</i>";
+
+						yield return  new WaitForSeconds (0.5f);
+						seconds -= 0.5f;
+				}
+				GameManager.thisM.NetworkEnable ();
+
+		}
+
+		
 }
