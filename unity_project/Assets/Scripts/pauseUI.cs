@@ -11,6 +11,7 @@ public class pauseUI : MonoBehaviour,UIState
 		public string deathMessage;
 		public Color originalColor;
 		public Color respawnColor;
+		public float countDown = 0.01f;
 
 
 		public void StartUI ()
@@ -62,15 +63,16 @@ public class pauseUI : MonoBehaviour,UIState
 		public IEnumerator Respawn (float seconds)
 		{
 				float orgSecs = seconds;
-				while (seconds>0) {
+				while (seconds>1) {
 
 						console.text = deathMessage +
-								" Respawing in <i><color=#" +
-								Color.Lerp (originalColor, respawnColor, seconds / orgSecs).GetHashCode () +
-								">" + seconds.ToString () + "</color> seconds</i>";
+								" Respawing in <i><color=#" + 
+								ColorUtility.ToHtmlStringRGBA (Color.Lerp (respawnColor, originalColor, (seconds / orgSecs))) +
+								">" + seconds.ToString ("F0") + "</color> seconds</i>";
+						seconds -= countDown;
 
-						yield return  new WaitForSeconds (0.5f);
-						seconds -= 0.5f;
+						yield return  new WaitForSeconds (countDown);
+						
 				}
 				GameManager.thisM.NetworkEnable ();
 
