@@ -14,7 +14,7 @@ public class invManager : slotCollection,UIState
 
 		public Color highlighted;
 		public Color normal;
-		public Holdable giveOnStart;
+//		public Holdable giveOnStart;
 		public GameObject paused;
 
 		//Mono stuff
@@ -107,7 +107,7 @@ public class invManager : slotCollection,UIState
 				for (int i = 0; i <  slots.Count; i ++) {
 			
 						if (slots [i].holding == null) {
-								slots [i].changeHolding (giveOnStart, 500);
+//								slots [i].changeHolding (giveOnStart, 500);
 								return;
 						}
 				}

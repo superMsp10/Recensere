@@ -1,32 +1,25 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
-public class Pooler
+public class NetworkPooler: Pooler
 {
-		public List<GameObject> active = new List<GameObject> ();
-		public List<GameObject> useable = new List<GameObject> ();
-		public GameObject original;
-		protected int max;
 
-
-		public Pooler (int max, GameObject org)
+		public NetworkPooler (int max, GameObject org):base(max,org)
 		{
-				original = org;
-				this.max = max;
 		}
 
-		public virtual GameObject getObject ()
+		public override GameObject getObject ()
 		{
 				GameObject ret = null;
 				if (active.Count >= max) {
 						ret = active [0];
 						active.Remove (ret);
 						useable.Add (ret);
-
+			
 				} else if ((useable.Count - 1) < 0) {
-//						Debug.Log ("Useable" + useable.Count);
+						//						Debug.Log ("Useable" + useable.Count);
 						Poolable p;
-						useable.Add (GameObject.Instantiate (original)); 
+						useable.Add (PhotonNetwork.Instantiate (original.name, Vector3.zero, Quaternion.identity, 0));
 						ret = useable [useable.Count - 1];
 						ret.name = "ObjectPooled: " + (useable.Count + active.Count).ToString ();		
 						p = ret.GetComponent<Poolable> ();
@@ -35,27 +28,27 @@ public class Pooler
 						} else {
 								p.reset (false);
 						}
-						
+			
 						ret = useable [useable.Count - 1];
-
+			
 				} else {
 						ret = useable [useable.Count - 1];
-
+			
 				}
-
-
-				
+		
+		
+		
 				useable.Remove (ret);
 				active.Add (ret);
 				if (ret == null) {
 						Debug.LogError ("Poolable object has been destroyed externally; Effects will not work properly");
-
+			
 				} else
 						ret.GetComponent<Poolable> ().reset (true);
 				return ret;
-				
+		
 		}
-
+	
 		public void disposeObject (Poolable p)
 		{
 				active.Remove (p.gameobject);

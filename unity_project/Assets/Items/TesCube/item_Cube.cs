@@ -152,6 +152,7 @@ public class item_Cube : MonoBehaviour,Holdable
 				transform.position = p.left_hand.position;
 				gameObject.SetActive (false);
 
+
 		}
 		public	void  onDrop ()
 		{
@@ -161,8 +162,8 @@ public class item_Cube : MonoBehaviour,Holdable
 				r.isKinematic = false;
 				gameObject.layer = LayerMask.NameToLayer (itemLayer);
 				transform.parent = GameManager.thisM.currLevel.items;
-//				transform.position = p.transform.position;
 				gameObject.SetActive (true);
+//				transform.position = p.transform.position;
 				Invoke ("resetPick", 5.0f);
 		}
 	

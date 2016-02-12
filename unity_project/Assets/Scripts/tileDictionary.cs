@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public  class tileDictionary : MonoBehaviour
@@ -17,6 +18,7 @@ public  class tileDictionary : MonoBehaviour
 		public GameObject hitDecal;
 		public GameObject inGameUI;
 		public GameObject pauseUI;
+		public Text HPText;
 
 		public Transform projectiles;
 

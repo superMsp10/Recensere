@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 		public player myPlayer;
 		public bool dead = true;
 		bool pause = false;
+		public GameObject weapon1;
+		public GameObject weapon2;
 
 
 		//LevelStuf------------------------------------------//
@@ -32,9 +34,9 @@ public class GameManager : MonoBehaviour
 		{
 				GameObject p;
 				int playerID = PhotonNetwork.countOfPlayers;
-		
+				Vector3 ss = FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position;
 				p = PhotonNetwork.Instantiate (playerInstantiate.name, 
-		                               FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position,
+		                            ss,
 		                               Quaternion.identity, 0, null);
 		
 				myPlayer = p.GetComponent<player> ();
@@ -44,6 +46,12 @@ public class GameManager : MonoBehaviour
 				p.layer = LayerMask.NameToLayer (PlayerLayer);
 
 				NetworkEnable ();
+				GameObject g = (GameObject)Instantiate (weapon1, new Vector3 (ss.x, ss.y + 10, ss.z), Quaternion.identity);
+				g.SetActive (true);
+				g = (GameObject)Instantiate (weapon2, new Vector3 (ss.x, ss.y + 20, ss.z), Quaternion.identity);
+				g.SetActive (true);
+
+
 		}
 	
 		public void NetworkEnable ()

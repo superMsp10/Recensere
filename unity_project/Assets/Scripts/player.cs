@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class player : MonoBehaviour,Health
@@ -9,6 +10,8 @@ public class player : MonoBehaviour,Health
 		public	string lastAttacker;
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
+		//healthUI
+		private Text HPText;
 	
 		//Network
 		public MonoBehaviour[] networkSet;
@@ -23,9 +26,7 @@ public class player : MonoBehaviour,Health
 		public Transform right_hand;
 		public string handLayer;
 
-		void Start ()
-		{
-		}
+
 
 		public	virtual bool takeDamage (float damage, string attacker)
 		{
@@ -33,7 +34,7 @@ public class player : MonoBehaviour,Health
 		
 				if (health <= 0)
 						return false;
-				health -= damage;
+				HP -= damage;
 				lastAttacker = attacker;
 				if (health <= 0) {
 						Destroy ();
@@ -58,7 +59,9 @@ public class player : MonoBehaviour,Health
 	
 		public virtual	void Destroy ()
 		{
-				Destroy (gameObject);
+//				Destroy (gameObject);
+				GameManager.thisM.NetworkDisable ();
+				StartCoroutine (tileDictionary.thisM.pauseUI.GetComponent<pauseUI> ().Respawn (5f));
 		
 		}
 		public	 string lastDamageBy ()
@@ -72,6 +75,7 @@ public class player : MonoBehaviour,Health
 				}
 				set {
 						health = value; 
+						HPText.text = "Health: " + value;
 				}
 		}
 	
@@ -84,12 +88,15 @@ public class player : MonoBehaviour,Health
 
 		public void networkInit ()
 		{
+				
 				thisCam.gameObject.SetActive (true);
 				foreach (MonoBehaviour m in networkSet) {
 						m.enabled = true;
 				}
 				GetComponent<Rigidbody> ().useGravity = true;
-				health = originalHealth;
+
+				HPText = tileDictionary.thisM.HPText;
+				HP = originalHealth;
 		}
 
 		public void networkDisable ()
@@ -100,12 +107,7 @@ public class player : MonoBehaviour,Health
 				}
 		
 		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
-	
-		}
+
 
 		
 
@@ -132,5 +134,23 @@ public class player : MonoBehaviour,Health
 
 				return Color.blue;
 
+		}
+
+		void OnCollisionEnter (Collision collision)
+		{
+				float sdm = GameManager.speedToDamageMultiplier;
+				//				Debug.Log ("Collision Enter at Tile");
+				float dmg = Mathf.Pow (collision.relativeVelocity.magnitude, sdm);
+				if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {
+			
+						if (takeDamage (dmg, collision.collider.name)) {
+								if (collision.collider.attachedRigidbody != null) {
+										collision.collider.attachedRigidbody.velocity *= sdm;
+								}
+						} 
+			
+			
+				}
+		
 		}
 }
