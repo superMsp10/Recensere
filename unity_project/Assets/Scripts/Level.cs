@@ -18,6 +18,7 @@ public abstract class Level : MonoBehaviour
 		{
 //				cam = FindObjectOfType<Camera> ().gameObject;
 				GameManager.thisM.currLevel = this;
+				GameManager.thisM.ChangeCam (cam);
 		}
 	
 		// Update is called once per frame

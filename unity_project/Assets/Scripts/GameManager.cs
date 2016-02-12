@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 		public	PhotonView p;
 		public	static float speedToDamageMultiplier = 1f;
 
+		public GameObject currCam;
+
 	
 	
 		void Awake ()
@@ -53,13 +55,25 @@ public class GameManager : MonoBehaviour
 
 
 		}
+
+		public void ChangeCam (GameObject c)
+		{
+				if (c != null) {
+						if (currCam != null)
+								currCam.SetActive (false);
+						currCam = c;
+						currCam.SetActive (true);
+				} else {
+						Debug.Log ("Tried to change to null camera");
+				}
+		}
 	
 		public void NetworkEnable ()
 		{
 				int playerID = PhotonNetwork.countOfPlayers;
 				myPlayer.transform.position = FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position;
 				myPlayer.transform.rotation = Quaternion.identity;
-				currLevel.cam.SetActive (false);
+//				currLevel.cam.SetActive (false);
 				myPlayer.networkInit ();
 				dead = false;
 				UIManager.thisM.changeUI (tileDictionary.thisM.inGameUI);
@@ -68,7 +82,8 @@ public class GameManager : MonoBehaviour
 	
 		public void NetworkDisable ()
 		{
-				currLevel.cam.SetActive (true);
+				
+				ChangeCam (currLevel.cam);
 				myPlayer.networkDisable ();
 				dead = true;
 				UIManager.thisM.changeUI (tileDictionary.thisM.pauseUI);

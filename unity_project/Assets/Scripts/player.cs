@@ -4,6 +4,7 @@ using System.Collections;
 
 public class player : MonoBehaviour,Health
 {
+		GameManager thisM = GameManager.thisM;
 		//Health
 		public	float health;
 		public float originalHealth;
@@ -17,7 +18,7 @@ public class player : MonoBehaviour,Health
 		public MonoBehaviour[] networkSet;
 		public int playerID;
 
-		public Camera thisCam;
+		public GameObject thisCam;
 		public MouseLook look;
 		public MouseLook look2;
 
@@ -60,7 +61,7 @@ public class player : MonoBehaviour,Health
 		public virtual	void Destroy ()
 		{
 //				Destroy (gameObject);
-				GameManager.thisM.NetworkDisable ();
+				thisM.NetworkDisable ();
 				StartCoroutine (tileDictionary.thisM.pauseUI.GetComponent<pauseUI> ().Respawn (5f));
 		
 		}
@@ -88,8 +89,8 @@ public class player : MonoBehaviour,Health
 
 		public void networkInit ()
 		{
-				
-				thisCam.gameObject.SetActive (true);
+				thisM.ChangeCam (thisCam);
+//				thisCam.gameObject.SetActive (true);
 				foreach (MonoBehaviour m in networkSet) {
 						m.enabled = true;
 				}
@@ -101,7 +102,7 @@ public class player : MonoBehaviour,Health
 
 		public void networkDisable ()
 		{
-				thisCam.gameObject.SetActive (false);
+//				thisCam.gameObject.SetActive (false);
 				foreach (MonoBehaviour m in networkSet) {
 						m.enabled = false;
 				}
