@@ -11,7 +11,7 @@ public class item_Cube : MonoBehaviour,Holdable
 		
 		//Pooler
 		[HideInInspector]
-		public Pooler
+		public NetworkPooler
 				projectilePooler = null;
 		public float itemReset;
 		public int maxItems;
@@ -32,7 +32,7 @@ public class item_Cube : MonoBehaviour,Holdable
 
 		void Start ()
 		{
-				projectilePooler = new Pooler (maxItems, projectile);
+				projectilePooler = new NetworkPooler (maxItems, projectile);
 		}
 
 		//Item------------------------------------------//
