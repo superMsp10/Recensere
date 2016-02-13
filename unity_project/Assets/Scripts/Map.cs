@@ -3,15 +3,21 @@ using System.Collections.Generic;
 
 public abstract class Map
 {
-		public static defaultArena firstMap = new defaultArena (17);
+		public static defaultArena firstMap = new defaultArena (17, new string[]{"Cube","Cube (1)"});
 		public  int arenaSize;
 		public List<Tile> tileTypes = new List<Tile> ();
 		public List<Tile> wallTypes = new List<Tile> ();
+		public string[] loot;
 
 
 		public Map (int size)
 		{
 				arenaSize = size;
+		}
+		public Map (int size, string[] loots)
+		{
+				arenaSize = size;
+				loot = loots;
 		}
 
 		public  virtual Tile getTile (int index)

@@ -3,13 +3,17 @@ using System.Collections;
 
 public class LootTile : MonoBehaviour
 {
-		public GameObject generate;
 		public Transform position;
+		protected Map thisMap;
 
 		public	void generateLoot ()
 		{
-				GameObject g = (GameObject)Instantiate (generate, position.position, Quaternion.identity);
-				g.SetActive (true);
+				if (thisMap != null) {
+						GameObject g = (GameObject)PhotonNetwork.Instantiate (thisMap.loot [0], position.position, Quaternion.identity, 0);
+						g.SetActive (true);
+				} else {
+						Debug.Log ("No Map, cannot generate loot");
+				}
 
 		}
 	
