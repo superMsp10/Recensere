@@ -10,6 +10,7 @@ public abstract class Level : MonoBehaviour
 		private SpawnSpot mySS;
 
 		public LootTile[] lootTiles;
+		public float lootTime;
 		public Tile[,] liveTiles;
 
 
@@ -31,18 +32,27 @@ public abstract class Level : MonoBehaviour
 	
 		}
 
+		public virtual void  generateArena (MapGenerator m)
+		{
+//				liveTiles = gen.generateMap (levelStart);
+				liveTiles = m.findTiles (levelStart);
+				lootTiles = m.findLootTiles ();
+				if (PhotonNetwork.isMasterClient)
+						InvokeRepeating ("generateLoot", 0, lootTime);
+		}
 		public virtual void  generateArena ()
 		{
 				MapGenerator gen = new MapGenerator (Map.firstMap);
-//				liveTiles = gen.generateMap (levelStart);
+				//				liveTiles = gen.generateMap (levelStart);
 				liveTiles = gen.findTiles (levelStart);
 				lootTiles = gen.findLootTiles ();
-				generateLoot ();
-
+				if (PhotonNetwork.isMasterClient)
+						InvokeRepeating ("generateLoot", 0, lootTime);
 		}
 
 		public void generateLoot ()
 		{
+				Debug.Log ("Generated loot");
 				foreach (LootTile t in lootTiles) {
 						t.generateLoot ();
 				}

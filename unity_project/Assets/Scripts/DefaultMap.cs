@@ -8,9 +8,7 @@ public class DefaultMap : Level
 		public override	void  generateArena ()
 		{
 				HeightMapGenerator gen = new HeightMapGenerator (Map.firstMap, slope);
-				liveTiles = gen.findTiles (levelStart);
-				lootTiles = gen.findLootTiles ();
-				generateLoot ();
+				generateArena (gen);
 		}
 }
 

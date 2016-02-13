@@ -38,11 +38,16 @@ public class item_Cube : MonoBehaviour,Holdable
 		//Item------------------------------------------//
 		public	void updateItem ()
 		{
-		
+				Renderer ren = GetComponent<Renderer> ();
+
+				if (ren == null) {
+						Debug.Log ("No renderer on this object");
+						return;
+				}
 				if (startedHold) {
-						GetComponent<Renderer> ().material.color = Color.Lerp (normal, highlighted, (Time.time - timeStarted) / wantedTime);
+						ren.material.color = Color.Lerp (normal, highlighted, (Time.time - timeStarted) / wantedTime);
 				} else {
-						GetComponent<Renderer> ().material.color = normal;
+						ren.material.color = normal;
 				}
 		
 		}
