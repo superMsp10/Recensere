@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour
 		public player myPlayer;
 		public bool dead = true;
 		bool pause = false;
-		public GameObject weapon1;
-		public GameObject weapon2;
+
 
 
 		//LevelStuf------------------------------------------//
@@ -48,10 +47,7 @@ public class GameManager : MonoBehaviour
 				p.layer = LayerMask.NameToLayer (PlayerLayer);
 
 				NetworkEnable ();
-				GameObject g = (GameObject)Instantiate (weapon1, new Vector3 (ss.x, ss.y + 10, ss.z), Quaternion.identity);
-				g.SetActive (true);
-				g = (GameObject)Instantiate (weapon2, new Vector3 (ss.x, ss.y + 20, ss.z), Quaternion.identity);
-				g.SetActive (true);
+
 
 
 		}

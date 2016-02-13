@@ -39,6 +39,14 @@ public class MapGenerator
 
 		}
 
+		public virtual LootTile[] findLootTiles ()
+		{
+
+				return GameObject.FindObjectsOfType<LootTile> ();
+				
+		
+		}
+
 		public virtual Tile[,] generateMap (Transform levStart)
 		{
 				generateSpawnSpots (levStart, thisMap.getTile (0).tileSize);

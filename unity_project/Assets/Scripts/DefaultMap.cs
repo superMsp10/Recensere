@@ -9,6 +9,8 @@ public class DefaultMap : Level
 		{
 				HeightMapGenerator gen = new HeightMapGenerator (Map.firstMap, slope);
 				liveTiles = gen.findTiles (levelStart);
+				lootTiles = gen.findLootTiles ();
+				generateLoot ();
 		}
 }
 

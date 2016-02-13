@@ -8,7 +8,11 @@ public abstract class Level : MonoBehaviour
 
 		private SpawnSpot[] sS;
 		private SpawnSpot mySS;
+
+		public LootTile[] lootTiles;
 		public Tile[,] liveTiles;
+
+
 		public GameObject cam;
 		
 
@@ -32,11 +36,17 @@ public abstract class Level : MonoBehaviour
 				MapGenerator gen = new MapGenerator (Map.firstMap);
 //				liveTiles = gen.generateMap (levelStart);
 				liveTiles = gen.findTiles (levelStart);
+				lootTiles = gen.findLootTiles ();
+				generateLoot ();
 
 		}
 
-
-
+		public void generateLoot ()
+		{
+				foreach (LootTile t in lootTiles) {
+						t.generateLoot ();
+				}
+		}
 		public void OnConnected ()
 		{
 				//Debug.Log ("Connected in GameManager");
