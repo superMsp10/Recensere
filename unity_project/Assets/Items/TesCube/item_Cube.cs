@@ -8,7 +8,7 @@ public class item_Cube : MonoBehaviour,Holdable
 		public Sprite _holdUI;
 		public bool _pickable;
 		public int _amount;
-		
+			
 		//Pooler
 		[HideInInspector]
 		public NetworkPooler
@@ -153,8 +153,9 @@ public class item_Cube : MonoBehaviour,Holdable
 				_pickable = false;
 				r.isKinematic = true;
 				gameObject.layer = LayerMask.NameToLayer (p.handLayer);
-				transform.parent = p.left_hand;
-				transform.position = p.left_hand.position;
+				transform.parent = p.right_hand;
+				transform.position = p.right_hand.position;
+				transform.rotation = p.right_hand.rotation;
 				gameObject.SetActive (false);
 
 
