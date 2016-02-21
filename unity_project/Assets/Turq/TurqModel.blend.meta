@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7764bf0605878ed42a128e56f99bb859
-timeCreated: 1455999304
+timeCreated: 1456022999
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -657,17 +657,17 @@ ModelImporter:
       transformModified: 1
     - name: DEF-shoulder_L
       position: {x: 5.82076609e-09, y: -1.19325696e-08, z: -2.2248787e-07}
-      rotation: {x: -2.55204178e-08, y: 5.95173244e-09, z: -2.23404957e-08, w: 1}
+      rotation: {x: -.0379435457, y: .0645265803, z: .0339211114, w: .996617258}
       scale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
       transformModified: 1
     - name: DEF-upper_arm_01_L
       position: {x: -.421285242, y: -.137470126, z: -.209737882}
-      rotation: {x: .648250043, y: -.414590448, z: .479177207, w: .422227263}
+      rotation: {x: .700683236, y: .10177283, z: .218679056, w: .671464682}
       scale: {x: .999999762, y: .999999821, z: .999999881}
       transformModified: 1
     - name: DEF-forearm_01_L
       position: {x: -.288509876, y: 7.07805157e-08, z: -7.4505806e-09}
-      rotation: {x: .184623852, y: .180095911, z: .0475628152, w: .96499598}
+      rotation: {x: .186181024, y: .0326447934, z: -.0004389245, w: .981972933}
       scale: {x: .999999881, y: .99999994, z: .99999994}
       transformModified: 1
     - name: DEF-hand_L
@@ -922,17 +922,17 @@ ModelImporter:
       transformModified: 1
     - name: DEF-shoulder_R
       position: {x: 5.36674634e-08, y: -7.62520358e-09, z: -2.41614543e-07}
-      rotation: {x: 4.07453626e-09, y: 5.98629413e-09, z: -4.47159358e-08, w: 1}
+      rotation: {x: .0379432142, y: .0645260215, z: -.0339209363, w: .996617317}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: DEF-upper_arm_01_R
       position: {x: -.421285391, y: .137470245, z: -.209737659}
-      rotation: {x: .648250103, y: .414590329, z: .479177356, w: -.422227144}
+      rotation: {x: .700683117, y: -.101773292, z: .218679011, w: -.671464682}
       scale: {x: 1.00000012, y: 1, z: 1.00000012}
       transformModified: 1
     - name: DEF-forearm_01_R
       position: {x: -.288509488, y: -1.09896064e-07, z: 1.49011612e-08}
-      rotation: {x: -.184623882, y: .180095971, z: -.0475628376, w: .96499598}
+      rotation: {x: -.186180964, y: .0326452218, z: .000438513205, w: .981972933}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: DEF-hand_R

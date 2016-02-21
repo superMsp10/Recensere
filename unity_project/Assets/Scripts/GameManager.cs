@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 		
 				myPlayer = p.GetComponent<player> ();
 				myPlayer.playerID = playerID;
-				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
+//				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
 
 				p.layer = LayerMask.NameToLayer (PlayerLayer);
 

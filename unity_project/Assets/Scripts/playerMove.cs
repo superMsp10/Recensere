@@ -17,6 +17,8 @@ public class playerMove : MonoBehaviour
 		Rigidbody rigidbod;
 		public bool jumped = false;
 		public bool grounded = false;
+
+		public	Transform start;
 		public	Transform feets;
 		public LayerMask whatGround;
 
@@ -33,7 +35,9 @@ public class playerMove : MonoBehaviour
 
 		void checkJump ()
 		{
-				grounded = Physics.Linecast (transform.position, feets.position, whatGround);
+
+				grounded = Physics.Linecast (start.position, feets.position, whatGround);
+
 				if (grounded && Input.GetAxis ("Jump") > 0) {
 						jump ();
 
