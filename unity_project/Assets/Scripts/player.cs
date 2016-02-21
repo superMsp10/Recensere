@@ -27,6 +27,15 @@ public class player : MonoBehaviour,Health
 		public Transform right_hand;
 		public string handLayer;
 
+		//Animation
+		public Animator anim;
+		public Rigidbody r;
+
+		void FixedUpdate ()
+		{
+				anim.SetFloat ("HorizontalSpeed", (r.velocity.magnitude - r.velocity.y));
+		}
+
 
 
 		public	virtual bool takeDamage (float damage, string attacker)
