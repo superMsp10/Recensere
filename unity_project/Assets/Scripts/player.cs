@@ -33,7 +33,10 @@ public class player : MonoBehaviour,Health
 
 		void FixedUpdate ()
 		{
-				anim.SetFloat ("HorizontalSpeed", (r.velocity.magnitude - r.velocity.y));
+				anim.SetFloat ("XVelo", r.velocity.x);
+				anim.SetFloat ("YVelo", r.velocity.y);
+				anim.SetFloat ("ZVelo", r.velocity.z);
+
 		}
 
 
