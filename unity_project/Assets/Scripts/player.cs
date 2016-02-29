@@ -30,6 +30,7 @@ public class player : MonoBehaviour,Health
 		//Animation
 		public Animator anim;
 		public Rigidbody r;
+		public GameObject animModel;
 
 		void FixedUpdate ()
 		{

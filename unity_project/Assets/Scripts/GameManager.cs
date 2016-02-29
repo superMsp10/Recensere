@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 		public static GameManager thisM;
 		public static byte Version = 3;
 		public string PlayerLayer;
+		public string GhostLayer;
 
 		//PlayerStuff------------------------------------------//
 
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
 //				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
 
 				p.layer = LayerMask.NameToLayer (PlayerLayer);
+				myPlayer.animModel.layer = LayerMask.NameToLayer (GhostLayer);
 
 				NetworkEnable ();
 
