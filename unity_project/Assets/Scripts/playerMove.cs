@@ -22,6 +22,8 @@ public class playerMove : MonoBehaviour
 		public	Transform feets;
 		public LayerMask whatGround;
 
+		public Animator anim;
+
 		void Start ()
 		{
 				rigidbod = GetComponent<Rigidbody> ();
@@ -53,8 +55,11 @@ public class playerMove : MonoBehaviour
 		void checkMovement ()
 		{
 				float moveHorizontal = Input.GetAxis ("Horizontal");
-	
 				float moveVertical = Input.GetAxis ("Vertical");
+
+				anim.SetFloat ("XVelo", moveHorizontal);
+				anim.SetFloat ("ZVelo", moveVertical);
+
 				if (grounded) {
 						speed = og_speed;
 				} else
