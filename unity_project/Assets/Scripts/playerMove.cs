@@ -15,6 +15,7 @@ public class playerMove : MonoBehaviour
 		public float jumpPower;
 
 		Rigidbody rigidbod;
+
 		public bool jumped = false;
 		public bool grounded = false;
 
@@ -41,15 +42,17 @@ public class playerMove : MonoBehaviour
 				grounded = Physics.Linecast (start.position, feets.position, whatGround);
 
 				if (grounded && Input.GetAxis ("Jump") > 0) {
-						jump ();
+						if (!jumped)
+								jump ();
 
 				}
 		}
 
 		void jump ()
 		{
-				rigidbod.AddForce (transform.up * jumpPower);
+				rigidbod.velocity = new Vector3 (rigidbod.velocity.x * fly_speed, jumpPower, rigidbod.velocity.z * fly_speed);
 
+				jumped = true;
 		}
 
 		void checkMovement ()
@@ -62,6 +65,8 @@ public class playerMove : MonoBehaviour
 
 				if (grounded) {
 						speed = og_speed;
+						jumped = false;
+
 				} else
 						speed = og_speed * fly_speed;
 				if (rigidbod.velocity.magnitude < speed * speedLimitMultiplier)
