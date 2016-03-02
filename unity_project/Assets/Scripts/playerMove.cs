@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class playerMove : MonoBehaviour
@@ -11,7 +12,8 @@ public class playerMove : MonoBehaviour
 		public float jumpPower;
 		public bool jumped = false;
 		public bool grounded = false;
-		public double fuel;
+		public float _fuel;
+		public float maxFuel;
 
 		public	Transform start;
 		public	Transform feets;
@@ -19,13 +21,23 @@ public class playerMove : MonoBehaviour
 
 		public Animator anim;
 		Rigidbody rigidbod;
-	
-	
+		Slider fuelSlider = tileDictionary.thisM.JetpackFuel;
+		GameObject fire = tileDictionary.thisM.JetpackFire;
 
 
+//		public float fuel {
+//				get {
+//						return _fuel; 
+//				}
+//				set {
+//						_fuel = value; 
+////						fuelSlider.value = value;
+//				}
+//		}
 		void Start ()
 		{
 				rigidbod = GetComponent<Rigidbody> ();
+				fuelSlider.maxValue = maxFuel;
 		}
 
 		void FixedUpdate ()
@@ -42,7 +54,7 @@ public class playerMove : MonoBehaviour
 				if (Input.GetAxis ("Jump") > 0) {
 						if (grounded && !jumped) {
 								jump ();
-						} else if (fuel > 0) {
+						} else if (_fuel > 0) {
 								jetPack ();
 						}
 

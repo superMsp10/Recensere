@@ -19,7 +19,8 @@ public  class tileDictionary : MonoBehaviour
 		public GameObject inGameUI;
 		public GameObject pauseUI;
 		public Text HPText;
-
+		public Slider JetpackFuel;
+		public GameObject JetpackFire;
 		public Transform projectiles;
 
 
