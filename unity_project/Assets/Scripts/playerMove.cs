@@ -10,10 +10,11 @@ public class playerMove : MonoBehaviour
 		public float speedLimitMultiplier;
 	
 		public float jumpPower;
-		public bool jumped = false;
+		public bool jumped;
 		public bool grounded = false;
 		public float _fuel;
 		public float maxFuel;
+		bool fuelCountdown = false;
 
 		public	Transform start;
 		public	Transform feets;
@@ -21,58 +22,94 @@ public class playerMove : MonoBehaviour
 
 		public Animator anim;
 		Rigidbody rigidbod;
-		Slider fuelSlider = tileDictionary.thisM.JetpackFuel;
-		GameObject fire = tileDictionary.thisM.JetpackFire;
+		Slider fuelSlider ;
+		GameObject fire ;
 
 
-//		public float fuel {
-//				get {
-//						return _fuel; 
-//				}
-//				set {
-//						_fuel = value; 
-////						fuelSlider.value = value;
-//				}
-//		}
+		public float fuel {
+				get {
+						return _fuel; 
+				}
+				set {
+						_fuel = value; 
+						fuelSlider.value = value;
+				}
+		}
 		void Start ()
 		{
 				rigidbod = GetComponent<Rigidbody> ();
+				fuelSlider = tileDictionary.thisM.JetpackFuel;
+				fire = tileDictionary.thisM.JetpackFire;
 				fuelSlider.maxValue = maxFuel;
+				fuelSlider.value = _fuel;
+				fire.SetActive (false);
+
+
 		}
 
 		void FixedUpdate ()
 		{
 				checkMovement ();
 				checkJump ();
+
 		}
+
 
 		void checkJump ()
 		{
-
+		
 				grounded = (Physics.Linecast (start.position, feets.position, whatGround));
 
-				if (Input.GetAxis ("Jump") > 0) {
-						if (grounded && !jumped) {
-								jump ();
+				if (Input.GetKey (KeyCode.Space)) {
+						if (!jumped) {
+								if (Input.GetKeyDown (KeyCode.Space)) {
+										if (grounded)
+												jump ();
+										else
+												jumped = true;
+								}
 						} else if (_fuel > 0) {
 								jetPack ();
+						} else {
+								stopJetPack ();
 						}
-
 				} else {
-						rigidbod.useGravity = true;
+						stopJetPack ();
+
 				}
+				
+		}
+
+		void stopJetPack ()
+		{
+				rigidbod.useGravity = true;
+				CancelInvoke ("updateFuel");
+				fuelCountdown = false;
+				fire.SetActive (false);
+		}
+
+		void updateFuel ()
+		{
+				fuel--;
 		}
 
 		void jump ()
 		{
 				rigidbod.velocity = new Vector3 (rigidbod.velocity.x * fly_speed, jumpPower, rigidbod.velocity.z * fly_speed);
-
 				jumped = true;
+
 		}
 
 		void jetPack ()
 		{
 				rigidbod.useGravity = false;
+				fire.SetActive (true);
+
+				if (!fuelCountdown) {
+						InvokeRepeating ("updateFuel", 0, 1.0f);
+						fuelCountdown = true;
+				}
+
 		}
 
 		void checkMovement ()
@@ -86,7 +123,6 @@ public class playerMove : MonoBehaviour
 				if (grounded) {
 						speed = og_speed;
 						jumped = false;
-
 				} else
 						speed = og_speed * fly_speed;
 				if (rigidbod.velocity.magnitude < speed * speedLimitMultiplier)
