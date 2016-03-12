@@ -15,7 +15,8 @@ public class playerMove : MonoBehaviour
 		public float _fuel;
 		public float maxFuel;
 		bool fuelCountdown = false;
-
+		public JetpackFuelDisplay jetPackFuelDisplay;
+	
 		public	Transform start;
 		public	Transform feets;
 		public LayerMask whatGround;
@@ -33,6 +34,7 @@ public class playerMove : MonoBehaviour
 				set {
 						_fuel = value; 
 						fuelSlider.value = value;
+						jetPackFuelDisplay.setFuel (value / maxFuel);
 				}
 		}
 		void Start ()

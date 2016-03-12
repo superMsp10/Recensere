@@ -32,6 +32,7 @@ public class player : MonoBehaviour,Health
 		public Rigidbody r;
 		public GameObject animModel;
 
+
 		void FixedUpdate ()
 		{
 				anim.SetFloat ("YVelo", r.velocity.y);
