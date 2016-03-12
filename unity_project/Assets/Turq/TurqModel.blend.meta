@@ -172,6 +172,7 @@ ModelImporter:
     100328: ORG-upper_arm_R
     100330: rig
     100332: root
+    100334: JetPack
     400000: //RootNode
     400002: Cube
     400004: Cube_001
@@ -339,23 +340,27 @@ ModelImporter:
     400328: ORG-upper_arm_R
     400330: rig
     400332: root
+    400334: JetPack
     2300000: //RootNode
     2300002: Cube
     2300004: Cube_001
     2300006: Cube_002
     2300008: Turq_Head
     2300010: TurqBody
+    2300012: JetPack
     3300000: //RootNode
     3300002: Cube
     3300004: Cube_001
     3300006: Cube_002
     3300008: Turq_Head
     3300010: TurqBody
+    3300012: JetPack
     4300000: Cube
     4300002: Cube_002
     4300004: Cube_001
     4300006: Turq_Head
     4300008: TurqBody
+    4300010: JetPack
     7400000: Default Take
     9500000: //RootNode
     13700000: TurqBody
