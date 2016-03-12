@@ -4,27 +4,34 @@ using System.Collections;
 
 public class playerMove : MonoBehaviour
 {
-		public float og_speed;		
-		public float speed;		
-		public float fly_speed;		
+		//Movement
+		public float og_speed;
+		public float speed;
+		public float fly_speed;
 		public float speedLimitMultiplier;
-	
-		public float jumpPower;
-		public bool jumped;
-		public bool grounded = false;
-		public float _fuel;
-		public float maxFuel;
-		bool fuelCountdown = false;
-		public JetpackFuelDisplay jetPackFuelDisplay;
-	
 		public	Transform start;
 		public	Transform feets;
 		public LayerMask whatGround;
+	
+		//Jumping
+		public float jumpPower;
+		public bool jumped;
+		public bool grounded = false;
+
+		//Jetpack
+		public float _fuel;
+		public float maxFuel;
+		public JetpackFuelDisplay jetPackFuelDisplay;
+		public ParticleSystem airIntake;
+		public ParticleSystem afterburn;
+		bool usingJetPack = false;
+
+		bool fuelCountdown = false;
+		Slider fuelSlider;
+		GameObject jetpackUIFire;
 
 		public Animator anim;
 		Rigidbody rigidbod;
-		Slider fuelSlider ;
-		GameObject fire ;
 
 
 		public float fuel {
@@ -37,16 +44,19 @@ public class playerMove : MonoBehaviour
 						jetPackFuelDisplay.setFuel (value / maxFuel);
 				}
 		}
+
 		void Start ()
 		{
 				rigidbod = GetComponent<Rigidbody> ();
 				fuelSlider = tileDictionary.thisM.JetpackFuel;
-				fire = tileDictionary.thisM.JetpackFire;
+				jetpackUIFire = tileDictionary.thisM.JetpackFire;
 				fuelSlider.maxValue = maxFuel;
 				fuelSlider.value = _fuel;
-				fire.SetActive (false);
+				jetpackUIFire.SetActive (false);
+				airIntake.Stop ();
+				afterburn.Stop ();
 
-
+		
 		}
 
 		void FixedUpdate ()
@@ -71,12 +81,15 @@ public class playerMove : MonoBehaviour
 												jumped = true;
 								}
 						} else if (_fuel > 0) {
-								jetPack ();
+								if (!usingJetPack)
+										jetPack ();
 						} else {
-								stopJetPack ();
+								if (usingJetPack)
+										stopJetPack ();
 						}
 				} else {
-						stopJetPack ();
+						if (usingJetPack)
+								stopJetPack ();
 
 				}
 				
@@ -84,12 +97,16 @@ public class playerMove : MonoBehaviour
 
 		void stopJetPack ()
 		{
+				usingJetPack = false;
 				rigidbod.useGravity = true;
 				CancelInvoke ("updateFuel");
 				fuelCountdown = false;
-				fire.SetActive (false);
+				jetpackUIFire.SetActive (false);
+				airIntake.Stop ();
+				afterburn.Stop ();
+				Debug.Log ("hello");
 		}
-
+	
 		void updateFuel ()
 		{
 				fuel--;
@@ -104,16 +121,18 @@ public class playerMove : MonoBehaviour
 
 		void jetPack ()
 		{
+				usingJetPack = true;
 				rigidbod.useGravity = false;
-				fire.SetActive (true);
+				jetpackUIFire.SetActive (true);
 
 				if (!fuelCountdown) {
 						InvokeRepeating ("updateFuel", 0, 1.0f);
 						fuelCountdown = true;
 				}
-
+				airIntake.Play ();
+				afterburn.Play ();
 		}
-
+	
 		void checkMovement ()
 		{
 				float moveHorizontal = Input.GetAxis ("Horizontal");
