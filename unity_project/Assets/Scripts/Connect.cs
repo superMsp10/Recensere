@@ -7,6 +7,8 @@ public class Connect :  Photon.MonoBehaviour
 
 		public bool offline = false;
 		private byte Version = GameManager.Version;
+		bool showConnectionState = true;
+		string prevConnectionState;
 	
 		// Use this for initialization
 		void Start ()
@@ -19,10 +21,19 @@ public class Connect :  Photon.MonoBehaviour
 						Debug.Log ("Offline Mode!");
 
 				} else {
-						Debug.Log (PhotonNetwork.connectionStateDetailed);
-
 						PhotonNetwork.ConnectUsingSettings (Version.ToString ());
 				}
+		}
+
+		void Update ()
+		{
+				if (showConnectionState) {
+						if (PhotonNetwork.connectionStateDetailed.ToString () != prevConnectionState) {
+								Debug.Log (PhotonNetwork.connectionStateDetailed);
+								prevConnectionState = PhotonNetwork.connectionStateDetailed.ToString ();
+						}
+				}
+
 		}
 	
 		public virtual void OnConnectedToMaster ()
@@ -49,6 +60,7 @@ public class Connect :  Photon.MonoBehaviour
 	
 		public void OnJoinedRoom ()
 		{
+				showConnectionState = false;
 				GameManager.thisM.currLevel.OnConnected ();
 		}
 
