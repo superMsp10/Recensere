@@ -32,11 +32,13 @@ public class invManager : slotCollection,UIState
 //				if (giveOnStart != null) {
 //
 //				}
-				selectSlot (0);
 		}
 	
 		void Update ()
 		{
+				if (SelectedSlot == null) {
+						selectSlot (0);
+				}
 				if (!thismanage.paused) {
 						if (Input.GetAxisRaw ("slotChangeWheel") > 0 || Input.GetKeyDown (KeyCode.E)) {
 								selectSlot (SelectedInt + 1);

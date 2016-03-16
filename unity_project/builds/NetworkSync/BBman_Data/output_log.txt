@@ -20,7 +20,7 @@ Loading M:\ProducedGames\bomberMan\unity_project\builds\NetworkSync\BBman_Data\M
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\NetworkSync\BBman_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading M:\ProducedGames\bomberMan\unity_project\builds\NetworkSync\BBman_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\NetworkSync\BBman_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.129 seconds
+- Completed reload, in  0.127 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -31,7 +31,7 @@ Connecting using settings
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 828 -> priority: 1 
+  Thread -> id: 94c -> priority: 1 
 OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room. Calling: PhotonNetwork.JoinRandomRoom();
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
@@ -48,33 +48,18 @@ OnCollisionEnter, Cube and Player Amount: 5
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-Slot collection add holdable creating stack. 
- Can hold all
+TransferOwnership() view 2 to: 1 Time: 959
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-UI slot change holding. Amount: 5
+Ev OwnershipTransfer. ViewID 2 to: 1 Time: 84
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-UI slot change amout to: 5
+NullReferenceException: Object reference not set to an instance of an object
+  at player.set_HP (Single value) [0x00000] in <filename unknown>:0 
+  at player.takeDamage (Single damage, System.String attacker) [0x00000] in <filename unknown>:0 
+  at player.OnCollisionEnter (UnityEngine.Collision collision) [0x00000] in <filename unknown>:0 
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-UI slot change holding,
- changed to new holding
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-onPickup by Cube
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-onDeselect by Cube
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Generated loot
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+(Filename:  Line: -1)
 

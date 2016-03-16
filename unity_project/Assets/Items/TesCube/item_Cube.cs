@@ -27,12 +27,37 @@ public class item_Cube : MonoBehaviour,Holdable
 		float timeStarted;
 		float timeEnded;
 		public float wantedTime;
+		public PhotonView thisView;
 
 		bool startedHold = false;
 
 		void Start ()
 		{
 				projectilePooler = new NetworkPooler (maxItems, projectile);
+		}
+
+		enum Parents
+		{
+				LeftHand,
+				RightHand,
+				Items}
+		;
+
+		[PunRPC]
+		void changeParent (int parent)
+		{
+				switch (parent) {
+				case (int)Parents.LeftHand:
+						transform.parent = p.left_hand;
+						break;
+				case (int)Parents.RightHand:
+						transform.parent = p.right_hand;
+						break;
+				case (int)Parents.Items:
+						transform.parent = GameManager.thisM.currLevel.items;
+						break;
+				}
+
 		}
 
 		//Item------------------------------------------//
@@ -51,6 +76,12 @@ public class item_Cube : MonoBehaviour,Holdable
 				}
 		
 		}
+		public	void detach (GameObject g)
+		{
+				projectilePooler.disposeObject (g.GetComponent<Poolable> ());
+		
+		}
+
 		void OnCollisionEnter (Collision collision)
 		{
 				if (pickable) {
@@ -61,12 +92,6 @@ public class item_Cube : MonoBehaviour,Holdable
 								_pickable = false;
 						}
 				}
-		}
-
-		public	void detach (GameObject g)
-		{
-				projectilePooler.disposeObject (g.GetComponent<Poolable> ());
-		
 		}
 		
 		//Holdable------------------------------------------//
@@ -104,20 +129,19 @@ public class item_Cube : MonoBehaviour,Holdable
 		}
 		public	bool  buttonDown ()
 		{
-				Debug.Log ("buttonDown by Cube");
+//				Debug.Log ("buttonDown by Cube");
 				timeStarted = Time.time;
 				startedHold = true;
 				return false;
 		}
 		public	void  buttonUP ()
 		{
-				Debug.Log ("buttonUP by Cube");
+//				Debug.Log ("buttonUP by Cube");
 				timeEnded = Time.time;
 
 				//Projectile Stuff
 				GameObject g = projectilePooler.getObject ();
 				//Set Transform to this and reset Timer
-				g.transform.SetParent (tileDictionary.thisM.projectiles, true);
 				g.transform.position = transform.position;
 				g.transform.rotation = transform.rotation;
 				g.GetComponent<Timer> ().StartTimer (itemReset);
@@ -135,25 +159,29 @@ public class item_Cube : MonoBehaviour,Holdable
 		}
 		public	void  onSelect ()
 		{
-				Debug.Log ("onSelect by Cube");
+//				Debug.Log ("onSelect by Cube");
+
 				gameObject.SetActive (true);
 
 		}
+
 		public void  onDeselect ()
 		{
-				Debug.Log ("onDeselect by Cube");
+//				Debug.Log ("onDeselect by Cube");
 				gameObject.SetActive (false);
 
 		}
 		public	void  onPickup ()
 		{
-				Debug.Log ("onPickup by Cube");
+//				Debug.Log ("onPickup by Cube");
+				thisView.TransferOwnership (PhotonNetwork.player.ID);
 				GetComponent<Renderer> ().material.color = normal;
 
 				_pickable = false;
 				r.isKinematic = true;
 				gameObject.layer = LayerMask.NameToLayer (p.handLayer);
-				transform.parent = p.right_hand;
+//				transform.parent = p.right_hand;
+				thisView.RPC ("changeParent", PhotonTargets.All, (int)Parents.RightHand);
 				transform.position = p.right_hand.position;
 				transform.rotation = p.right_hand.rotation;
 				gameObject.SetActive (false);
@@ -162,12 +190,14 @@ public class item_Cube : MonoBehaviour,Holdable
 		}
 		public	void  onDrop ()
 		{
-				Debug.Log ("onDrop by Cube");
+//				Debug.Log ("onDrop by Cube");
 				GetComponent<Renderer> ().material.color = normal;
 				r.velocity = Vector3.zero;
 				r.isKinematic = false;
 				gameObject.layer = LayerMask.NameToLayer (itemLayer);
-				transform.parent = GameManager.thisM.currLevel.items;
+//				transform.parent = GameManager.thisM.currLevel.items;
+				thisView.RPC ("changeParent", PhotonTargets.All, (int)Parents.Items);
+
 				gameObject.SetActive (true);
 //				transform.position = p.transform.position;
 				Invoke ("resetPick", 5.0f);
@@ -175,7 +205,7 @@ public class item_Cube : MonoBehaviour,Holdable
 	
 		public	void resetPick ()
 		{
-				Debug.Log ("ResetPick by Cube");
+//				Debug.Log ("ResetPick by Cube");
 				_pickable = true;
 
 		}

@@ -36,13 +36,13 @@ public class slotCollection : MonoBehaviour
 								int space = h.stackSize - s.amount;
 								if (space > amount) {
 										s.amount += amount;
-										Debug.Log ("Slot collection add holdable item exists \n only changeing amount. Can hold all");
+//										Debug.Log ("Slot collection add holdable item exists \n only changeing amount. Can hold all");
 
 										return 0;
 								} else {
 										s.amount += space;
 										amount -= space;
-										Debug.Log ("Slot collection add holdable item exists \n only changeing amount. Can not hold all");
+//										Debug.Log ("Slot collection add holdable item exists \n only changeing amount. Can not hold all");
 
 								}
 						}
@@ -52,12 +52,12 @@ public class slotCollection : MonoBehaviour
 				foreach (var s in slots) {
 						if (s.holding == null) {
 								if (amount > h.stackSize) {
-										Debug.Log ("Slot collection add holdable creating stack. \n Can not hold all");
+//										Debug.Log ("Slot collection add holdable creating stack. \n Can not hold all");
 										s.changeHolding (h, h.stackSize);
 										amount -= h.stackSize;
 
 								} else {
-										Debug.Log ("Slot collection add holdable creating stack. \n Can hold all");
+//										Debug.Log ("Slot collection add holdable creating stack. \n Can hold all");
 										s.changeHolding (h, amount);
 										return 0;										
 
@@ -65,7 +65,7 @@ public class slotCollection : MonoBehaviour
 								}
 						}
 				}
-				Debug.Log ("Slot collection add holdable exiting with " + amount + " objects");
+//				Debug.Log ("Slot collection add holdable exiting with " + amount + " objects");
 
 				return amount;
 		}

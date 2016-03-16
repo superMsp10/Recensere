@@ -104,7 +104,6 @@ public class playerMove : MonoBehaviour
 				jetpackUIFire.SetActive (false);
 				airIntake.Stop ();
 				afterburn.Stop ();
-				Debug.Log ("hello");
 		}
 	
 		void updateFuel ()

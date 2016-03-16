@@ -36,7 +36,7 @@ public class UIslot : MonoBehaviour
 								_amount = 0; 
 								
 						} else {
-								Debug.Log ("UI slot change amout to: " + value);
+//								Debug.Log ("UI slot change amout to: " + value);
 								_amount = value;
 								amountText.text = amount.ToString ();
 								amountText.transform.parent.gameObject.SetActive (true);
@@ -48,14 +48,14 @@ public class UIslot : MonoBehaviour
 
 		public void changeHolding (Holdable h, int amounts = 0)
 		{
-				Debug.Log ("UI slot change holding. Amount: " + amounts);
+//				Debug.Log ("UI slot change holding. Amount: " + amounts);
 				if (holding != null) {
-						Debug.Log ("UI slot change holding,\n old holding drop");
+//						Debug.Log ("UI slot change holding,\n old holding drop");
 						holding.onDrop ();
 				}
 
 				if (h == null || amounts <= 0) {
-						Debug.Log ("UI slot change holding,\n parameter holdable is null");
+//						Debug.Log ("UI slot change holding,\n parameter holdable is null");
 						clearHolding ();
 					
 				} else { 
@@ -63,7 +63,7 @@ public class UIslot : MonoBehaviour
 						holding = h;
 						amount = amounts;
 						slot.sprite = holding.holdUI;
-						Debug.Log ("UI slot change holding,\n changed to new holding");
+//						Debug.Log ("UI slot change holding,\n changed to new holding");
 						holding.onPickup ();
 						if (selected)
 								holding.onSelect ();
@@ -72,7 +72,7 @@ public class UIslot : MonoBehaviour
 
 		public void clearHolding ()
 		{
-				Debug.Log ("UI slot clear holding");
+//				Debug.Log ("UI slot clear holding");
 				slot.sprite = defaultSlotImage;
 				holding = null;
 				amount = 0;

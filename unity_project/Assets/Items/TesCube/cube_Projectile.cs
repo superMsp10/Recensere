@@ -14,6 +14,8 @@ public class cube_Projectile : MonoBehaviour,Poolable,Timer
 		{
 				gameObject.SetActive (on);
 				r.isKinematic = !on;
+				transform.SetParent (tileDictionary.thisM.projectiles, true);
+
 
 				if (on) {
 						r.velocity = Vector3.zero;
