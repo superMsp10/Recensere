@@ -51,6 +51,7 @@ public class item_Cube : MonoBehaviour,Holdable
 						transform.parent = p.left_hand;
 						break;
 				case (int)Parents.RightHand:
+						Debug.Log (p);
 						transform.parent = p.right_hand;
 						break;
 				case (int)Parents.Items:
@@ -58,6 +59,13 @@ public class item_Cube : MonoBehaviour,Holdable
 						break;
 				}
 
+		}
+
+		[PunRPC]
+		void pickedUpBy (int viewID)
+		{
+				p = GameManager.thisM.getPlayerByViewID (viewID);
+		
 		}
 
 		//Item------------------------------------------//
@@ -87,7 +95,9 @@ public class item_Cube : MonoBehaviour,Holdable
 				if (pickable) {
 						if (collision.collider.gameObject.layer == LayerMask.NameToLayer (GameManager.thisM.PlayerLayer)) {
 								Debug.Log ("OnCollisionEnter, Cube and Player Amount: " + _amount);
-								p = GameManager.thisM.myPlayer;
+//								p = collision.collider.gameObject.GetComponent<player> ();
+								thisView.RPC ("pickedUpBy", PhotonTargets.All, collision.collider.gameObject.GetComponent<PhotonView> ().viewID);
+
 								invManager.thisInv.addHoldable (this, _amount);
 								_pickable = false;
 						}

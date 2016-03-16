@@ -19,7 +19,7 @@ public class Connect :  Photon.MonoBehaviour
 						Debug.Log ("Offline Mode!");
 
 				} else {
-						Debug.Log ("Connecting using settings");
+						Debug.Log (PhotonNetwork.connectionStateDetailed);
 
 						PhotonNetwork.ConnectUsingSettings (Version.ToString ());
 				}

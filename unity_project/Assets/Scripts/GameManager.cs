@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
 		//PlayerStuff------------------------------------------//
 
+		public player[] players;
 		public GameObject playerInstantiate;
 		public player myPlayer;
 		public bool dead = true;
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
 
 		//LevelStuf------------------------------------------//
 		public Level currLevel;
-		public	PhotonView p;
+		public	PhotonView view;
 		public	static float speedToDamageMultiplier = 1f;
 
 		public GameObject currCam;
@@ -49,9 +50,24 @@ public class GameManager : MonoBehaviour
 				myPlayer.animModel.layer = LayerMask.NameToLayer (GhostLayer);
 
 				NetworkEnable ();
+				view.RPC ("updatePlayers", PhotonTargets.All, null);
+		}
 
+		[PunRPC]
+		void updatePlayers ()
+		{
+				players = FindObjectsOfType<player> ();
+				Debug.Log ("Updating players, Total:" + players.Length);
+		}
 
-
+		public player getPlayerByViewID (int viewID)
+		{
+				foreach (player p in players) {
+						if (p.GetComponent<PhotonView> ().viewID == viewID) {
+								return p;
+						}
+				}
+				return null;
 		}
 
 		public void ChangeCam (GameObject c)
@@ -117,14 +133,14 @@ public class GameManager : MonoBehaviour
 		public void sendFloorTileDamage (float damage, string attacker, int x, int y)
 		{
 //				Debug.Log ("send floor dmg");
-				p.RPC ("syncFloorTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y);
+				view.RPC ("syncFloorTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y);
 		
 		}
 
 		public void sendWallTileDamage (float damage, string attacker, int x, int y, bool yWall)
 		{
 //				Debug.Log ("send wall dmg");
-				p.RPC ("syncWallTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y, yWall);
+				view.RPC ("syncWallTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y, yWall);
 
 		
 		}
