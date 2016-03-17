@@ -35,12 +35,17 @@ public class GameManager : MonoBehaviour
 		//Player------------------------------------------//
 		public	void instantiatePlayer ()
 		{
+
 				GameObject p;
 				int playerID = PhotonNetwork.countOfPlayers;
 				Vector3 ss = FindObjectsOfType<SpawnSpot> () [playerID % 4].transform.position;
+
 				p = PhotonNetwork.Instantiate (playerInstantiate.name, 
 		                            ss,
 		                               Quaternion.identity, 0, null);
+
+				view.RPC ("updatePlayers", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
+
 		
 				myPlayer = p.GetComponent<player> ();
 				myPlayer.playerID = playerID;
@@ -50,14 +55,14 @@ public class GameManager : MonoBehaviour
 				myPlayer.animModel.layer = LayerMask.NameToLayer (GhostLayer);
 
 				NetworkEnable ();
-				view.RPC ("updatePlayers", PhotonTargets.All, null);
+
 		}
 
 		[PunRPC]
-		void updatePlayers ()
+		void updatePlayers (int id)
 		{
 				players = FindObjectsOfType<player> ();
-				Debug.Log ("Updating players, Total:" + players.Length);
+				Debug.Log ("Updating players for player: " + id + ", Total:" + players.Length);
 		}
 
 		public player getPlayerByViewID (int viewID)
@@ -91,7 +96,7 @@ public class GameManager : MonoBehaviour
 				myPlayer.networkInit ();
 				dead = false;
 				UIManager.thisM.changeUI (tileDictionary.thisM.inGameUI);
-		
+
 		}
 	
 		public void NetworkDisable ()

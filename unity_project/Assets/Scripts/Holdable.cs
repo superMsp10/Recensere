@@ -26,7 +26,6 @@ public interface Holdable
 	
 		bool  buttonDown ();
 		void  buttonUP ();
-		void  updateItem ();
 
 		void  onSelect ();
 		void  onDeselect ();

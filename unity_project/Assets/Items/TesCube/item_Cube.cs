@@ -28,62 +28,34 @@ public class item_Cube : MonoBehaviour,Holdable
 		float timeEnded;
 		public float wantedTime;
 		public PhotonView thisView;
-
+		int playerID;
+		bool selected = false;
 		bool startedHold = false;
+		Renderer ren;
 
 		void Start ()
 		{
 				projectilePooler = new NetworkPooler (maxItems, projectile);
-		}
+				ren = GetComponent<Renderer> ();
 
-		enum Parents
-		{
-				LeftHand,
-				RightHand,
-				Items}
-		;
-
-		[PunRPC]
-		void changeParent (int parent)
-		{
-				switch (parent) {
-				case (int)Parents.LeftHand:
-						transform.parent = p.left_hand;
-						break;
-				case (int)Parents.RightHand:
-						Debug.Log (p);
-						transform.parent = p.right_hand;
-						break;
-				case (int)Parents.Items:
-						transform.parent = GameManager.thisM.currLevel.items;
-						break;
-				}
-
-		}
-
-		[PunRPC]
-		void pickedUpBy (int viewID)
-		{
-				p = GameManager.thisM.getPlayerByViewID (viewID);
-		
 		}
 
 		//Item------------------------------------------//
-		public	void updateItem ()
+		public	void Update ()
 		{
-				Renderer ren = GetComponent<Renderer> ();
-
-				if (ren == null) {
-						Debug.Log ("No renderer on this object");
-						return;
+				if (selected) {
+						if (ren == null) {
+								Debug.Log ("No renderer on this object");
+								return;
+						}
+						if (startedHold) {
+								ren.material.color = Color.Lerp (normal, highlighted, (Time.time - timeStarted) / wantedTime);
+						} else {
+								ren.material.color = normal;
+						}
 				}
-				if (startedHold) {
-						ren.material.color = Color.Lerp (normal, highlighted, (Time.time - timeStarted) / wantedTime);
-				} else {
-						ren.material.color = normal;
-				}
-		
 		}
+
 		public	void detach (GameObject g)
 		{
 				projectilePooler.disposeObject (g.GetComponent<Poolable> ());
@@ -96,7 +68,8 @@ public class item_Cube : MonoBehaviour,Holdable
 						if (collision.collider.gameObject.layer == LayerMask.NameToLayer (GameManager.thisM.PlayerLayer)) {
 								Debug.Log ("OnCollisionEnter, Cube and Player Amount: " + _amount);
 //								p = collision.collider.gameObject.GetComponent<player> ();
-								thisView.RPC ("pickedUpBy", PhotonTargets.All, collision.collider.gameObject.GetComponent<PhotonView> ().viewID);
+								playerID = collision.collider.gameObject.GetComponent<PhotonView> ().viewID;
+								thisView.RPC ("pickedUpBy", PhotonTargets.All, playerID);
 
 								invManager.thisInv.addHoldable (this, _amount);
 								_pickable = false;
@@ -139,15 +112,22 @@ public class item_Cube : MonoBehaviour,Holdable
 		}
 		public	bool  buttonDown ()
 		{
-//				Debug.Log ("buttonDown by Cube");
-				timeStarted = Time.time;
-				startedHold = true;
+				thisView.RPC ("buttonDownBy", PhotonTargets.All, null);
+	
 				return false;
 		}
+
+		[PunRPC]
+		void  buttonDownBy ()
+		{
+				//				Debug.Log ("buttonDown by Cube");
+				timeStarted = Time.time;
+				startedHold = true;
+		}
+
 		public	void  buttonUP ()
 		{
-//				Debug.Log ("buttonUP by Cube");
-				timeEnded = Time.time;
+				thisView.RPC ("buttonUpBy", PhotonTargets.All, null);
 
 				//Projectile Stuff
 				GameObject g = projectilePooler.getObject ();
@@ -164,62 +144,96 @@ public class item_Cube : MonoBehaviour,Holdable
 				else
 						force = (heldTime / wantedTime) * throwMultiplier;
 				g.GetComponent<Rigidbody> ().AddForce (p.left_hand.forward * force);
-
-				startedHold = false;
 		}
+
+		[PunRPC]
+		void  buttonUpBy ()
+		{
+				timeEnded = Time.time;
+				startedHold = false;
+				//				Debug.Log ("buttonUP by Cube");
+		}
+
 		public	void  onSelect ()
 		{
-//				Debug.Log ("onSelect by Cube");
+				thisView.RPC ("selectedBy", PhotonTargets.All, null);
+		}
 
+		[PunRPC]
+		void selectedBy ()
+		{
 				gameObject.SetActive (true);
-
+				selected = true;
 		}
 
 		public void  onDeselect ()
 		{
-//				Debug.Log ("onDeselect by Cube");
+				thisView.RPC ("deselectedBy", PhotonTargets.All, null);
+		}
+
+		[PunRPC]
+		void deselectedBy ()
+		{
+				//				Debug.Log ("onDeselect by Cube");
 				gameObject.SetActive (false);
+				selected = false;
 
 		}
 		public	void  onPickup ()
 		{
 //				Debug.Log ("onPickup by Cube");
 				thisView.TransferOwnership (PhotonNetwork.player.ID);
-				GetComponent<Renderer> ().material.color = normal;
+		}
 
+		[PunRPC]
+		void pickedUpBy (int viewID)
+		{
+				GetComponent<Renderer> ().material.color = normal;
+				p = GameManager.thisM.getPlayerByViewID (viewID);
 				_pickable = false;
 				r.isKinematic = true;
 				gameObject.layer = LayerMask.NameToLayer (p.handLayer);
-//				transform.parent = p.right_hand;
-				thisView.RPC ("changeParent", PhotonTargets.All, (int)Parents.RightHand);
+				transform.parent = p.right_hand;
 				transform.position = p.right_hand.position;
 				transform.rotation = p.right_hand.rotation;
 				gameObject.SetActive (false);
-
-
 		}
+
 		public	void  onDrop ()
 		{
-//				Debug.Log ("onDrop by Cube");
+				thisView.RPC ("droppedBy", PhotonTargets.All, null);
+
+		}
+
+		[PunRPC]
+		void  droppedBy ()
+		{
+				//				Debug.Log ("onDrop by Cube");
 				GetComponent<Renderer> ().material.color = normal;
 				r.velocity = Vector3.zero;
 				r.isKinematic = false;
 				gameObject.layer = LayerMask.NameToLayer (itemLayer);
-//				transform.parent = GameManager.thisM.currLevel.items;
-				thisView.RPC ("changeParent", PhotonTargets.All, (int)Parents.Items);
+				transform.parent = GameManager.thisM.currLevel.items;
 
 				gameObject.SetActive (true);
-//				transform.position = p.transform.position;
+				//				transform.position = p.transform.position;
 				Invoke ("resetPick", 5.0f);
 		}
-	
-		public	void resetPick ()
+
+		[PunRPC]
+		void resetPickBy ()
 		{
 //				Debug.Log ("ResetPick by Cube");
 				_pickable = true;
 
 		}
+
+		public	void resetPick ()
+		{
+				thisView.RPC ("resetPickBy", PhotonTargets.All, null);
+		}
 		
+
 		
 
 }

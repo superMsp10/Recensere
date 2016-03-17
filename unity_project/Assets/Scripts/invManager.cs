@@ -52,8 +52,8 @@ public class invManager : slotCollection,UIState
 								if (Input.GetButtonUp ("InvSelected")) {
 										SelectedSlot.holding.buttonUP ();
 								}
-								if (SelectedSlot.holding != null)
-										SelectedSlot.holding.updateItem ();
+//								if (SelectedSlot.holding != null)
+//										SelectedSlot.holding.updateItem ();
 						}
 				}
 				
