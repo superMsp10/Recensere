@@ -135,7 +135,9 @@ public class item_Cube : MonoBehaviour,Holdable
 				g.transform.position = transform.position;
 				g.transform.rotation = transform.rotation;
 				g.GetComponent<Timer> ().StartTimer (itemReset);
-				g.GetComponent<cube_Projectile> ().thisPooler = this;
+				cube_Projectile c = g.GetComponent<cube_Projectile> ();
+				c.thisPooler = this;
+				c.armed = true;
 				//Apply Force
 				float force = 0f;
 				float heldTime = Time.time - timeStarted;
