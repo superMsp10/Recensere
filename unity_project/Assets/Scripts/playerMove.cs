@@ -45,11 +45,12 @@ public class playerMove : MonoBehaviour
 				}
 		}
 
-		void Start ()
+		public void Start ()
 		{
 				rigidbod = GetComponent<Rigidbody> ();
 				fuelSlider = tileDictionary.thisM.JetpackFuel;
 				jetpackUIFire = tileDictionary.thisM.JetpackFire;
+				fuel = maxFuel;
 				fuelSlider.maxValue = maxFuel;
 				fuelSlider.value = _fuel;
 				jetpackUIFire.SetActive (false);
@@ -72,27 +73,20 @@ public class playerMove : MonoBehaviour
 		
 				grounded = (Physics.Linecast (start.position, feets.position, whatGround));
 
-				if (Input.GetKey (KeyCode.Space)) {
-						if (!jumped) {
-								if (Input.GetKeyDown (KeyCode.Space)) {
-										if (grounded)
-												jump ();
-										else
-												jumped = true;
-								}
-						} else if (_fuel > 0) {
-								if (!usingJetPack)
-										jetPack ();
-						} else {
-								if (usingJetPack)
-										stopJetPack ();
+				if (!jumped) {
+						if (Input.GetKeyDown (KeyCode.Space)) {
+								if (grounded)
+										jump ();
+								else
+										jumped = true;
 						}
-				} else {
-						if (usingJetPack)
-								stopJetPack ();
+				} else if (Input.GetKey (KeyCode.Space) && _fuel > 0) {
+						if (!usingJetPack)
+								jetPack ();
 
-				}
-				
+				} else if (usingJetPack)
+						stopJetPack ();
+	
 		}
 
 		void stopJetPack ()

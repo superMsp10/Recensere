@@ -105,7 +105,11 @@ public class player : MonoBehaviour,Health
 				foreach (MonoBehaviour m in networkSet) {
 						m.enabled = true;
 				}
+				GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 0);
 				GetComponent<Rigidbody> ().useGravity = true;
+
+				playerMove pm = GetComponent<playerMove> ();
+				pm.Start ();
 
 				HPText = tileDictionary.thisM.HPText;
 				HP = originalHealth;
