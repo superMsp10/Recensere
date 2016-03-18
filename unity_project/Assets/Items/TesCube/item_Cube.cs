@@ -137,7 +137,7 @@ public class item_Cube : MonoBehaviour,Holdable
 				g.GetComponent<Timer> ().StartTimer (itemReset);
 				cube_Projectile c = g.GetComponent<cube_Projectile> ();
 				c.thisPooler = this;
-				c.armed = true;
+				c.armed = false;
 				//Apply Force
 				float force = 0f;
 				float heldTime = Time.time - timeStarted;

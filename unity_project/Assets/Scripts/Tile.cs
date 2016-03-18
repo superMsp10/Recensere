@@ -9,6 +9,7 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
 		float orgHealth;
+		public LayerMask damagedBy;
 
 		//Health Representation
 		Renderer thisRender;
@@ -130,22 +131,24 @@ public abstract class Tile: MonoBehaviour, Health, Attachable
 
 		void OnCollisionEnter (Collision collision)
 		{
-				float sdm = GameManager.speedToDamageMultiplier;
+
+				if (damagedBy == (damagedBy | (1 << collision.gameObject.layer))) {
+						float sdm = GameManager.speedToDamageMultiplier;
 //				Debug.Log ("Collision Enter at Tile");
-				float dmg = Mathf.Pow (collision.relativeVelocity.magnitude, sdm);
-				if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {
+						float dmg = Mathf.Pow (collision.relativeVelocity.magnitude, sdm);
+						if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {
 						
-						if (takeDamage (dmg, collision.collider.name)) {
-								if (collision.collider.attachedRigidbody != null) {
-										collision.collider.attachedRigidbody.velocity *= sdm;
+								if (takeDamage (dmg, collision.collider.name)) {
+										if (collision.collider.attachedRigidbody != null) {
+												collision.collider.attachedRigidbody.velocity *= sdm;
+										}
+								} else {
+										addFX (collision, dmg);
 								}
-						} else {
-								addFX (collision, dmg);
-						}
 
 		
+						}
 				}
-		
 		}
 
 		public virtual void addFX (Collision c, float dmg)

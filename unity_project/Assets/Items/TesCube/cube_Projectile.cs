@@ -6,7 +6,7 @@ public class cube_Projectile : MonoBehaviour,Poolable,Timer
 		public Rigidbody r;
 		public item_Cube thisPooler;
 		public int hitDamageMultiplier;
-		public bool armed = false;
+		public bool armed = true;
 		public GameObject gameobject {
 				get {
 						return gameObject;

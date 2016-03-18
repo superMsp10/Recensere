@@ -11,6 +11,8 @@ public class player : MonoBehaviour,Health
 		public	string lastAttacker;
 		public	bool takeDmg = true;
 		public float Sturdy = 10f;
+		public LayerMask damagedBy;
+
 		//healthUI
 		private Text HPText;
 	
@@ -154,19 +156,21 @@ public class player : MonoBehaviour,Health
 
 		void OnCollisionEnter (Collision collision)
 		{
-				float sdm = GameManager.speedToDamageMultiplier;
-				//				Debug.Log ("Collision Enter at Tile");
-				float dmg = Mathf.Pow (collision.relativeVelocity.magnitude, sdm);
-				if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {
+				if (damagedBy == (damagedBy | (1 << collision.gameObject.layer))) {
+
+						float sdm = GameManager.speedToDamageMultiplier;
+						//				Debug.Log ("Collision Enter at Tile");
+						float dmg = Mathf.Pow (collision.relativeVelocity.magnitude, sdm);
+						if (takeDmg && collision.relativeVelocity.magnitude > Sturdy) {
 			
-						if (takeDamage (dmg, collision.collider.name)) {
-								if (collision.collider.attachedRigidbody != null) {
-										collision.collider.attachedRigidbody.velocity *= sdm;
-								}
-						} 
+								if (takeDamage (dmg, collision.collider.name)) {
+										if (collision.collider.attachedRigidbody != null) {
+												collision.collider.attachedRigidbody.velocity *= sdm;
+										}
+								} 
 			
 			
+						}
 				}
-		
 		}
 }
