@@ -17,6 +17,7 @@ public class item_Cube : MonoBehaviour,Holdable
 		public int maxItems;
 		public GameObject projectile;
 		public float throwMultiplier;
+		public string projectileLayer;
 
 		//Item Stuff
 		public Rigidbody r;
@@ -137,7 +138,7 @@ public class item_Cube : MonoBehaviour,Holdable
 				g.GetComponent<Timer> ().StartTimer (itemReset);
 				cube_Projectile c = g.GetComponent<cube_Projectile> ();
 				c.thisPooler = this;
-				c.armed = false;
+				c.gameObject.layer = LayerMask.NameToLayer (projectileLayer);
 				//Apply Force
 				float force = 0f;
 				float heldTime = Time.time - timeStarted;

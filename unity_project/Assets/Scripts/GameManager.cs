@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 		void Awake ()
 		{
 				thisM = this;
+				Cursor.lockState = CursorLockMode.Confined;
 		}
 
 		//Player------------------------------------------//
@@ -124,10 +125,14 @@ public class GameManager : MonoBehaviour
 								foreach (MonoBehaviour m in myPlayer.networkSet) {
 										m.enabled = false;
 								}
+								Cursor.lockState = CursorLockMode.None;
+
 						} else {
 								foreach (MonoBehaviour m in myPlayer.networkSet) {
 										m.enabled = true;
 								}
+								Cursor.lockState = CursorLockMode.Confined;
+
 						}
 
 				}
