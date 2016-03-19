@@ -19,6 +19,7 @@ public class player : MonoBehaviour,Health
 		//Network
 		public MonoBehaviour[] networkSet;
 		public int playerID;
+		public PhotonView thisView;
 
 		public GameObject thisCam;
 		public MouseLook look;
@@ -41,11 +42,16 @@ public class player : MonoBehaviour,Health
 		}
 
 
-
+		[PunRPC]
+		void hello ()
+		{
+				Debug.Log ("hello from: " + gameObject.name);
+		}
 		public	virtual bool takeDamage (float damage, string attacker)
 		{
 				//				Debug.Log ("Take Damage From Tile");
-		
+				Debug.Log ("hello to: " + gameObject.name);
+				thisView.RPC ("hello", PhotonTargets.All, null);
 				if (health <= 0)
 						return false;
 				HP -= damage;
@@ -55,7 +61,7 @@ public class player : MonoBehaviour,Health
 						return true;
 				}
 				return false;
-		
+				
 		}
 	
 		public	virtual void syncDamage (float damage, string attacker)

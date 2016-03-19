@@ -90,6 +90,9 @@ public class playerMove : MonoBehaviour
 				if (grounded && !Input.GetKey (KeyCode.Space) && usingJetPack)
 						stopJetPack ();
 
+				if (fuel <= 0 && usingJetPack)
+						stopJetPack ();
+
 		}
 
 		void stopJetPack ()
