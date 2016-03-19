@@ -41,39 +41,41 @@ public class player : MonoBehaviour,Health
 				anim.SetFloat ("YVelo", r.velocity.y);
 		}
 
-
-		[PunRPC]
-		void hello ()
-		{
-				Debug.Log ("hello from: " + gameObject.name);
-		}
+	
 		public	virtual bool takeDamage (float damage, string attacker)
 		{
-				//				Debug.Log ("Take Damage From Tile");
-				Debug.Log ("hello to: " + gameObject.name);
-				thisView.RPC ("hello", PhotonTargets.All, null);
-				if (health <= 0)
-						return false;
-				HP -= damage;
-				lastAttacker = attacker;
-				if (health <= 0) {
-						Destroy ();
-						return true;
+
+				if (thisView.isMine) {
+						if (health <= 0)
+								return false;
+						HP -= damage;
+						lastAttacker = attacker;
+						if (health <= 0) {
+								Destroy ();
+								return true;
+						}
+				} else {
+						thisView.RPC ("syncDamage", PhotonTargets.Others, damage, attacker);
 				}
 				return false;
-				
+
 		}
-	
+
+		[PunRPC]
 		public	virtual void syncDamage (float damage, string attacker)
 		{
-				//				Debug.Log ("Sync Damage From Tile");
-		
-				health -= damage;
-				lastAttacker = attacker;
-				if (health <= 0) {
-						Destroy ();
+
+				if (thisView.isMine) {
+						if (health <= 0)
+								return;
+						HP -= damage;
+						lastAttacker = attacker;
+						if (health <= 0) {
+								Destroy ();
+								return;
+						}
+
 				}
-		
 		}
 	
 	
@@ -94,8 +96,9 @@ public class player : MonoBehaviour,Health
 						return health; 
 				}
 				set {
-						health = value; 
-						HPText.text = "Health: " + value;
+						health = value;
+						if (thisView.isMine)
+								HPText.text = "Health: " + value;
 				}
 		}
 	
@@ -113,8 +116,9 @@ public class player : MonoBehaviour,Health
 				foreach (MonoBehaviour m in networkSet) {
 						m.enabled = true;
 				}
-				GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 0);
-				GetComponent<Rigidbody> ().useGravity = true;
+				Rigidbody r = GetComponent<Rigidbody> ();
+				r.velocity = new Vector3 (0, 0, 0);
+				r.useGravity = true;
 
 				playerMove pm = GetComponent<playerMove> ();
 				pm.Start ();

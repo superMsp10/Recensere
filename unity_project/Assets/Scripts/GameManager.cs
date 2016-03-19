@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
 				p.layer = LayerMask.NameToLayer (PlayerLayer);
 				myPlayer.animModel.layer = LayerMask.NameToLayer (GhostLayer);
-
+				p.GetComponent<Rigidbody> ().isKinematic = false;
 				NetworkEnable ();
 
 		}

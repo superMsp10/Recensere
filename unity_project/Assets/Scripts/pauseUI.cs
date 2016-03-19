@@ -45,6 +45,7 @@ public class pauseUI : MonoBehaviour,UIState
 		{
 				if (!GameManager.thisM.dead)
 						UIManager.thisM.changeUI (inGame);
+
 		}
 
 		public	void Disconnect ()

@@ -6,9 +6,8 @@ public class cube_Projectile : MonoBehaviour,Poolable,Timer
 		public Rigidbody r;
 		public item_Cube thisPooler;
 		public int hitDamage;
-		public LayerMask damage;
 
-		bool armed = true;	
+		public bool armed = false;	
 		public GameObject gameobject {
 				get {
 						return gameObject;
@@ -24,7 +23,6 @@ public class cube_Projectile : MonoBehaviour,Poolable,Timer
 
 
 				if (on) {
-						armed = true;
 						r.velocity = Vector3.zero;
 				}
 
@@ -32,19 +30,19 @@ public class cube_Projectile : MonoBehaviour,Poolable,Timer
 
 		void OnCollisionEnter (Collision collision)
 		{
-				if (armed && damage == (damage | (1 << collision.gameObject.layer))) {
+				if (armed) {
 						player p = collision.gameObject.GetComponent<player> ();
 
 						if (p != null) {
 
 								if (collision.relativeVelocity.magnitude > p.Sturdy) {
-										Debug.Log ("Collision velocity > player sturdyness at Cube");
 										if (p.takeDamage (hitDamage, collision.collider.name)) {
 												Debug.Log ("Player died at cube");
 
 										} 
 										armed = false;
 								}
+						
 						
 						}
 				}

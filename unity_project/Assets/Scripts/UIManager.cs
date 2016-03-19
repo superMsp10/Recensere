@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 
 		}
 
-		void FixedUpdate ()
+		void Update ()
 		{
 				if (currentUI != null && Input.GetKeyDown (KeyCode.Escape)) {
 						currentUI.UpdateUI ();

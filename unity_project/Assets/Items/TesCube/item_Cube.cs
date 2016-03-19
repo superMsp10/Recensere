@@ -18,11 +18,11 @@ public class item_Cube : MonoBehaviour,Holdable
 		public GameObject projectile;
 		public float throwMultiplier;
 		public string projectileLayer;
+		public string itemLayer;
 
 		//Item Stuff
 		public Rigidbody r;
 		player p;
-		public string itemLayer;
 		public Color normal;
 		public Color highlighted;
 		float timeStarted;
@@ -138,7 +138,8 @@ public class item_Cube : MonoBehaviour,Holdable
 				g.GetComponent<Timer> ().StartTimer (itemReset);
 				cube_Projectile c = g.GetComponent<cube_Projectile> ();
 				c.thisPooler = this;
-				c.gameObject.layer = LayerMask.NameToLayer (projectileLayer);
+				c.armed = true;
+
 				//Apply Force
 				float force = 0f;
 				float heldTime = Time.time - timeStarted;
@@ -215,8 +216,8 @@ public class item_Cube : MonoBehaviour,Holdable
 				GetComponent<Renderer> ().material.color = normal;
 				r.velocity = Vector3.zero;
 				r.isKinematic = false;
-				gameObject.layer = LayerMask.NameToLayer (itemLayer);
 				transform.parent = GameManager.thisM.currLevel.items;
+				gameObject.layer = LayerMask.NameToLayer (itemLayer);
 
 				gameObject.SetActive (true);
 				//				transform.position = p.transform.position;
