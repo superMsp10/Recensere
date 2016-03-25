@@ -8,7 +8,7 @@ public class playerMove : MonoBehaviour
 		public float og_speed;
 		public float speed;
 		public float fly_speed;
-		public float speedLimitMultiplier;
+		public float speedLimit;
 		public	Transform start;
 		public	Transform feets;
 		public LayerMask whatGround;
@@ -145,15 +145,17 @@ public class playerMove : MonoBehaviour
 						jumped = false;
 				} else
 						speed = og_speed * fly_speed;
-				if (rigidbod.velocity.magnitude < speed * speedLimitMultiplier)
-				if (moveVertical > 0)
-						rigidbod.AddForce (transform.forward * speed);
-				else if (moveVertical < 0)
-						rigidbod.AddForce (transform.forward * -speed);
+
+				if (rigidbod.velocity.magnitude < speedLimit) {
+						if (moveVertical > 0)
+								rigidbod.AddForce (transform.forward * speed);
+						else if (moveVertical < 0)
+								rigidbod.AddForce (transform.forward * -speed);
 		
-				if (moveHorizontal > 0)
-						rigidbod.AddForce (transform.right * speed);
-				else if (moveHorizontal < 0)
-						rigidbod.AddForce (transform.right * -speed);
+						if (moveHorizontal > 0)
+								rigidbod.AddForce (transform.right * speed);
+						else if (moveHorizontal < 0)
+								rigidbod.AddForce (transform.right * -speed);
+				}
 		}
 }
