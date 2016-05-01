@@ -33,6 +33,9 @@ public class playerMove : MonoBehaviour
 		public Animator anim;
 		Rigidbody rigidbod;
 
+		//Network
+		public PhotonView photonV;
+
 
 		public float fuel {
 				get {
@@ -40,7 +43,8 @@ public class playerMove : MonoBehaviour
 				}
 				set {
 						_fuel = value; 
-						fuelSlider.value = value;
+						if (photonV.isMine)
+								fuelSlider.value = value;
 						jetPackFuelDisplay.setFuel (value / maxFuel);
 				}
 		}
@@ -104,6 +108,16 @@ public class playerMove : MonoBehaviour
 				jetpackUIFire.SetActive (false);
 				airIntake.Stop ();
 				afterburn.Stop ();
+
+				photonV.RPC ("syncJetPackStop", PhotonTargets.Others, _fuel);
+		}
+
+		[PunRPC]
+		void syncJetPackStop (float f)
+		{
+				airIntake.Stop ();
+				afterburn.Stop ();
+				fuel = f;
 		}
 	
 		void updateFuel ()
@@ -118,6 +132,8 @@ public class playerMove : MonoBehaviour
 
 		}
 
+
+
 		void jetPack ()
 		{
 				usingJetPack = true;
@@ -128,6 +144,15 @@ public class playerMove : MonoBehaviour
 						InvokeRepeating ("updateFuel", 0, 1.0f);
 						fuelCountdown = true;
 				}
+				airIntake.Play ();
+				afterburn.Play ();
+				photonV.RPC ("syncJetPackStart", PhotonTargets.Others, null);
+
+		}
+
+		[PunRPC]
+		void syncJetPackStart ()
+		{
 				airIntake.Play ();
 				afterburn.Play ();
 		}
