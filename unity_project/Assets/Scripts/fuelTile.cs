@@ -4,7 +4,8 @@ using System.Collections;
 public class fuelTile : LootTile
 {
 		public JetpackFuelDisplay display;
-		public static float fuelRate = 2f;
+
+
 		public float _fuel;
 		public float maxFuel;
 
@@ -20,7 +21,8 @@ public class fuelTile : LootTile
 
 		public override	void generateLoot ()
 		{
-				fuel += fuelRate;
+				if (fuel <= maxFuel)
+						fuel += GameManager.thisM.currLevel.fuelRate;
 		}
 
 }

@@ -11,6 +11,8 @@ public abstract class Level : MonoBehaviour
 
 		public LootTile[] lootTiles;
 		public float lootTime;
+		public float fuelRate = 2f;
+
 		public Tile[,] liveTiles;
 
 
