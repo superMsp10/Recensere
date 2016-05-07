@@ -42,10 +42,12 @@ public class playerMove : MonoBehaviour
 						return _fuel; 
 				}
 				set {
-						_fuel = value; 
-						if (photonV.isMine)
-								fuelSlider.value = value;
-						jetPackFuelDisplay.setFuel (value / maxFuel);
+						if (_fuel >= 0 && _fuel <= maxFuel) {
+								_fuel = value; 
+								if (photonV.isMine)
+										fuelSlider.value = value;
+								jetPackFuelDisplay.setFuel (value / maxFuel);
+						}
 				}
 		}
 

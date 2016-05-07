@@ -6,6 +6,7 @@ public class LootTile : MonoBehaviour
 		public Transform position;
 		protected Map thisMap;
 
+
 		void Start ()
 		{
 				thisMap = Map.firstMap;
