@@ -58,21 +58,45 @@ public class fuelTile : LootTile
 		void OnTriggerEnter (Collider other)
 		{
 				playerMove m = other.GetComponent<playerMove> ();
-				if (m != null) {
+				if (m != null && fuel > 0) {
 						curr = m;
 						timeStarted = Time.time;
 						startUp = true;
 						InvokeRepeating ("inputFuel", fuelRate, fuelRate);
+						v.RPC ("startFuelFX", PhotonTargets.Others, null);
+
 				}
 		}
+
+		[PunRPC]
+		public void startFuelFX ()
+		{
+				timeStarted = Time.time;
+				startUp = true;
+		}
+
+
 
 		void OnTriggerExit (Collider other)
 		{
 				if (other.gameObject == curr.gameObject) {
-						CancelInvoke ();
-						startUp = false;
-						tube.material.color = tubeOrg;
+						stopFX ();
 				}
+		}
+
+		void stopFX ()
+		{
+				CancelInvoke ();
+				startUp = false;
+				tube.material.color = tubeOrg;
+				v.RPC ("stopFuelFX", PhotonTargets.Others, null);
+		}
+
+		[PunRPC]
+		public void stopFuelFX ()
+		{
+				startUp = false;
+				tube.material.color = tubeOrg;
 		}
 
 		public void inputFuel ()
@@ -84,6 +108,8 @@ public class fuelTile : LootTile
 						curr.fuel ++;
 						fuel--;
 						v.RPC ("syncFuel", PhotonTargets.Others, _fuel);
+				} else {
+						stopFX ();
 				}
 		}
 
