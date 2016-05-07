@@ -13,6 +13,8 @@ ModelImporter:
     100010: Tile
     100012: Tube
     100014: Pump
+    100016: Lid
+    100018: Valve
     400000: Cube
     400002: Cube_001
     400004: //RootNode
@@ -21,6 +23,8 @@ ModelImporter:
     400010: Tile
     400012: Tube
     400014: Pump
+    400016: Lid
+    400018: Valve
     2300000: Cube
     2300002: Cube_001
     2300004: Cylinder
@@ -28,6 +32,8 @@ ModelImporter:
     2300008: Tile
     2300010: Tube
     2300012: Pump
+    2300014: Lid
+    2300016: Valve
     3300000: Cube
     3300002: Cube_001
     3300004: Cylinder
@@ -35,6 +41,8 @@ ModelImporter:
     3300008: Tile
     3300010: Tube
     3300012: Pump
+    3300014: Lid
+    3300016: Valve
     4300000: Cube_001
     4300002: Cube
     4300004: Cylinder
@@ -42,6 +50,8 @@ ModelImporter:
     4300008: Tank
     4300010: Tile
     4300012: Pump
+    4300014: Lid
+    4300016: Valve
     7400000: Default Take
     9500000: //RootNode
   materials:
