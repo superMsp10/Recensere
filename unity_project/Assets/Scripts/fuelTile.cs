@@ -9,6 +9,13 @@ public class fuelTile : LootTile
 		public float _fuel;
 		public float maxFuel;
 		playerMove curr;
+		float fuelRate;
+		//Tube FX
+		public MeshRenderer tube;
+		public Color tubeOrg;
+		public Color tubeFuel;
+		float timeStarted;
+		bool startUp = false;
 
 		public float fuel {
 				get {
@@ -20,6 +27,21 @@ public class fuelTile : LootTile
 				}
 		}
 
+		void Start ()
+		{
+				tube.material.color = tubeOrg;
+				fuelRate = GameManager.thisM.currLevel.fuelRate;
+
+		}
+
+		void Update ()
+		{
+				if (startUp) {
+						tube.material.color = Color.Lerp (tubeOrg, tubeFuel, (Time.time - timeStarted) / fuelRate);
+				}
+
+		}
+
 		[PunRPC]
 		public void syncFuel (float f)
 		{
@@ -29,7 +51,7 @@ public class fuelTile : LootTile
 		public override	void generateLoot ()
 		{
 				if (fuel <= maxFuel)
-						fuel += GameManager.thisM.currLevel.fuelRate;
+						fuel += fuelRate;
 				v.RPC ("syncFuel", PhotonTargets.Others, _fuel);
 		}
 
@@ -38,7 +60,9 @@ public class fuelTile : LootTile
 				playerMove m = other.GetComponent<playerMove> ();
 				if (m != null) {
 						curr = m;
-						InvokeRepeating ("inputFuel", GameManager.thisM.currLevel.fuelRate, GameManager.thisM.currLevel.fuelRate);
+						timeStarted = Time.time;
+						startUp = true;
+						InvokeRepeating ("inputFuel", fuelRate, fuelRate);
 				}
 		}
 
@@ -46,11 +70,16 @@ public class fuelTile : LootTile
 		{
 				if (other.gameObject == curr.gameObject) {
 						CancelInvoke ();
+						startUp = false;
+						tube.material.color = tubeOrg;
 				}
 		}
 
 		public void inputFuel ()
 		{
+
+				startUp = false;
+
 				if (fuel >= 0) {
 						curr.fuel ++;
 						fuel--;
