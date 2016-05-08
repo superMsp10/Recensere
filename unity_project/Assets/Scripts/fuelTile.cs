@@ -17,10 +17,9 @@ public class fuelTile : LootTile
 		float timeStarted;
 		bool startUp = false;
 		//Vale&Lid FX
-		public ConstantForce force;
-		public float rotSpeed;
-		public int startRot;
-		public int endRot;
+		public Motor shaft;
+		public Transform startRot;
+		public Transform endRot;
 		bool playerOn = false;
 
 
@@ -39,8 +38,7 @@ public class fuelTile : LootTile
 		{
 				tube.material.color = tubeOrg;
 				fuelRate = GameManager.thisM.currLevel.fuelRate;
-				force.torque = Vector3.zero;
-
+				shaft.Rotate (endRot);
 		}
 
 		void Update ()
@@ -50,20 +48,14 @@ public class fuelTile : LootTile
 					
 			
 				} 
-				if (playerOn) {
-						if (force.gameObject.transform.localRotation.x > endRot) {
-								force.torque = new Vector3 (-1 * rotSpeed, 0, 0);
-						} else {
-								force.torque = new Vector3 (0, 0, 0);
-						}
-				} else {
 
-						if (force.gameObject.transform.localRotation.x < startRot) {
-								force.torque = new Vector3 (1 * rotSpeed, 0, 0);
-						} else {
-								force.torque = new Vector3 (0, 0, 0);
-						}
-				}
+
+//				if (playerOn) {
+
+//				} else {
+//						shaft.target = startRot;
+//						shaft.rotate = true;
+//				}
 
 		}
 
