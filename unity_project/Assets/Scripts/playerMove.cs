@@ -19,7 +19,7 @@ public class playerMove : MonoBehaviour
 		public bool grounded = false;
 
 		//Jetpack
-		public float _fuel;
+		private float _fuel;
 		public float maxFuel;
 		public JetpackFuelDisplay jetPackFuelDisplay;
 		public ParticleSystem airIntake;
@@ -42,7 +42,7 @@ public class playerMove : MonoBehaviour
 						return _fuel; 
 				}
 				set {
-						if (_fuel >= 0 && _fuel <= maxFuel) {
+						if (value >= 0 && value <= maxFuel) {
 								_fuel = value; 
 								if (photonV.isMine)
 										fuelSlider.value = value;

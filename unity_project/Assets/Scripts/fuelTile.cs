@@ -6,7 +6,7 @@ public class fuelTile : LootTile
 		public JetpackFuelDisplay display;
 
 		public PhotonView v;
-		public float _fuel;
+		private float _fuel;
 		public float maxFuel;
 		playerMove curr;
 		float fuelRate;
@@ -16,6 +16,14 @@ public class fuelTile : LootTile
 		public Color tubeFuel;
 		float timeStarted;
 		bool startUp = false;
+		//Vale&Lid FX
+		public ConstantForce force;
+		public float rotSpeed;
+		public int startRot;
+		public int endRot;
+		bool playerOn = false;
+
+
 
 		public float fuel {
 				get {
@@ -31,6 +39,7 @@ public class fuelTile : LootTile
 		{
 				tube.material.color = tubeOrg;
 				fuelRate = GameManager.thisM.currLevel.fuelRate;
+				force.torque = Vector3.zero;
 
 		}
 
@@ -38,6 +47,22 @@ public class fuelTile : LootTile
 		{
 				if (startUp) {
 						tube.material.color = Color.Lerp (tubeOrg, tubeFuel, (Time.time - timeStarted) / fuelRate);
+					
+			
+				} 
+				if (playerOn) {
+						if (force.gameObject.transform.localRotation.x > endRot) {
+								force.torque = new Vector3 (-1 * rotSpeed, 0, 0);
+						} else {
+								force.torque = new Vector3 (0, 0, 0);
+						}
+				} else {
+
+						if (force.gameObject.transform.localRotation.x < startRot) {
+								force.torque = new Vector3 (1 * rotSpeed, 0, 0);
+						} else {
+								force.torque = new Vector3 (0, 0, 0);
+						}
 				}
 
 		}
@@ -50,7 +75,7 @@ public class fuelTile : LootTile
 
 		public override	void generateLoot ()
 		{
-				if (fuel <= maxFuel)
+				if ((fuel + fuelRate) <= maxFuel)
 						fuel += fuelRate;
 				v.RPC ("syncFuel", PhotonTargets.Others, _fuel);
 		}
@@ -60,10 +85,8 @@ public class fuelTile : LootTile
 				playerMove m = other.GetComponent<playerMove> ();
 				if (m != null && fuel > 0) {
 						curr = m;
-						timeStarted = Time.time;
-						startUp = true;
 						InvokeRepeating ("inputFuel", fuelRate, fuelRate);
-						v.RPC ("startFuelFX", PhotonTargets.Others, null);
+						v.RPC ("startFuelFX", PhotonTargets.All, null);
 
 				}
 		}
@@ -73,9 +96,8 @@ public class fuelTile : LootTile
 		{
 				timeStarted = Time.time;
 				startUp = true;
+				playerOn = true;
 		}
-
-
 
 		void OnTriggerExit (Collider other)
 		{
@@ -87,16 +109,17 @@ public class fuelTile : LootTile
 		void stopFX ()
 		{
 				CancelInvoke ();
-				startUp = false;
-				tube.material.color = tubeOrg;
-				v.RPC ("stopFuelFX", PhotonTargets.Others, null);
+				v.RPC ("stopFuelFX", PhotonTargets.All, null);
 		}
 
 		[PunRPC]
 		public void stopFuelFX ()
 		{
+				
 				startUp = false;
 				tube.material.color = tubeOrg;
+				playerOn = false;
+				
 		}
 
 		public void inputFuel ()
@@ -104,7 +127,7 @@ public class fuelTile : LootTile
 
 				startUp = false;
 
-				if (fuel >= 0) {
+				if ((fuel + fuelRate) >= 0) {
 						curr.fuel ++;
 						fuel--;
 						v.RPC ("syncFuel", PhotonTargets.Others, _fuel);
