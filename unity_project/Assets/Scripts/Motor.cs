@@ -4,7 +4,9 @@ using System.Collections;
 public class Motor : MonoBehaviour
 {
 		public float rotSpeed;
-		public Transform target;
+		public Vector3 target;
+		Vector3 startRot;
+		float time;
 		public bool rotate;
 		
 		
@@ -13,9 +15,15 @@ public class Motor : MonoBehaviour
 		void Update ()
 		{
 				if (rotate) {
-						if (Vector3.Distance (target.localRotation.eulerAngles, transform.localRotation.eulerAngles) > 10)
-								gameObject.transform.Rotate (target.localRotation.eulerAngles * (rotSpeed * Time.deltaTime));
 
+						Vector3 myEuler = Vector3.zero;
+
+						myEuler.y = Mathf.MoveTowardsAngle (myEuler.y, target.y, Time.deltaTime * rotSpeed);
+						if (myEuler.y >= target.y) {
+								myEuler.y = 0;
+								rotate = false;
+						}
+						transform.eulerAngles = myEuler;
 				}
 				
 
@@ -23,8 +31,10 @@ public class Motor : MonoBehaviour
 
 		public	void Rotate (Transform rot)
 		{
-				target = rot;
+				target = rot.localRotation.eulerAngles;
+				time = Time.time;
 				rotate = true;
+				startRot = transform.localRotation.eulerAngles;
 		}
 
 }

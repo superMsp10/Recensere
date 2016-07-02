@@ -45,10 +45,10 @@ public class GameManager : MonoBehaviour
 		                            ss,
 		                               Quaternion.identity, 0, null);
 
-				view.RPC ("updatePlayers", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
+        view.RPC("updatePlayers", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 
-		
-				myPlayer = p.GetComponent<player> ();
+
+        myPlayer = p.GetComponent<player> ();
 				myPlayer.playerID = playerID;
 //				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
 

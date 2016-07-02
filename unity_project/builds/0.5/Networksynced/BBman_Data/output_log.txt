@@ -20,7 +20,7 @@ Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
 Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.083 seconds
+- Completed reload, in  0.063 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -31,7 +31,7 @@ ConnectingToNameServer
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: ca4 -> priority: 1 
+  Thread -> id: 1270 -> priority: 1 
 Authenticating
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
@@ -56,10 +56,36 @@ OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we cr
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
+Initialize engine version: 5.2.0f3 (e7947df39b5c)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [igdumdx32.dll 8.15.10.2321]
+    Renderer: Intel(R) HD Graphics Family
+    Vendor:   Intel
+    VRAM:     880 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 INTZ=1 NULL=1 RESZ=1 SlowINTZ=0
 ConnectingToGameserver
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
+Begin MonoManager ReloadAssembly
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.071 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
 Authenticating
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
@@ -76,7 +102,706 @@ Generated loot
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
+<RI> Initialized touch support.
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\System.dll (this message is harmless)
+ConnectingToNameServer
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: d38 -> priority: 1 
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectingToMasterserver
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room. Calling: PhotonNetwork.JoinRandomRoom();
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectedToMaster
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectingToGameserver
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Joining
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 2, Total:1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 1, Total:2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
 Updating players for player: 2, Total:2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Initialize engine version: 5.2.0f3 (e7947df39b5c)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [igdumdx32.dll 8.15.10.2321]
+    Renderer: Intel(R) HD Graphics Family
+    Vendor:   Intel
+    VRAM:     880 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 INTZ=1 NULL=1 RESZ=1 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.084 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\System.dll (this message is harmless)
+ConnectingToNameServer
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: e58 -> priority: 1 
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectingToMasterserver
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room. Calling: PhotonNetwork.JoinRandomRoom();
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectedToMaster
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectingToGameserver
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Joining
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 3, Total:1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 1, Total:2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 2, Total:3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 3, Total:3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 3, Total:3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+OnCollisionEnter, Cube and Player Amount: 5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+TransferOwnership() view 3 to: 1 Time: 47
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Ev OwnershipTransfer. ViewID 3 to: 1 Time: 187
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Ev OwnershipTransfer. ViewID 3 to: 1 Time: 187
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Ev OwnershipTransfer. ViewID 3 to: 1 Time: 203
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Initialize engine version: 5.2.0f3 (e7947df39b5c)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [igdumdx32.dll 8.15.10.2321]
+    Renderer: Intel(R) HD Graphics Family
+    Vendor:   Intel
+    VRAM:     880 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 INTZ=1 NULL=1 RESZ=1 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.102 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: M:\ProducedGames\bomberMan\unity_project\builds\0.5\Networksynced\BBman_Data\Managed\System.dll (this message is harmless)
+ConnectingToNameServer
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 87c -> priority: 1 
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectingToMasterserver
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room. Calling: PhotonNetwork.JoinRandomRoom();
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectedToMaster
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+ConnectingToGameserver
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Authenticating
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Joining
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 4, Total:1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 1, Total:2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 2, Total:3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 3, Total:4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 4, Total:4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 4, Total:4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Updating players for player: 4, Total:4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Generated loot
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+OnCollisionEnter, Cube and Player Amount: 5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+TransferOwnership() view 4 to: 4 Time: 660
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Ev OwnershipTransfer. ViewID 4 to: 4 Time: 800
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Ev OwnershipTransfer. ViewID 4 to: 4 Time: 816
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Ev OwnershipTransfer. ViewID 4 to: 4 Time: 831
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Ev OwnershipTransfer. ViewID 4 to: 4 Time: 847
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/bu ilX :3,aYe: 6yd:mube_ProjecuieePCooeet lf(el ne)na tertboieg
+d
+sFrlynd
+e
+ F:lbnimde:l.Cvp// uniltes/ au4eld/nity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp 
+L
+ine: 64)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at fuelTile.OnTriggerExit (UnityEngine.Collider other) [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+X :2, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngXneDebugBindings.gen.cpp Line: 64)
+
+ectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :15 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :6, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :6, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :6, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :6, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :6, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :6, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :1, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :1, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :1, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/uniXy/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.g
+en
+.cpp Line: 64)
+
+X :1, Y :16 damaged by :Cube_P/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :1, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+rojectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :1, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :1, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :16 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+Generated loot
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :7, Y :10 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :7, Y :10 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :12 damaged by :ObjectPooled: 1 after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :4, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :13 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :13 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :3, Y :13 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :11 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :11 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :11 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :11 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :11 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :11 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :11 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :11 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :2, Y :12 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :ObjectPooled: 1 after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :ObjectPooled: 1 after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :ObjectPooled: 1 after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :13 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildsXav :0, Y :13 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildsla
+v
+e/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :13 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifXcts/generated/common/ry :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Lineu 64)
+
+X :0, Y :14 damaged dings.gen.cpp Line: 64)
+
+ne) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :13 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :13 damaged by :Cube_Projectile(Clone) after being destroyed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+X :0, Y :14 damaged by :Cube_Projectile(Clone) after being destroyed
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
