@@ -3,38 +3,29 @@ using System.Collections;
 
 public class Motor : MonoBehaviour
 {
-		public float rotSpeed;
-		public Vector3 target;
-		Vector3 startRot;
-		float time;
-		public bool rotate;
-		
+
+		public Transform lookAt;
+		public Vector3 start;
+		public Vector3 end;
+
+		public float totalTime = 2f;
+		public float time = 0f;
+		public float startedTime = 0f;
+		public bool moving = false;
 		
 	
 		// Update is called once per frame
 		void Update ()
 		{
-				if (rotate) {
+				transform.LookAt (lookAt);
 
-						Vector3 myEuler = Vector3.zero;
-
-						myEuler.y = Mathf.MoveTowardsAngle (myEuler.y, target.y, Time.deltaTime * rotSpeed);
-						if (myEuler.y >= target.y) {
-								myEuler.y = 0;
-								rotate = false;
-						}
-						transform.eulerAngles = myEuler;
+				if (moving) {
+						time = Time.time;
+						Vector3 moved = Vector3.Lerp (start, end, (time - startedTime) / totalTime);
+						lookAt.localPosition = moved;
 				}
-				
-
 		}
 
-		public	void Rotate (Transform rot)
-		{
-				target = rot.localRotation.eulerAngles;
-				time = Time.time;
-				rotate = true;
-				startRot = transform.localRotation.eulerAngles;
-		}
+
 
 }

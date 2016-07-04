@@ -18,8 +18,7 @@ public class fuelTile : LootTile
 		bool startUp = false;
 		//Vale&Lid FX
 		public Motor shaft;
-		public Transform startRot;
-		public Transform endRot;
+		public Vector3 open, closed;
 		bool playerOn = false;
 
 
@@ -38,8 +37,34 @@ public class fuelTile : LootTile
 		{
 				tube.material.color = tubeOrg;
 				fuelRate = GameManager.thisM.currLevel.fuelRate;
-				shaft.Rotate (endRot);
 		}
+
+		void closeLid ()
+		{
+				shaft.moving = true;
+				shaft.totalTime = 2f;
+				shaft.start = shaft.lookAt.localPosition;
+				shaft.end = closed;
+				shaft.startedTime = Time.time;
+				Invoke ("stopMoving", 2f);
+		}
+
+		void openLid ()
+		{
+				shaft.moving = true;
+				shaft.totalTime = 1.5f;
+				shaft.start = shaft.lookAt.localPosition;
+				shaft.end = open;
+				shaft.startedTime = Time.time;
+				Invoke ("stopMoving", 1.5f);
+		}
+
+		void stopMoving ()
+		{
+				shaft.moving = false;
+		}
+
+
 
 		void Update ()
 		{
@@ -48,15 +73,6 @@ public class fuelTile : LootTile
 					
 			
 				} 
-
-
-//				if (playerOn) {
-
-//				} else {
-//						shaft.target = startRot;
-//						shaft.rotate = true;
-//				}
-
 		}
 
 		[PunRPC]
@@ -89,6 +105,7 @@ public class fuelTile : LootTile
 				timeStarted = Time.time;
 				startUp = true;
 				playerOn = true;
+				openLid ();
 		}
 
 		void OnTriggerExit (Collider other)
@@ -111,6 +128,7 @@ public class fuelTile : LootTile
 				startUp = false;
 				tube.material.color = tubeOrg;
 				playerOn = false;
+				closeLid ();
 				
 		}
 
