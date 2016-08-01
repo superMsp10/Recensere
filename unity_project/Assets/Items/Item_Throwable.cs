@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class item_Cube : MonoBehaviour, Holdable
+public class Item_Throwable : MonoBehaviour, Holdable
 {
 
     //Holdable Stuff
     public Sprite _holdUI;
     public bool _pickable;
     public int _amount;
+    public int _stackSize = 16;
+    public string _description = "<b>Hello! <color=red>My name is, </color> Cube, </b>I will be <i><color=blue>helping you</color> test!</i>";
+
+
 
     //Pooler
     [HideInInspector]
@@ -22,12 +26,13 @@ public class item_Cube : MonoBehaviour, Holdable
 
     //Item Stuff
     public Rigidbody r;
-    player p;
+    public player thisPlayer;
     public Color normal;
     public Color highlighted;
     float timeStarted;
     float timeEnded;
     public float wantedTime;
+    public float defaultHeldTime;
     public PhotonView thisView;
     int playerID;
     bool selected = false;
@@ -100,7 +105,7 @@ public class item_Cube : MonoBehaviour, Holdable
     {
         get
         {
-            return 16;
+            return _stackSize;
         }
 
     }
@@ -108,7 +113,7 @@ public class item_Cube : MonoBehaviour, Holdable
     {
         get
         {
-            return "<b>Hello! <color=red>My name is, </color> Cube, </b>I will be <i><color=blue>helping you</color> test!</i>";
+            return _description;
         }
 
     }
@@ -131,21 +136,13 @@ public class item_Cube : MonoBehaviour, Holdable
             _amount = value;
         }
     }
+
     public bool buttonDown()
     {
         thisView.RPC("buttonDownBy", PhotonTargets.All, null);
 
         return false;
     }
-
-    [PunRPC]
-    void buttonDownBy()
-    {
-        //				Debug.Log ("buttonDown by Cube");
-        timeStarted = Time.time;
-        startedHold = true;
-    }
-
     public void buttonUP()
     {
         thisView.RPC("buttonUpBy", PhotonTargets.All, null);
@@ -156,7 +153,7 @@ public class item_Cube : MonoBehaviour, Holdable
         g.transform.position = transform.position;
         g.transform.rotation = transform.rotation;
         g.GetComponent<Timer>().StartTimer(itemReset);
-        cube_Projectile c = g.GetComponent<cube_Projectile>();
+        Item_Throwable_Projectile c = g.GetComponent<Item_Throwable_Projectile>();
         c.thisPooler = this;
         c.armed = true;
 
@@ -166,71 +163,76 @@ public class item_Cube : MonoBehaviour, Holdable
         if (heldTime > wantedTime)
             force = throwMultiplier;
         else
-            force = (heldTime / wantedTime) * throwMultiplier;
-        g.GetComponent<Rigidbody>().AddForce(p.left_hand.forward * force);
+            force = ((heldTime + defaultHeldTime) / wantedTime) * throwMultiplier;
+        g.GetComponent<Rigidbody>().AddForce(thisPlayer.left_hand.forward * force);
     }
-
-    [PunRPC]
-    void buttonUpBy()
-    {
-        timeEnded = Time.time;
-        startedHold = false;
-        //				Debug.Log ("buttonUP by Cube");
-    }
-
     public void onSelect()
     {
         thisView.RPC("selectedBy", PhotonTargets.All, null);
     }
-
-    [PunRPC]
-    void selectedBy()
-    {
-        gameObject.SetActive(true);
-        selected = true;
-    }
-
     public void onDeselect()
     {
         thisView.RPC("deselectedBy", PhotonTargets.All, null);
-    }
-
-    [PunRPC]
-    void deselectedBy()
-    {
-        //				Debug.Log ("onDeselect by Cube");
-        gameObject.SetActive(false);
-        selected = false;
-
     }
     public void onPickup()
     {
         //				Debug.Log ("onPickup by Cube");
         thisView.TransferOwnership(PhotonNetwork.player.ID);
     }
-
-    [PunRPC]
-    void pickedUpBy(int viewID)
-    {
-        GetComponent<Renderer>().material.color = normal;
-        p = GameManager.thisM.getPlayerByViewID(viewID);
-        _pickable = false;
-        r.isKinematic = true;
-        gameObject.layer = LayerMask.NameToLayer(p.handLayer);
-        transform.parent = p.right_hand;
-        transform.position = p.right_hand.position;
-        transform.rotation = p.right_hand.rotation;
-        gameObject.SetActive(false);
-    }
-
     public void onDrop()
     {
         thisView.RPC("droppedBy", PhotonTargets.All, null);
 
     }
+    public void resetPick()
+    {
+        thisView.RPC("resetPickBy", PhotonTargets.All, null);
+    }
 
+    //RPCs------------------------------------------//
     [PunRPC]
-    void droppedBy()
+    protected virtual void buttonDownBy()
+    {
+        //				Debug.Log ("buttonDown by Cube");
+        timeStarted = Time.time;
+        startedHold = true;
+    }
+    [PunRPC]
+    protected virtual void buttonUpBy()
+    {
+        timeEnded = Time.time;
+        startedHold = false;
+        //				Debug.Log ("buttonUP by Cube");
+    }
+    [PunRPC]
+    protected virtual void selectedBy()
+    {
+        gameObject.SetActive(true);
+        selected = true;
+    }
+    [PunRPC]
+    protected virtual void deselectedBy()
+    {
+        //				Debug.Log ("onDeselect by Cube");
+        gameObject.SetActive(false);
+        selected = false;
+
+    }
+    [PunRPC]
+    protected virtual void pickedUpBy(int viewID)
+    {
+        GetComponent<Renderer>().material.color = normal;
+        thisPlayer = GameManager.thisM.getPlayerByViewID(viewID);
+        _pickable = false;
+        r.isKinematic = true;
+        gameObject.layer = LayerMask.NameToLayer(thisPlayer.handLayer);
+        transform.parent = thisPlayer.right_hand;
+        transform.position = thisPlayer.right_hand.position;
+        transform.rotation = thisPlayer.right_hand.rotation;
+        gameObject.SetActive(false);
+    }
+    [PunRPC]
+    protected virtual void droppedBy()
     {
         //				Debug.Log ("onDrop by Cube");
         GetComponent<Renderer>().material.color = normal;
@@ -243,19 +245,14 @@ public class item_Cube : MonoBehaviour, Holdable
         //				transform.position = p.transform.position;
         Invoke("resetPick", 5.0f);
     }
-
     [PunRPC]
-    void resetPickBy()
+    protected virtual void resetPickBy()
     {
         //				Debug.Log ("ResetPick by Cube");
         _pickable = true;
 
     }
 
-    public void resetPick()
-    {
-        thisView.RPC("resetPickBy", PhotonTargets.All, null);
-    }
 
 
 
