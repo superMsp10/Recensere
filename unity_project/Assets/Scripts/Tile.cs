@@ -146,16 +146,16 @@ public abstract class Tile : MonoBehaviour, Health, Attachable
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision Enter at Tile");
+        //Debug.Log("Collision Enter at Tile");
 
         if (damagedBy == (damagedBy | (1 << collision.gameObject.layer)))
         {
-            Debug.Log("Damage Layer Collision at Player");
+            //Debug.Log("Damage Layer Collision at Player");
             float sdm = GameManager.speedToDamageMultiplier;
             float dmg = Mathf.Pow(collision.relativeVelocity.magnitude, sdm);
             if (takeDmg && collision.relativeVelocity.magnitude > Sturdy)
             {
-                Debug.Log("Engough Damage at Player");
+                //Debug.Log("Engough Damage at Player");
                 if (takeDamage(dmg, collision.collider.name))
                 {
                     if (collision.collider.attachedRigidbody != null)
