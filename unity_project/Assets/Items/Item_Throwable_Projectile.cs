@@ -6,6 +6,7 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
     public Rigidbody r;
     public Item_Throwable thisPooler;
     public int hitDamage;
+    public PhotonView thisPV;
 
     public bool armed = false;
     public GameObject gameobject
@@ -17,7 +18,7 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
     }
 
 
-    public void reset(bool on)
+    public virtual void reset(bool on)
     {
         gameObject.SetActive(on);
         r.isKinematic = !on;
@@ -26,6 +27,7 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
 
         if (on)
         {
+            //Debug.Log("Projectile enabled");
             r.velocity = Vector3.zero;
         }
 
