@@ -12,6 +12,11 @@ class Grenade_Projectile : Item_Throwable_Projectile
     public Rigidbody thisRigid;
     public GameObject destroyedGrenade;
 
+    public float explosionRadius, explosionForce;
+    public LayerMask explodingLayers;
+    public float minDamage, maxDamage;
+
+
 
     public override void reset(bool on)
     {
@@ -40,6 +45,33 @@ class Grenade_Projectile : Item_Throwable_Projectile
     {
         Debug.Log("Grenade explosion client");
         thisPV.RPC("explode", PhotonTargets.All, null);
+
+        foreach (Collider c in Physics.OverlapSphere(transform.position, explosionRadius, explodingLayers))
+        {
+            Health h = c.GetComponent<Health>();
+            if (h != null)
+            {
+                float dmg = Mathf.Lerp(minDamage, maxDamage, Vector3.Distance(c.transform.position, transform.position) / explosionRadius);
+                h.takeDamage(dmg, "GrenadeExplosion");
+            }
+        }
+
+        Invoke("explosionKnockback", 0.1f);
+
+
+    }
+
+    void explosionKnockback()
+    {
+        Collider[] colls = Physics.OverlapSphere(transform.position, explosionRadius, explodingLayers);
+        foreach (Collider c in colls)
+        {
+            Rigidbody r = c.GetComponent<Rigidbody>();
+            if (r != null && !r.isKinematic)
+            {
+                r.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            }
+        }
     }
 
     [PunRPC]
@@ -50,12 +82,10 @@ class Grenade_Projectile : Item_Throwable_Projectile
         explosionFX_Fireball.Play();
 
         thisCollider.enabled = false;
-        
+
         thisRenderer.enabled = false;
         destroyedGrenade.SetActive(true);
         thisRigid.isKinematic = true;
-
-
     }
 
 }

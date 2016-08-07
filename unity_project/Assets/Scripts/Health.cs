@@ -8,6 +8,7 @@ public interface Health
 
 		void Destroy ();
 		string lastDamageBy ();
+
 		float HP {
 				get;
 				set;
