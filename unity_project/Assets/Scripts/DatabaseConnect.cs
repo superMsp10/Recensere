@@ -16,7 +16,7 @@ public class DatabaseConnect : MonoBehaviour
 
     string username, password;
 
-    private string url = "http://bbman-supermsp10.rhcloud.com/";
+    private string url = "http://bbman-supermsp10.rhcloud.com/api";
 
     void Awake()
     {
@@ -28,7 +28,7 @@ public class DatabaseConnect : MonoBehaviour
     IEnumerator Start()
     {
         WWW www;
-        www = new WWW(url + "Utilities/560f2a96e4b09f9838bbf46a");
+        www = new WWW(url + "/Utilities/version");
         Debug.Log("Sending request to database");
         yield return www;
         if (www.error == null)
@@ -73,7 +73,7 @@ public class DatabaseConnect : MonoBehaviour
 
         WWWForm wForm;
 
-        www = new WWW(url + "checkUser/" + username);
+        www = new WWW(url + "/checkUser/" + username);
         yield return www;
         if (www.error == null)
         {
@@ -127,7 +127,7 @@ public class DatabaseConnect : MonoBehaviour
 
         WWW www;
 
-        www = new WWW(url + "checkUser/" + username);
+        www = new WWW(url + "/checkUser/" + username);
         yield return www;
         if (www.error == null)
         {
@@ -150,7 +150,7 @@ public class DatabaseConnect : MonoBehaviour
 
         WWWForm wForm;
 
-        www = new WWW(url + "checkUser/" + username);
+        www = new WWW(url + "/checkUser/" + username);
         yield return www;
         if (www.error == null)
         {
