@@ -87,6 +87,8 @@ public class DatabaseConnect : MonoBehaviour
                 yield return www;
                 if (www.error == null)
                 {
+                    www.responseHeaders.TryGetValue("token", out Persistent.thisPersist.Token);
+                    Persistent.thisPersist.Username = username;
                     bool logged = bool.Parse(www.text);
 
                     if (logged)
