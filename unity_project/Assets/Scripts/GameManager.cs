@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public static GameManager thisM;
-    public static byte Version = 4;
+    public static byte Version = 5;
     public string PlayerLayer;
     public string GhostLayer;
 
