@@ -24,4 +24,9 @@ public class Persistent : MonoBehaviour
     {
 
     }
+
+    void OnApplicationQuit()
+    {
+        DatabaseConnect.thisM.logout();
+    }
 }

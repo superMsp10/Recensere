@@ -124,6 +124,30 @@ public class DatabaseConnect : MonoBehaviour
 
     }
 
+    IEnumerator iLogout()
+    {
+
+        WWW www;
+
+        WWWForm wForm;
+
+        wForm = new WWWForm();
+        wForm.AddField("username", username);
+        wForm.AddField("token", Persistent.thisPersist.Token);
+        www = new WWW(url + "/logout", wForm);
+        yield return www;
+        if (www.error == null)
+        {
+            Debug.Log("Logged Out");
+        }
+        else
+        {
+            Debug.LogError("ERROR: " + www.error);
+            displayConnectionError();
+        }
+
+    }
+
     IEnumerator iCheckAccount()
     {
 
@@ -170,7 +194,7 @@ public class DatabaseConnect : MonoBehaviour
             else
             {
                 StartingUI error = thisUI.startUI.GetComponent<StartingUI>();
-                error.error.text = "An account with the username " + username + " exists, please consider a different username to continue";
+                error.error.text = "An account with the username " + username + " exists, please choose a different username to continue";
             }
         }
         else
@@ -196,6 +220,11 @@ public class DatabaseConnect : MonoBehaviour
         this.password = password;
 
         StartCoroutine("iLogin");
+    }
+
+    public void logout()
+    {
+        StartCoroutine("iLogout");
     }
 
     public void checkAccount(string username)
