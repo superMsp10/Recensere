@@ -17,6 +17,10 @@ public class Persistent : MonoBehaviour
             thisPersist = this;
             DontDestroyOnLoad(this);
         }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     // Update is called once per frame
