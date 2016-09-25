@@ -42,9 +42,8 @@ public class fuelTile : LootTile
     {
         tube.material.color = tubeOrg;
         fuelRate = GameManager.thisM.currLevel.fuelRate;
-
         airIntake.Stop();
-        fuelSpray.Stop();
+            fuelSpray.Stop();
     }
 
     void closeLid()
@@ -118,8 +117,10 @@ public class fuelTile : LootTile
         startUp = true;
         playerOn = true;
         openLid();
-        airIntake.Play();
-        fuelSpray.Play();
+        if (airIntake.isStopped)
+            airIntake.Play();
+        if (fuelSpray.isStopped)
+            fuelSpray.Play();
         Debug.Log("start fuel FX");
     }
 
@@ -145,8 +146,10 @@ public class fuelTile : LootTile
         tube.material.color = tubeOrg;
         playerOn = false;
         closeLid();
-        airIntake.Stop();
-        fuelSpray.Stop();
+        if (airIntake.isPlaying)
+            airIntake.Stop();
+        if (fuelSpray.isPlaying)
+            fuelSpray.Stop();
         Debug.Log("stop fuel FX");
 
     }
