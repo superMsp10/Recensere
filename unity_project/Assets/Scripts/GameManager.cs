@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public static GameManager thisM;
-    public static byte Version = 5;
+    public static byte Version = 6;
     public string PlayerLayer;
     public string GhostLayer;
 
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
             Application.CaptureScreenshot("Snapshots/Screenshot_" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".png", 2);
         }
     }
+
+    
 
     //Player------------------------------------------//
     public void instantiatePlayer()
@@ -159,7 +161,6 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
 
     //Tile------------------------------------------//
     public void sendFloorTileDamage(float damage, string attacker, int x, int y)

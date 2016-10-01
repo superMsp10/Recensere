@@ -13,6 +13,7 @@ public class DatabaseConnect : MonoBehaviour
     public InputField postData;
     public Text console;
     public UIManager thisUI;
+    ErrorUI error;
 
     string username, password;
 
@@ -22,11 +23,16 @@ public class DatabaseConnect : MonoBehaviour
     {
         if (thisM == null)
             thisM = this;
+        else
+            Destroy(gameObject);
+
 
     }
 
     IEnumerator Start()
     {
+        error = Persistent.thisPersist.connectError.GetComponent<ErrorUI>();
+
         WWW www;
         www = new WWW(url + "/Utilities/version");
         Debug.Log("Sending request to database");
@@ -40,28 +46,18 @@ public class DatabaseConnect : MonoBehaviour
             if (gameVersion == databaseVersion)
             {
                 Debug.Log("Server and client versions match, starting program");
-                //								Debug.Log (thisUI);
                 thisUI.changeUI(thisUI.startUI);
-                //								GetComponent<Connect> ().TryConnectToServer ();
             }
             else
             {
                 Debug.LogError("Database ERROR: Server and Client are on different versions. Please update to the newest version of the game.");
-                ErrorUI error = thisUI.connectError.GetComponent<ErrorUI>();
-                error.desciption.text = "Server and Client are on different versions. Please update to the latest version of the game.";
-                error.title.text = "Outdated Version";
-
-                thisUI.changeUI(thisUI.connectError);
-
+                ConnectionError("Outdated Version");
             }
-
-
         }
         else
         {
             Debug.LogError("ERROR: " + www.error);
-            displayConnectionError();
-
+            ConnectionError(www.error);
         }
         www.Dispose();
     }
@@ -106,7 +102,7 @@ public class DatabaseConnect : MonoBehaviour
                 else
                 {
                     Debug.LogError("ERROR: " + www.error);
-                    displayConnectionError();
+                    ConnectionError(www.error);
                 }
             }
             else
@@ -118,7 +114,7 @@ public class DatabaseConnect : MonoBehaviour
         else
         {
             Debug.LogError("ERROR: " + www.error);
-            displayConnectionError();
+            ConnectionError(www.error);
         }
 
 
@@ -143,7 +139,7 @@ public class DatabaseConnect : MonoBehaviour
         else
         {
             Debug.LogError("ERROR: " + www.error);
-            displayConnectionError();
+            ConnectionError(www.error);
         }
 
     }
@@ -162,7 +158,7 @@ public class DatabaseConnect : MonoBehaviour
         else
         {
             Debug.LogError("ERROR: " + www.error);
-            displayConnectionError();
+            ConnectionError(www.error);
         }
         www.Dispose();
 
@@ -200,7 +196,7 @@ public class DatabaseConnect : MonoBehaviour
         else
         {
             Debug.LogError("ERROR: " + www.error);
-            displayConnectionError();
+            ConnectionError(www.error);
         }
 
 
@@ -224,7 +220,8 @@ public class DatabaseConnect : MonoBehaviour
 
     public void logout()
     {
-        StartCoroutine("iLogout");
+        if (Persistent.thisPersist.Username != "")
+            StartCoroutine("iLogout");
     }
 
     public void checkAccount(string username)
@@ -233,26 +230,65 @@ public class DatabaseConnect : MonoBehaviour
         StartCoroutine("iCheckAccount");
     }
 
-    void displayConnectionError()
-    {
-        ErrorUI error = thisUI.connectError.GetComponent<ErrorUI>();
-        error.desciption.text = "Your device is not connected to the internet. Please connect to the Internet to continue.";
-        error.title.text = "No Connection";
-
-        thisUI.changeUI(thisUI.connectError);
-    }
-
     void changeToGameScene()
     {
         Application.LoadLevel("level1");
 
     }
-
-    // Update is called once per frame
-    void Update()
+    //---------------------Connection Errors-------------------------------------//
+    public void ConnectionError(string Error)
     {
-
+        if (Error.Contains("Could not resolve host"))
+        {
+            ConnectionError_Disconnected();
+        }
+        else if (Error.Contains("Timed out"))
+        {
+            ConnectionError_TimedOut();
+        }
+        else if (Error.Contains("Service Temporarily Unavailable"))
+        {
+            ConnectionError_ServiceUnavailable();
+        }
+        else if (Error.Contains("Outdated Version"))
+        {
+            ConnectionError_OutdatedVersion();
+        }
     }
+
+    void ConnectionError_ServiceUnavailable()
+    {
+        error.desciption.text = "The Server is temporarily down for maintanaince. Sorry for the inconvenience.";
+        error.title.text = "Server unavailable";
+
+        thisUI.changeUI(thisUI.connectError);
+    }
+
+    void ConnectionError_OutdatedVersion()
+    {
+        error.desciption.text = "Server and Client are on different versions. Please download the latest version of the game from the Game Page.";
+        error.title.text = "Outdated version";
+
+        thisUI.changeUI(thisUI.connectError);
+    }
+
+    void ConnectionError_TimedOut()
+    {
+        error.desciption.text = "The server took too long to respond, this might be beacuse of technical problems. Sorry for the inconvenience.";
+        error.title.text = "Timed out";
+
+        thisUI.changeUI(thisUI.connectError);
+    }
+
+    void ConnectionError_Disconnected()
+    {
+        error.desciption.text = "Device is not connected to the internet. Please connect to continue.";
+        error.title.text = "No internet connection";
+
+        thisUI.changeUI(thisUI.connectError);
+    }
+
+
 
 
 }

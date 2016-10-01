@@ -7,6 +7,8 @@ public class Persistent : MonoBehaviour
     public static Persistent thisPersist;
     public string Username;
     public string Token;
+    public GameObject connectError;
+
 
 
     // Use this for initialization
@@ -19,8 +21,13 @@ public class Persistent : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
+    }
+
+    void Start()
+    {
+        connectError.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,5 +39,12 @@ public class Persistent : MonoBehaviour
     void OnApplicationQuit()
     {
         DatabaseConnect.thisM.logout();
+    }
+
+    public void Reset()
+    {
+        Username = "";
+        Token = "";
+        connectError.SetActive(false);
     }
 }

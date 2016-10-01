@@ -3,35 +3,42 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
-		public static UIManager thisM;
-		public GameObject connectError;
-		public GameObject startUI;
+    public static UIManager thisM;
+    public GameObject connectError;
+    public GameObject startUI;
 
-		public UIState currentUI;
+    public UIState currentUI;
 
-		void Awake ()
-		{
-				thisM = this;
+    void Awake()
+    {
+        thisM = this;
 
-		}
+    }
 
-		void Update ()
-		{
-				if (currentUI != null && Input.GetKeyDown (KeyCode.Escape)) {
-						currentUI.UpdateUI ();
-				}
-		}
+    void Start()
+    {
+        connectError = Persistent.thisPersist.connectError;
+    }
 
-		public void changeUI (GameObject ui)
-		{
-				if (currentUI != null) {
-						currentUI.EndUI ();
-				} 
+    void Update()
+    {
+        if (currentUI != null && Input.GetKeyDown(KeyCode.Escape))
+        {
+            currentUI.UpdateUI();
+        }
+    }
 
-				currentUI = ui.GetComponent<UIState> ();
-				if (currentUI != null)
-						currentUI.StartUI ();
-				else
-						Debug.LogError ("Gameobject: " + ui.name + "is not a UI state");
-		}
+    public void changeUI(GameObject ui)
+    {
+        if (currentUI != null)
+        {
+            currentUI.EndUI();
+        }
+
+        currentUI = ui.GetComponent<UIState>();
+        if (currentUI != null)
+            currentUI.StartUI();
+        else
+            Debug.LogError("Gameobject: " + ui.name + "is not a UI state");
+    }
 }
