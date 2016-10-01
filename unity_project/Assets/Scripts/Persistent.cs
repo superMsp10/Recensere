@@ -38,7 +38,7 @@ public class Persistent : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        DatabaseConnect.thisM.logout();
+        //DatabaseConnect.thisM.logout();
     }
 
     public void Reset()
