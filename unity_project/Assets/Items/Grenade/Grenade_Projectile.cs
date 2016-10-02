@@ -27,7 +27,7 @@ class Grenade_Projectile : Item_Throwable_Projectile
 
         if (on)
         {
-            Debug.Log("Grenade projectile enabled");
+            //Debug.Log("Grenade projectile enabled");
             r.velocity = Vector3.zero;
             Invoke("_explode", explosionDelay);
 
@@ -43,7 +43,7 @@ class Grenade_Projectile : Item_Throwable_Projectile
 
     void _explode()
     {
-        Debug.Log("Grenade explosion client");
+        //Debug.Log("Grenade explosion client");
         thisPV.RPC("explode", PhotonTargets.All, null);
 
         foreach (Collider c in Physics.OverlapSphere(transform.position, explosionRadius, explodingLayers))
@@ -77,7 +77,7 @@ class Grenade_Projectile : Item_Throwable_Projectile
     [PunRPC]
     void explode()
     {
-        Debug.Log("Grenade explosion rpc");
+        //Debug.Log("Grenade explosion rpc");
         explosionFX_Dust.Play();
         explosionFX_Fireball.Play();
 

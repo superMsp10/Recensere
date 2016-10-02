@@ -40,31 +40,35 @@ public abstract class Tile : MonoBehaviour, Health, Attachable
     public virtual bool takeDamage(float damage, string attacker)
     {
         //				Debug.Log ("Take Damage From Tile");
-
-        if (health <= 0)
-            return false;
-        HP -= damage;
-        lastAttacker = attacker;
-        if (health <= 0)
+        if (takeDmg)
         {
-            Destroy();
-            return true;
+            if (health <= 0)
+                return false;
+            HP -= damage;
+            lastAttacker = attacker;
+            if (health <= 0)
+            {
+                Destroy();
+                return true;
+            }
         }
         return false;
+
 
     }
 
     public virtual void syncDamage(float damage, string attacker)
     {
         //				Debug.Log ("Sync Damage From Tile");
-
-        HP -= damage;
-        lastAttacker = attacker;
-        if (health <= 0)
+        if (takeDmg)
         {
-            Destroy();
+            HP -= damage;
+            lastAttacker = attacker;
+            if (health <= 0)
+            {
+                Destroy();
+            }
         }
-
     }
 
 
@@ -153,7 +157,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable
             //Debug.Log("Damage Layer Collision at Player");
             float sdm = GameManager.speedToDamageMultiplier;
             float dmg = Mathf.Pow(collision.relativeVelocity.magnitude, sdm);
-            if (takeDmg && collision.relativeVelocity.magnitude > Sturdy)
+            if (collision.relativeVelocity.magnitude > Sturdy)
             {
                 //Debug.Log("Engough Damage at Player");
                 if (takeDamage(dmg, collision.collider.name))
