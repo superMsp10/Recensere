@@ -35,7 +35,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
     public float defaultHeldTime;
     public PhotonView thisView;
     int playerID;
-    bool selected = false;
+    protected bool selected = false;
     bool startedHold = false;
     Renderer ren;
 
@@ -202,18 +202,19 @@ public class Item_Throwable : MonoBehaviour, Holdable
     {
         timeEnded = Time.time;
         startedHold = false;
-        //				Debug.Log ("buttonUP by Cube");
+        Debug.Log("buttonUP by Cube");
     }
     [PunRPC]
     protected virtual void selectedBy()
     {
+        Debug.Log("onSelected by Cube");
         gameObject.SetActive(true);
         selected = true;
     }
     [PunRPC]
     protected virtual void deselectedBy()
     {
-        //				Debug.Log ("onDeselect by Cube");
+        Debug.Log("onDeselect by Cube");
         gameObject.SetActive(false);
         selected = false;
 
@@ -229,7 +230,8 @@ public class Item_Throwable : MonoBehaviour, Holdable
         transform.parent = thisPlayer.right_hand;
         transform.position = thisPlayer.right_hand.position;
         transform.rotation = thisPlayer.right_hand.rotation;
-        gameObject.SetActive(false);
+        if (!selected)
+            gameObject.SetActive(false);
     }
     [PunRPC]
     protected virtual void droppedBy()

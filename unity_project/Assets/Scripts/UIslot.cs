@@ -36,8 +36,8 @@ public class UIslot : MonoBehaviour
 								_amount = 0; 
 								
 						} else {
-//								Debug.Log ("UI slot change amout to: " + value);
-								_amount = value;
+                //Debug.Log("UI slot change amout to: " + value);
+                _amount = value;
 								amountText.text = amount.ToString ();
 								amountText.transform.parent.gameObject.SetActive (true);
 						}
@@ -48,23 +48,23 @@ public class UIslot : MonoBehaviour
 
 		public void changeHolding (Holdable h, int amounts = 0)
 		{
-//				Debug.Log ("UI slot change holding. Amount: " + amounts);
-				if (holding != null) {
-//						Debug.Log ("UI slot change holding,\n old holding drop");
-						holding.onDrop ();
+        //Debug.Log("UI slot change holding. Amount: " + amounts);
+        if (holding != null) {
+            //Debug.Log("UI slot change holding,\n old holding drop");
+            holding.onDrop ();
 				}
 
 				if (h == null || amounts <= 0) {
-//						Debug.Log ("UI slot change holding,\n parameter holdable is null");
-						clearHolding ();
+            //Debug.Log("UI slot change holding,\n parameter holdable is null");
+            clearHolding ();
 					
 				} else { 
 
 						holding = h;
 						amount = amounts;
 						slot.sprite = holding.holdUI;
-//						Debug.Log ("UI slot change holding,\n changed to new holding");
-						holding.onPickup ();
+            //Debug.Log("UI slot change holding,\n changed to new holding");
+            holding.onPickup ();
 						if (selected)
 								holding.onSelect ();
 				}
@@ -72,8 +72,8 @@ public class UIslot : MonoBehaviour
 
 		public void clearHolding ()
 		{
-//				Debug.Log ("UI slot clear holding");
-				slot.sprite = defaultSlotImage;
+        //Debug.Log("UI slot clear holding");
+        slot.sprite = defaultSlotImage;
 				holding = null;
 				amount = 0;
 		}
@@ -81,8 +81,8 @@ public class UIslot : MonoBehaviour
 
 		public void buttonDown ()
 		{
-//				Debug.Log ("Used");
-				if (holding.buttonDown ()) {
+        //Debug.Log("Used");
+        if (holding.buttonDown ()) {
 						amount = holding.amount;
 						if (amount <= 0) {
 								clearHolding ();
@@ -92,9 +92,9 @@ public class UIslot : MonoBehaviour
 
 		public virtual void onClick ()
 		{
-//				Debug.Log ("On click to drop");
+        //Debug.Log("On click to drop");
 
-				if (holding != null) {
+        if (holding != null) {
 						holding.onDrop ();
 				}
 				clearHolding ();
@@ -102,9 +102,9 @@ public class UIslot : MonoBehaviour
 
 		public void onSelect ()
 		{
-//				Debug.Log ("On select");
+        //Debug.Log("On select");
 
-				if (holding != null)
+        if (holding != null)
 						holding.onSelect ();
 				selected = true;
 

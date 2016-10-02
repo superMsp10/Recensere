@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Grenade_Item : Item_Throwable {
+public class Grenade_Item : Item_Throwable
+{
     public Vector3 handRotation;
 
     [PunRPC]
@@ -15,7 +16,8 @@ public class Grenade_Item : Item_Throwable {
         transform.parent = thisPlayer.right_hand;
         transform.position = thisPlayer.right_hand.position;
         transform.localRotation = Quaternion.Euler(handRotation);
-        gameObject.SetActive(false);
+        if (!selected)
+            gameObject.SetActive(false);
     }
 
 }

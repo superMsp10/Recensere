@@ -14,7 +14,6 @@ public class invManager : slotCollection,UIState
 
 		public Color highlighted;
 		public Color normal;
-//		public Holdable giveOnStart;
 		public GameObject paused;
 
 		//Mono stuff
@@ -29,9 +28,7 @@ public class invManager : slotCollection,UIState
 		void Start ()
 		{
 				thismanage = GameManager.thisM;
-//				if (giveOnStart != null) {
-//
-//				}
+
 		}
 	
 		void Update ()
