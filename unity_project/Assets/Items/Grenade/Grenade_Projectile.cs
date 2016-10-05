@@ -9,8 +9,8 @@ class Grenade_Projectile : Item_Throwable_Projectile
     public ParticleSystem explosionFX_Dust;
     public Renderer thisRenderer;
     public Collider thisCollider;
-    public Rigidbody thisRigid;
     public GameObject destroyedGrenade;
+    private Transform prefabTransform;
 
     public float explosionRadius, explosionForce;
     public LayerMask explodingLayers;
@@ -21,21 +21,33 @@ class Grenade_Projectile : Item_Throwable_Projectile
     public override void reset(bool on)
     {
         gameObject.SetActive(on);
-        r.isKinematic = !on;
         transform.SetParent(tileDictionary.thisM.projectiles, true);
 
 
-        if (on)
+        if (!on)
         {
             //Debug.Log("Grenade projectile enabled");
-            r.velocity = Vector3.zero;
-            Invoke("_explode", explosionDelay);
+            thisRigid.velocity = Vector3.zero;
 
             thisCollider.enabled = true;
-            thisRenderer.enabled = true;
             thisRigid.isKinematic = false;
+            thisRenderer.enabled = true;
             destroyedGrenade.SetActive(false);
 
+            prefabTransform = tileDictionary.thisM.destroyedGrenadeProjectile.transform;
+            for (int i = 0; i < destroyedGrenade.transform.childCount; i++)
+            {
+                Transform t = destroyedGrenade.transform.GetChild(i);
+                t.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                t.transform.localPosition = prefabTransform.GetChild(i).localPosition;
+                t.transform.localRotation = prefabTransform.GetChild(i).localRotation;
+            }
+
+            CancelInvoke();
+        }
+        else
+        {
+            Invoke("_explode", explosionDelay);
         }
 
 
@@ -82,10 +94,9 @@ class Grenade_Projectile : Item_Throwable_Projectile
         explosionFX_Fireball.Play();
 
         thisCollider.enabled = false;
-
+        thisRigid.isKinematic = true;
         thisRenderer.enabled = false;
         destroyedGrenade.SetActive(true);
-        thisRigid.isKinematic = true;
     }
 
 }
