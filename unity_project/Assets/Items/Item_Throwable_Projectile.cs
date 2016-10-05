@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
 {
-    public Rigidbody r;
+    public Rigidbody thisRigid;
     public Item_Throwable thisPooler;
     public int hitDamage;
     public PhotonView thisPV;
@@ -21,14 +21,14 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
     public virtual void reset(bool on)
     {
         gameObject.SetActive(on);
-        r.isKinematic = !on;
+        thisRigid.isKinematic = !on;
         transform.SetParent(tileDictionary.thisM.projectiles, true);
 
 
         if (on)
         {
             //Debug.Log("Projectile enabled");
-            r.velocity = Vector3.zero;
+            thisRigid.velocity = Vector3.zero;
         }
 
     }

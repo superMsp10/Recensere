@@ -24,6 +24,9 @@ public class tileDictionary : MonoBehaviour
     public GameObject JetpackFire;
     public Transform projectiles;
 
+    public GameObject destroyedGrenadeProjectile;
+
+
 
     void Awake()
     {
