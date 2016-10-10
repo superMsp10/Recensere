@@ -10,7 +10,7 @@ using ExitGames.Client.Photon;
 using UnityEngine;
 
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Internal Monobehaviour that allows Photon to run an Update loop.
@@ -28,7 +28,7 @@ internal class PhotonHandler : Photon.MonoBehaviour, IPhotonPeerListener
     private int nextSendTickCountOnSerialize = 0;
 
     private static bool sendThreadShouldRun;
-    
+
     protected internal static bool AppQuits;
 
     protected internal static Type PingImplementation = null;
@@ -121,7 +121,7 @@ internal class PhotonHandler : Photon.MonoBehaviour, IPhotonPeerListener
     protected void OnLevelWasLoaded(int level)
     {
         PhotonNetwork.networkingPeer.NewSceneLoaded();
-        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(Application.loadedLevelName);
+        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(SceneManager.GetActiveScene().name);
     }
 
     protected void OnJoinedRoom()
@@ -131,7 +131,7 @@ internal class PhotonHandler : Photon.MonoBehaviour, IPhotonPeerListener
 
     protected void OnCreatedRoom()
     {
-        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(Application.loadedLevelName);
+        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(SceneManager.GetActiveScene().name);
     }
 
     public static void StartFallbackSendAckThread()

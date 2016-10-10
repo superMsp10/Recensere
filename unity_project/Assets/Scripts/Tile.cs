@@ -1,15 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Boomlagoon.JSON;
+using System;
 
-public abstract class Tile : MonoBehaviour, Health, Attachable
+public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
 {
     //Health
     public float health;
-    public string lastAttacker;
     public bool takeDmg = true;
     public float Sturdy = 10f;
+    [SerializeField]
+    private LayerMask damagedBy;
+
     float orgHealth;
-    public LayerMask damagedBy;
+    string lastAttacker;
+
 
     //Health Representation
     Renderer thisRender;
@@ -19,14 +24,14 @@ public abstract class Tile : MonoBehaviour, Health, Attachable
     public int xPos;
     public int yPos;
     public bool yWall = false;
-
-    //Decal
-    public int decalLimit;
-    List<Poolable> Attached;
-
-
     public int tileSize = 4;
 
+
+    //Decal
+    int decalLimit;
+    List<Poolable> Attached;
+
+    public string prefabName;
 
     void Start()
     {
@@ -183,4 +188,20 @@ public abstract class Tile : MonoBehaviour, Health, Attachable
     }
 
 
+    public string ToJSON()
+    {
+        JSONObject ret = new JSONObject();
+        ret.Add("Position", transform.position.ToString());
+        ret.Add("Health", health.ToString());
+        ret.Add("PrefabName", prefabName);
+
+        return ret.ToString();
+    }
+
+    public void FromJSON(string JSON)
+    {
+        JSONObject ret = JSONObject.Parse(JSON);
+        transform.position = JSONObject.StringToVector3(ret.GetString("Position"));
+        health = (float)ret.GetNumber("Health");
+    }
 }
