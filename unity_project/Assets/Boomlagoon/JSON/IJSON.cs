@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Boomlagoon.JSON;
 
 public interface IJSON
 {
-    string ToJSON();
-    void FromJSON(string JSON);
+    JSONObject ToJSON();
+    void FromJSON(JSONObject JSON);
 }

@@ -188,20 +188,20 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     }
 
 
-    public string ToJSON()
+    public JSONObject ToJSON()
     {
         JSONObject ret = new JSONObject();
         ret.Add("Position", transform.position.ToString());
-        ret.Add("Health", health.ToString());
+        ret.Add("Health", health);
         ret.Add("PrefabName", prefabName);
+        ret.Add("Name", name);
 
-        return ret.ToString();
+        return ret;
     }
 
-    public void FromJSON(string JSON)
+    public void FromJSON(JSONObject JSON)
     {
-        JSONObject ret = JSONObject.Parse(JSON);
-        transform.position = JSONObject.StringToVector3(ret.GetString("Position"));
-        health = (float)ret.GetNumber("Health");
+        transform.position = JSONObject.StringToVector3(JSON.GetString("Position"));
+        health = (float)JSON.GetNumber("Health");
     }
 }
