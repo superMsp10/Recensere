@@ -10,7 +10,7 @@ public class Structure : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        //GameManager.thisM.currLevel.structures.Add(this);
     }
 
 
@@ -29,7 +29,10 @@ public class Structure : MonoBehaviour
             JSONObject tileJSON = j.Obj;
             Tile tile = CreateTile(tileJSON);
             tile.FromJSON(tileJSON);
+            tiles.Add(tile);
+
         }
+
     }
 
     public string GenerateJSON()
@@ -52,7 +55,6 @@ public class Structure : MonoBehaviour
 
     public void UpdateStructure(JSONArray tileDetails)
     {
-        List<Tile> newTiles = new List<Tile>();
         foreach (JSONValue j in tileDetails)
         {
             JSONObject tileJSON = j.Obj;
@@ -60,12 +62,11 @@ public class Structure : MonoBehaviour
             if (tile == null)
             {
                 tile = CreateTile(tileJSON);
-                newTiles.Add(tile);
+                tiles.Add(tile);
             }
             tile.FromJSON(tileJSON);
             Debug.Log("Updating" + tile.name);
         }
-        tiles.AddRange(newTiles);
     }
 
     private Tile CreateTile(JSONObject tileJSON)

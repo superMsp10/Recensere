@@ -25,6 +25,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     public int yPos;
     public bool yWall = false;
     public int tileSize = 4;
+    Structure s;
 
 
     //Decal

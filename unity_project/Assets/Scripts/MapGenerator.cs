@@ -50,13 +50,6 @@ public class MapGenerator
 
     }
 
-    public virtual LootTile[] findLootTiles()
-    {
-
-        return GameObject.FindObjectsOfType<LootTile>();
-
-
-    }
 
     public virtual Tile[,] generateMap(Transform levStart)
     {
@@ -219,31 +212,5 @@ public class MapGenerator
 
 
     }
-
-
-
-    //		void rotateWall (GameObject g)
-    //		{
-    //				int i = Random.Range (0, 3);
-    //				int rotation = 90;
-    //				
-    //				switch (i) {
-    //	
-    //				case 0:
-    //						rotation = 0;
-    //						break;
-    //				case 1:
-    //						rotation = 180;
-    //						break;
-    //				case 2:
-    //						rotation = 270;
-    //						break;
-    //
-    //		
-    //						rotation = 0;
-    //				}
-    //				g.transform.rotation = new Quaternion (0, -rotation, 0, rotation);
-    //
-    //		}
 
 }

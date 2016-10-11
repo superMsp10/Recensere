@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Boomlagoon.JSON;
+using System;
 
 public abstract class Level : MonoBehaviour
 {
     public Transform levelStart;
     public Transform items;
+    public Transform Structures;
+
 
     private SpawnSpot[] sS;
     private SpawnSpot mySS;
@@ -34,24 +38,64 @@ public abstract class Level : MonoBehaviour
 
     }
 
-    public virtual void generateArena(MapGenerator m)
+    public virtual void InitStrucutres(string JSON)
     {
-        //				liveTiles = gen.generateMap (levelStart);
-        liveTiles = m.findTiles(levelStart);
-        lootTiles = m.findLootTiles();
-        if (PhotonNetwork.isMasterClient)
-            InvokeRepeating("generateLoot", 0, lootTime);
-    }
-    public virtual void generateArena()
-    {
-        //Debug.Log("Generating Arena");
+        foreach (JSONValue j in JSONArray.Parse(JSON))
+        {
+            JSONObject structJSON = j.Obj;
+            Structure s = structures.Find(t => t.name == structJSON.GetString("Name"));
+            if (s == null)
+            {
+                s = CreateStructure(structJSON);
+                structures.Add(s);
+            }
+            s.UpdateStructure(structJSON.GetArray("Tiles"));
+            Debug.Log("Updating" + s.name);
 
-        MapGenerator gen = new MapGenerator(Map.firstMap);
-        liveTiles = gen.findTiles(levelStart);
-        lootTiles = gen.findLootTiles();
-        if (PhotonNetwork.isMasterClient)
-            InvokeRepeating("generateLoot", 0, lootTime);
+
+        }
     }
+
+    private Structure CreateStructure(JSONObject tileJSON)
+    {
+        GameObject g = new GameObject(tileJSON.GetString("Name"), new Structure().GetType());
+        g.transform.parent = Structures;
+        Structure s = g.GetComponent<Structure>();
+        //s.startStructure(tileJSON.GetArray("Tiles"));
+        return s;
+    }
+
+    public virtual string getStrucutresInit()
+    {
+        JSONArray j = new JSONArray();
+        foreach (Structure s in structures)
+        {
+            j.Add(s.GenerateJSON());
+        }
+        return j.ToString();
+    }
+
+    //public virtual void generateArena(MapGenerator m)
+    //{
+    //    //				liveTiles = gen.generateMap (levelStart);
+    //    //liveTiles = m.findTiles(levelStart);
+    //    lootTiles =GameObject.FindObjectsOfType<LootTile>();
+
+    //    if (PhotonNetwork.isMasterClient)
+    //        InvokeRepeating("generateLoot", 0, lootTime);
+
+    //}
+
+    //public virtual void generateArena()
+    //{
+    //    //Debug.Log("Generating Arena");
+
+    //    MapGenerator gen = new MapGenerator(Map.firstMap);
+    //    liveTiles = gen.findTiles(levelStart);
+    //    lootTiles = gen.findLootTiles();
+    //    if (PhotonNetwork.isMasterClient)
+    //        InvokeRepeating("generateLoot", 0, lootTime);
+    //}
 
     public void generateLoot()
     {
@@ -61,12 +105,16 @@ public abstract class Level : MonoBehaviour
             t.generateLoot();
         }
     }
+
     public void OnConnected()
     {
         //Debug.Log ("Connected in GameManager");
-        generateArena();
         UIManager.thisM.currentUI = null;
         GameManager.thisM.instantiatePlayer();
+
+        lootTiles = GameObject.FindObjectsOfType<LootTile>();
+        if (PhotonNetwork.isMasterClient)
+            InvokeRepeating("generateLoot", 0, lootTime);
     }
 
 }

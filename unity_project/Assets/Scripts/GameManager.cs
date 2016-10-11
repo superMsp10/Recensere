@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void getStructuresInit(int playerId)
     {
-        view.RPC("setStructuresInit", PhotonPlayer.Find(playerId), "");
+        view.RPC("setStructuresInit", PhotonPlayer.Find(playerId), currLevel.getStrucutresInit());
         Debug.Log("Got and Sent(Master) Structures Request");
 
     }
@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
     public void setStructuresInit(string StructuresJSON)
     {
         Debug.Log("Got(Client) Structures Response");
+        currLevel.InitStrucutres(StructuresJSON);
         currLevel.OnConnected();
         loaded = true;
     }
