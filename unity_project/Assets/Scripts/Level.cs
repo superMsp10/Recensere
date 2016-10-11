@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Level : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public abstract class Level : MonoBehaviour
     public float fuelRate = 2f;
 
     public Tile[,] liveTiles;
-
+    public List<Structure> structures = new List<Structure>();
 
     public GameObject cam;
 
@@ -47,7 +47,6 @@ public abstract class Level : MonoBehaviour
         //Debug.Log("Generating Arena");
 
         MapGenerator gen = new MapGenerator(Map.firstMap);
-        //				liveTiles = gen.generateMap (levelStart);
         liveTiles = gen.findTiles(levelStart);
         lootTiles = gen.findLootTiles();
         if (PhotonNetwork.isMasterClient)

@@ -61,7 +61,7 @@ public class Connect :  Photon.MonoBehaviour
 		public void OnJoinedRoom ()
 		{
 				showConnectionState = false;
-				GameManager.thisM.currLevel.OnConnected ();
+				GameManager.thisM.OnConnected ();
 		}
 
 

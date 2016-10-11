@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     public Level currLevel;
     public PhotonView view;
     public static float speedToDamageMultiplier = 1f;
-
+    bool loaded = false;
     public GameObject currCam;
 
 
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+
 
     //Player------------------------------------------//
     public void instantiatePlayer()
@@ -76,6 +77,34 @@ public class GameManager : MonoBehaviour
         players = FindObjectsOfType<player>();
         Debug.Log("Updating players for player: " + id + ", Total:" + players.Length);
     }
+
+    public void OnConnected()
+    {
+        if (PhotonNetwork.isMasterClient)
+            currLevel.OnConnected();
+        else
+        {
+            view.RPC("getStructuresInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
+            Debug.Log("Sent(Client) Structures Request");
+        }
+    }
+
+    [PunRPC]
+    public void getStructuresInit(int playerId)
+    {
+        view.RPC("setStructuresInit", PhotonPlayer.Find(playerId), "");
+        Debug.Log("Got and Sent(Master) Structures Request");
+
+    }
+
+    [PunRPC]
+    public void setStructuresInit(string StructuresJSON)
+    {
+        Debug.Log("Got(Client) Structures Response");
+        currLevel.OnConnected();
+        loaded = true;
+    }
+
 
     public player getPlayerByViewID(int viewID)
     {
@@ -181,6 +210,7 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void syncFloorTileDamage(float damage, string attacker, int x, int y)
     {
+        if (!loaded) return;
         //				Debug.Log ("sync floor");
         if (currLevel.liveTiles[x, y] != null)
         {
@@ -196,6 +226,7 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void syncWallTileDamage(float damage, string attacker, int x, int y, bool yWall)
     {
+        if (!loaded) return;
         //				Debug.Log ("sync wall");
         floorTile t = (floorTile)currLevel.liveTiles[x, y];
         if (t.yTile != null || t.xTile != null)
