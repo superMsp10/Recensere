@@ -35,7 +35,7 @@ public class Structure : MonoBehaviour
 
     }
 
-    public string GenerateJSON()
+    public JSONObject GenerateJSON()
     {
         JSONObject ret = new JSONObject();
         //Add structure info
@@ -50,7 +50,7 @@ public class Structure : MonoBehaviour
         ret.Add("Tiles", arr);
 
         Debug.Log(ret.ToString());
-        return ret.ToString();
+        return ret;
     }
 
     public void UpdateStructure(JSONArray tileDetails)
