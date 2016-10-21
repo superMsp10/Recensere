@@ -2,6 +2,7 @@
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
+/unity_project/Temp/
 /unity_project/[Bb]uilds/
 [Bb]uilds/
 Library/
@@ -22,3 +23,5 @@ Library/
 /unity_project/Snapshots
 Design And Planning/ProcessFlow.xlsx
 Design And Planning/Starting process flow.docx
+*.bakert
+

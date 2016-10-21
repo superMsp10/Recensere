@@ -2,8 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using Boomlagoon.JSON;
-
-
+using UnityEngine.SceneManagement;
 
 public class DatabaseConnect : MonoBehaviour
 {
@@ -18,6 +17,7 @@ public class DatabaseConnect : MonoBehaviour
     string username, password;
 
     private string url = "http://bbman-supermsp10.rhcloud.com/api";
+    public string loadSceneName;
 
     void Awake()
     {
@@ -232,8 +232,7 @@ public class DatabaseConnect : MonoBehaviour
 
     void changeToGameScene()
     {
-        Application.LoadLevel("level1");
-
+        SceneManager.LoadScene(loadSceneName);
     }
     //---------------------Connection Errors-------------------------------------//
     public void ConnectionError(string Error)
