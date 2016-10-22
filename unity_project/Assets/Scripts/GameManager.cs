@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         thisM = this;
-        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()
@@ -177,6 +176,8 @@ public class GameManager : MonoBehaviour
                     m.enabled = false;
                 }
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
 
             }
             else
@@ -185,7 +186,8 @@ public class GameManager : MonoBehaviour
                 {
                     m.enabled = true;
                 }
-                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
 
             }
 

@@ -3,117 +3,131 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 
-public class invManager : slotCollection,UIState
+public class invManager : slotCollection, UIState
 {
-		
-		private GameManager thismanage;
-		public static invManager thisInv;
 
-		public UIslot SelectedSlot;
-		public int SelectedInt;
+    private GameManager thismanage;
+    public static invManager thisInv;
 
-		public Color highlighted;
-		public Color normal;
-		public GameObject paused;
+    public UIslot SelectedSlot;
+    public int SelectedInt;
 
-		//Mono stuff
-		void Awake ()
-		{
+    public Color highlighted;
+    public Color normal;
+    public GameObject paused;
 
-				if (thisInv == null)
-						thisInv = this;
+    //Mono stuff
+    void Awake()
+    {
 
-		}
+        if (thisInv == null)
+            thisInv = this;
 
-		void Start ()
-		{
-				thismanage = GameManager.thisM;
+    }
 
-		}
-	
-		void Update ()
-		{
-				if (SelectedSlot == null) {
-						selectSlot (0);
-				}
-				if (!thismanage.paused) {
-						if (Input.GetAxisRaw ("slotChangeWheel") > 0 || Input.GetKeyDown (KeyCode.E)) {
-								selectSlot (SelectedInt + 1);
-						} else if (Input.GetAxisRaw ("slotChangeWheel") < 0 || Input.GetKeyDown (KeyCode.Q)) {
-								selectSlot (SelectedInt - 1);
-						}
-						if (SelectedSlot.holding != null) {
-								if (Input.GetButtonDown ("InvSelected")) {
-										SelectedSlot.buttonDown ();
-								}
-								if (Input.GetButtonUp ("InvSelected")) {
-										SelectedSlot.holding.buttonUP ();
-								}
-//								if (SelectedSlot.holding != null)
-//										SelectedSlot.holding.updateItem ();
-						}
-				}
-				
-		}
+    void Start()
+    {
+        thismanage = GameManager.thisM;
 
-		//UIState stuff
-		public void StartUI ()
-		{
-				gameObject.SetActive (true);
-				GameManager.thisM.paused = false;
-				if (Input.GetKey (KeyCode.LeftShift)) {
-						Cursor.visible = false;
-				}
-		
-		}
-	
-		public void EndUI ()
-		{
-				gameObject.SetActive (false);
-		
-		}
-	
-		public	void UpdateUI ()
-		{
-				UIManager.thisM.changeUI (paused);
-		
-		}
+    }
 
-		//slot collection stuff
-		public void selectSlot (int i)
-		{
-				if (i >= 0 && i < slots.Capacity) {
-						SelectedInt = i;
-						if (SelectedSlot != null) {
-								SelectedSlot.outline.color = normal;
-								SelectedSlot.onDeselect ();
-						}
-						SelectedSlot = slots [i];
-						SelectedSlot.outline.color = highlighted;
-						SelectedSlot.onSelect ();
-						
-				}
-		}
+    void Update()
+    {
+        if (SelectedSlot == null)
+        {
+            selectSlot(0);
+        }
+        if (!thismanage.paused)
+        {
+            if (Input.GetAxisRaw("slotChangeWheel") > 0 || Input.GetKeyDown(KeyCode.E))
+            {
+                selectSlot(SelectedInt + 1);
+            }
+            else if (Input.GetAxisRaw("slotChangeWheel") < 0 || Input.GetKeyDown(KeyCode.Q))
+            {
+                selectSlot(SelectedInt - 1);
+            }
+            if (SelectedSlot.holding != null)
+            {
+                if (Input.GetButtonDown("InvSelected"))
+                {
+                    SelectedSlot.buttonDown();
+                }
+                if (Input.GetButtonUp("InvSelected"))
+                {
+                    SelectedSlot.holding.buttonUP();
+                }
+                //								if (SelectedSlot.holding != null)
+                //										SelectedSlot.holding.updateItem ();
+            }
+        }
 
-		public void clearInv ()
-		{
-				foreach (UIslot s in slots) {
-						s.onClick ();
+    }
 
-				}
+    //UIState stuff
+    public void StartUI()
+    {
+        gameObject.SetActive(true);
+        GameManager.thisM.paused = false;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
 
-		}
+    }
 
-		public void dc_giveDefaultItem ()
-		{
-		
-				for (int i = 0; i <  slots.Count; i ++) {
-			
-						if (slots [i].holding == null) {
-//								slots [i].changeHolding (giveOnStart, 500);
-								return;
-						}
-				}
-		}
+    public void EndUI()
+    {
+        gameObject.SetActive(false);
+
+    }
+
+    public void UpdateUI()
+    {
+        UIManager.thisM.changeUI(paused);
+
+    }
+
+    //slot collection stuff
+    public void selectSlot(int i)
+    {
+        if (i >= 0 && i < slots.Capacity)
+        {
+            SelectedInt = i;
+            if (SelectedSlot != null)
+            {
+                SelectedSlot.outline.color = normal;
+                SelectedSlot.onDeselect();
+            }
+            SelectedSlot = slots[i];
+            SelectedSlot.outline.color = highlighted;
+            SelectedSlot.onSelect();
+
+        }
+    }
+
+    public void clearInv()
+    {
+        foreach (UIslot s in slots)
+        {
+            s.onClick();
+
+        }
+
+    }
+
+    public void dc_giveDefaultItem()
+    {
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+
+            if (slots[i].holding == null)
+            {
+                //								slots [i].changeHolding (giveOnStart, 500);
+                return;
+            }
+        }
+    }
 
 }
