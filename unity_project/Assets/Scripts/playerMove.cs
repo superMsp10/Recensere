@@ -72,9 +72,12 @@ public class playerMove : MonoBehaviour
 
     void Update()
     {
-        checkMovement();
         checkJump();
+    }
 
+    void FixedUpdate()
+    {
+        checkMovement();
     }
 
 
@@ -171,6 +174,8 @@ public class playerMove : MonoBehaviour
 
     void checkMovement()
     {
+
+
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -185,6 +190,12 @@ public class playerMove : MonoBehaviour
         else
             speed = og_speed * fly_speed;
 
+        if (moveHorizontal == 0 && moveVertical == 0)
+        {
+            if (grounded)
+                rigidbod.velocity = new Vector3(0, rigidbod.velocity.y, 0);
+        }
+
         if (rigidbod.velocity.magnitude < speedLimit)
         {
             if (moveVertical > 0)
@@ -198,4 +209,5 @@ public class playerMove : MonoBehaviour
                 rigidbod.AddForce(transform.right * -speed);
         }
     }
+
 }
