@@ -91,6 +91,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
 
             }
         }
+        thisStructure.DestroyTile(this);
         Destroy(gameObject);
 
     }

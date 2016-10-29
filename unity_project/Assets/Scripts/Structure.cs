@@ -14,7 +14,13 @@ public class Structure : MonoBehaviour
     void Start()
     {
         if (autoAddTilesOnStart)
-            tiles.AddRange(GetComponentsInChildren<Tile>());
+        {
+            foreach (Tile t in GetComponentsInChildren<Tile>())
+            {
+                tiles.Add(t);
+                t.thisStructure = this;
+            }
+        }
     }
 
 

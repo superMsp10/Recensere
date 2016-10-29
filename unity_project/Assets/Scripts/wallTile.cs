@@ -5,24 +5,24 @@ public class wallTile : Tile
 {
 
 
-		public	override bool takeDamage (float damage, string attacker)
-		{
-				GameManager.thisM.sendWallTileDamage (damage, attacker, xPos, yPos, yWall);
-				return base.takeDamage (damage, attacker);
+    public override bool takeDamage(float damage, string attacker)
+    {
+        GameManager.thisM.sendFloorTileDamage(damage, attacker, thisStructure.name, name);
+        return base.takeDamage(damage, attacker);
 
-		}
+    }
 
-		public	override void Destroy ()
-		{
-//				Debug.Log (gameObject);
-				DestroyedTileManager.thisWall.addDestroyedWall (gameObject.transform.position, gameObject.transform.rotation);
-				base.Destroy ();
-		}
+    public override void Destroy()
+    {
+        //				Debug.Log (gameObject);
+        DestroyedTileManager.thisWall.addDestroyedWall(gameObject.transform.position, gameObject.transform.rotation);
+        base.Destroy();
+    }
 
-		public override void addFX (Collision collision, float dmg)
-		{
-				EffectsManager.thisM.addWallCracks (collision.contacts [0].normal, collision.contacts [0].point, this, dmg / HP);
-		}
-	
+    public override void addFX(Collision collision, float dmg)
+    {
+        EffectsManager.thisM.addWallCracks(collision.contacts[0].normal, collision.contacts[0].point, this, dmg / HP);
+    }
+
 }
 
