@@ -53,7 +53,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
         {
             if (ren == null)
             {
-                Debug.Log("No renderer on this object");
+                Debug.Log("No renderer on this object", this);
                 return;
             }
             if (startedHold)
@@ -79,7 +79,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
         {
             if (collision.collider.gameObject.layer == LayerMask.NameToLayer(GameManager.thisM.PlayerLayer))
             {
-                Debug.Log("OnCollisionEnter, Cube and Player Amount: " + _amount);
+                //Debug.Log("OnCollisionEnter, Cube and Player Amount: " + _amount);
                 //								p = collision.collider.gameObject.GetComponent<player> ();
                 if (invManager.thisInv.addHoldable(this, _amount) <= 0)
                 {
@@ -202,19 +202,19 @@ public class Item_Throwable : MonoBehaviour, Holdable
     {
         timeEnded = Time.time;
         startedHold = false;
-        Debug.Log("buttonUP by Cube");
+        //Debug.Log("buttonUP by Cube");
     }
     [PunRPC]
     protected virtual void selectedBy()
     {
-        Debug.Log("onSelected by Cube");
+        //Debug.Log("onSelected by Cube");
         gameObject.SetActive(true);
         selected = true;
     }
     [PunRPC]
     protected virtual void deselectedBy()
     {
-        Debug.Log("onDeselect by Cube");
+        //Debug.Log("onDeselect by Cube");
         gameObject.SetActive(false);
         selected = false;
 

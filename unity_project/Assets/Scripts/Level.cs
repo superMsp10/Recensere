@@ -7,7 +7,7 @@ public abstract class Level : MonoBehaviour
 {
     public Transform levelStart;
     public Transform items;
-    public Transform Structures;
+    public Transform StructuresTransform;
 
 
     private SpawnSpot[] sS;
@@ -17,7 +17,6 @@ public abstract class Level : MonoBehaviour
     public float lootTime;
     public float fuelRate = 2f;
 
-    public Tile[,] liveTiles;
     public List<Structure> structures = new List<Structure>();
 
     public GameObject cam;
@@ -59,7 +58,7 @@ public abstract class Level : MonoBehaviour
     private Structure CreateStructure(JSONObject tileJSON)
     {
         GameObject g = new GameObject(tileJSON.GetString("Name"), new Structure().GetType());
-        g.transform.parent = Structures;
+        g.transform.parent = StructuresTransform;
         Structure s = g.GetComponent<Structure>();
         //s.startStructure(tileJSON.GetArray("Tiles"));
         return s;

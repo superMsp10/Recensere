@@ -80,7 +80,10 @@ public class GameManager : MonoBehaviour
     public void OnConnected()
     {
         if (PhotonNetwork.isMasterClient)
+        {
             currLevel.OnConnected();
+            loaded = true;
+        }
         else
         {
             view.RPC("getStructuresInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
@@ -195,60 +198,88 @@ public class GameManager : MonoBehaviour
     }
 
     //Tile------------------------------------------//
-    public void sendFloorTileDamage(float damage, string attacker, int x, int y)
+    public void sendFloorTileDamage(float damage, string attacker, string structureName, string tileName)
     {
-        //				Debug.Log ("send floor dmg");
-        view.RPC("syncFloorTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y);
+        Debug.Log("send floor dmg");
+        view.RPC("syncFloorTileDamage", PhotonTargets.OthersBuffered, damage, attacker, structureName, tileName);
 
     }
 
     public void sendWallTileDamage(float damage, string attacker, int x, int y, bool yWall)
     {
         //				Debug.Log ("send wall dmg");
-        view.RPC("syncWallTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y, yWall);
+        //view.RPC("syncWallTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y, yWall);
 
 
     }
 
     [PunRPC]
-    public void syncFloorTileDamage(float damage, string attacker, int x, int y)
+    public void syncFloorTileDamage(float damage, string attacker, string structureName, string tileName)
     {
+        Debug.Log("received sync floor dmg");
         if (!loaded) return;
-        //				Debug.Log ("sync floor");
-        if (currLevel.liveTiles[x, y] != null)
+        Debug.Log("loaded");
+
+        Tile thisTile = GetTile(structureName, tileName);
+        if (thisTile != null)
         {
-            currLevel.liveTiles[x, y].syncDamage(damage, attacker);
+            thisTile.syncDamage(damage, attacker);
         }
         else
         {
-            Debug.Log("X :" + x + ", Y :" + y + " damaged by :" + attacker + " after being destroyed");
+            Debug.Log("Tile Damage Sync Request for Tile: " + tileName + " does not exist in Structure: " + structureName);
         }
+
+
 
     }
 
     [PunRPC]
     public void syncWallTileDamage(float damage, string attacker, int x, int y, bool yWall)
     {
-        if (!loaded) return;
-        //				Debug.Log ("sync wall");
-        floorTile t = (floorTile)currLevel.liveTiles[x, y];
-        if (t.yTile != null || t.xTile != null)
-        {
-            if (yWall)
-            {
-                t.yTile.syncDamage(damage, attacker);
-            }
-            else
-            {
-                t.xTile.syncDamage(damage, attacker);
+        //if (!loaded) return;
+        ////				Debug.Log ("sync wall");
+        //floorTile t = (floorTile)currLevel.liveTiles[x, y];
+        //if (t.yTile != null || t.xTile != null)
+        //{
+        //    if (yWall)
+        //    {
+        //        t.yTile.syncDamage(damage, attacker);
+        //    }
+        //    else
+        //    {
+        //        t.xTile.syncDamage(damage, attacker);
 
-            }
-        }
-        else
-        {
-            Debug.Log("X :" + x + ", Y :" + y + " damaged by :" + attacker + " after being destroyed");
-        }
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.Log("X :" + x + ", Y :" + y + " damaged by :" + attacker + " after being destroyed");
+        //}
 
     }
 
+    public Tile GetTile(string StructureName, string TileName)
+    {
+        Tile thisTile = GetStructure(StructureName).tiles.Find(t => t.name == TileName);
+        if (thisTile != null)
+        {
+            return thisTile;
+        }
+        Debug.Log("Tile Request for Name: " + TileName + " does not exist");
+
+        return null;
+    }
+
+    public Structure GetStructure(string StructureName)
+    {
+        Structure thisStructure = currLevel.structures.Find(s => s.name == StructureName);
+        if (thisStructure != null)
+        {
+            return thisStructure;
+        }
+        Debug.Log("Structure Request for Name: " + StructureName + " does not exist");
+
+        return null;
+    }
 }

@@ -32,6 +32,8 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     int decalLimit;
     List<Poolable> Attached;
 
+    public Structure thisStructure;
+
     public string prefabName;
 
     void Start()
@@ -196,6 +198,8 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         ret.Add("Health", health);
         ret.Add("PrefabName", prefabName);
         ret.Add("Name", name);
+        ret.Add("Destroyed", false);
+
 
         return ret;
     }
