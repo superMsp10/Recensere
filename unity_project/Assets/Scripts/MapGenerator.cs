@@ -82,8 +82,7 @@ public class MapGenerator
                 pos = new Vector3(x * t.tileSize, 0, y * t.tileSize);
                 g = (GameObject)GameObject.Instantiate(t.gameObject, pos, t.transform.rotation);
                 currentTile = g.GetComponent<floorTile>();
-                currentTile.xPos = x;
-                currentTile.yPos = y;
+
 
                 genTiles[x, y] = currentTile;
                 g.name = "X" + (x).ToString() + "Y" + (y).ToString();
@@ -92,20 +91,14 @@ public class MapGenerator
                 if (y != 0)
                 {
                     g = (GameObject)GameObject.Instantiate(wall.gameObject, new Vector3((x) * wall.tileSize + 0.01f, wall.tileSize, y * wall.tileSize), new Quaternion(0, (float)Direction.North, 0, (float)Direction.North));
-                    currentWall = currentTile.yTile = g.GetComponent<wallTile>();
-                    currentWall.xPos = x;
-                    currentWall.yPos = y;
-                    currentWall.yWall = true;
+
                     g.name = "walX + " + x + " walY + " + y;
                     g.transform.SetParent(trans2.transform, false);
                 }
                 if (x != 0)
                 {
                     g = (GameObject)GameObject.Instantiate(wall.gameObject, new Vector3(x * wall.tileSize, wall.tileSize, (y) * wall.tileSize), new Quaternion(0, (float)Direction.East, 0, -(float)Direction.East));
-                    currentWall = currentTile.xTile = g.GetComponent<wallTile>();
-                    currentWall.xPos = x;
-                    currentWall.yPos = y;
-                    currentWall.yWall = false;
+                  
                     g.name = "walX + " + x + " walY + " + y;
                     g.transform.SetParent(trans2.transform, false);
                 }

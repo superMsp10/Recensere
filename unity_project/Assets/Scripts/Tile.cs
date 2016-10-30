@@ -20,16 +20,12 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     Renderer thisRender;
     public Color damaged;
 
-    //Tile Transform
-    public int xPos;
-    public int yPos;
-    public bool yWall = false;
     public int tileSize = 4;
     Structure s;
 
 
     //Decal
-    int decalLimit;
+    int decalLimit = 10;
     List<Poolable> Attached;
 
     public Structure thisStructure;
@@ -47,7 +43,9 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
 
     public virtual bool takeDamage(float damage, string attacker)
     {
-        //				Debug.Log ("Take Damage From Tile");
+        Debug.Log("Take Damage From Tile");
+        GameManager.thisM.SendTileDamage(damage, attacker, thisStructure.name, name);
+
         if (takeDmg)
         {
             if (health <= 0)
@@ -188,7 +186,9 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
 
     public virtual void addFX(Collision c, float dmg)
     {
-        Debug.Log("Default FX Call");
+        Debug.Log("FX Call at Tile");
+        EffectsManager.thisM.AddCracksFX(c.contacts[0].normal, c.contacts[0].point, this, dmg / HP);
+
     }
 
 

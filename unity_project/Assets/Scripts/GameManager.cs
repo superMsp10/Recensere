@@ -198,27 +198,20 @@ public class GameManager : MonoBehaviour
     }
 
     //Tile------------------------------------------//
-    public void sendFloorTileDamage(float damage, string attacker, string structureName, string tileName)
+    public void SendTileDamage(float damage, string attacker, string structureName, string tileName)
     {
-        Debug.Log("send floor dmg");
-        view.RPC("syncFloorTileDamage", PhotonTargets.OthersBuffered, damage, attacker, structureName, tileName);
+        Debug.Log("send tile dmg");
+        view.RPC("SyncTileDamage", PhotonTargets.OthersBuffered, damage, attacker, structureName, tileName);
 
     }
 
-    public void sendWallTileDamage(float damage, string attacker, int x, int y, bool yWall)
-    {
-        //				Debug.Log ("send wall dmg");
-        //view.RPC("syncWallTileDamage", PhotonTargets.OthersBuffered, damage, attacker, x, y, yWall);
 
-
-    }
 
     [PunRPC]
-    public void syncFloorTileDamage(float damage, string attacker, string structureName, string tileName)
+    public void SyncTileDamage(float damage, string attacker, string structureName, string tileName)
     {
-        Debug.Log("received sync floor dmg");
+        Debug.Log("received sync dmg");
         if (!loaded) return;
-        Debug.Log("loaded");
 
         Tile thisTile = GetTile(structureName, tileName);
         if (thisTile != null)
@@ -229,35 +222,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Tile Damage Sync Request for Tile: " + tileName + " does not exist in Structure: " + structureName);
         }
-
-
-
     }
 
-    [PunRPC]
-    public void syncWallTileDamage(float damage, string attacker, int x, int y, bool yWall)
-    {
-        //if (!loaded) return;
-        ////				Debug.Log ("sync wall");
-        //floorTile t = (floorTile)currLevel.liveTiles[x, y];
-        //if (t.yTile != null || t.xTile != null)
-        //{
-        //    if (yWall)
-        //    {
-        //        t.yTile.syncDamage(damage, attacker);
-        //    }
-        //    else
-        //    {
-        //        t.xTile.syncDamage(damage, attacker);
-
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.Log("X :" + x + ", Y :" + y + " damaged by :" + attacker + " after being destroyed");
-        //}
-
-    }
 
     public Tile GetTile(string StructureName, string TileName)
     {
