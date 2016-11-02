@@ -6,7 +6,7 @@ public interface Health
 		bool takeDamage (float damage, string attacker);
 		void syncDamage (float damage, string attacker);
 
-		void Destroy ();
+		void Destroy (bool local);
 		string lastDamageBy ();
 
 		float HP {

@@ -82,7 +82,7 @@ public class Structure : MonoBehaviour
             else if (tileJSON.GetBoolean("Destroyed"))
             {
                 Debug.Log("Destroying" + tile.name);
-                tile.Destroy();
+                tile.Destroy(false);
             }
             else
             {

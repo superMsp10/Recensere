@@ -43,7 +43,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
 
     public virtual bool takeDamage(float damage, string attacker)
     {
-        Debug.Log("Take Damage From Tile");
+        //Debug.Log("Take Damage From Tile");
         GameManager.thisM.SendTileDamage(damage, attacker, thisStructure.name, name);
 
         if (takeDmg)
@@ -54,7 +54,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
             lastAttacker = attacker;
             if (health <= 0)
             {
-                Destroy();
+                Destroy(true);
                 return true;
             }
         }
@@ -72,25 +72,26 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
             lastAttacker = attacker;
             if (health <= 0)
             {
-                Destroy();
+                Destroy(false);
             }
         }
     }
 
 
-    public virtual void Destroy()
+    public virtual void Destroy(bool local)
     {
+
+        DestroyedTileManager.thisWall.AddDestroyedTile(gameObject.transform.position, gameObject.transform.rotation, local);
+
         if (Attached != null)
         {
-            for (int i = 0; Attached.Count > 0; i++)
+            for (int i = 0; i < Attached.Count; i++)
             {
                 detach(Attached[0].gameobject);
-
-
             }
         }
         thisStructure.DestroyTile(this);
-        Destroy(gameObject);
+        GameObject.Destroy(gameObject);
 
     }
     public string lastDamageBy()
@@ -186,7 +187,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
 
     public virtual void addFX(Collision c, float dmg)
     {
-        Debug.Log("FX Call at Tile");
+        //Debug.Log("FX Call at Tile");
         EffectsManager.thisM.AddCracksFX(c.contacts[0].normal, c.contacts[0].point, this, dmg / HP);
 
     }

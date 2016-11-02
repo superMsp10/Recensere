@@ -35,7 +35,7 @@ public class EffectsManager : MonoBehaviour
 
     public void AddCracksFX(Vector3 normal, Vector3 point, Tile t, float dmgPercent)
     {
-        Debug.Log("Adding cracks FX at Effects Manager");
+        //Debug.Log("Adding cracks FX at Effects Manager");
 
         if (t.attached.Count < t.limit)
         {
@@ -44,7 +44,7 @@ public class EffectsManager : MonoBehaviour
                 Debug.Log("No crackFX");
                 return;
             }
-            Debug.Log("FX within limits");
+            //Debug.Log("FX within limits");
 
             float size = Mathf.Lerp(0.1f, t.tileSize, dmgPercent);
             Quaternion hitRotation = Quaternion.FromToRotation(normal, Vector3.forward);

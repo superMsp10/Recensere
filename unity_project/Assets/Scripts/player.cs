@@ -53,7 +53,7 @@ public class player : MonoBehaviour, Health
             lastAttacker = attacker;
             if (health <= 0)
             {
-                Destroy();
+                Destroy(true);
                 return true;
             }
         }
@@ -77,7 +77,7 @@ public class player : MonoBehaviour, Health
             lastAttacker = attacker;
             if (health <= 0)
             {
-                Destroy();
+                Destroy(false);
                 return;
             }
 
@@ -85,7 +85,7 @@ public class player : MonoBehaviour, Health
     }
 
 
-    public virtual void Destroy()
+    public virtual void Destroy(bool local)
     {
         //				Destroy (gameObject);
         thisM.NetworkDisable();
