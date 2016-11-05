@@ -4,14 +4,14 @@ using System.Collections;
 public class Item_Throwable : MonoBehaviour, Holdable
 {
 
+    public string damageLayer;
+
     //Holdable Stuff
     public Sprite _holdUI;
     public bool _pickable;
     public int _amount;
     public int _stackSize = 16;
     public string _description = "<b>Hello! <color=red>My name is, </color> Cube, </b>I will be <i><color=blue>helping you</color> test!</i>";
-
-
 
     //Pooler
     [HideInInspector]
@@ -43,7 +43,6 @@ public class Item_Throwable : MonoBehaviour, Holdable
     {
         projectilePooler = new NetworkPooler(maxItems, projectile);
         ren = GetComponent<Renderer>();
-
     }
 
     //Item------------------------------------------//
@@ -155,7 +154,10 @@ public class Item_Throwable : MonoBehaviour, Holdable
         g.GetComponent<Timer>().StartTimer(itemReset);
         Item_Throwable_Projectile c = g.GetComponent<Item_Throwable_Projectile>();
         c.thisPooler = this;
+        //Arming Object
         c.armed = true;
+        g.layer = LayerMask.NameToLayer(damageLayer);
+
 
         //Apply Force
         float force = 0f;
