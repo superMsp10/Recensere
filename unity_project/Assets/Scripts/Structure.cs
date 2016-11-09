@@ -77,17 +77,17 @@ public class Structure : MonoBehaviour
                 tile = CreateTile(tileJSON);
                 tiles.Add(tile);
                 tile.FromJSON(tileJSON);
-                Debug.Log("Creating" + tile.name);
+                //Debug.Log("Creating" + tile.name);
             }
             else if (tileJSON.GetBoolean("Destroyed"))
             {
-                Debug.Log("Destroying" + tile.name);
+                //Debug.Log("Destroying" + tile.name);
                 tile.Destroy(false);
             }
             else
             {
                 tile.FromJSON(tileJSON);
-                Debug.Log("Updating" + tile.name);
+                //Debug.Log("Updating" + tile.name);
             }
         }
 

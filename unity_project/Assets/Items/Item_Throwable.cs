@@ -4,7 +4,6 @@ using System.Collections;
 public class Item_Throwable : MonoBehaviour, Holdable
 {
 
-    public string damageLayer;
 
     //Holdable Stuff
     public Sprite _holdUI;
@@ -31,7 +30,8 @@ public class Item_Throwable : MonoBehaviour, Holdable
     public Color highlighted;
     float timeStarted;
     float timeEnded;
-    public float wantedTime;
+    public float maximumHeldTime;
+    public float minimumHeldTime = 0.5f;
     public float defaultHeldTime;
     public PhotonView thisView;
     int playerID;
@@ -57,7 +57,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
             }
             if (startedHold)
             {
-                ren.material.color = Color.Lerp(normal, highlighted, (Time.time - timeStarted) / wantedTime);
+                ren.material.color = Color.Lerp(normal, highlighted, (Time.time - timeStarted) / maximumHeldTime);
             }
             else
             {
@@ -146,6 +146,14 @@ public class Item_Throwable : MonoBehaviour, Holdable
     {
         thisView.RPC("buttonUpBy", PhotonTargets.All, null);
 
+
+        //Apply Force
+        float force = 0f;
+        float heldTime = Time.time - timeStarted;
+
+        if (heldTime <= minimumHeldTime)
+            return;
+
         //Projectile Stuff
         GameObject g = projectilePooler.getObject();
         //Set Transform to this and reset Timer
@@ -156,16 +164,12 @@ public class Item_Throwable : MonoBehaviour, Holdable
         c.thisPooler = this;
         //Arming Object
         c.armed = true;
-        g.layer = LayerMask.NameToLayer(damageLayer);
+        c.SetLocal();
 
-
-        //Apply Force
-        float force = 0f;
-        float heldTime = Time.time - timeStarted;
-        if (heldTime > wantedTime)
+        if (heldTime > maximumHeldTime)
             force = throwMultiplier;
         else
-            force = ((heldTime + defaultHeldTime) / wantedTime) * throwMultiplier;
+            force = ((heldTime + defaultHeldTime) / maximumHeldTime) * throwMultiplier;
         g.GetComponent<Rigidbody>().AddForce(thisPlayer.left_hand.forward * force);
     }
     public void onSelect()

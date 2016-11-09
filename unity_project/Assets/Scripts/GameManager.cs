@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
     //Tile------------------------------------------//
     public void SendTileDamage(float damage, string attacker, string structureName, string tileName)
     {
-        Debug.Log("send tile dmg");
+        //Debug.Log("send tile dmg");
         view.RPC("SyncTileDamage", PhotonTargets.OthersBuffered, damage, attacker, structureName, tileName);
 
     }
@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void SyncTileDamage(float damage, string attacker, string structureName, string tileName)
     {
-        Debug.Log("received sync dmg");
+        //Debug.Log("received sync dmg");
         if (!loaded) return;
 
         Tile thisTile = GetTile(structureName, tileName);

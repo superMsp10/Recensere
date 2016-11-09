@@ -20,10 +20,8 @@ class Grenade_Projectile : Item_Throwable_Projectile
 
     public override void reset(bool on)
     {
-        gameObject.SetActive(on);
+        base.reset(on);
         transform.SetParent(tileDictionary.thisM.projectiles, true);
-
-
         if (!on)
         {
             //Debug.Log("Grenade projectile enabled");
@@ -64,7 +62,7 @@ class Grenade_Projectile : Item_Throwable_Projectile
             if (h != null)
             {
                 float dmg = Mathf.Lerp(minDamage, maxDamage, Vector3.Distance(c.transform.position, transform.position) / explosionRadius);
-                h.syncDamage(dmg, "GrenadeExplosion");
+                h.takeDamage(dmg, "GrenadeExplosion");
             }
         }
 

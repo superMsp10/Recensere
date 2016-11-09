@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
 {
@@ -7,6 +8,9 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
     public Item_Throwable thisPooler;
     public int hitDamage;
     public PhotonView thisPV;
+
+    public string damageLayer;
+    public string ignoreDamgeLayer;
 
     public bool armed = false;
     public GameObject gameobject
@@ -21,14 +25,17 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
     public virtual void reset(bool on)
     {
         gameObject.SetActive(on);
-        thisRigid.isKinematic = !on;
-        transform.SetParent(tileDictionary.thisM.projectiles, true);
 
 
         if (on)
         {
-            //Debug.Log("Projectile enabled");
-            thisRigid.velocity = Vector3.zero;
+
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer(ignoreDamgeLayer);
+            foreach (Transform t in gameObject.transform.GetComponentsInChildren<Transform>())
+                t.gameObject.layer = LayerMask.NameToLayer(ignoreDamgeLayer);
         }
 
     }
@@ -76,5 +83,10 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
         }
     }
 
-
+    public void SetLocal()
+    {
+        gameObject.layer = LayerMask.NameToLayer(damageLayer);
+        foreach (Transform t in gameObject.transform.GetComponentsInChildren<Transform>())
+            t.gameObject.layer = LayerMask.NameToLayer(damageLayer);
+    }
 }
