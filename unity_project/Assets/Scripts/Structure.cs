@@ -15,10 +15,12 @@ public class Structure : MonoBehaviour
     {
         if (autoAddTilesOnStart)
         {
+            tiles = new List<Tile>();
             foreach (Tile t in GetComponentsInChildren<Tile>())
             {
                 tiles.Add(t);
                 t.thisStructure = this;
+                t.name += ": Tile#" + tiles.Count;
             }
         }
     }
