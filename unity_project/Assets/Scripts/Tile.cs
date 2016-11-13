@@ -54,7 +54,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
             lastAttacker = attacker;
             if (health <= 0)
             {
-                Destroy(true);
+                Destroy(true, true);
                 return true;
             }
         }
@@ -72,17 +72,27 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
             lastAttacker = attacker;
             if (health <= 0)
             {
-                Destroy(false);
+                Destroy(false, true);
+            }
+        }
+    }
+
+    public void syncDamageWithoutEffects(float damage, string attacker)
+    {
+        if (takeDmg)
+        {
+            HP -= damage;
+            lastAttacker = attacker;
+            if (health <= 0)
+            {
+                Destroy(false, false);
             }
         }
     }
 
 
-    public virtual void Destroy(bool local)
+    public virtual void Destroy(bool local, bool effects)
     {
-
-        DestroyedTileManager.thisWall.AddDestroyedTile(gameObject.transform.position, gameObject.transform.rotation, local);
-
         if (Attached != null)
         {
             for (int i = 0; i < Attached.Count; i++)

@@ -3,20 +3,22 @@
 public interface Health
 {
 
-		bool takeDamage (float damage, string attacker);
-		void syncDamage (float damage, string attacker);
+    bool takeDamage(float damage, string attacker);
+    void syncDamage(float damage, string attacker);
 
-		void Destroy (bool local);
-		string lastDamageBy ();
+    void Destroy(bool local, bool effects);
+    string lastDamageBy();
 
-		float HP {
-				get;
-				set;
+    float HP
+    {
+        get;
+        set;
 
-		}
+    }
 
-		float Sturdyness {
-				get;
-		}
+    float Sturdyness
+    {
+        get;
+    }
 
 }
