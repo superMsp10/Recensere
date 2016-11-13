@@ -44,6 +44,22 @@ public class fuelTile : LootTile
         fuelRate = GameManager.thisM.currLevel.fuelRate;
         airIntake.Stop();
         fuelSpray.Stop();
+
+
+    }
+
+    public override void NetworkInit()
+    {
+        v.RPC("getFuelInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
+        Debug.Log("Sent(Client) Fuel Request");
+    }
+
+    [PunRPC]
+    public void getFuelInit(int playerId)
+    {
+        v.RPC("syncFuel", PhotonPlayer.Find(playerId), fuel);
+        Debug.Log("Sent(Master) Fuel");
+
     }
 
     void closeLid()
@@ -89,6 +105,8 @@ public class fuelTile : LootTile
     public void syncFuel(float f)
     {
         fuel = f;
+        Debug.Log("Synced(Client) Fuel");
+
     }
 
     public override void generateLoot()

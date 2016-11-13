@@ -29,6 +29,8 @@ public abstract class Level : MonoBehaviour
         //				cam = FindObjectOfType<Camera> ().gameObject;
         GameManager.thisM.currLevel = this;
         GameManager.thisM.ChangeCam(cam);
+        lootTiles = GameObject.FindObjectsOfType<LootTile>();
+
     }
 
     // Update is called once per frame
@@ -52,6 +54,12 @@ public abstract class Level : MonoBehaviour
             Debug.Log("Updating" + s.name);
 
 
+        }
+
+        Debug.Log("Updating Loot Tiles");
+        foreach (LootTile t in lootTiles)
+        {
+            t.NetworkInit();
         }
     }
 
@@ -111,7 +119,6 @@ public abstract class Level : MonoBehaviour
         UIManager.thisM.currentUI = null;
         GameManager.thisM.instantiatePlayer();
 
-        lootTiles = GameObject.FindObjectsOfType<LootTile>();
         if (PhotonNetwork.isMasterClient)
             InvokeRepeating("generateLoot", 0, lootTime);
     }

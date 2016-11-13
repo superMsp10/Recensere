@@ -21,6 +21,11 @@ public class LootTile : MonoBehaviour
 				}
 
 		}
-	
+
+    public virtual void NetworkInit()
+    {
+
+    }
+
 }
 

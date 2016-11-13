@@ -106,6 +106,8 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.isMessageQueueRunning = false;
         currLevel.InitStrucutres(StructuresJSON);
         currLevel.OnConnected();
+
+
         loaded = true;
         PhotonNetwork.isMessageQueueRunning = true;
 
