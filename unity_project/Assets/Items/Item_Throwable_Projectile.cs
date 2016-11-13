@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
 {
@@ -11,6 +12,7 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
 
     public string damageLayer;
     public string ignoreDamgeLayer;
+    public List<Transform> changeLayer = new List<Transform>();
 
     public bool armed = false;
     public GameObject gameobject
@@ -33,9 +35,11 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
         }
         else
         {
-            gameObject.layer = LayerMask.NameToLayer(ignoreDamgeLayer);
-            foreach (Transform t in gameObject.transform.GetComponentsInChildren<Transform>())
+            foreach (Transform t in changeLayer)
+            {
                 t.gameObject.layer = LayerMask.NameToLayer(ignoreDamgeLayer);
+            }
+
         }
 
     }
@@ -85,8 +89,10 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
 
     public void SetLocal()
     {
-        gameObject.layer = LayerMask.NameToLayer(damageLayer);
-        foreach (Transform t in gameObject.transform.GetComponentsInChildren<Transform>())
+        foreach (Transform t in changeLayer)
+        {
             t.gameObject.layer = LayerMask.NameToLayer(damageLayer);
+        }
     }
+
 }
