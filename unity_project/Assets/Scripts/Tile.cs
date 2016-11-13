@@ -220,5 +220,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     {
         transform.position = JSONObject.StringToVector3(JSON.GetString("Position"));
         health = (float)JSON.GetNumber("Health");
+        thisRender.material.color = Color.Lerp(damaged, Color.white, health / orgHealth);
+
     }
 }
