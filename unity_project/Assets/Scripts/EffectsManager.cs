@@ -61,12 +61,13 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    
+
 
     [PunRPC]
     public void SyncCracksFX(Vector3 normal, Vector3 point, float dmgPercent, string structureName, string tileName)
     {
-
+        if (!GameManager.thisM.loaded)
+            return;
         Debug.Log("received syncracks");
 
         Tile t = GameManager.thisM.GetTile(structureName, tileName);

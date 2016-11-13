@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public Level currLevel;
     public PhotonView view;
     public static float speedToDamageMultiplier = 1f;
-    bool loaded = false;
+    public bool loaded = false;
     public GameObject currCam;
 
 
@@ -103,9 +103,12 @@ public class GameManager : MonoBehaviour
     public void setStructuresInit(string StructuresJSON)
     {
         Debug.Log("Got(Client) Structures Response");
+        PhotonNetwork.isMessageQueueRunning = false;
         currLevel.InitStrucutres(StructuresJSON);
         currLevel.OnConnected();
         loaded = true;
+        PhotonNetwork.isMessageQueueRunning = true;
+
     }
 
 
