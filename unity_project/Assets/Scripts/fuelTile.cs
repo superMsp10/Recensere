@@ -144,10 +144,14 @@ public class fuelTile : LootTile
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == curr.gameObject)
+        if (curr != null)
         {
-            stopFX();
+            if (other.gameObject == curr.gameObject)
+            {
+                stopFX();
+            }
         }
+
     }
 
     void stopFX()
