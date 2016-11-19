@@ -50,7 +50,8 @@ public class GameManager : MonoBehaviour
 
         GameObject p;
         int playerID = PhotonNetwork.countOfPlayers;
-        Vector3 ss = FindObjectsOfType<SpawnSpot>()[playerID % 4].transform.position;
+        SpawnSpot[] spawns = FindObjectsOfType<SpawnSpot>();
+        Vector3 ss = spawns[playerID % spawns.Length].transform.position;
 
         GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, ss, Quaternion.identity, currLevel.StructuresTransform);
         g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
@@ -149,7 +150,7 @@ public class GameManager : MonoBehaviour
     public void NetworkEnable()
     {
         int playerID = PhotonNetwork.countOfPlayers;
-        myPlayer.transform.position = FindObjectsOfType<SpawnSpot>()[playerID % 4].transform.position;
+        //myPlayer.transform.position = FindObjectsOfType<SpawnSpot>()[playerID % 4].transform.position;
         myPlayer.transform.rotation = Quaternion.identity;
         //				currLevel.cam.SetActive (false);
         myPlayer.networkInit();
