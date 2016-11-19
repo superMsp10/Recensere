@@ -21,6 +21,8 @@ public abstract class Level : MonoBehaviour
 
     public GameObject cam;
 
+    public GameObject spawnStructure;
+
 
 
     // Use this for initialization

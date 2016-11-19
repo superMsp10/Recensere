@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
         int playerID = PhotonNetwork.countOfPlayers;
         Vector3 ss = FindObjectsOfType<SpawnSpot>()[playerID % 4].transform.position;
 
+        GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, ss, Quaternion.identity, currLevel.StructuresTransform);
+        g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
+
+        PlayerStructure s = g.GetComponent<PlayerStructure>();
+
         p = PhotonNetwork.Instantiate(playerInstantiate.name,
                             ss,
                                Quaternion.identity, 0, null);

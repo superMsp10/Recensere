@@ -5,7 +5,7 @@ public class Persistent : MonoBehaviour
 {
 
     public static Persistent thisPersist;
-    public string Username;
+    public string Username = "Default123";
     public string Token;
     public GameObject connectError;
 
