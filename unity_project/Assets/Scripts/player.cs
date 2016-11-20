@@ -35,6 +35,8 @@ public class player : MonoBehaviour, Health
     public Rigidbody r;
     public GameObject animModel;
 
+    public Vector3 spwanPos;
+
 
     void FixedUpdate()
     {

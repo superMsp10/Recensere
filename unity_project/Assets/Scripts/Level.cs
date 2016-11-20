@@ -65,6 +65,19 @@ public abstract class Level : MonoBehaviour
         }
     }
 
+    public virtual void InitStrucutre(JSONObject JSON)
+    {
+        Structure s = structures.Find(t => t.name == JSON.GetString("Name"));
+        if (s == null)
+        {
+            s = CreateStructure(JSON);
+            structures.Add(s);
+        }
+        s.UpdateStructure(JSON.GetArray("Tiles"));
+        Debug.Log("Updating" + s.name);
+
+    }
+
     private Structure CreateStructure(JSONObject tileJSON)
     {
         GameObject g = new GameObject(tileJSON.GetString("Name"), new Structure().GetType());

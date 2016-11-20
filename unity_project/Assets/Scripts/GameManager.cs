@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using Boomlagoon.JSON;
 
 public class GameManager : MonoBehaviour
 {
@@ -51,21 +52,31 @@ public class GameManager : MonoBehaviour
         GameObject p;
         int playerID = PhotonNetwork.countOfPlayers;
         SpawnSpot[] spawns = FindObjectsOfType<SpawnSpot>();
-        Vector3 ss = spawns[playerID % spawns.Length].transform.position;
-
-        GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, ss, Quaternion.identity, currLevel.StructuresTransform);
+        SpawnSpot thisSpawn = spawns[playerID % spawns.Length];
+        GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), Quaternion.identity, currLevel.StructuresTransform);
         g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
 
         PlayerStructure s = g.GetComponent<PlayerStructure>();
+        if (s != null)
+        {
+            currLevel.structures.Add(s);
+            p = PhotonNetwork.Instantiate(playerInstantiate.name,
+                         s.spawnPosition.position,
+                            s.spawnPosition.rotation, 0, null);
+            view.RPC("setStructuresInit", PhotonTargets.Others, s.GenerateJSON().ToString());
 
-        p = PhotonNetwork.Instantiate(playerInstantiate.name,
-                            ss,
-                               Quaternion.identity, 0, null);
+        }
+        else
+        {
+            Debug.Log("The currLevel spawnStructure does not have a player sturcture comp. attached");
+            return;
+        }
 
         view.RPC("updatePlayers", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 
 
         myPlayer = p.GetComponent<player>();
+        myPlayer.spwanPos = s.spawnPosition.position;
         myPlayer.playerID = playerID;
         //				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
 
@@ -119,6 +130,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    [PunRPC]
+    public void setStructure(String StructuresJSON)
+    {
+        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
+    }
+
 
     public player getPlayerByViewID(int viewID)
     {
@@ -150,7 +167,7 @@ public class GameManager : MonoBehaviour
     public void NetworkEnable()
     {
         int playerID = PhotonNetwork.countOfPlayers;
-        //myPlayer.transform.position = FindObjectsOfType<SpawnSpot>()[playerID % 4].transform.position;
+        myPlayer.transform.position = myPlayer.spwanPos;
         myPlayer.transform.rotation = Quaternion.identity;
         //				currLevel.cam.SetActive (false);
         myPlayer.networkInit();

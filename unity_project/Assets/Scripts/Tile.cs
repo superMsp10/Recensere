@@ -17,7 +17,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
 
 
     //Health Representation
-    Renderer thisRender;
+    public Renderer thisRender;
     public Color damaged;
 
     public int tileSize = 4;
@@ -36,9 +36,9 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     {
         Attached = new List<Poolable>();
         orgHealth = health;
-        thisRender = GetComponent<Renderer>();
         if (thisRender == null)
             Debug.Log("No renderer found on this object, damage color representation will not suceed");
+
     }
 
     public virtual bool takeDamage(float damage, string attacker)
@@ -220,6 +220,12 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     {
         transform.position = JSONObject.StringToVector3(JSON.GetString("Position"));
         health = (float)JSON.GetNumber("Health");
+
+        Attached = new List<Poolable>();
+        orgHealth = health;
+
+        if (thisRender == null)
+            Debug.Log("No renderer found on this object, damage color representation will not suceed");
         thisRender.material.color = Color.Lerp(damaged, Color.white, health / orgHealth);
 
     }
