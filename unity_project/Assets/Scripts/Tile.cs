@@ -36,6 +36,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     {
         Attached = new List<Poolable>();
         orgHealth = health;
+            thisRender = GetComponent<Renderer>();
         if (thisRender == null)
             Debug.Log("No renderer found on this object, damage color representation will not suceed");
 
@@ -207,6 +208,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     {
         JSONObject ret = new JSONObject();
         ret.Add("Position", transform.position.ToString());
+        ret.Add("Rotation", transform.rotation.ToString());
         ret.Add("Health", health);
         ret.Add("PrefabName", prefabName);
         ret.Add("Name", name);
@@ -219,6 +221,8 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     public void FromJSON(JSONObject JSON)
     {
         transform.position = JSONObject.StringToVector3(JSON.GetString("Position"));
+        transform.rotation = JSONObject.StringToQuaternion(JSON.GetString("Rotation"));
+
         health = (float)JSON.GetNumber("Health");
 
         Attached = new List<Poolable>();

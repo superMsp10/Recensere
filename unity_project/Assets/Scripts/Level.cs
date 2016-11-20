@@ -10,8 +10,7 @@ public abstract class Level : MonoBehaviour
     public Transform StructuresTransform;
 
 
-    private SpawnSpot[] sS;
-    private SpawnSpot mySS;
+    public SpawnSpot[] sS;
 
     public LootTile[] lootTiles;
     public float lootTime;
@@ -32,6 +31,7 @@ public abstract class Level : MonoBehaviour
         GameManager.thisM.currLevel = this;
         GameManager.thisM.ChangeCam(cam);
         lootTiles = GameObject.FindObjectsOfType<LootTile>();
+        sS = FindObjectsOfType<SpawnSpot>();
 
     }
 

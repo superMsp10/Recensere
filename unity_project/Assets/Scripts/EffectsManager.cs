@@ -68,7 +68,7 @@ public class EffectsManager : MonoBehaviour
     {
         if (!GameManager.thisM.loaded)
             return;
-        Debug.Log("received syncracks");
+        //Debug.Log("received syncracks");
 
         Tile t = GameManager.thisM.GetTile(structureName, tileName);
         if (t != null)

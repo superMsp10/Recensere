@@ -20,7 +20,7 @@ public class Structure : MonoBehaviour
             {
                 tiles.Add(t);
                 t.thisStructure = this;
-                t.name += ": Tile#" + tiles.Count;
+                t.name = "Tile#" + tiles.Count;
             }
         }
     }
@@ -100,8 +100,9 @@ public class Structure : MonoBehaviour
         GameObject newTile = (GameObject)GameObject.Instantiate(Resources.Load(tileJSON.GetString("PrefabName")));
         newTile.name = tileJSON.GetString("Name");
         newTile.transform.parent = transform;
-        Debug.Log("Created: " + newTile.name);
+        //Debug.Log("Created: " + newTile.name);
         Tile t = newTile.GetComponent<Tile>();
+        t.thisStructure = this;
         return t;
     }
 
@@ -109,7 +110,7 @@ public class Structure : MonoBehaviour
     {
         tiles.Remove(t);
         JSONObject ret = t.ToJSON();
-        ret.Add("Destroyed", true);
+        //ret.Add("Destroyed", true);
         destroyedTiles.Add(ret);
 
     }

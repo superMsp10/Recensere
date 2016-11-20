@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
         GameObject p;
         int playerID = PhotonNetwork.countOfPlayers;
-        SpawnSpot[] spawns = FindObjectsOfType<SpawnSpot>();
+        SpawnSpot[] spawns = currLevel.sS;
         SpawnSpot thisSpawn = spawns[playerID % spawns.Length];
         GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), Quaternion.identity, currLevel.StructuresTransform);
         g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
             p = PhotonNetwork.Instantiate(playerInstantiate.name,
                          s.spawnPosition.position,
                             s.spawnPosition.rotation, 0, null);
-            view.RPC("setStructuresInit", PhotonTargets.Others, s.GenerateJSON().ToString());
+            view.RPC("setStructure", PhotonTargets.Others, s.GenerateJSON().ToString());
 
         }
         else
