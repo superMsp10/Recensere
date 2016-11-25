@@ -90,7 +90,7 @@ public class UIslot : MonoBehaviour
 				}
 		}
 
-		public virtual void onClick ()
+		public virtual void onDrop ()
 		{
         //Debug.Log("On click to drop");
 
