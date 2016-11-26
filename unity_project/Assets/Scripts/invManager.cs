@@ -57,6 +57,10 @@ public class invManager : slotCollection, UIState
                 {
                     SelectedSlot.holding.buttonUP();
                 }
+                if (Input.GetKeyUp(KeyCode.Q))
+                {
+                    SelectedSlot.onDrop();
+                }
                 //								if (SelectedSlot.holding != null)
                 //										SelectedSlot.holding.updateItem ();
             }
@@ -110,7 +114,7 @@ public class invManager : slotCollection, UIState
     {
         foreach (UIslot s in slots)
         {
-            s.onClick();
+            s.onDrop();
 
         }
 
