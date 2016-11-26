@@ -51,14 +51,14 @@ public class fuelTile : LootTile
     public override void NetworkInit()
     {
         v.RPC("getFuelInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
-        Debug.Log("Sent(Client) Fuel Request");
+        //Debug.Log("Sent(Client) Fuel Request");
     }
 
     [PunRPC]
     public void getFuelInit(int playerId)
     {
         v.RPC("syncFuel", PhotonPlayer.Find(playerId), fuel);
-        Debug.Log("Sent(Master) Fuel");
+        //Debug.Log("Sent(Master) Fuel");
 
     }
 

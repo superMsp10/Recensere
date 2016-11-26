@@ -12,7 +12,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     [SerializeField]
     private LayerMask damagedBy;
 
-    float orgHealth;
+    protected float orgHealth;
     string lastAttacker;
 
 
@@ -36,7 +36,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     {
         Attached = new List<Poolable>();
         orgHealth = health;
-            thisRender = GetComponent<Renderer>();
+        thisRender = GetComponent<Renderer>();
         if (thisRender == null)
             Debug.Log("No renderer found on this object, damage color representation will not suceed");
 
@@ -101,6 +101,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
                 detach(Attached[0].gameobject);
             }
         }
+        thisStructure.editedTiles.Remove(this);
         thisStructure.DestroyTile(this);
         GameObject.Destroy(gameObject);
 
@@ -118,9 +119,11 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         }
         set
         {
+            if (health == orgHealth)
+                thisStructure.editedTiles.Add(this);
+
             health = value;
             thisRender.material.color = Color.Lerp(damaged, Color.white, health / orgHealth);
-
         }
     }
 
@@ -226,7 +229,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         health = (float)JSON.GetNumber("Health");
 
         Attached = new List<Poolable>();
-        orgHealth = health;
+        //orgHealth = health;
 
         if (thisRender == null)
             Debug.Log("No renderer found on this object, damage color representation will not suceed");

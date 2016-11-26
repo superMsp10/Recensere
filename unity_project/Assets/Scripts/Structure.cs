@@ -7,6 +7,8 @@ public class Structure : MonoBehaviour
 {
     public List<Tile> tiles = new List<Tile>();
     public List<JSONObject> destroyedTiles = new List<JSONObject>();
+    public List<Tile> editedTiles = new List<Tile>();
+
 
     public bool autoAddTilesOnStart = false;
 
@@ -46,7 +48,7 @@ public class Structure : MonoBehaviour
 
     }
 
-    public JSONObject GenerateJSON()
+    public virtual JSONObject GenerateJSON()
     {
         JSONObject ret = new JSONObject();
         //Add structure info
