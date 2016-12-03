@@ -57,7 +57,7 @@ public class invManager : slotCollection, UIState
                 {
                     SelectedSlot.holding.buttonUP();
                 }
-                if (Input.GetKeyUp(KeyCode.Q))
+                if (Input.GetKeyUp(KeyCode.T))
                 {
                     SelectedSlot.onDrop();
                 }

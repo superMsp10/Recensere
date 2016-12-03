@@ -15,13 +15,14 @@ public class Placeable : MonoBehaviour, Holdable
     public float range;
     public Collider trigger;
     public GameObject instantiateObject;
-    public Color valid, invalid;
+    public Color valid, invalid, normal;
     bool inverted = false;
     public Renderer[] thisRender;
     public LayerMask rangeRayHits;
     public Vector3 objectOffset;
-
-
+    public Vector3 defaultPos;
+    bool collided = false;
+    public GameObject prefab;
 
     public PhotonView thisView;
     protected bool selected = false;
@@ -35,12 +36,12 @@ public class Placeable : MonoBehaviour, Holdable
     void Start()
     {
         thisM = GameManager.thisM;
-
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (selected)
         {
             if (thisC == null)
@@ -56,8 +57,16 @@ public class Placeable : MonoBehaviour, Holdable
             }
             else
             {
-                transform.position = thisC.ScreenToWorldPoint(new Vector2((Screen.width / 2), (Screen.height / 2)));
+                transform.localPosition = defaultPos;
             }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                Debug.Log("Hello");
+                transform.Rotate(45, 0, 0);
+            }
+
+
 
         }
     }
@@ -72,9 +81,33 @@ public class Placeable : MonoBehaviour, Holdable
                 {
                     playerID = collision.collider.gameObject.GetComponent<PhotonView>().viewID;
                     thisView.RPC("pickedUpBy", PhotonTargets.All, playerID);
-
                     _pickable = false;
                 }
+            }
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (collided == false && selected == true)
+        {
+            collided = true;
+            foreach (Renderer item in thisRender)
+            {
+                item.material.color = invalid;
+            }
+        }
+
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (selected == true)
+        {
+            collided = false;
+            foreach (Renderer item in thisRender)
+            {
+                item.material.color = valid;
             }
         }
     }
@@ -133,6 +166,8 @@ public class Placeable : MonoBehaviour, Holdable
     public void buttonUP()
     {
         thisView.RPC("buttonUpBy", PhotonTargets.All, null);
+        if (!collided)
+            Instantiate(prefab, transform.position, transform.rotation, null);
     }
     public void onSelect()
     {
@@ -190,13 +225,18 @@ public class Placeable : MonoBehaviour, Holdable
     {
         thisPlayer = GameManager.thisM.getPlayerByViewID(viewID);
         _pickable = false;
-        gameObject.layer = LayerMask.NameToLayer(thisPlayer.handLayer);
+        //gameObject.layer = LayerMask.NameToLayer(thisPlayer.handLayer);
         transform.parent = thisPlayer.right_hand;
         transform.position = thisPlayer.right_hand.position;
         transform.rotation = thisPlayer.right_hand.rotation;
         if (!selected)
             gameObject.SetActive(false);
         trigger.isTrigger = true;
+
+        foreach (Renderer item in thisRender)
+        {
+            item.material.color = valid;
+        }
     }
     [PunRPC]
     protected virtual void droppedBy()
@@ -209,6 +249,11 @@ public class Placeable : MonoBehaviour, Holdable
         Invoke("resetPick", 5.0f);
         trigger.isTrigger = false;
         selected = false;
+
+        foreach (Renderer item in thisRender)
+        {
+            item.material.color = normal;
+        }
 
     }
     [PunRPC]
