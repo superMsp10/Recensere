@@ -9,8 +9,8 @@ public class playerMove : MonoBehaviour
     public float speed;
     public float fly_speed;
     public float speedLimit;
-    public Transform start;
-    public Transform feets;
+    public Transform startChecks;
+    public Transform[] endChecks;
     public LayerMask whatGround;
 
     //Jumping
@@ -83,8 +83,15 @@ public class playerMove : MonoBehaviour
 
     void checkJump()
     {
-
-        grounded = (Physics.Linecast(start.position, feets.position, whatGround));
+        grounded = false;
+        foreach (Transform item in endChecks)
+        {
+            if (Physics.Linecast(startChecks.position, item.position, whatGround))
+            {
+                grounded = true;
+                break;
+            }
+        }
 
         if (!jumped)
         {
