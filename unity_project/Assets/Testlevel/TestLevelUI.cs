@@ -7,10 +7,11 @@ public class TestLevelUI : pauseUI
     public GameObject[] cameras;
     GameManager gm;
     int currCam = 0;
-    //public Structure testStructure;
+    public GameObject testObject;
 
     void Start()
     {
+        invManager.thisInv.addHoldable(testObject.GetComponent<Holdable>(), 1);
     }
 
     public void switchCamera()
@@ -28,4 +29,5 @@ public class TestLevelUI : pauseUI
 
         }
     }
+
 }

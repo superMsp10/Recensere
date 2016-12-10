@@ -120,18 +120,5 @@ public class invManager : slotCollection, UIState
 
     }
 
-    public void dc_giveDefaultItem()
-    {
-
-        for (int i = 0; i < slots.Count; i++)
-        {
-
-            if (slots[i].holding == null)
-            {
-                //								slots [i].changeHolding (giveOnStart, 500);
-                return;
-            }
-        }
-    }
 
 }

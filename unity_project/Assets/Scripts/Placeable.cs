@@ -19,10 +19,10 @@ public class Placeable : MonoBehaviour, Holdable
     bool inverted = false;
     public Renderer[] thisRender;
     public LayerMask rangeRayHits;
-    public Vector3 objectOffset;
     public Vector3 defaultPos;
     bool collided = false;
     public GameObject prefab;
+    public float dockingOffset = 0.85f;
 
     public PhotonView thisView;
     protected bool selected = false;
@@ -31,6 +31,7 @@ public class Placeable : MonoBehaviour, Holdable
     public string itemLayer;
     GameManager thisM;
     Camera thisC;
+    bool docked = false;
 
     // Use this for initialization
     void Start()
@@ -53,16 +54,23 @@ public class Placeable : MonoBehaviour, Holdable
 
             if (Physics.Raycast(ray, out hit, range, rangeRayHits))
             {
-                transform.position = hit.point - objectOffset;
+                transform.position = hit.point + (hit.normal * dockingOffset);
+                transform.rotation = Quaternion.LookRotation(hit.normal);
+                docked = true;
             }
             else
             {
-                transform.localPosition = defaultPos;
+                if (docked)
+                {
+                    transform.localPosition = defaultPos;
+                    transform.localRotation = Quaternion.identity;
+
+                    docked = false;
+                }
             }
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (!docked && Input.GetKeyUp(KeyCode.LeftShift))
             {
-                Debug.Log("Hello");
                 transform.Rotate(45, 0, 0);
             }
 
