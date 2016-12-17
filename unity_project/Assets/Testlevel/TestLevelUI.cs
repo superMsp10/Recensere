@@ -11,7 +11,8 @@ public class TestLevelUI : pauseUI
 
     void Start()
     {
-        invManager.thisInv.addHoldable(testObject.GetComponent<Holdable>(), 1);
+        if (testObject != null)
+            invManager.thisInv.addHoldable(testObject.GetComponent<Holdable>(), 1);
     }
 
     public void switchCamera()
