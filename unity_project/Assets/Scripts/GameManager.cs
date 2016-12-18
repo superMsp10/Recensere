@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Structure------------------------------------------//
     [PunRPC]
     public void getStructuresInit(int playerId)
     {
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
         currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
     }
 
+    //Player------------------------------------------//
 
     public player getPlayerByViewID(int viewID)
     {

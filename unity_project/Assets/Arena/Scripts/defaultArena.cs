@@ -7,8 +7,6 @@ public class defaultArena : Map
 		{
 				tileTypes.Add (tileDictionary.thisM.floorTile);
 				wallTypes.Add (tileDictionary.thisM.wallTile);
-
-				
 		}
 
 		public override Tile getTile (int index)

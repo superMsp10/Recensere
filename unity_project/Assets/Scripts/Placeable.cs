@@ -14,15 +14,16 @@ public class Placeable : MonoBehaviour, Holdable
     //Placeable Stuff
     public float range;
     public Collider trigger;
-    public GameObject instantiateObject;
     public Color valid, invalid, normal;
     bool inverted = false;
     public Renderer[] thisRender;
     public LayerMask rangeRayHits;
     public Vector3 defaultPos;
-    bool collided = false;
-    public GameObject prefab;
+    protected bool collided = false;
+    public GameObject instantiateObject;
     public float dockingOffset = 0.85f;
+    public float perpendicularOffset = 0.85f;
+
 
     public PhotonView thisView;
     protected bool selected = false;
@@ -32,6 +33,7 @@ public class Placeable : MonoBehaviour, Holdable
     GameManager thisM;
     Camera thisC;
     bool docked = false;
+    bool perpendicular = false;
 
     // Use this for initialization
     void Start()
@@ -54,8 +56,18 @@ public class Placeable : MonoBehaviour, Holdable
 
             if (Physics.Raycast(ray, out hit, range, rangeRayHits))
             {
-                transform.position = hit.point + (hit.normal * dockingOffset);
-                transform.rotation = Quaternion.LookRotation(hit.normal);
+                if (perpendicular)
+                {
+                    Vector3 perpendi = Vector3.Cross(hit.normal, thisC.transform.right);
+                    transform.rotation = Quaternion.LookRotation(new Vector3(perpendi.x, perpendi.y, perpendi.z));
+                    transform.position = hit.point + (hit.normal * perpendicularOffset);
+
+                }
+                else
+                {
+                    transform.rotation = Quaternion.LookRotation(hit.normal);
+                    transform.position = hit.point + (hit.normal * dockingOffset);
+                }
                 docked = true;
             }
             else
@@ -69,9 +81,12 @@ public class Placeable : MonoBehaviour, Holdable
                 }
             }
 
-            if (!docked && Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                transform.Rotate(45, 0, 0);
+                if (!docked)
+                    transform.Rotate(45, 0, 0);
+                else
+                    perpendicular = !perpendicular;
             }
 
 
@@ -171,11 +186,11 @@ public class Placeable : MonoBehaviour, Holdable
 
         return false;
     }
-    public void buttonUP()
+    public virtual void buttonUP()
     {
         thisView.RPC("buttonUpBy", PhotonTargets.All, null);
         if (!collided)
-            Instantiate(prefab, transform.position, transform.rotation, null);
+            Instantiate(instantiateObject, transform.position, transform.rotation, null);
     }
     public void onSelect()
     {
@@ -187,8 +202,8 @@ public class Placeable : MonoBehaviour, Holdable
     }
     public void onPickup()
     {
-        //				Debug.Log ("onPickup by Cube");
         thisView.TransferOwnership(PhotonNetwork.player.ID);
+
     }
     public void onDrop()
     {
@@ -235,8 +250,9 @@ public class Placeable : MonoBehaviour, Holdable
         _pickable = false;
         //gameObject.layer = LayerMask.NameToLayer(thisPlayer.handLayer);
         transform.parent = thisPlayer.right_hand;
-        transform.position = thisPlayer.right_hand.position;
-        transform.rotation = thisPlayer.right_hand.rotation;
+        transform.localPosition = defaultPos;
+        transform.localRotation = Quaternion.identity;
+
         if (!selected)
             gameObject.SetActive(false);
         trigger.isTrigger = true;
