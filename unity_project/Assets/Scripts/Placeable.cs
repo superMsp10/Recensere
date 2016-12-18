@@ -261,6 +261,16 @@ public class Placeable : MonoBehaviour, Holdable
         {
             item.material.color = valid;
         }
+
+        if (thisView.isMine)
+        {
+            enabled = true;
+        }
+        else
+        {
+            enabled = false;
+        }
+
     }
     [PunRPC]
     protected virtual void droppedBy()

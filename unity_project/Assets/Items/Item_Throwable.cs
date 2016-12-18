@@ -238,6 +238,13 @@ public class Item_Throwable : MonoBehaviour, Holdable
         transform.rotation = thisPlayer.right_hand.rotation;
         if (!selected)
             gameObject.SetActive(false);
+
+        if (thisView.isMine)
+        {
+            enabled = true;
+        }
+        else
+            enabled = false;
     }
     [PunRPC]
     protected virtual void droppedBy()
