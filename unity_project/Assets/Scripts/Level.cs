@@ -138,5 +138,16 @@ public abstract class Level : MonoBehaviour
             InvokeRepeating("generateLoot", 0, lootTime);
     }
 
+    public JSONArray StructureNames()
+    {
+        JSONArray ret = new JSONArray();
+
+        foreach (Structure item in structures)
+        {
+            ret.Add(item.name);
+        }
+        return ret;
+    }
+
 }
 

@@ -103,31 +103,48 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            view.RPC("getStructuresInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
-            Debug.Log("Sent(Client) Structures Request");
+            view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, 0);
+            Debug.Log("(Client)Sent Structures Request");
         }
     }
 
     //Structure------------------------------------------//
+
     [PunRPC]
-    public void getStructuresInit(int playerId)
+    public void getStructuresNext(int playerId, int count)
     {
-        view.RPC("setStructuresInit", PhotonPlayer.Find(playerId), currLevel.getStrucutresInit());
-        Debug.Log("Got and Sent(Master) Structures Request");
+        if (count == currLevel.structures.Count - 1)
+        {
+            view.RPC("setStructureLast", PhotonPlayer.Find(playerId), currLevel.structures[count].GenerateJSON().ToString());
+        }
+        else
+        {
+            view.RPC("setStructuresNext", PhotonPlayer.Find(playerId), currLevel.structures[count].GenerateJSON().ToString(), count);
+        }
+        Debug.Log("(Master)Got Request and Sent Structures Response");
 
     }
 
     [PunRPC]
-    public void setStructuresInit(string StructuresJSON)
+    public void setStructuresNext(string StructuresJSON, int count)
     {
-        Debug.Log("Got(Client) Structures Response");
-        PhotonNetwork.isMessageQueueRunning = false;
-        currLevel.InitStrucutres(StructuresJSON);
-        currLevel.OnConnected();
+        Debug.Log("(Client)Got Structure");
+        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
+        count++;
+        view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, count);
+
+    }
 
 
+    [PunRPC]
+    public void setStructureLast(String StructuresJSON)
+    {
+        Debug.Log("(Client)Finished Structure");
+
+        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
         loaded = true;
         PhotonNetwork.isMessageQueueRunning = true;
+        currLevel.OnConnected();
 
     }
 

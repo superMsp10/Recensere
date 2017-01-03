@@ -116,4 +116,5 @@ public class Structure : MonoBehaviour
         destroyedTiles.Add(ret);
 
     }
+
 }
