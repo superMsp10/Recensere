@@ -42,18 +42,23 @@ public class GameManager : MonoBehaviour
             Application.CaptureScreenshot("Snapshots/Screenshot_" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".png", 2);
         }
     }
-
-
+    //Items------------------------------------------//
+    [PunRPC]
+    void spawnSceneObject(string prefabName, Vector3 position)
+    {
+        GameObject g = (GameObject)PhotonNetwork.InstantiateSceneObject(prefabName, position, Quaternion.identity, 0, null);
+        g.SetActive(true);
+    }
 
     //Player------------------------------------------//
     public void instantiatePlayer()
     {
 
         GameObject p;
-        int playerID = PhotonNetwork.countOfPlayers;
+        int playerID = PhotonNetwork.player.ID;
         SpawnSpot[] spawns = currLevel.sS;
         SpawnSpot thisSpawn = spawns[playerID % spawns.Length];
-        GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), Quaternion.identity, currLevel.StructuresTransform);
+        GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), thisSpawn.transform.rotation, currLevel.StructuresTransform);
         g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
 
         PlayerStructure s = g.GetComponent<PlayerStructure>();

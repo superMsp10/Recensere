@@ -9,6 +9,6 @@ public class PlayerStructure : Structure
 
     void Start()
     {
-       //PhotonNetwork.InstantiateSceneObject(spawnItem, itemSpot.position, Quaternion.identity, 0, null);
+        GameManager.thisM.view.RPC("spawnSceneObject", PhotonTargets.MasterClient, spawnItem, itemSpot.position);
     }
 }

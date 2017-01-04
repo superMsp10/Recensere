@@ -4,16 +4,15 @@ using System.Collections;
 public class SpawnSpot : MonoBehaviour
 {
 
-    public int teamId = 0;
     public Vector3 offSet;
+    int playersHere = 0;
 
     public Vector3 getSpawnPoint()
     {
-        int playerCount = PhotonNetwork.countOfPlayers / GameManager.thisM.currLevel.sS.Length;
-
-        return new Vector3(transform.position.x + (offSet.x * playerCount),
-                           transform.position.y + (offSet.y * playerCount),
-                           transform.position.z + (offSet.z * playerCount));
+        playersHere++;
+        return new Vector3(transform.position.x + (offSet.x * playersHere),
+                           transform.position.y + (offSet.y * playersHere),
+                           transform.position.z + (offSet.z * playersHere));
     }
 
 }
