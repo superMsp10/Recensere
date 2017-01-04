@@ -11,6 +11,8 @@ public class Item_Throwable : MonoBehaviour, Holdable
     public int _amount;
     public int _stackSize = 16;
     public string _description = "<b>Hello! <color=red>My name is, </color> Cube, </b>I will be <i><color=blue>helping you</color> test!</i>";
+    bool pickedBefore = false;
+
 
     //Pooler
     [HideInInspector]
@@ -84,7 +86,6 @@ public class Item_Throwable : MonoBehaviour, Holdable
                 {
                     playerID = collision.collider.gameObject.GetComponent<PhotonView>().viewID;
                     thisView.RPC("pickedUpBy", PhotonTargets.All, playerID);
-
                     _pickable = false;
                 }
             }
@@ -162,6 +163,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
         g.GetComponent<Timer>().StartTimer(itemReset);
         Item_Throwable_Projectile c = g.GetComponent<Item_Throwable_Projectile>();
         c.thisPooler = this;
+        c.belongsTo = thisPlayer;
         //Arming Object
         c.armed = true;
         c.SetLocal();
@@ -184,6 +186,12 @@ public class Item_Throwable : MonoBehaviour, Holdable
     {
         //				Debug.Log ("onPickup by Cube");
         thisView.TransferOwnership(PhotonNetwork.player.ID);
+
+        if (!pickedBefore)
+        {
+            pickedBefore = true;
+            GameManager.thisM.addNewItemsPicked();
+        }
     }
     public void onDrop()
     {

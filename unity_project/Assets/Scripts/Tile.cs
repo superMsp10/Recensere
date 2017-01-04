@@ -103,9 +103,10 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         }
         thisStructure.editedTiles.Remove(this);
         thisStructure.DestroyTile(this);
+        GameManager.thisM.addDestroyed();
         GameObject.Destroy(gameObject);
-
     }
+
     public string lastDamageBy()
     {
         return lastAttacker;

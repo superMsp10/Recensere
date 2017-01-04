@@ -10,6 +10,8 @@ public class Placeable : MonoBehaviour, Holdable
     public int _amount;
     public int _stackSize = 16;
     public string _description = "<b>Hello! <color=red>My name is, </color> Placeable, </b>I can be <i><color=blue>placed</color> test!</i>";
+    bool pickedBefore = false;
+
 
     //Placeable Stuff
     public float range;
@@ -204,6 +206,11 @@ public class Placeable : MonoBehaviour, Holdable
     {
         thisView.TransferOwnership(PhotonNetwork.player.ID);
 
+        if (!pickedBefore)
+        {
+            pickedBefore = true;
+            GameManager.thisM.addNewItemsPicked();
+        }
     }
     public void onDrop()
     {

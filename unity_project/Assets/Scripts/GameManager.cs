@@ -90,6 +90,46 @@ public class GameManager : MonoBehaviour
         p.GetComponent<Rigidbody>().isKinematic = false;
         NetworkEnable();
 
+        PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Kills", 0 }, { "Placed", 0 }, { "NewItemsPicked", 0 }, { "Destroyed", 0 }, { "Deaths", 0 } });
+
+    }
+
+    [PunRPC]
+    public void addKills()
+    {
+        PhotonNetwork.player.customProperties["Kills"] = getHashInt(PhotonNetwork.player.customProperties["Kills"]) + 1;
+    }
+
+    public void addPlaced()
+    {
+        PhotonNetwork.player.customProperties["Placed"] = getHashInt(PhotonNetwork.player.customProperties["Placed"]) + 1;
+    }
+
+    public void addNewItemsPicked()
+    {
+        PhotonNetwork.player.customProperties["NewItemsPicked"] = getHashInt(PhotonNetwork.player.customProperties["NewItemsPicked"]) + 1;
+    }
+
+    public void addDestroyed()
+    {
+        PhotonNetwork.player.customProperties["Destroyed"] = getHashInt(PhotonNetwork.player.customProperties["Destroyed"]) + 1;
+    }
+
+    public void addDeaths()
+    {
+        PhotonNetwork.player.customProperties["Deaths"] = getHashInt(PhotonNetwork.player.customProperties["Deaths"]) + 1;
+    }
+
+    [PunRPC]
+    void updateAllProperties()
+    {
+        PhotonNetwork.player.SetCustomProperties(PhotonNetwork.player.customProperties);
+    }
+
+
+    int getHashInt(object o)
+    {
+        return int.Parse(o.ToString());
     }
 
     [PunRPC]
@@ -207,6 +247,7 @@ public class GameManager : MonoBehaviour
         myPlayer.networkDisable();
         dead = true;
         UIManager.thisM.changeUI(tileDictionary.thisM.pauseUI);
+        addDeaths();
     }
 
     public void NetworkDisconnect()

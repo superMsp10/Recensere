@@ -9,6 +9,7 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
     public Item_Throwable thisPooler;
     public int hitDamage;
     public PhotonView thisPV;
+    public player belongsTo;
 
     public string damageLayer;
     public string ignoreDamgeLayer;
@@ -62,7 +63,7 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
                 {
                     if (p.takeDamage(hitDamage, collision.collider.name))
                     {
-                        Debug.Log("Player died at cube");
+                        //Debug.Log("Player died at cube");
 
                     }
                     armed = false;

@@ -11,13 +11,14 @@ public class TestLevelUI : pauseUI
 
     void Start()
     {
-        if (testObject != null)
-            invManager.thisInv.addHoldable(testObject.GetComponent<Holdable>(), 1);
+
+
     }
 
     public void switchCamera()
     {
         gm = GameManager.thisM;
+
         if (currCam < cameras.Length)
         {
             gm.ChangeCam(cameras[currCam]);
@@ -30,5 +31,21 @@ public class TestLevelUI : pauseUI
 
         }
     }
+
+    public void runCode1()
+    {
+        Debug.Log(PhotonNetwork.player.ToStringFull());
+    }
+
+    public void NetworkIns(string s)
+    {
+        gm = GameManager.thisM;
+
+        PhotonNetwork.Instantiate(s,
+                        gm.myPlayer.transform.position,
+                           Quaternion.identity, 0, null);
+
+    }
+
 
 }

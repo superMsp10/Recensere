@@ -89,7 +89,20 @@ public class player : MonoBehaviour, Health
 
     public virtual void Destroy(bool local, bool effects)
     {
-        //				Destroy (gameObject);
+
+
+        if (lastAttacker.Contains("player"))
+        {
+            PhotonPlayer p = PhotonPlayer.Find(int.Parse(lastAttacker.Replace("player", "")));
+
+            if (p != null)
+            {
+                if (!p.isLocal)
+                    thisM.view.RPC("addKills", p);
+            }
+
+        }
+
         thisM.NetworkDisable();
         StartCoroutine(tileDictionary.thisM.pauseUI.GetComponent<pauseUI>().Respawn(5f));
 

@@ -32,7 +32,9 @@ public class PlaceableTile : Placeable
             JSONArray jTiles = new JSONArray();
             jTiles.Add(t.ToJSON());
             jStructure.Add("Tiles", jTiles);
-            thisG.view.RPC("setStructure",PhotonTargets.Others, jStructure.ToString());
+            thisG.view.RPC("setStructure", PhotonTargets.Others, jStructure.ToString());
+
+            thisG.addPlaced();
 
             amount--;
 

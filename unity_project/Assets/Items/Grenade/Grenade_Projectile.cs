@@ -62,7 +62,7 @@ class Grenade_Projectile : Item_Throwable_Projectile
             if (h != null)
             {
                 float dmg = Mathf.Lerp(maxDamage, minDamage, Vector3.Distance(c.transform.position, transform.position) / explosionRadius);
-                h.takeDamage(dmg, "GrenadeExplosion");
+                h.takeDamage(dmg, "player" + belongsTo.playerID.ToString());
             }
         }
 
