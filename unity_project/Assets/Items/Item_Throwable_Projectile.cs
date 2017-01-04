@@ -28,7 +28,6 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
     {
         gameObject.SetActive(on);
 
-
         if (on)
         {
 
@@ -41,7 +40,13 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
             }
 
         }
+        thisPV.RPC("NetworkReset", PhotonTargets.Others, on);
+    }
 
+    [PunRPC]
+    protected void NetworkReset(bool on)
+    {
+        gameObject.SetActive(on);
     }
 
     void OnCollisionEnter(Collision collision)

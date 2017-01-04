@@ -68,7 +68,7 @@ public class NetworkPooler : Pooler
 
     }
 
-    public void disposeObject(Poolable p)
+    public override void disposeObject(Poolable p)
     {
         active.Remove(p.gameobject);
         useable.Add(p.gameobject);
