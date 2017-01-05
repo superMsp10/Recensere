@@ -9,7 +9,7 @@ public class PlayMenu : MonoBehaviour, UIState
     public Text error;
     public Text Hello;
     public Text Version;
-
+    public GameObject creategame;
 
     public string loadSceneName;
 
@@ -24,6 +24,16 @@ public class PlayMenu : MonoBehaviour, UIState
         gameObject.SetActive(true);
         Hello.text = "Hello, " + Persistent.thisPersist.Username;
         Version.text = "Recensere, v" + GameManager.Version;
+
+        DatabaseConnect.thisM.checkAccess();
+        if (Persistent.thisPersist.Dev)
+        {
+            creategame.SetActive(true);
+        }
+        else
+        {
+            creategame.SetActive(false);
+        }
 
     }
 

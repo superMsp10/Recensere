@@ -117,6 +117,40 @@ public class DatabaseConnect : MonoBehaviour
 
     }
 
+    IEnumerator iCheckAccess()
+    {
+
+        WWW www;
+
+        WWWForm wForm;
+
+        wForm = new WWWForm();
+        wForm.AddField("username", username);
+        wForm.AddField("token", Persistent.thisPersist.Token);
+        www = new WWW(url + "/getStatus/", wForm);
+        yield return www;
+        if (www.error == null)
+        {
+
+            Debug.Log(www.text);
+            if (www.text != null && www.text.Equals("Developer"))
+            {
+                Persistent.thisPersist.Dev = true;
+            }
+            else
+            {
+                Persistent.thisPersist.Dev = false;
+            }
+        }
+        else
+        {
+            Debug.LogError("ERROR: " + www.error);
+            ConnectionError(www.error);
+        }
+
+    }
+
+
     IEnumerator iLogout()
     {
 
@@ -197,6 +231,12 @@ public class DatabaseConnect : MonoBehaviour
         }
 
 
+    }
+
+    public void checkAccess()
+    {
+        if (Persistent.thisPersist.Username != "")
+            StartCoroutine("iCheckAccess");
     }
 
     public void createAccount(string username, string password)
