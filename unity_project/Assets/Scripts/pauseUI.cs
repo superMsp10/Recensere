@@ -14,6 +14,7 @@ public class pauseUI : MonoBehaviour, UIState
     public Color respawnColor;
     public float countDown = 0.01f;
 
+    public string DisconnectScene;
 
     public void StartUI()
     {
@@ -52,7 +53,7 @@ public class pauseUI : MonoBehaviour, UIState
     public void Disconnect()
     {
         GameManager.thisM.NetworkDisconnect();
-        SceneManager.LoadScene(DatabaseConnect.thisM.loadSceneName);
+        SceneManager.LoadScene(DisconnectScene);
     }
 
     public void button_respawn()

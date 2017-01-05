@@ -6,18 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class DatabaseConnect : MonoBehaviour
 {
-    public InputField getId;
     public static DatabaseConnect thisM;
-    public InputField postDataName;
-    public InputField postData;
-    public Text console;
+
     public UIManager thisUI;
     ErrorUI error;
 
     string username, password;
 
     private string url = "http://bbman-supermsp10.rhcloud.com/api";
-    public string loadSceneName;
+    public GameObject myPlayMenu;
 
     void Awake()
     {
@@ -89,7 +86,7 @@ public class DatabaseConnect : MonoBehaviour
 
                     if (logged)
                     {
-                        changeToGameScene();
+                        changeToPlayMenu();
                         Debug.Log("Logged In");
                     }
                     else
@@ -185,7 +182,7 @@ public class DatabaseConnect : MonoBehaviour
 
 
                 yield return new WWW(url + "/createAccount", wForm);
-                changeToGameScene();
+                changeToPlayMenu();
             }
             else
             {
@@ -230,10 +227,12 @@ public class DatabaseConnect : MonoBehaviour
         StartCoroutine("iCheckAccount");
     }
 
-    void changeToGameScene()
+    void changeToPlayMenu()
     {
-        SceneManager.LoadScene(loadSceneName);
+        thisUI.changeUI(myPlayMenu);
     }
+
+
     //---------------------Connection Errors-------------------------------------//
     public void ConnectionError(string Error)
     {
