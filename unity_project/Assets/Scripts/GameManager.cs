@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public string PlayerLayer;
     public string GhostLayer;
 
+    public string endGameScene;
+
     //PlayerStuff------------------------------------------//
 
     public player[] players;
@@ -153,54 +155,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Structure------------------------------------------//
-
-    [PunRPC]
-    public void getStructuresNext(int playerId, int count)
-    {
-        if (count == currLevel.structures.Count - 1)
-        {
-            view.RPC("setStructureLast", PhotonPlayer.Find(playerId), currLevel.structures[count].GenerateJSON().ToString());
-        }
-        else
-        {
-            view.RPC("setStructuresNext", PhotonPlayer.Find(playerId), currLevel.structures[count].GenerateJSON().ToString(), count);
-        }
-        Debug.Log("(Master)Got Request and Sent Structures Response");
-
-    }
-
-    [PunRPC]
-    public void setStructuresNext(string StructuresJSON, int count)
-    {
-        Debug.Log("(Client)Got Structure");
-        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
-        count++;
-        view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, count);
-
-    }
-
-
-    [PunRPC]
-    public void setStructureLast(String StructuresJSON)
-    {
-        Debug.Log("(Client)Finished Structure");
-
-        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
-        loaded = true;
-        PhotonNetwork.isMessageQueueRunning = true;
-        currLevel.OnConnected();
-
-    }
-
-    [PunRPC]
-    public void setStructure(String StructuresJSON)
-    {
-        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
-    }
-
-    //Player------------------------------------------//
-
     public player getPlayerByViewID(int viewID)
     {
         foreach (player p in players)
@@ -255,7 +209,70 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.Disconnect();
     }
 
+
+    //Structure------------------------------------------//
+
+    [PunRPC]
+    public void getStructuresNext(int playerId, int count)
+    {
+        if (count == currLevel.structures.Count - 1)
+        {
+            view.RPC("setStructureLast", PhotonPlayer.Find(playerId), currLevel.structures[count].GenerateJSON().ToString());
+        }
+        else
+        {
+            view.RPC("setStructuresNext", PhotonPlayer.Find(playerId), currLevel.structures[count].GenerateJSON().ToString(), count);
+        }
+        Debug.Log("(Master)Got Request and Sent Structures Response");
+
+    }
+
+    [PunRPC]
+    public void setStructuresNext(string StructuresJSON, int count)
+    {
+        Debug.Log("(Client)Got Structure");
+        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
+        count++;
+        view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, count);
+
+    }
+
+
+    [PunRPC]
+    public void setStructureLast(String StructuresJSON)
+    {
+        Debug.Log("(Client)Finished Structure");
+
+        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
+        loaded = true;
+        PhotonNetwork.isMessageQueueRunning = true;
+        currLevel.OnConnected();
+
+    }
+
+    [PunRPC]
+    public void setStructure(String StructuresJSON)
+    {
+        currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
+    }
+
+
+
     //UI------------------------------------------//
+
+    public void endGame()
+    {
+        view.RPC("updateAllProperties", PhotonTargets.All);
+        view.RPC("changeToEndScene", PhotonTargets.MasterClient);
+
+    }
+
+    [PunRPC]
+    public void changeToEndScene()
+    {
+        PhotonNetwork.LoadLevel(endGameScene);
+    }
+
     public bool paused
     {
         get

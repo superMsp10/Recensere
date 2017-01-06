@@ -13,6 +13,7 @@ public class pauseUI : MonoBehaviour, UIState
     public Color originalColor;
     public Color respawnColor;
     public float countDown = 0.01f;
+    public GameObject endGameButton;
 
     public string DisconnectScene;
 
@@ -31,9 +32,12 @@ public class pauseUI : MonoBehaviour, UIState
             back.SetActive(true);
             respawnButton.SetActive(true);
             console.text = "";
-
         }
 
+        if (Persistent.thisPersist.Dev)
+            endGameButton.SetActive(true);
+        else
+            endGameButton.SetActive(false);
 
     }
 
@@ -61,6 +65,11 @@ public class pauseUI : MonoBehaviour, UIState
         deathMessage = "<b><color=red>Death</color> by suicide</b>;";
         GameManager.thisM.NetworkDisable();
         StartCoroutine(Respawn(5f));
+    }
+
+    public void button_EndGame()
+    {
+        GameManager.thisM.endGame();
     }
 
     public IEnumerator Respawn(float seconds)

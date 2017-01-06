@@ -6,6 +6,7 @@ public class Connect : Photon.MonoBehaviour
 
 
     public bool offline = false;
+    public bool autoJoin = false;
     private byte Version = GameManager.Version;
     bool showConnectionState = true;
     string prevConnectionState;
@@ -60,12 +61,20 @@ public class Connect : Photon.MonoBehaviour
         if (PhotonNetwork.networkingPeer.AvailableRegions != null)
             Debug.LogWarning("List of available regions counts " + PhotonNetwork.networkingPeer.AvailableRegions.Count + ". First: " + PhotonNetwork.networkingPeer.AvailableRegions[0] + " \t Current Region: " + PhotonNetwork.networkingPeer.CloudRegion);
         Debug.Log("OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room. Calling: PhotonNetwork.JoinRandomRoom();");
-        //PhotonNetwork.JoinRandomRoom();
+        if (autoJoin)
+            PhotonNetwork.JoinRandomRoom();
     }
 
     public virtual void OnPhotonRandomJoinFailed()
     {
-        UIManager.thisM.currentUI.UpdateUI();
+        if (UIManager.thisM.currentUI != null)
+            UIManager.thisM.currentUI.UpdateUI();
+        if (autoJoin)
+        {
+            PhotonNetwork.automaticallySyncScene = true;
+            PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = 16 }, null);
+        }
+
     }
 
     // the following methods are implemented to give you some context. re-implement them as needed.
