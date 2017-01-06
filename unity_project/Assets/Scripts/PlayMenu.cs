@@ -11,7 +11,6 @@ public class PlayMenu : MonoBehaviour, UIState
     public Text Version;
     public GameObject creategame;
 
-    public string loadSceneName;
 
 
     public void EndUI()
@@ -22,10 +21,10 @@ public class PlayMenu : MonoBehaviour, UIState
     public void StartUI()
     {
         gameObject.SetActive(true);
+        error.text = "";
         Hello.text = "Hello, " + Persistent.thisPersist.Username;
         Version.text = "Recensere, v" + GameManager.Version;
 
-        DatabaseConnect.thisM.checkAccess();
         if (Persistent.thisPersist.Dev)
         {
             creategame.SetActive(true);
@@ -39,12 +38,8 @@ public class PlayMenu : MonoBehaviour, UIState
 
     public void UpdateUI()
     {
-        throw new NotImplementedException();
+        error.text = "The game is not on right now!";
     }
 
-    public void changeToPlayMenu()
-    {
-        SceneManager.LoadScene(loadSceneName);
-    }
 
 }

@@ -38,8 +38,6 @@ public class StartingUI : MonoBehaviour, UIState
         {
             DatabaseConnect.thisM.login(userName.text, password.text);
         }
-
-
     }
 
     bool validateUsername(string s)

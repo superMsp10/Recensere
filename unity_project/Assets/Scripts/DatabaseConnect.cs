@@ -131,8 +131,6 @@ public class DatabaseConnect : MonoBehaviour
         yield return www;
         if (www.error == null)
         {
-
-            Debug.Log(www.text);
             if (www.text != null && www.text.Equals("Developer"))
             {
                 Persistent.thisPersist.Dev = true;
@@ -141,6 +139,8 @@ public class DatabaseConnect : MonoBehaviour
             {
                 Persistent.thisPersist.Dev = false;
             }
+            thisUI.changeUI(myPlayMenu);
+
         }
         else
         {
@@ -253,6 +253,7 @@ public class DatabaseConnect : MonoBehaviour
         this.password = password;
 
         StartCoroutine("iLogin");
+
     }
 
     public void logout()
@@ -269,7 +270,7 @@ public class DatabaseConnect : MonoBehaviour
 
     void changeToPlayMenu()
     {
-        thisUI.changeUI(myPlayMenu);
+        checkAccess();
     }
 
 
