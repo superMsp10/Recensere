@@ -14,6 +14,7 @@ public class StartingUI : MonoBehaviour, UIState
 
         gameObject.SetActive(true);
         error.text = "";
+       
     }
 
     public void EndUI()
