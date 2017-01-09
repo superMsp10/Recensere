@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour, Timer
 {
 
     public List<AudioClip> loopingMusic;
+
+
     public AudioSource sourceOne;
     public AudioSource sourceTwo;
 
@@ -50,6 +52,11 @@ public class SoundManager : MonoBehaviour, Timer
         currentShot.TransitionTo(m_Transition / 2);
 
         current.clip = loopingMusic[randClip];
+        if (current.clip == null)
+        {
+            Invoke("Play", 60f);
+            return;
+        }
         current.Play();
         StartTimer(current.clip.length - m_Transition);
     }
