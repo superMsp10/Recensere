@@ -8,7 +8,9 @@ public class Level1Music : MonoBehaviour, Timer
 {
     public List<AudioClip> loopingMusic;
 
-    public AudioSource source;
+    public AudioSource musicSource;
+    public AudioSource noiseSource;
+
 
     public AudioMixerSnapshot MusicOnly;
     public AudioMixerSnapshot NoiseOnly;
@@ -36,6 +38,7 @@ public class Level1Music : MonoBehaviour, Timer
     void Start()
     {
         PlayRandom();
+        noiseSource.time = UnityEngine.Random.Range(0, noiseSource.clip.length); ;
     }
 
     void PlayRandom()
@@ -49,9 +52,9 @@ public class Level1Music : MonoBehaviour, Timer
         else
         {
             int randClip = UnityEngine.Random.Range(0, loopingMusic.Count);
-            source.clip = loopingMusic[randClip];
-            source.Play();
-            StartTimer(source.clip.length);
+            musicSource.clip = loopingMusic[randClip];
+            musicSource.Play();
+            StartTimer(musicSource.clip.length);
             MusicOnly.TransitionTo(2f);
             noSounds.TransitionTo(1f);
 
