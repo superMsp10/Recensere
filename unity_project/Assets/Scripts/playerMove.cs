@@ -37,10 +37,7 @@ public class playerMove : MonoBehaviour
     //Network
     public PhotonView photonV;
 
-    //SFX
-    public AudioSource source;
-    public List<AudioClip> walkingClips;
-    public float soundMax, soundMin;
+    
 
     public float fuel
     {
@@ -86,16 +83,6 @@ public class playerMove : MonoBehaviour
         checkMovement();
     }
 
-    public void randomWalkingSFX()
-    {
-        photonV.RPC("networkRandomWalkingSFX", PhotonTargets.All);
-    }
-
-    [PunRPC]
-    public void networkRandomWalkingSFX()
-    {
-        source.PlayOneShot(walkingClips[Random.Range(0, walkingClips.Count - 1)], Random.Range(soundMin, soundMax));
-    }
 
     void checkJump()
     {
