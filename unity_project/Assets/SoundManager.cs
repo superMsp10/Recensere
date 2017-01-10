@@ -16,12 +16,20 @@ public class SoundManager : MonoBehaviour, Timer
     public AudioMixerSnapshot snapOne;
     public AudioMixerSnapshot snapTwo;
 
+    public static SoundManager thisM;
+
     bool playingOne = true;
 
     AudioSource current;
     AudioMixerSnapshot currentShot;
 
     public float m_Transition;
+
+    void Awake()
+    {
+        thisM = this;
+    }
+
 
     // Use this for initialization
     void Start()
