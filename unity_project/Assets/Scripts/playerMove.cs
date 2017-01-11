@@ -38,7 +38,11 @@ public class playerMove : MonoBehaviour
     public PhotonView photonV;
 
     //SFX
-    public AudioSource source;
+    public AudioSource fxSource;
+    public AudioSource jetpackSource;
+    public float soundMaxPitch, soundMinPitch;
+
+
     public List<AudioClip> walkingClips;
     public float soundMax, soundMin;
 
@@ -94,7 +98,7 @@ public class playerMove : MonoBehaviour
     [PunRPC]
     public void randomJumpingSFX()
     {
-        source.PlayOneShot(walkingClips[Random.Range(0, walkingClips.Count)], Random.Range(soundMin, soundMax));
+        fxSource.PlayOneShot(walkingClips[Random.Range(0, walkingClips.Count)], Random.Range(soundMin, soundMax));
     }
 
     void checkJump()
@@ -145,6 +149,7 @@ public class playerMove : MonoBehaviour
         jetpackUIFire.SetActive(false);
         airIntake.Stop();
         afterburn.Stop();
+        jetpackSource.Stop();
 
         photonV.RPC("syncJetPackStop", PhotonTargets.Others, _fuel);
     }
@@ -155,6 +160,7 @@ public class playerMove : MonoBehaviour
         airIntake.Stop();
         afterburn.Stop();
         fuel = f;
+        jetpackSource.Stop();
     }
 
     void updateFuel()
@@ -184,6 +190,9 @@ public class playerMove : MonoBehaviour
         }
         airIntake.Play();
         afterburn.Play();
+        jetpackSource.pitch = Random.Range(soundMinPitch, soundMaxPitch);
+        jetpackSource.Play();
+
         photonV.RPC("syncJetPackStart", PhotonTargets.Others, null);
 
     }
@@ -193,6 +202,8 @@ public class playerMove : MonoBehaviour
     {
         airIntake.Play();
         afterburn.Play();
+        jetpackSource.Play();
+
     }
 
     void checkMovement()
