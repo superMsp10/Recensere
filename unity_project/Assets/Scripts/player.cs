@@ -37,10 +37,28 @@ public class player : MonoBehaviour, Health
 
     public Vector3 spwanPos;
 
+    public AudioSource source;
+    //SFX
+    public AudioClip openingClip;
+    public float soundMaxLength, soundMinLength;
 
     void FixedUpdate()
     {
         anim.SetFloat("YVelo", r.velocity.y);
+    }
+
+    [PunRPC]
+    public void PlayRandomPickup()
+    {
+        source.clip = openingClip;
+        source.time = Random.Range(0, source.clip.length);
+        source.Play();
+        Invoke("StopSFX", Random.Range(soundMinLength, soundMaxLength));
+    }
+
+    public void StopSFX()
+    {
+       source.Stop();
     }
 
 
@@ -66,6 +84,8 @@ public class player : MonoBehaviour, Health
         return false;
 
     }
+
+
 
     [PunRPC]
     public virtual void syncDamage(float damage, string attacker)

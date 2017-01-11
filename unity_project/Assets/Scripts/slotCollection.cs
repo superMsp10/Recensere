@@ -26,7 +26,7 @@ public class slotCollection : MonoBehaviour
 				return false;
 		}
 
-		public int addHoldable (Holdable h, int amount)
+		public virtual int addHoldable (Holdable h, int amount)
 		{
 
 //		check for existing stacks

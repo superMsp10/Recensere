@@ -13,8 +13,7 @@ public class walkSoundsTrigger : MonoBehaviour
 
     public void randomWalkingSFX()
     {
-        source.PlayOneShot(walkingClips[Random.Range(0, walkingClips.Count - 1)], Random.Range(soundMin, soundMax));
-
+        source.PlayOneShot(walkingClips[Random.Range(0, walkingClips.Count)], Random.Range(soundMin, soundMax));
     }
 
     // Use this for initialization

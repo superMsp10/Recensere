@@ -37,7 +37,10 @@ public class playerMove : MonoBehaviour
     //Network
     public PhotonView photonV;
 
-    
+    //SFX
+    public AudioSource source;
+    public List<AudioClip> walkingClips;
+    public float soundMax, soundMin;
 
     public float fuel
     {
@@ -77,12 +80,22 @@ public class playerMove : MonoBehaviour
         checkJump();
     }
 
-
     void FixedUpdate()
     {
         checkMovement();
     }
 
+    public void playRandomJumpingSFX()
+    {
+        randomJumpingSFX();
+        photonV.RPC("randomJumpingSFX", PhotonTargets.Others);
+    }
+
+    [PunRPC]
+    public void randomJumpingSFX()
+    {
+        source.PlayOneShot(walkingClips[Random.Range(0, walkingClips.Count)], Random.Range(soundMin, soundMax));
+    }
 
     void checkJump()
     {
@@ -153,7 +166,7 @@ public class playerMove : MonoBehaviour
     {
         rigidbod.velocity = new Vector3(rigidbod.velocity.x * fly_speed, jumpPower, rigidbod.velocity.z * fly_speed);
         jumped = true;
-
+        playRandomJumpingSFX();
     }
 
 

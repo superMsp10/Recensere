@@ -16,6 +16,8 @@ public class invManager : slotCollection, UIState
     public Color normal;
     public GameObject paused;
 
+
+
     //Mono stuff
     void Awake()
     {
@@ -28,7 +30,6 @@ public class invManager : slotCollection, UIState
     void Start()
     {
         thismanage = GameManager.thisM;
-
     }
 
     void Update()
@@ -66,6 +67,12 @@ public class invManager : slotCollection, UIState
             }
         }
 
+    }
+
+    public void randomPickup()
+    {
+        thismanage.myPlayer.PlayRandomPickup();
+        thismanage.myPlayer.thisView.RPC("PlayRandomPickup", PhotonTargets.Others);
     }
 
     //UIState stuff
@@ -118,6 +125,63 @@ public class invManager : slotCollection, UIState
 
         }
 
+    }
+
+    public override int addHoldable(Holdable h, int amount)
+    {
+
+        //		check for existing stacks
+        List<UIslot> returnSlots = SlotsWithHoldable(h);
+        if (returnSlots.Count > 0)
+        {
+            foreach (var s in returnSlots)
+            {
+                int space = h.stackSize - s.amount;
+                if (space > amount)
+                {
+                    s.amount += amount;
+                    //										Debug.Log ("Slot collection add holdable item exists \n only changeing amount. Can hold all");
+                    randomPickup();
+                    return 0;
+                }
+                else
+                {
+                    s.amount += space;
+                    amount -= space;
+                    //										Debug.Log ("Slot collection add holdable item exists \n only changeing amount. Can not hold all");
+                    randomPickup();
+                }
+            }
+        }
+
+        //		create new stacks
+        foreach (var s in slots)
+        {
+            if (s.holding == null)
+            {
+                if (amount > h.stackSize)
+                {
+                    //										Debug.Log ("Slot collection add holdable creating stack. \n Can not hold all");
+                    s.changeHolding(h, h.stackSize);
+                    amount -= h.stackSize;
+                    randomPickup();
+
+                }
+                else
+                {
+                    //										Debug.Log ("Slot collection add holdable creating stack. \n Can hold all");
+                    s.changeHolding(h, amount);
+                    randomPickup();
+
+                    return 0;
+
+
+                }
+            }
+        }
+        //				Debug.Log ("Slot collection add holdable exiting with " + amount + " objects");
+
+        return amount;
     }
 
 
