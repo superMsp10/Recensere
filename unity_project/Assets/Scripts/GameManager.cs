@@ -6,7 +6,7 @@ using Boomlagoon.JSON;
 public class GameManager : MonoBehaviour
 {
     public static GameManager thisM;
-    public static byte Version = 6;
+    public static byte Version = 7;
     public string PlayerLayer;
     public string GhostLayer;
 

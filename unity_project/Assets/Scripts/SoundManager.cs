@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour, Timer
 
     public List<AudioClip> loopingMusic;
 
+    public AudioSource sourceFX;
 
     public AudioSource sourceOne;
     public AudioSource sourceTwo;

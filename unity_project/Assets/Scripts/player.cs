@@ -37,9 +37,12 @@ public class player : MonoBehaviour, Health
 
     public Vector3 spwanPos;
 
-    public AudioSource source;
     //SFX
-    public AudioClip openingClip;
+    public AudioSource source;
+    public AudioClip pickupOpeningClip;
+    public AudioClip damageStart;
+    public AudioClip damageFinal;
+
     public float soundMaxLength, soundMinLength;
 
     void FixedUpdate()
@@ -50,7 +53,7 @@ public class player : MonoBehaviour, Health
     [PunRPC]
     public void PlayRandomPickup()
     {
-        source.clip = openingClip;
+        source.clip = pickupOpeningClip;
         source.time = Random.Range(0, source.clip.length);
         source.Play();
         Invoke("StopSFX", Random.Range(soundMinLength, soundMaxLength));
@@ -58,13 +61,12 @@ public class player : MonoBehaviour, Health
 
     public void StopSFX()
     {
-       source.Stop();
+        source.Stop();
     }
 
 
     public virtual bool takeDamage(float damage, string attacker)
     {
-
         if (thisView.isMine)
         {
             if (health <= 0)
@@ -73,13 +75,22 @@ public class player : MonoBehaviour, Health
             lastAttacker = attacker;
             if (health <= 0)
             {
+                SoundManager.thisM.sourceFX.PlayOneShot(damageFinal);
+                thisView.RPC("playHealthSound", PhotonTargets.Others, true);
+
                 Destroy(true, true);
                 return true;
+            }
+            else
+            {
+                SoundManager.thisM.sourceFX.PlayOneShot(damageStart);
+                thisView.RPC("playHealthSound", PhotonTargets.Others, false);
+
             }
         }
         else
         {
-            thisView.RPC("syncDamage", PhotonTargets.Others, damage, attacker);
+            thisView.RPC("syncDamage", thisView.owner, damage, attacker);
         }
         return false;
 
@@ -90,20 +101,34 @@ public class player : MonoBehaviour, Health
     [PunRPC]
     public virtual void syncDamage(float damage, string attacker)
     {
-
         if (thisView.isMine)
         {
             if (health <= 0)
-                return;
-            HP -= damage;
+                HP -= damage;
             lastAttacker = attacker;
             if (health <= 0)
             {
-                Destroy(false, true);
-                return;
-            }
+                SoundManager.thisM.sourceFX.PlayOneShot(damageFinal);
 
+                Destroy(true, true);
+            }
+            else
+            {
+                SoundManager.thisM.sourceFX.PlayOneShot(damageStart);
+
+            }
         }
+    }
+
+    [PunRPC]
+    public void playHealthSound(bool dead)
+    {
+        if (dead)
+        {
+            source.PlayOneShot(damageFinal);
+        }
+        else
+            source.PlayOneShot(damageStart);
     }
 
 
