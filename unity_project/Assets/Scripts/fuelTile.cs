@@ -23,7 +23,9 @@ public class fuelTile : LootTile
     //Particle FX
     public ParticleSystem airIntake;
     public ParticleSystem fuelSpray;
-
+    //SFX
+    public AudioSource thisSource;
+    public AudioClip openingSound;
 
     public float fuel
     {
@@ -62,6 +64,9 @@ public class fuelTile : LootTile
 
     }
 
+
+
+
     void closeLid()
     {
         shaft.moving = true;
@@ -80,6 +85,7 @@ public class fuelTile : LootTile
         shaft.start = shaft.lookAt.localPosition;
         shaft.end = open;
         shaft.startedTime = Time.time;
+        thisSource.PlayOneShot(openingSound);
 
         Invoke("stopMoving", 1.5f);
     }
@@ -139,6 +145,7 @@ public class fuelTile : LootTile
             airIntake.Play();
         if (!fuelSpray.isPlaying)
             fuelSpray.Play();
+        thisSource.Play();
 
     }
 
@@ -172,6 +179,7 @@ public class fuelTile : LootTile
             airIntake.Stop();
         if (!fuelSpray.isStopped)
             fuelSpray.Stop();
+        thisSource.Stop();
 
     }
 
