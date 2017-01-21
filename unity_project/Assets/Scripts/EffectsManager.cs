@@ -14,6 +14,11 @@ public class EffectsManager : MonoBehaviour
     public int maxDecals;
     public PhotonView p;
 
+    public List<AudioClip> tileDamageClips;
+    public float soundMax, soundMin;
+
+
+
     void Awake()
     {
         if (thisM == null)
@@ -56,6 +61,10 @@ public class EffectsManager : MonoBehaviour
             g.transform.rotation = hitRotation;
             g.GetComponent<Timer>().StartTimer(decalReset);
             t.attach(g);
+
+            AudioSource.PlayClipAtPoint(tileDamageClips[Random.Range(0, tileDamageClips.Count)], point, Random.Range(soundMin, soundMax));
+
+
 
             p.RPC("SyncCracksFX", PhotonTargets.Others, normal, point, dmgPercent, t.thisStructure.name, t.name);
         }
