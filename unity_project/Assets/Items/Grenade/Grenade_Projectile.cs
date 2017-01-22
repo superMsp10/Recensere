@@ -16,6 +16,9 @@ class Grenade_Projectile : Item_Throwable_Projectile
     public LayerMask explodingLayers;
     public float minDamage, maxDamage;
 
+    //SFX
+    public AudioClip explosionSFX;
+
 
 
     public override void reset(bool on)
@@ -95,6 +98,8 @@ class Grenade_Projectile : Item_Throwable_Projectile
         thisRigid.isKinematic = true;
         thisRenderer.enabled = false;
         destroyedGrenade.SetActive(true);
+
+        AudioSource.PlayClipAtPoint(explosionSFX, transform.position);
     }
 
 }

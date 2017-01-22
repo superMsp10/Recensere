@@ -99,6 +99,9 @@ public class EffectsManager : MonoBehaviour
                 g.transform.rotation = hitRotation;
                 g.GetComponent<Timer>().StartTimer(decalReset);
                 t.attach(g);
+
+                AudioSource.PlayClipAtPoint(tileDamageClips[Random.Range(0, tileDamageClips.Count)], point, Random.Range(soundMin, soundMax));
+
             }
         }
         else
