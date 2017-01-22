@@ -5,8 +5,7 @@ using System.Collections;
 class Grenade_Projectile : Item_Throwable_Projectile
 {
     public float explosionDelay = 2f;
-    public ParticleSystem explosionFX_Fireball;
-    public ParticleSystem explosionFX_Dust;
+    public ParticleSystem[] explosionFX;
     public Renderer thisRenderer;
     public Collider thisCollider;
     public GameObject destroyedGrenade;
@@ -91,8 +90,10 @@ class Grenade_Projectile : Item_Throwable_Projectile
     void explode()
     {
         //Debug.Log("Grenade explosion rpc");
-        explosionFX_Dust.Play();
-        explosionFX_Fireball.Play();
+        foreach (ParticleSystem s in explosionFX)
+        {
+            s.Play();
+        }
 
         thisCollider.enabled = false;
         thisRigid.isKinematic = true;
