@@ -80,8 +80,12 @@ public class DatabaseConnect : MonoBehaviour
                 yield return www;
                 if (www.error == null)
                 {
+                    string level;
                     www.responseHeaders.TryGetValue("token", out Persistent.thisPersist.Token);
+                    www.responseHeaders.TryGetValue("level", out level);
+                    Persistent.thisPersist.Level = int.Parse(level);
                     Persistent.thisPersist.Username = username;
+                    
                     bool logged = bool.Parse(www.text);
 
                     if (logged)
@@ -121,7 +125,6 @@ public class DatabaseConnect : MonoBehaviour
     {
 
         WWW www;
-
         WWWForm wForm;
 
         wForm = new WWWForm();
@@ -231,6 +234,36 @@ public class DatabaseConnect : MonoBehaviour
         }
 
 
+    }
+
+    IEnumerator iSetLevel(int level)
+    {
+        WWW www;
+        WWWForm wForm;
+
+        wForm = new WWWForm();
+        wForm.AddField("username", Persistent.thisPersist.Username);
+        wForm.AddField("token", Persistent.thisPersist.Token);
+        wForm.AddField("level", level);
+
+        www = new WWW(url + "/setLevel/", wForm);
+        yield return www;
+        if (www.error == null)
+        {
+            Debug.Log(www.text);
+        }
+        else
+        {
+            Debug.LogError("ERROR: " + www.error);
+            ConnectionError(www.error);
+        }
+
+    }
+
+    public void setLevel(int lev)
+    {
+        if (Persistent.thisPersist.Username != "")
+            StartCoroutine("iSetLevel",lev);
     }
 
     public void checkAccess()

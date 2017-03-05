@@ -34,7 +34,7 @@ public class TestLevelUI : pauseUI
 
     public void runCode1()
     {
-        Debug.Log(PhotonNetwork.player.ToStringFull());
+      DatabaseConnect.thisM.setLevel(2);
     }
 
     public void NetworkIns(string s)

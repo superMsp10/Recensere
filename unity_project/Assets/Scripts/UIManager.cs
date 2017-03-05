@@ -34,11 +34,14 @@ public class UIManager : MonoBehaviour
         {
             currentUI.EndUI();
         }
+        if (ui != null)
+        {
+            currentUI = ui.GetComponent<UIState>();
+            if (currentUI != null)
+                currentUI.StartUI();
+            else
+                Debug.LogError("Gameobject: " + ui.name + "is not a UI state");
+        }
 
-        currentUI = ui.GetComponent<UIState>();
-        if (currentUI != null)
-            currentUI.StartUI();
-        else
-            Debug.LogError("Gameobject: " + ui.name + "is not a UI state");
     }
 }
