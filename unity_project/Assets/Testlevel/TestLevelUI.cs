@@ -7,7 +7,7 @@ public class TestLevelUI : pauseUI
     public GameObject[] cameras;
     GameManager gm;
     int currCam = 0;
-    public GameObject testObject;
+    public PlayerStructure testObject;
 
     void Start()
     {
@@ -32,9 +32,19 @@ public class TestLevelUI : pauseUI
         }
     }
 
+    bool open = false;
     public void runCode1()
     {
-      DatabaseConnect.thisM.setLevel(2);
+        if (open)
+        {
+            testObject.closeLid();
+        }
+        else
+        {
+        testObject.openLid();
+
+        }
+        open = !open;
     }
 
     public void NetworkIns(string s)
