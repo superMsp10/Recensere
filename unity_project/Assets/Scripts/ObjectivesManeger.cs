@@ -8,40 +8,70 @@ public class ObjectivesManeger : MonoBehaviour
 {
     public int playerLevel;
     public static ObjectivesManeger thisM;
-    List<Objective> available = new List<Objective>() { new Objective() };
-    Objective active;
-    public Text objectiveText;
-    public string[] compliments = new string[] { "Well done", "Good going", "Great work", "Wow!", "Keep it up", "Oh yeah!", "Grate jub!", "Gracias" };
+    List<Objective> available = new List<Objective> { new Objective() };
+    List<Objective> completed;
 
-    void Initialize()
+    Objective active;
+    public string[] compliments = new string[] { "Well done", "Good going", "Great work", "Wow!", "Keep it up", "Oh yeah!", "Grate jab!", "Gracias" };
+
+    PlayerStructure playerRoom;
+    FinishedObjective finished;
+
+    void Awake()
     {
-        if (thisM != null)
+        if (thisM == null)
         {
             thisM = this;
         }
-        playerLevel = Persistent.thisPersist.Level;
+
     }
 
-    void updateObjectives()
+    public void Initialize()
+    {
+        playerLevel = Persistent.thisPersist.Level;
+        playerRoom = GameManager.thisM.myPlayer.spwanRoom;
+        finished = new FinishedObjective();
+    }
+
+    public void updateObjectives()
     {
         if (active != null)
         {
             if (active.CheckCompleted())
             {
-                objectiveText.text = compliments[Random.Range(0, available.Count)] + ", " + active.done;
+                playerRoom.objectiveText.text = compliments[Random.Range(0, compliments.Length)] + ", " + active.done;
+                available.Remove(active);
+                completed.Add(active);
             }
         }
         else
         {
-            newObjective();
-            updateObjectives();
+            active = randomObjective();
+            showtext();
         }
 
     }
 
-    void newObjective()
+
+    void showtext()
     {
-       active = available[Random.Range(0, available.Count)];
+        playerRoom.closeLid();
+        playerRoom.objectiveText.text = active.description;
+        Invoke("endText", 5f);
+    }
+
+    void endText()
+    {
+        playerRoom.openLid();
+    }
+
+    Objective randomObjective()
+    {
+        if (available.Count > 0)
+        {
+            return available[Random.Range(0, available.Count)];
+        }
+        return finished;
     }
 
 }

@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
         {
             Application.CaptureScreenshot("Snapshots/Screenshot_" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".png", 2);
         }
+
+        if (!paused)
+        {
+            
+        }
     }
     //Items------------------------------------------//
     [PunRPC]
@@ -83,6 +88,7 @@ public class GameManager : MonoBehaviour
 
 
         myPlayer = p.GetComponent<player>();
+        myPlayer.spwanRoom = s;
         myPlayer.spwanPos = s.spawnPosition.position;
         myPlayer.playerID = playerID;
         //				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
@@ -90,6 +96,8 @@ public class GameManager : MonoBehaviour
         p.layer = LayerMask.NameToLayer(PlayerLayer);
         myPlayer.animModel.layer = LayerMask.NameToLayer(GhostLayer);
         p.GetComponent<Rigidbody>().isKinematic = false;
+
+        ObjectivesManeger.thisM.Initialize();
         NetworkEnable();
 
         PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Kills", 0 }, { "Placed", 0 }, { "NewItemsPicked", 0 }, { "Destroyed", 0 }, { "Deaths", 0 } });
@@ -189,6 +197,7 @@ public class GameManager : MonoBehaviour
         myPlayer.transform.rotation = Quaternion.identity;
         //				currLevel.cam.SetActive (false);
         myPlayer.networkInit();
+        ObjectivesManeger.thisM.updateObjectives();
         dead = false;
         UIManager.thisM.changeUI(tileDictionary.thisM.inGameUI);
 
@@ -291,6 +300,7 @@ public class GameManager : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
+                Debug.Log("Hello True");
 
             }
             else
@@ -299,9 +309,10 @@ public class GameManager : MonoBehaviour
                 {
                     m.enabled = true;
                 }
-                Cursor.lockState = CursorLockMode.Locked;
+
                 Cursor.visible = false;
 
+                Debug.Log("Hello False");
             }
 
         }

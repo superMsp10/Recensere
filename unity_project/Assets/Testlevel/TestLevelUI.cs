@@ -32,19 +32,9 @@ public class TestLevelUI : pauseUI
         }
     }
 
-    bool open = false;
     public void runCode1()
     {
-        if (open)
-        {
-            testObject.closeLid();
-        }
-        else
-        {
-        testObject.openLid();
-
-        }
-        open = !open;
+   
     }
 
     public void NetworkIns(string s)

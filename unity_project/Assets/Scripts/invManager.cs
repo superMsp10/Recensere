@@ -80,10 +80,6 @@ public class invManager : slotCollection, UIState
     {
         gameObject.SetActive(true);
         GameManager.thisM.paused = false;
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
 
     }
 

@@ -36,6 +36,8 @@ public class player : MonoBehaviour, Health
     public GameObject animModel;
 
     public Vector3 spwanPos;
+    public PlayerStructure spwanRoom;
+
 
     //SFX
     public AudioSource source;
