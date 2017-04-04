@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class PlayerStructure : Structure
 {
+
+
     public Transform spawnPosition;
     public Transform itemSpot;
     public string spawnItem;
@@ -12,15 +15,21 @@ public class PlayerStructure : Structure
     public Vector3 open, closed;
     public float totalTime;
     public Text objectiveText;
+    public InputField customText;
 
 
     void Start()
     {
+
+
         if (PhotonNetwork.connected)
             GameManager.thisM.view.RPC("spawnSceneObject", PhotonTargets.MasterClient, spawnItem, itemSpot.position);
+
+        EventSystem.current.SetSelectedGameObject(customText.gameObject);
+
     }
 
-   public void closeLid()
+    public void closeLid()
     {
         shaft.moving = true;
         shaft.totalTime = totalTime;
@@ -45,6 +54,10 @@ public class PlayerStructure : Structure
     void stopMoving()
     {
         shaft.moving = false;
+    }
+
+    public void Update()
+    {
     }
 
 }
