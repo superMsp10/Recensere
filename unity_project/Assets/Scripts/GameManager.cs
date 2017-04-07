@@ -43,11 +43,6 @@ public class GameManager : MonoBehaviour
         {
             Application.CaptureScreenshot("Snapshots/Screenshot_" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".png", 2);
         }
-
-        if (!paused)
-        {
-            
-        }
     }
     //Items------------------------------------------//
     [PunRPC]
@@ -300,7 +295,6 @@ public class GameManager : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
-                Debug.Log("Hello True");
 
             }
             else
@@ -311,8 +305,8 @@ public class GameManager : MonoBehaviour
                 }
 
                 Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
 
-                Debug.Log("Hello False");
             }
 
         }

@@ -15,7 +15,6 @@ public class PlayerStructure : Structure
     public Vector3 open, closed;
     public float totalTime;
     public Text objectiveText;
-    public InputField customText;
 
 
     void Start()
@@ -24,8 +23,6 @@ public class PlayerStructure : Structure
 
         if (PhotonNetwork.connected)
             GameManager.thisM.view.RPC("spawnSceneObject", PhotonTargets.MasterClient, spawnItem, itemSpot.position);
-
-        EventSystem.current.SetSelectedGameObject(customText.gameObject);
 
     }
 
