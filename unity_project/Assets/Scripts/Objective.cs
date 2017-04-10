@@ -28,6 +28,11 @@ public class Objective
 
     public virtual bool CheckCompleted()
     {
+        if (!completed)
+        {
+            completed = true;
+            return true;
+        }
         return completed;
     }
 }

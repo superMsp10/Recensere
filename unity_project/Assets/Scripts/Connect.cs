@@ -24,8 +24,12 @@ public class Connect : Photon.MonoBehaviour
         //}
         //else
         //{
-        PhotonNetwork.automaticallySyncScene = true;
-        PhotonNetwork.ConnectUsingSettings(Version.ToString());
+        if (!PhotonNetwork.connected)
+        {
+            PhotonNetwork.automaticallySyncScene = true;
+            PhotonNetwork.ConnectUsingSettings(Version.ToString());
+        }
+      
         //}
 
     }

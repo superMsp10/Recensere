@@ -9,7 +9,7 @@ public class ObjectivesManeger : MonoBehaviour
     public int playerLevel;
     public static ObjectivesManeger thisM;
     List<Objective> available = new List<Objective> { new Objective() };
-    List<Objective> completed;
+    List<Objective> completed = new List<Objective>();
 
     Objective active;
     public string[] compliments = new string[] { "Well done", "Good going", "Great work", "Wow!", "Keep it up", "Oh yeah!", "Grate jab!", "Gracias" };

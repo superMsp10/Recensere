@@ -14,7 +14,7 @@ public class Enemy : Mob1
 		public bool randomAttributes;
 
 
-		new void Start ()
+		void Start ()
 		{
 
 		
