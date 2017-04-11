@@ -39,21 +39,31 @@ public class ObjectivesManeger : MonoBehaviour
         {
             if (active.CheckCompleted())
             {
+                playerRoom.closeLid();
                 playerRoom.objectiveText.text = compliments[Random.Range(0, compliments.Length)] + ", " + active.done;
                 available.Remove(active);
                 completed.Add(active);
+                active = randomObjective();
+                Invoke("showText", 5f);
+                playerLevel++;
             }
         }
         else
         {
             active = randomObjective();
-            showtext();
+            showText();
         }
 
     }
 
+    public void setCompleted()
+    {
+        Persistent.thisPersist.completed = new List<Objective>(completed);
+        DatabaseConnect.thisM.setLevel(playerLevel);
+    }
 
-    void showtext()
+
+    void showText()
     {
         playerRoom.closeLid();
         playerRoom.objectiveText.text = active.description;

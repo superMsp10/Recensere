@@ -26,7 +26,7 @@ public class FinishedObjective: Objective
 
     public override bool CheckCompleted()
     {
-        return true;
+        return false;
     }
 
 }

@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
         myPlayer = p.GetComponent<player>();
         myPlayer.spwanRoom = s;
-        myPlayer.spwanPos = s.spawnPosition.position;
+        myPlayer.spwanPos = s.spawnPosition;
         myPlayer.playerID = playerID;
         //				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
 
@@ -188,8 +188,8 @@ public class GameManager : MonoBehaviour
     public void NetworkEnable()
     {
         int playerID = PhotonNetwork.countOfPlayers;
-        myPlayer.transform.position = myPlayer.spwanPos;
-        myPlayer.transform.rotation = Quaternion.identity;
+        myPlayer.transform.position = myPlayer.spwanPos.position;
+        myPlayer.transform.rotation = myPlayer.spwanPos.rotation;
         //				currLevel.cam.SetActive (false);
         myPlayer.networkInit();
         ObjectivesManeger.thisM.updateObjectives();
@@ -267,6 +267,8 @@ public class GameManager : MonoBehaviour
     public void endGame()
     {
         view.RPC("updateAllProperties", PhotonTargets.All);
+
+        ObjectivesManeger.thisM.setCompleted();
         view.RPC("changeToEndScene", PhotonTargets.MasterClient);
 
     }

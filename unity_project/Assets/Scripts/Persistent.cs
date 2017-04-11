@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Persistent : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Persistent : MonoBehaviour
     public int Level;
     public bool Dev = false;
     public GameObject connectError;
+    public List<Objective> completed;
 
 
 
