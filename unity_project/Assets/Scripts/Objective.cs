@@ -5,15 +5,19 @@ public class Objective
 {
     public bool completed = false;
 
-    public Objective()
+    public virtual bool reuseable
     {
+        get
+        {
+            return false;
+        }
     }
 
     public virtual string description
     {
         get
         {
-           return "generic objective: do things";
+            return "generic objective: do things";
         }
     }
 

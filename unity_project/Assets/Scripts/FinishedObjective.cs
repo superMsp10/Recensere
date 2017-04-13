@@ -4,9 +4,6 @@ using System.Collections;
 public class FinishedObjective: Objective
 {
 
-    public FinishedObjective()
-    {
-    }
 
     public override string description
     {
