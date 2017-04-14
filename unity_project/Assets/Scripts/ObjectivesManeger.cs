@@ -83,9 +83,12 @@ public class ObjectivesManeger : MonoBehaviour
 
     Objective randomObjective()
     {
+        Objective ret;
         if (available.Count > 0)
         {
-            return available[UnityEngine.Random.Range(0, available.Count)];
+            ret = available[UnityEngine.Random.Range(0, available.Count)];
+            ret.Initialize();
+            return ret;
         }
         return finished;
     }

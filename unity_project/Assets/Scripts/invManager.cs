@@ -14,7 +14,6 @@ public class invManager : slotCollection, UIState
 
     public Color highlighted;
     public Color normal;
-    public GameObject paused;
 
 
 
@@ -91,7 +90,7 @@ public class invManager : slotCollection, UIState
 
     public void UpdateUI()
     {
-        UIManager.thisM.changeUI(paused);
+        UIManager.thisM.changeUI(tileDictionary.thisM.pauseUI);
 
     }
 

@@ -92,11 +92,9 @@ public class GameManager : MonoBehaviour
         myPlayer.animModel.layer = LayerMask.NameToLayer(GhostLayer);
         p.GetComponent<Rigidbody>().isKinematic = false;
 
+        PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Kills", 0 }, { "Placed", 0 }, { "NewItemsPicked", 0 }, { "Destroyed", 0 }, { "Deaths", 0 } });
         ObjectivesManeger.thisM.Initialize();
         NetworkEnable();
-
-        PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Kills", 0 }, { "Placed", 0 }, { "NewItemsPicked", 0 }, { "Destroyed", 0 }, { "Deaths", 0 } });
-
     }
 
     [PunRPC]
@@ -156,6 +154,7 @@ public class GameManager : MonoBehaviour
             view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, 0);
             Debug.Log("(Client)Sent Structures Request");
         }
+
     }
 
     public player getPlayerByViewID(int viewID)
@@ -191,8 +190,8 @@ public class GameManager : MonoBehaviour
         myPlayer.transform.position = myPlayer.spwanPos.position;
         myPlayer.transform.rotation = myPlayer.spwanPos.rotation;
         //				currLevel.cam.SetActive (false);
-        myPlayer.networkInit();
         ObjectivesManeger.thisM.updateObjectives();
+        myPlayer.networkInit();
         dead = false;
         UIManager.thisM.changeUI(tileDictionary.thisM.inGameUI);
 

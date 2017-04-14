@@ -8,8 +8,12 @@ public class PlaceMore : Objective
 
     public PlaceMore()
     {
+        needed = (int)(new System.Random().NextDouble() * 50);
+    }
 
-        needed =(int) (new System.Random().NextDouble() * 50);
+    public override void Initialize()
+    {
+        org = (int)PhotonNetwork.player.customProperties["Placed"];
     }
 
     public override bool reuseable
@@ -32,16 +36,12 @@ public class PlaceMore : Objective
     {
         get
         {
-            return "You placed " + Mathf.Abs(org -(int)PhotonNetwork.player.customProperties["Placed"]) + " items";
+            return "You placed " + Mathf.Abs(org - (int)PhotonNetwork.player.customProperties["Placed"]) + " items";
         }
     }
 
     public override bool CheckCompleted()
     {
-        if(org == -1)
-        {
-            org = (int)PhotonNetwork.player.customProperties["Placed"];
-        }
 
         if ((int)PhotonNetwork.player.customProperties["Placed"] >= (org + needed))
         {

@@ -13,6 +13,11 @@ public class Objective
         }
     }
 
+    public virtual void Initialize()
+    {
+
+    }
+
     public virtual string description
     {
         get

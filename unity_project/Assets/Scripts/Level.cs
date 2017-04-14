@@ -21,8 +21,12 @@ public abstract class Level : MonoBehaviour
     public GameObject cam;
 
     public GameObject spawnStructure;
+    public float deathYPos;
+    pauseUI pause;
 
-
+    List<string> deathMessages = new List<string>() { "Went too <color=red>deep</color>", "You got lost in the <size=24><color=black>abyss</color></size>", "You have reached the point of no <b>return</b>",
+        "<color=purple><i>Hypnic Jerk</i>, but this time its real</color>", "<color=grey>Free fall: No air resistance just gravity</color>", "Searching for new <color=green>grounds</color> to land on",
+        "<size=36>Cant stop the falling by \n Justin Timberlake</size>", "<color=orange>You are falling your physics class</color>" };
 
     // Use this for initialization
     void Start()
@@ -32,12 +36,22 @@ public abstract class Level : MonoBehaviour
         GameManager.thisM.ChangeCam(cam);
         lootTiles = GameObject.FindObjectsOfType<LootTile>();
         sS = FindObjectsOfType<SpawnSpot>();
-
+        pause = tileDictionary.thisM.pauseUI.GetComponent<pauseUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.thisM.dead)
+        {
+            if (GameManager.thisM.myPlayer.transform.position.y < deathYPos)
+            {
+                
+                pause.deathMessage = deathMessages[UnityEngine.Random.Range(0, deathMessages.Count)];
+                GameManager.thisM.NetworkDisable();
+                StartCoroutine(pause.Respawn(8f));
+            }
+        }
 
     }
 
