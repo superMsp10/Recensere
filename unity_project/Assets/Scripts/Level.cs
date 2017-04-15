@@ -88,7 +88,7 @@ public abstract class Level : MonoBehaviour
             structures.Add(s);
         }
         s.UpdateStructure(JSON.GetArray("Tiles"));
-        Debug.Log("Updating" + s.name);
+        //Debug.Log("Updating" + s.name);
 
     }
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class player : MonoBehaviour, Health
 {
@@ -46,6 +47,9 @@ public class player : MonoBehaviour, Health
     public AudioClip damageFinal;
 
     public float soundMaxLength, soundMinLength;
+    List<string> deathMessages = new List<string>() { "You hit it too <color=red>hard</color>",
+        "<color=purple>Sufaces: 1, You : 0</color>", "<color=grey>Who put that there?</color>", "<color=green>Splat!</color>",
+        "<size=36>STOP, Hammer time!</size>", "<color=orange>Collision velocity > Health</color>" };
 
     void FixedUpdate()
     {
@@ -92,6 +96,8 @@ public class player : MonoBehaviour, Health
         }
         else
         {
+
+            //Debug.Log("Damage by syncing for  " + attacker);
             thisView.RPC("syncDamage", thisView.owner, damage, attacker);
         }
         return false;
@@ -106,7 +112,9 @@ public class player : MonoBehaviour, Health
         if (thisView.isMine)
         {
             if (health <= 0)
-                HP -= damage;
+                return;
+
+            HP -= damage;
             lastAttacker = attacker;
             if (health <= 0)
             {
@@ -117,7 +125,6 @@ public class player : MonoBehaviour, Health
             else
             {
                 SoundManager.thisM.sourceFX.PlayOneShot(damageStart);
-
             }
         }
     }
@@ -150,10 +157,16 @@ public class player : MonoBehaviour, Health
 
         }
 
-        thisM.NetworkDisable();
-        StartCoroutine(tileDictionary.thisM.pauseUI.GetComponent<pauseUI>().Respawn(5f));
+        Invoke("respawn", 0.1f);
 
     }
+
+    void respawn()
+    {
+        thisM.NetworkDisable();
+        StartCoroutine(tileDictionary.thisM.pauseUI.GetComponent<pauseUI>().Respawn(5f));
+    }
+
     public string lastDamageBy()
     {
         return lastAttacker;
@@ -250,9 +263,12 @@ public class player : MonoBehaviour, Health
             float dmg = Mathf.Pow(collision.relativeVelocity.magnitude, sdm);
             if (takeDmg && collision.relativeVelocity.magnitude > Sturdy)
             {
+
                 //Debug.Log("Engough Damage at Player");
                 if (takeDamage(dmg, collision.collider.name))
                 {
+                    tileDictionary.thisM.pauseUI.GetComponent<pauseUI>().deathMessage = deathMessages[UnityEngine.Random.Range(0, deathMessages.Count)];
+
                     if (collision.collider.attachedRigidbody != null)
                     {
                         collision.collider.attachedRigidbody.velocity *= sdm;

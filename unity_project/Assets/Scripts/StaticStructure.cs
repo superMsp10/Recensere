@@ -24,7 +24,7 @@ public class StaticStructure : Structure
         }
         ret.Add("Tiles", arr);
 
-        Debug.Log(ret.ToString());
+        //Debug.Log(ret.ToString());
         return ret;
     }
 

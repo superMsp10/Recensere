@@ -38,12 +38,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.K))
         {
             Application.CaptureScreenshot("Snapshots/Screenshot_" + System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".png", 2);
         }
     }
+
     //Items------------------------------------------//
     [PunRPC]
     void spawnSceneObject(string prefabName, Vector3 position)
@@ -226,14 +226,14 @@ public class GameManager : MonoBehaviour
         {
             view.RPC("setStructuresNext", PhotonPlayer.Find(playerId), currLevel.structures[count].GenerateJSON().ToString(), count);
         }
-        Debug.Log("(Master)Got Request and Sent Structures Response");
+        //Debug.Log("(Master)Got Request and Sent Structures Response");
 
     }
 
     [PunRPC]
     public void setStructuresNext(string StructuresJSON, int count)
     {
-        Debug.Log("(Client)Got Structure");
+        //Debug.Log("(Client)Got Structure");
         currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
         count++;
         view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, count);
@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
         view.RPC("changeToEndScene", PhotonTargets.MasterClient);
 
     }
-
+    
     [PunRPC]
     public void changeToEndScene()
     {

@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlaceMore : Objective
+public class KillMore : Objective
 {
+
     int org = -1;
     int needed = 0;
-
     public override void Initialize()
     {
-        org = (int)PhotonNetwork.player.customProperties["Placed"];
-        needed = (int)((new System.Random().NextDouble() + iteration) * 10) + 2;
-
+        org = (int)PhotonNetwork.player.customProperties["Kills"];
+        needed = iteration + 2;
     }
 
     public override bool reuseable
@@ -25,7 +24,7 @@ public class PlaceMore : Objective
     {
         get
         {
-            return "Place " + needed + " more placeable items";
+            return "Get " + needed + " more kills";
         }
     }
 
@@ -33,14 +32,14 @@ public class PlaceMore : Objective
     {
         get
         {
-            return "You placed " + Mathf.Abs(org - (int)PhotonNetwork.player.customProperties["Placed"]) + " items";
+            return "You got " + Mathf.Abs(org - (int)PhotonNetwork.player.customProperties["Kills"]) + " kills";
         }
     }
 
     public override bool CheckCompleted()
     {
 
-        if ((int)PhotonNetwork.player.customProperties["Placed"] >= (org + needed))
+        if ((int)PhotonNetwork.player.customProperties["Kills"] >= (org + needed))
         {
             return true;
         }

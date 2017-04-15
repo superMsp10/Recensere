@@ -57,7 +57,14 @@ class Grenade_Projectile : Item_Throwable_Projectile
     {
         //Debug.Log("Grenade explosion client");
         thisPV.RPC("explode", PhotonTargets.All, null);
+        explosiveDamage();
+        Invoke("explosionKnockback", 0.1f);
 
+
+    }
+
+    void explosiveDamage()
+    {
         foreach (Collider c in Physics.OverlapSphere(transform.position, explosionRadius, explodingLayers))
         {
             Health h = c.GetComponent<Health>();
@@ -67,12 +74,7 @@ class Grenade_Projectile : Item_Throwable_Projectile
                 h.takeDamage(dmg, "player" + belongsTo.playerID.ToString());
             }
         }
-
-        Invoke("explosionKnockback", 0.1f);
-
-
     }
-
     void explosionKnockback()
     {
         Collider[] colls = Physics.OverlapSphere(transform.position, explosionRadius, explodingLayers);

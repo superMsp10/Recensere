@@ -8,7 +8,7 @@ public class ObjectivesManeger : MonoBehaviour
 {
     public int playerLevel;
     public static ObjectivesManeger thisM;
-    List<Objective> available = new List<Objective> { new PlaceMore() };
+    List<Objective> available = new List<Objective> { new PlaceMore(), new KillMore(), new DontDie(), new DestroyMore() };
     List<Objective> completed = new List<Objective>();
 
     Objective active;
@@ -47,7 +47,9 @@ public class ObjectivesManeger : MonoBehaviour
                 completed.Add(active);
                 if (active.reuseable)
                 {
-                    available.Add((Objective)Activator.CreateInstance(active.GetType()));
+                    Objective nO = (Objective)Activator.CreateInstance(active.GetType());
+                    nO.iteration += active.iteration;
+                    available.Add(nO);
                 }
                 active = randomObjective();
                 Invoke("showText", 5f);

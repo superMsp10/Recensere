@@ -4,6 +4,7 @@ using System.Collections;
 public class Objective
 {
     public bool completed = false;
+    public int iteration = 0;
 
     public virtual bool reuseable
     {
