@@ -13,10 +13,11 @@ public class Structure : MonoBehaviour
     public bool autoAddTilesOnStart = false;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         if (autoAddTilesOnStart)
         {
+            Debug.Log("Auto initializing strucuture for: " + name);
             tiles = new List<Tile>();
             foreach (Tile t in GetComponentsInChildren<Tile>())
             {

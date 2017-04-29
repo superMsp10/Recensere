@@ -43,7 +43,7 @@ public class fuelTile : LootTile
     void Start()
     {
         tube.material.color = tubeOrg;
-        fuelRate = GameManager.thisM.currLevel.fuelRate;
+        fuelRate = ((DefaultMap)GameManager.thisM.currLevel).fuelRate;
         airIntake.Stop();
         fuelSpray.Stop();
 

@@ -12,9 +12,7 @@ public abstract class Level : MonoBehaviour
 
     public SpawnSpot[] sS;
 
-    public LootTile[] lootTiles;
-    public float lootTime;
-    public float fuelRate = 2f;
+   
 
     public List<Structure> structures = new List<Structure>();
 
@@ -29,15 +27,15 @@ public abstract class Level : MonoBehaviour
         "<size=36>Cant stop the falling by \n Justin Timberlake</size>", "<color=orange>You are falling your physics class</color>" };
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         //				cam = FindObjectOfType<Camera> ().gameObject;
         GameManager.thisM.currLevel = this;
         GameManager.thisM.ChangeCam(cam);
-        lootTiles = GameObject.FindObjectsOfType<LootTile>();
         sS = FindObjectsOfType<SpawnSpot>();
         pause = tileDictionary.thisM.pauseUI.GetComponent<pauseUI>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -46,7 +44,7 @@ public abstract class Level : MonoBehaviour
         {
             if (GameManager.thisM.myPlayer.transform.position.y < deathYPos)
             {
-                
+
                 pause.deathMessage = deathMessages[UnityEngine.Random.Range(0, deathMessages.Count)];
                 GameManager.thisM.NetworkDisable();
                 StartCoroutine(pause.Respawn(8f));
@@ -70,12 +68,6 @@ public abstract class Level : MonoBehaviour
             Debug.Log("Updating" + s.name);
 
 
-        }
-
-        Debug.Log("Updating Loot Tiles");
-        foreach (LootTile t in lootTiles)
-        {
-            t.NetworkInit();
         }
     }
 
@@ -133,23 +125,14 @@ public abstract class Level : MonoBehaviour
     //        InvokeRepeating("generateLoot", 0, lootTime);
     //}
 
-    public void generateLoot()
-    {
-        Debug.Log("Generated loot");
-        foreach (LootTile t in lootTiles)
-        {
-            t.generateLoot();
-        }
-    }
+    
 
-    public void OnConnected()
+    public virtual void OnConnected()
     {
         //Debug.Log ("Connected in GameManager");
         UIManager.thisM.currentUI = null;
         GameManager.thisM.instantiatePlayer();
-
-        if (PhotonNetwork.isMasterClient)
-            InvokeRepeating("generateLoot", 0, lootTime);
+        
     }
 
     public JSONArray StructureNames()

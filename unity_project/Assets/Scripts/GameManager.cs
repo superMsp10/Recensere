@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public player myPlayer;
     public bool dead = true;
     bool pause = false;
-
+    public bool doObjectives = true;
 
 
     //LevelStuf------------------------------------------//
@@ -93,7 +93,8 @@ public class GameManager : MonoBehaviour
         p.GetComponent<Rigidbody>().isKinematic = false;
 
         PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Kills", 0 }, { "Placed", 0 }, { "NewItemsPicked", 0 }, { "Destroyed", 0 }, { "Deaths", 0 } });
-        ObjectivesManeger.thisM.Initialize();
+        if (doObjectives)
+            ObjectivesManeger.thisM.Initialize();
         NetworkEnable();
     }
 
@@ -105,22 +106,26 @@ public class GameManager : MonoBehaviour
 
     public void addPlaced()
     {
-        PhotonNetwork.player.customProperties["Placed"] = getHashInt(PhotonNetwork.player.customProperties["Placed"]) + 1;
+        if (doObjectives)
+            PhotonNetwork.player.customProperties["Placed"] = getHashInt(PhotonNetwork.player.customProperties["Placed"]) + 1;
     }
 
     public void addNewItemsPicked()
     {
-        PhotonNetwork.player.customProperties["NewItemsPicked"] = getHashInt(PhotonNetwork.player.customProperties["NewItemsPicked"]) + 1;
+        if (doObjectives)
+            PhotonNetwork.player.customProperties["NewItemsPicked"] = getHashInt(PhotonNetwork.player.customProperties["NewItemsPicked"]) + 1;
     }
 
     public void addDestroyed()
     {
-        PhotonNetwork.player.customProperties["Destroyed"] = getHashInt(PhotonNetwork.player.customProperties["Destroyed"]) + 1;
+        if (doObjectives)
+            PhotonNetwork.player.customProperties["Destroyed"] = getHashInt(PhotonNetwork.player.customProperties["Destroyed"]) + 1;
     }
 
     public void addDeaths()
     {
-        PhotonNetwork.player.customProperties["Deaths"] = getHashInt(PhotonNetwork.player.customProperties["Deaths"]) + 1;
+        if (doObjectives)
+            PhotonNetwork.player.customProperties["Deaths"] = getHashInt(PhotonNetwork.player.customProperties["Deaths"]) + 1;
     }
 
     [PunRPC]
@@ -144,6 +149,7 @@ public class GameManager : MonoBehaviour
 
     public void OnConnected()
     {
+
         if (PhotonNetwork.isMasterClient)
         {
             currLevel.OnConnected();
@@ -190,7 +196,8 @@ public class GameManager : MonoBehaviour
         myPlayer.transform.position = myPlayer.spwanPos.position;
         myPlayer.transform.rotation = myPlayer.spwanPos.rotation;
         //				currLevel.cam.SetActive (false);
-        ObjectivesManeger.thisM.updateObjectives();
+        if (doObjectives)
+            ObjectivesManeger.thisM.updateObjectives();
         myPlayer.networkInit();
         dead = false;
         UIManager.thisM.changeUI(tileDictionary.thisM.inGameUI);
@@ -271,7 +278,7 @@ public class GameManager : MonoBehaviour
         view.RPC("changeToEndScene", PhotonTargets.MasterClient);
 
     }
-    
+
     [PunRPC]
     public void changeToEndScene()
     {

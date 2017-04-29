@@ -14,7 +14,7 @@ public class ObjectivesManeger : MonoBehaviour
     Objective active;
     public string[] compliments = new string[] { "Well done", "Good going", "Great work", "Wow!", "Keep it up", "Oh yeah!", "Grate jab!", "Gracias" };
 
-    PlayerStructure playerRoom;
+    DefaultMapPlayerStructure playerRoom;
     FinishedObjective finished;
 
     void Awake()
@@ -29,7 +29,7 @@ public class ObjectivesManeger : MonoBehaviour
     public void Initialize()
     {
         playerLevel = Persistent.thisPersist.Level;
-        playerRoom = GameManager.thisM.myPlayer.spwanRoom;
+        playerRoom = (DefaultMapPlayerStructure)GameManager.thisM.myPlayer.spwanRoom;
         finished = new FinishedObjective();
     }
 

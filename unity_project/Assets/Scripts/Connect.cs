@@ -29,7 +29,11 @@ public class Connect : Photon.MonoBehaviour
             PhotonNetwork.automaticallySyncScene = true;
             PhotonNetwork.ConnectUsingSettings(Version.ToString());
         }
-      
+        else
+        {
+            GameManager.thisM.OnConnected();
+        }
+
         //}
 
     }
