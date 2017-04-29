@@ -32,7 +32,6 @@ public abstract class Level : MonoBehaviour
         //				cam = FindObjectOfType<Camera> ().gameObject;
         GameManager.thisM.currLevel = this;
         GameManager.thisM.ChangeCam(cam);
-        sS = FindObjectsOfType<SpawnSpot>();
         pause = tileDictionary.thisM.pauseUI.GetComponent<pauseUI>();
     }
 
@@ -131,8 +130,8 @@ public abstract class Level : MonoBehaviour
     {
         //Debug.Log ("Connected in GameManager");
         UIManager.thisM.currentUI = null;
+        sS = FindObjectsOfType<SpawnSpot>();
         GameManager.thisM.instantiatePlayer();
-        
     }
 
     public JSONArray StructureNames()
