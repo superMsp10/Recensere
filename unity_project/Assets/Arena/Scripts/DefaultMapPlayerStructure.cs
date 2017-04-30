@@ -39,8 +39,6 @@ public class DefaultMapPlayerStructure : PlayerStructure
     public void openLid()
     {
 
-        Debug.Log("Hello");
-
         shaft.moving = true;
         shaft.totalTime = totalTime;
         shaft.start = shaft.lookAt.localPosition;

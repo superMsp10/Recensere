@@ -5,19 +5,12 @@ using Boomlagoon.JSON;
 public class TestLevelUI : pauseUI
 {
     public GameObject[] cameras;
-    GameManager gm;
+    GameManager gm = GameManager.thisM;
     int currCam = 0;
-    public PlayerStructure testObject;
 
-    void Start()
-    {
-
-
-    }
 
     public void switchCamera()
     {
-        gm = GameManager.thisM;
 
         if (currCam < cameras.Length)
         {
@@ -34,7 +27,16 @@ public class TestLevelUI : pauseUI
 
     public void runCode1()
     {
-   
+        PhotonNetwork.player.customProperties["Placed"] =  getHashInt(PhotonNetwork.player.customProperties["Kills"]) + 10;
+        PhotonNetwork.player.customProperties["Kills"] =  getHashInt(PhotonNetwork.player.customProperties["Placed"]) + 10; 
+        PhotonNetwork.player.customProperties["Destroyed"] = getHashInt(PhotonNetwork.player.customProperties["Destroyed"]) + 10;
+        PhotonNetwork.player.customProperties["Deaths"] = getHashInt(PhotonNetwork.player.customProperties["Deaths"]) + 10;
+
+    }
+
+    int getHashInt(object o)
+    {
+        return int.Parse(o.ToString());
     }
 
     public void NetworkIns(string s)

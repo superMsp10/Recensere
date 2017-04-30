@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Boomlagoon.JSON;
 
 public class EndGameLevel : Level
 {
@@ -7,6 +8,10 @@ public class EndGameLevel : Level
     public GameObject centerCircle;
     public float spaceBetPlayers;
     public GameObject ins;
+    public SpawnSpot centerSpot;
+    public PhotonView p;
+    bool setSpawn = false;
+
     public new void Start()
     {
         base.Start();
@@ -25,20 +30,51 @@ public class EndGameLevel : Level
             float rotBy = 360 / (playerNum - 1);
             Vector3 rotated;
 
+            sS = new SpawnSpot[playerNum - 1];
             for (int i = 0; i < playerNum - 1; i++)
             {
                 center.Rotate(0, rotBy * i, 0);
                 rotated = center.forward * diameter;
-                Instantiate(ins, new Vector3(rotated.x, -2.7f, rotated.z), Quaternion.identity, transform);
+                sS[i] = ((GameObject)Instantiate(ins, new Vector3(rotated.x, -2.7f, rotated.z), Quaternion.identity, transform)).GetComponent<SpawnSpot>();
+            }
+
+
+            int topScore = int.MinValue;
+            PhotonPlayer topPlayer = null;
+            foreach (PhotonPlayer item in PhotonNetwork.playerList)
+            {
+                int score = item.GetScore();
+                if (score > topScore)
+                {
+                    topScore = score;
+                    topPlayer = item;
+                }
+            }
+
+            if (topPlayer != null)
+            {
+                p.RPC("SpawnCenter", topPlayer);
+
+            }
+            else
+            {
+                Debug.LogError("No top player found");
             }
         }
 
-        foreach (PhotonPlayer item in PhotonNetwork.playerList)
-        {
+    }
 
-        }
+    [PunRPC]
+    public void SpawnDefault()
+    {
+        GameManager.thisM.instantiatePlayer();
+    }
 
-        base.OnConnected();
+    [PunRPC]
+    public void SpawnCenter()
+    {
+        GameManager.thisM.playerSetup(centerSpot);
+        p.RPC("SpawnDefault", PhotonTargets.Others);
 
     }
 }

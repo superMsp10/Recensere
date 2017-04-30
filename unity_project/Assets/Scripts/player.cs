@@ -197,6 +197,7 @@ public class player : MonoBehaviour, Health
 
     public void networkInit()
     {
+
         thisM.ChangeCam(thisCam);
         //				thisCam.gameObject.SetActive (true);
         foreach (MonoBehaviour m in networkSet)

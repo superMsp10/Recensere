@@ -56,10 +56,16 @@ public class GameManager : MonoBehaviour
     public void instantiatePlayer()
     {
 
-        GameObject p;
         int playerID = PhotonNetwork.player.ID;
         SpawnSpot[] spawns = currLevel.sS;
-        SpawnSpot thisSpawn = spawns[playerID % spawns.Length];
+        playerSetup(spawns[playerID % spawns.Length]);
+
+    }
+
+    public void playerSetup(SpawnSpot thisSpawn)
+    {
+        GameObject p;
+        int playerID = PhotonNetwork.player.ID;
         GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), thisSpawn.transform.rotation, currLevel.StructuresTransform);
         g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
 
@@ -97,6 +103,8 @@ public class GameManager : MonoBehaviour
             ObjectivesManeger.thisM.Initialize();
         NetworkEnable();
     }
+
+
 
     [PunRPC]
     public void addKills()
