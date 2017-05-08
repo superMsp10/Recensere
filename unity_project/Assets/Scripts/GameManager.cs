@@ -157,18 +157,8 @@ public class GameManager : MonoBehaviour
 
     public void OnConnected()
     {
-
-        if (PhotonNetwork.isMasterClient)
-        {
-            currLevel.OnConnected();
-            loaded = true;
-        }
-        else
-        {
-            view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, 0);
-            Debug.Log("(Client)Sent Structures Request");
-        }
-
+        currLevel.OnConnected();
+        loaded = true;
     }
 
     public player getPlayerByViewID(int viewID)
@@ -230,6 +220,12 @@ public class GameManager : MonoBehaviour
 
     //Structure------------------------------------------//
 
+    public void StartStrucutresSync()
+    {
+        view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, 0);
+    }
+
+
     [PunRPC]
     public void getStructuresNext(int playerId, int count)
     {
@@ -264,8 +260,7 @@ public class GameManager : MonoBehaviour
         currLevel.InitStrucutre(JSONObject.Parse(StructuresJSON));
         loaded = true;
         PhotonNetwork.isMessageQueueRunning = true;
-        currLevel.OnConnected();
-
+        currLevel.OnLoaded();
     }
 
     [PunRPC]

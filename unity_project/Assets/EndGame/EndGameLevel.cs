@@ -19,14 +19,13 @@ public class EndGameLevel : Level
 
     public override void OnConnected()
     {
+        //int playerNum = PhotonNetwork.playerList.Length;
+        int playerNum = 3;
+        float diameter = ((playerNum - 1) * spaceBetPlayers) / Mathf.PI;
+        centerCircle.transform.localScale = new Vector3(diameter, centerCircle.transform.localScale.y, diameter);
 
         if (PhotonNetwork.isMasterClient)
         {
-
-            //int playerNum = PhotonNetwork.playerList.Length;
-            int playerNum = 3;
-            float diameter = ((playerNum - 1) * spaceBetPlayers) / Mathf.PI;
-            centerCircle.transform.localScale = new Vector3(diameter, centerCircle.transform.localScale.y, diameter);
             float rotBy = 360 / (playerNum - 1);
             Vector3 rotated;
 
@@ -67,13 +66,13 @@ public class EndGameLevel : Level
     [PunRPC]
     public void SpawnDefault()
     {
-        GameManager.thisM.instantiatePlayer();
+        thisM.instantiatePlayer();
     }
 
     [PunRPC]
     public void SpawnCenter()
     {
-        GameManager.thisM.playerSetup(centerSpot);
+        thisM.playerSetup(centerSpot);
         p.RPC("SpawnDefault", PhotonTargets.Others);
 
     }

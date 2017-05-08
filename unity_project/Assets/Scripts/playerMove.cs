@@ -210,11 +210,11 @@ public class playerMove : MonoBehaviour
     {
 
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
-        anim.SetFloat("XVelo", moveHorizontal);
-        anim.SetFloat("ZVelo", moveVertical);
+        anim.SetFloat("XVelo", moveX);
+        anim.SetFloat("ZVelo", moveZ);
 
         if (grounded)
         {
@@ -222,25 +222,36 @@ public class playerMove : MonoBehaviour
             jumped = false;
         }
         else
-            speed = og_speed * fly_speed;
-
-        if (moveHorizontal == 0 && moveVertical == 0)
         {
-            if (grounded)
-                rigidbod.velocity = new Vector3(0, rigidbod.velocity.y, 0);
+            speed = og_speed * fly_speed;
         }
+
+        Vector3 localV = transform.InverseTransformDirection(rigidbod.velocity);
 
         if (rigidbod.velocity.magnitude < speedLimit)
         {
-            if (moveVertical > 0)
+            if (moveZ > 0)
                 rigidbod.AddForce(transform.forward * speed);
-            else if (moveVertical < 0)
+            else if (moveZ < 0)
                 rigidbod.AddForce(transform.forward * -speed);
+            else
+            {
+                if (grounded)
+                    localV.z = 0;
+            }
 
-            if (moveHorizontal > 0)
+
+            if (moveX > 0)
                 rigidbod.AddForce(transform.right * speed);
-            else if (moveHorizontal < 0)
+            else if (moveX < 0)
                 rigidbod.AddForce(transform.right * -speed);
+            else
+            {
+                if (grounded)
+                    localV.x = 0;
+            }
+
+            rigidbod.velocity = transform.TransformDirection(localV);
         }
     }
 

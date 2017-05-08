@@ -36,7 +36,15 @@ public class DefaultMap : Level
     {
         base.OnConnected();
         if (PhotonNetwork.isMasterClient)
+        {
             InvokeRepeating("generateLoot", 0, lootTime);
+            thisM.loaded = true;
+            OnLoaded();
+        }
+        else
+        {
+            thisM.StartStrucutresSync();
+        }
     }
 
     public override void InitStrucutres(string JSON)

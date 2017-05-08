@@ -12,7 +12,7 @@ public abstract class Level : MonoBehaviour
 
     public SpawnSpot[] sS;
 
-   
+
 
     public List<Structure> structures = new List<Structure>();
 
@@ -22,6 +22,8 @@ public abstract class Level : MonoBehaviour
     public float deathYPos;
     pauseUI pause;
 
+    public GameManager thisM;
+
     List<string> deathMessages = new List<string>() { "Went too <color=red>deep</color>", "You got lost in the <size=24><color=black>abyss</color></size>", "You have reached the point of no <b>return</b>",
         "<color=purple><i>Hypnic Jerk</i>, but this time its real</color>", "<color=grey>Free fall: No air resistance just gravity</color>", "Searching for new <color=green>grounds</color> to land on",
         "<size=36>Cant stop the falling by \n Justin Timberlake</size>", "<color=orange>You are falling your physics class</color>" };
@@ -30,8 +32,8 @@ public abstract class Level : MonoBehaviour
     public void Start()
     {
         //				cam = FindObjectOfType<Camera> ().gameObject;
-        GameManager.thisM.currLevel = this;
-        GameManager.thisM.ChangeCam(cam);
+        thisM.currLevel = this;
+        thisM.ChangeCam(cam);
         pause = tileDictionary.thisM.pauseUI.GetComponent<pauseUI>();
     }
 
@@ -39,13 +41,13 @@ public abstract class Level : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.thisM.dead)
+        if (!thisM.dead)
         {
-            if (GameManager.thisM.myPlayer.transform.position.y < deathYPos)
+            if (thisM.myPlayer.transform.position.y < deathYPos)
             {
 
                 pause.deathMessage = deathMessages[UnityEngine.Random.Range(0, deathMessages.Count)];
-                GameManager.thisM.NetworkDisable();
+                thisM.NetworkDisable();
                 StartCoroutine(pause.Respawn(8f));
             }
         }
@@ -124,14 +126,18 @@ public abstract class Level : MonoBehaviour
     //        InvokeRepeating("generateLoot", 0, lootTime);
     //}
 
-    
+
 
     public virtual void OnConnected()
     {
         //Debug.Log ("Connected in GameManager");
         UIManager.thisM.currentUI = null;
         sS = FindObjectsOfType<SpawnSpot>();
-        GameManager.thisM.instantiatePlayer();
+    }
+
+    public virtual void OnLoaded()
+    {
+        thisM.instantiatePlayer();
     }
 
     public JSONArray StructureNames()
