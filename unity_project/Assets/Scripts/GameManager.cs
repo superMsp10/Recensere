@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public string PlayerLayer;
     public string GhostLayer;
 
-    public string endGameScene;
+    public string endGameScene, startGameScene;
 
     //PlayerStuff------------------------------------------//
 
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     {
 
         int playerID = PhotonNetwork.player.ID;
-        SpawnSpot[] spawns = currLevel.sS;
+        SpawnSpot[] spawns = FindObjectsOfType<SpawnSpot>();
         playerSetup(spawns[playerID % spawns.Length]);
 
     }
@@ -103,45 +103,6 @@ public class GameManager : MonoBehaviour
             ObjectivesManeger.thisM.Initialize();
         NetworkEnable();
     }
-
-
-
-    [PunRPC]
-    public void addKills()
-    {
-        PhotonNetwork.player.customProperties["Kills"] = getHashInt(PhotonNetwork.player.customProperties["Kills"]) + 1;
-    }
-
-    public void addPlaced()
-    {
-        if (doObjectives)
-            PhotonNetwork.player.customProperties["Placed"] = getHashInt(PhotonNetwork.player.customProperties["Placed"]) + 1;
-    }
-
-    public void addNewItemsPicked()
-    {
-        if (doObjectives)
-            PhotonNetwork.player.customProperties["NewItemsPicked"] = getHashInt(PhotonNetwork.player.customProperties["NewItemsPicked"]) + 1;
-    }
-
-    public void addDestroyed()
-    {
-        if (doObjectives)
-            PhotonNetwork.player.customProperties["Destroyed"] = getHashInt(PhotonNetwork.player.customProperties["Destroyed"]) + 1;
-    }
-
-    public void addDeaths()
-    {
-        if (doObjectives)
-            PhotonNetwork.player.customProperties["Deaths"] = getHashInt(PhotonNetwork.player.customProperties["Deaths"]) + 1;
-    }
-
-    [PunRPC]
-    void updateAllProperties()
-    {
-        PhotonNetwork.player.SetCustomProperties(PhotonNetwork.player.customProperties);
-    }
-
 
     int getHashInt(object o)
     {
@@ -225,7 +186,6 @@ public class GameManager : MonoBehaviour
         view.RPC("getStructuresNext", PhotonTargets.MasterClient, PhotonNetwork.player.ID, 0);
     }
 
-
     [PunRPC]
     public void getStructuresNext(int playerId, int count)
     {
@@ -272,20 +232,63 @@ public class GameManager : MonoBehaviour
 
 
     //UI------------------------------------------//
+    [PunRPC]
+    public void addKills()
+    {
+        PhotonNetwork.player.customProperties["Kills"] = getHashInt(PhotonNetwork.player.customProperties["Kills"]) + 1;
+    }
+
+    public void addPlaced()
+    {
+        if (doObjectives)
+            PhotonNetwork.player.customProperties["Placed"] = getHashInt(PhotonNetwork.player.customProperties["Placed"]) + 1;
+    }
+
+    public void addNewItemsPicked()
+    {
+        if (doObjectives)
+            PhotonNetwork.player.customProperties["NewItemsPicked"] = getHashInt(PhotonNetwork.player.customProperties["NewItemsPicked"]) + 1;
+    }
+
+    public void addDestroyed()
+    {
+        if (doObjectives)
+            PhotonNetwork.player.customProperties["Destroyed"] = getHashInt(PhotonNetwork.player.customProperties["Destroyed"]) + 1;
+    }
+
+    public void addDeaths()
+    {
+        if (doObjectives)
+            PhotonNetwork.player.customProperties["Deaths"] = getHashInt(PhotonNetwork.player.customProperties["Deaths"]) + 1;
+    }
+
+    void updateAllProperties()
+    {
+        PhotonNetwork.player.SetCustomProperties(PhotonNetwork.player.customProperties);
+    }
 
     public void endGame()
     {
-        view.RPC("updateAllProperties", PhotonTargets.All);
+        view.RPC("changeToEndSceneMaster", PhotonTargets.MasterClient);
+    }
 
-        ObjectivesManeger.thisM.setCompleted();
-        view.RPC("changeToEndScene", PhotonTargets.MasterClient);
-
+    [PunRPC]
+    public void changeToEndSceneMaster()
+    {
+        view.RPC("changeToEndScene", PhotonTargets.All);
+        PhotonNetwork.LoadLevel(endGameScene);
     }
 
     [PunRPC]
     public void changeToEndScene()
     {
-        PhotonNetwork.LoadLevel(endGameScene);
+        ObjectivesManeger.thisM.setCompleted();
+        updateAllProperties();
+    }
+
+    public void restartgame()
+    {
+        PhotonNetwork.LoadLevel(startGameScene);
     }
 
     public bool paused

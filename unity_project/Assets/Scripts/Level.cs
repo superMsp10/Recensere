@@ -10,9 +10,6 @@ public abstract class Level : MonoBehaviour
     public Transform StructuresTransform;
 
 
-    public SpawnSpot[] sS;
-
-
 
     public List<Structure> structures = new List<Structure>();
 
@@ -132,7 +129,6 @@ public abstract class Level : MonoBehaviour
     {
         //Debug.Log ("Connected in GameManager");
         UIManager.thisM.currentUI = null;
-        sS = FindObjectsOfType<SpawnSpot>();
     }
 
     public virtual void OnLoaded()

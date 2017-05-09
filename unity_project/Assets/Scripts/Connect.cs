@@ -11,6 +11,7 @@ public class Connect : Photon.MonoBehaviour
     bool showConnectionState = true;
     string prevConnectionState;
     public string loadSceneName;
+    public int maxPlayerNUm = 20;
 
     // Use this for initialization
     void Start()
@@ -46,7 +47,7 @@ public class Connect : Photon.MonoBehaviour
     public void Create()
     {
         PhotonNetwork.automaticallySyncScene = true;
-        PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = 16 }, null);
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = (byte)maxPlayerNUm }, null);
         PhotonNetwork.LoadLevel(loadSceneName);
 
     }
@@ -80,7 +81,7 @@ public class Connect : Photon.MonoBehaviour
         if (autoJoin)
         {
             PhotonNetwork.automaticallySyncScene = true;
-            PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = 16 }, null);
+            PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = (byte)maxPlayerNUm }, null);
         }
 
     }
