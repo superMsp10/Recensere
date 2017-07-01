@@ -69,6 +69,10 @@ public class EndGameLevel : Level
         }
     }
 
+    public override void OnLoaded()
+    {
+    }
+
     [PunRPC]
     public void JoinRequest(int n)
     {

@@ -46,8 +46,6 @@ public class fuelTile : LootTile
         fuelRate = ((DefaultMap)GameManager.thisM.currLevel).fuelRate;
         airIntake.Stop();
         fuelSpray.Stop();
-
-
     }
 
     public override void NetworkInit()
@@ -102,8 +100,6 @@ public class fuelTile : LootTile
         if (startUp)
         {
             tube.material.color = Color.Lerp(tubeOrg, tubeFuel, (Time.time - timeStarted) / fuelRate);
-
-
         }
     }
 

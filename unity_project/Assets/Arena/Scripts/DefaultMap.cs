@@ -38,7 +38,6 @@ public class DefaultMap : Level
         if (PhotonNetwork.isMasterClient)
         {
             InvokeRepeating("generateLoot", 0, lootTime);
-            thisM.loaded = true;
             OnLoaded();
         }
         else
