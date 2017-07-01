@@ -36,7 +36,7 @@ public class MapGenerator
             for (int y = 0; y < thisMap.arenaSize; y++)
             {
                 string name = "X" + (x).ToString() + "Y" + (y).ToString();
-                Transform t = tiles.FindChild(name);
+                Transform t = tiles.Find(name);
                 if (t == null)
                 {
                     Debug.Log("No tile named " + name + " found in tiles transform");
