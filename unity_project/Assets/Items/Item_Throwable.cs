@@ -143,7 +143,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
         return false;
     }
-    public void buttonUP()
+    public bool buttonUP()
     {
         thisView.RPC("buttonUpBy", PhotonTargets.All, null);
 
@@ -153,7 +153,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
         float heldTime = Time.time - timeStarted;
 
         if (heldTime <= minimumHeldTime)
-            return;
+            return false;
 
         //Projectile Stuff
         GameObject g = projectilePooler.getObject();
@@ -173,6 +173,11 @@ public class Item_Throwable : MonoBehaviour, Holdable
         else
             force = ((heldTime + defaultHeldTime) / maximumHeldTime) * throwMultiplier;
         g.GetComponent<Rigidbody>().AddForce(thisPlayer.left_hand.forward * force);
+
+        amount--;
+        return true;
+
+
     }
     public void onSelect()
     {
@@ -198,6 +203,12 @@ public class Item_Throwable : MonoBehaviour, Holdable
         thisView.RPC("droppedBy", PhotonTargets.All, null);
 
     }
+
+    public void onRemove()
+    {
+        PhotonNetwork.Destroy(gameObject);
+    }
+
     public void resetPick()
     {
         thisView.RPC("resetPickBy", PhotonTargets.All, null);

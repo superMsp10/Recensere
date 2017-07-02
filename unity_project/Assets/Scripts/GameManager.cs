@@ -330,7 +330,7 @@ public class GameManager : MonoBehaviour
     public void SendTileDamage(float damage, string attacker, string structureName, string tileName)
     {
         //Debug.Log("send tile dmg");
-        view.RPC("SyncTileDamage", PhotonTargets.OthersBuffered, damage, attacker, structureName, tileName);
+        view.RPC("SyncTileDamage", PhotonTargets.Others, damage, attacker, structureName, tileName);
 
     }
 

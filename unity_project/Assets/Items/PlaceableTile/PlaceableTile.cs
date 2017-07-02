@@ -9,7 +9,7 @@ public class PlaceableTile : Placeable
     public GameManager thisG;
 
 
-    public override void buttonUP()
+    public override bool buttonUP()
     {
         if (thisStructure == null)
             thisStructure = tileDictionary.thisM.playerPlaceableStructure;
@@ -37,9 +37,9 @@ public class PlaceableTile : Placeable
             thisG.addPlaced();
 
             amount--;
-
+            return true;
         }
-
+        return false;
 
     }
 }

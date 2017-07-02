@@ -104,7 +104,6 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
                 detach(Attached[0].gameobject);
             }
         }
-        thisStructure.editedTiles.Remove(this);
         thisStructure.DestroyTile(this);
         GameManager.thisM.addDestroyed();
         GameObject.Destroy(gameObject);
@@ -214,6 +213,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
     public JSONObject ToJSON()
     {
         JSONObject ret = new JSONObject();
+
         ret.Add("Position", transform.position.ToString());
         ret.Add("Rotation", transform.rotation.ToString());
         ret.Add("Health", health);

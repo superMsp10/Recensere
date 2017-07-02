@@ -4,35 +4,42 @@ using System.Collections;
 public interface Holdable
 {
 
-		Sprite holdUI {
-				get;
-		}
-		int  stackSize {
-				get;
-		}
-		string description {
-				get;
-		}
-		bool pickable {
-				get;
-		}
-		int amount {
-				get;
-				set;
-		}
+    Sprite holdUI
+    {
+        get;
+    }
+    int stackSize
+    {
+        get;
+    }
+    string description
+    {
+        get;
+    }
+    bool pickable
+    {
+        get;
+    }
+    int amount
+    {
+        get;
+        set;
+    }
 
 
 
-	
-		bool  buttonDown ();
-		void  buttonUP ();
 
-		void  onSelect ();
-		void  onDeselect ();
-		void  onPickup ();
-		void  onDrop ();
+    bool buttonDown();
+    bool buttonUP();
 
-		void resetPick ();
+    void onSelect();
+    void onDeselect();
+    void onPickup();
+    void onDrop();
+    void onRemove();
+
+
+    void resetPick();
 
 
 }

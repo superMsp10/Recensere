@@ -2058,7 +2058,6 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 				for (int index = 0; index < callParameterTypes.Length; index++) {
 						Type type = methodParameters [index].ParameterType;
-						//todo: check metro type usage
 						if (callParameterTypes [index] != null && !type.Equals (callParameterTypes [index])) {
 								return false;
 						}

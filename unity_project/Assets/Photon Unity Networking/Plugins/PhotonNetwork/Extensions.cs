@@ -32,13 +32,13 @@ public static class Extensions
     /// <summary>compares the squared magnitude of target - second to given float value</summary>
     public static bool AlmostEquals(this Vector3 target, Vector3 second, float sqrMagnitudePrecision)
     {
-        return (target - second).sqrMagnitude < sqrMagnitudePrecision;  // TODO: inline vector methods to optimize?
+        return (target - second).sqrMagnitude < sqrMagnitudePrecision;
     }
 
     /// <summary>compares the squared magnitude of target - second to given float value</summary>
     public static bool AlmostEquals(this Vector2 target, Vector2 second, float sqrMagnitudePrecision)
     {
-        return (target - second).sqrMagnitude < sqrMagnitudePrecision;  // TODO: inline vector methods to optimize?
+        return (target - second).sqrMagnitude < sqrMagnitudePrecision;
     }
 
     /// <summary>compares the angle between target and second to given float value</summary>
@@ -193,18 +193,18 @@ public static class GameObjectExtensions
     /// <returns>Unity 3.5: active. Any newer Unity: activeInHierarchy.</returns>
     public static bool GetActive(this GameObject target)
     {
-        #if UNITY_3_5
+#if UNITY_3_5
         return target.active;
-        #else
+#else
         return target.activeInHierarchy;
-        #endif
+#endif
     }
 
-    #if UNITY_3_5
+#if UNITY_3_5
     /// <summary>Unity-version-independent setter for active and SetActive().</summary>
     public static void SetActive(this GameObject target, bool value)
     {
         target.active = value;
     }
-    #endif
+#endif
 }

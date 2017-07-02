@@ -51,11 +51,11 @@ public class invManager : slotCollection, UIState
             {
                 if (Input.GetButtonDown("InvSelected"))
                 {
-                    SelectedSlot.buttonDown();
+                    SelectedSlot.Use(SelectedSlot.holding.buttonDown);
                 }
                 if (Input.GetButtonUp("InvSelected"))
                 {
-                    SelectedSlot.holding.buttonUP();
+                    SelectedSlot.Use(SelectedSlot.holding.buttonUP);
                 }
                 if (Input.GetKeyUp(KeyCode.T))
                 {

@@ -1,121 +1,143 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class UIslot : MonoBehaviour
 {
-		protected	GameManager thisM;
+    protected GameManager thisM;
 
-		//Holding
-		public Holdable holding;
-		int _amount;
-		public bool selected = false;
-	
-		//Visuals
-		public Image slot;
-		public Sprite defaultSlotImage;
-		public Image outline;
-		public Text amountText;
-		public AudioClip clickSound;
+    //Holding
+    public Holdable holding;
+    int _amount;
+    public bool selected = false;
 
-		void Start ()
-		{
+    //Visuals
+    public Image slot;
+    public Sprite defaultSlotImage;
+    public Image outline;
+    public Text amountText;
+    public AudioClip clickSound;
 
-				thisM = GameManager.thisM;
-				selected = false;
-		}
+    void Start()
+    {
 
-		public int amount {
-				get {
-						return _amount; 
-				}
-				set {
-						if (value <= 0) {
-								amountText.transform.parent.gameObject.SetActive (false);
-								amountText.text = "";
-								_amount = 0; 
-								
-						} else {
+        thisM = GameManager.thisM;
+        selected = false;
+    }
+
+    public int amount
+    {
+        get
+        {
+            return _amount;
+        }
+        set
+        {
+            if (value <= 0)
+            {
+                amountText.transform.parent.gameObject.SetActive(false);
+                amountText.text = "";
+                _amount = 0;
+
+            }
+            else
+            {
                 //Debug.Log("UI slot change amout to: " + value);
                 _amount = value;
-								amountText.text = amount.ToString ();
-								amountText.transform.parent.gameObject.SetActive (true);
-						}
-				}
-		}
+                amountText.text = amount.ToString();
+                amountText.transform.parent.gameObject.SetActive(true);
+            }
+        }
+    }
 
-		
 
-		public void changeHolding (Holdable h, int amounts = 0)
-		{
+
+    public void changeHolding(Holdable h, int amounts = 0)
+    {
         //Debug.Log("UI slot change holding. Amount: " + amounts);
-        if (holding != null) {
+        if (holding != null)
+        {
             //Debug.Log("UI slot change holding,\n old holding drop");
-            holding.onDrop ();
-				}
+            holding.onDrop();
+        }
 
-				if (h == null || amounts <= 0) {
+        if (h == null || amounts <= 0)
+        {
             //Debug.Log("UI slot change holding,\n parameter holdable is null");
-            clearHolding ();
-					
-				} else { 
+            clearHolding();
 
-						holding = h;
-						amount = amounts;
-						slot.sprite = holding.holdUI;
+        }
+        else
+        {
+
+            holding = h;
+            amount = amounts;
+            slot.sprite = holding.holdUI;
             //Debug.Log("UI slot change holding,\n changed to new holding");
-            holding.onPickup ();
-						if (selected)
-								holding.onSelect ();
-				}
-		}
+            holding.onPickup();
+            if (selected)
+                holding.onSelect();
+        }
+    }
 
-		public void clearHolding ()
-		{
-        //Debug.Log("UI slot clear holding");
+    public void clearHolding()
+    {
+        Debug.Log("UI slot clear holding");
         slot.sprite = defaultSlotImage;
-				holding = null;
-				amount = 0;
-		}
-	
+        holding = null;
+        amount = 0;
+    }
 
-		public void buttonDown ()
-		{
-        //Debug.Log("Used");
-        if (holding.buttonDown ()) {
-						amount = holding.amount;
-						if (amount <= 0) {
-								clearHolding ();
-						}
-				}
-		}
+    public void Use(Func<bool> useMethod)
+    {
+        if (useMethod())
+        {
+            amount = holding.amount;
 
-		public virtual void onDrop ()
-		{
+            Debug.Log("used with " + amount);
+            if (amount <= 0)
+            {
+                remove();
+                clearHolding();
+            }
+        }
+
+    }
+
+    public void remove()
+    {
+        holding.onRemove();
+        Debug.Log("removing");
+    }
+
+    public virtual void onDrop()
+    {
         //Debug.Log("On click to drop");
 
-        if (holding != null) {
-						holding.onDrop ();
-				}
-				clearHolding ();
-		}
+        if (holding != null)
+        {
+            holding.onDrop();
+        }
+        clearHolding();
+    }
 
-		public void onSelect ()
-		{
+    public void onSelect()
+    {
         //Debug.Log("On select");
 
         if (holding != null)
-						holding.onSelect ();
-				selected = true;
+            holding.onSelect();
+        selected = true;
 
-		}
+    }
 
-		public void onDeselect ()
-		{
-				if (holding != null)
-						holding.onDeselect ();
-				selected = false;
+    public void onDeselect()
+    {
+        if (holding != null)
+            holding.onDeselect();
+        selected = false;
 
-		}
+    }
 }
 

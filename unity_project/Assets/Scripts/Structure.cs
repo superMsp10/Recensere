@@ -112,10 +112,9 @@ public class Structure : MonoBehaviour
     public void DestroyTile(Tile t)
     {
         tiles.Remove(t);
-        JSONObject ret = t.ToJSON();
+        editedTiles.Remove(t);
         //ret.Add("Destroyed", true);
-        destroyedTiles.Add(ret);
-
+        destroyedTiles.Add(t.ToJSON());
     }
 
 }

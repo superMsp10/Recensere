@@ -188,11 +188,17 @@ public class Placeable : MonoBehaviour, Holdable
 
         return false;
     }
-    public virtual void buttonUP()
+    public virtual bool buttonUP()
     {
         thisView.RPC("buttonUpBy", PhotonTargets.All, null);
         if (!collided)
+        {
             Instantiate(instantiateObject, transform.position, transform.rotation, null);
+            amount--;
+            return true;
+
+        }
+        return false;
     }
     public void onSelect()
     {
@@ -212,11 +218,18 @@ public class Placeable : MonoBehaviour, Holdable
             GameManager.thisM.addNewItemsPicked();
         }
     }
+
     public void onDrop()
     {
         thisView.RPC("droppedBy", PhotonTargets.All, null);
 
     }
+
+    public void onRemove()
+    {
+        PhotonNetwork.Destroy(gameObject);
+    }
+
     public void resetPick()
     {
         thisView.RPC("resetPickBy", PhotonTargets.All, null);
