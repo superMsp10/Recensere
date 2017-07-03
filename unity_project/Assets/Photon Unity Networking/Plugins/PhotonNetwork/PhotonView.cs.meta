@@ -5,13 +5,8 @@ labels:
 - PUN
 - Photon
 - Networking
-timeCreated: 1446076242
-licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []
-  executionOrder: 100
+  executionOrder: 0
   icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 

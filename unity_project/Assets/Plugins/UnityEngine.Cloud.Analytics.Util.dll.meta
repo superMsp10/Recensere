@@ -3,93 +3,194 @@ guid: c0b2d2d8ecfb64729826d6c15861d690
 timeCreated: 1443473777
 licenseType: Store
 PluginImporter:
-  serializedVersion: 1
+  serializedVersion: 2
   iconMap: {}
   executionOrder: {}
   isPreloaded: 0
+  isOverridable: 0
   platformData:
-    Android:
-      enabled: 1
-      settings: {}
-    Any:
-      enabled: 0
-      settings: {}
-    BlackBerry:
-      enabled: 1
-      settings: {}
-    Editor:
-      enabled: 1
-      settings:
-        DefaultValueInitialized: true
-    GLESEmu:
-      enabled: 1
-      settings: {}
-    Linux:
-      enabled: 1
-      settings: {}
-    Linux64:
-      enabled: 1
-      settings: {}
-    LinuxUniversal:
-      enabled: 1
-      settings: {}
-    OSXIntel:
-      enabled: 1
-      settings: {}
-    OSXIntel64:
-      enabled: 1
-      settings: {}
-    OSXUniversal:
-      enabled: 1
-      settings: {}
-    PS3:
-      enabled: 1
-      settings: {}
-    PS4:
-      enabled: 1
-      settings: {}
-    PSM:
-      enabled: 1
-      settings: {}
-    PSP2:
-      enabled: 1
-      settings: {}
-    SamsungTV:
-      enabled: 1
-      settings: {}
-    Tizen:
-      enabled: 1
-      settings: {}
-    WP8:
-      enabled: 1
-      settings: {}
-    Web:
-      enabled: 1
-      settings: {}
-    WebGL:
-      enabled: 1
-      settings: {}
-    WebStreamed:
-      enabled: 1
-      settings: {}
-    Win:
-      enabled: 1
-      settings: {}
-    Win64:
-      enabled: 1
-      settings: {}
-    WindowsStoreApps:
-      enabled: 0
-      settings: {}
-    Xbox360:
-      enabled: 1
-      settings: {}
-    XboxOne:
-      enabled: 1
-      settings: {}
-    iOS:
-      enabled: 1
-      settings: {}
+    data:
+      first:
+        '': BlackBerry
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        '': GLESEmu
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        '': PS3
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        '': WP8
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        '': Xbox360
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Android: Android
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Any: 
+      second:
+        enabled: 0
+        settings: {}
+    data:
+      first:
+        Editor: Editor
+      second:
+        enabled: 1
+        settings:
+          DefaultValueInitialized: true
+    data:
+      first:
+        Facebook: WebGL
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Facebook: Win
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Facebook: Win64
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        PS4: PS4
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        PSM: PSM
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        PSP2: PSP2
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Samsung TV: SamsungTV
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Standalone: Linux
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Standalone: Linux64
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Standalone: LinuxUniversal
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Standalone: OSXIntel
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Standalone: OSXIntel64
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Standalone: OSXUniversal
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Standalone: Win
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Standalone: Win64
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Tizen: Tizen
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Web: Web
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Web: WebStreamed
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        WebGL: WebGL
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        Windows Store Apps: WindowsStoreApps
+      second:
+        enabled: 0
+        settings:
+          CPU: AnyCPU
+    data:
+      first:
+        XboxOne: XboxOne
+      second:
+        enabled: 1
+        settings: {}
+    data:
+      first:
+        iPhone: iOS
+      second:
+        enabled: 1
+        settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

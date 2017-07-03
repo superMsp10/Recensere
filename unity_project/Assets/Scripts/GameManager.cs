@@ -6,7 +6,7 @@ using Boomlagoon.JSON;
 public class GameManager : MonoBehaviour
 {
     public static GameManager thisM;
-    public static byte Version = 8;
+    public static byte Version = 9;
     public string PlayerLayer;
     public string GhostLayer;
 
@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         int playerID = PhotonNetwork.player.ID;
         SpawnSpot[] spawns = FindObjectsOfType<SpawnSpot>();
         playerSetup(spawns[playerID % spawns.Length]);
+        loaded = true;
 
     }
 
@@ -118,9 +119,7 @@ public class GameManager : MonoBehaviour
 
     public void OnConnected()
     {
-        Master = PhotonNetwork.isMasterClient;
         currLevel.OnConnected();
-        loaded = true;
     }
 
     public player getPlayerByViewID(int viewID)

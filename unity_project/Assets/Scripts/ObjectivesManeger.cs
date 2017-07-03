@@ -68,7 +68,8 @@ public class ObjectivesManeger : MonoBehaviour
     {
         Persistent.thisPersist.completed = new List<Objective>(completed);
         DatabaseConnect.thisM.setLevel(playerLevel);
-        PhotonNetwork.player.SetScore(completed.Count);
+        //PhotonNetwork.player.SetScore(completed.Count);
+        //TODO: Add different way of tracking score
     }
 
 

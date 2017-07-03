@@ -17,25 +17,23 @@ public class Connect : Photon.MonoBehaviour
     void Start()
     {
 
-        //if (offline)
-        //{
-        //    PhotonNetwork.offlineMode = true;
-        //    Debug.Log("Offline Mode!");
-
-        //}
-        //else
-        //{
-        if (!PhotonNetwork.connected)
+        if (offline)
         {
-            PhotonNetwork.automaticallySyncScene = true;
-            PhotonNetwork.ConnectUsingSettings(Version.ToString());
+            PhotonNetwork.offlineMode = true;
+            Debug.Log("Offline Mode!");
+
         }
         else
         {
-            GameManager.thisM.OnConnected();
-        }
+            
+            if (!PhotonNetwork.connected)
+            {
+                PhotonNetwork.automaticallySyncScene = true;
+                PhotonNetwork.ConnectUsingSettings(Version.ToString());
+            }
+          
 
-        //}
+        }
 
     }
 

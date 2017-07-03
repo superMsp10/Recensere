@@ -48,12 +48,12 @@ public class EndGameLevel : Level
                 players[i] = item.ID;
 
 
-                int score = item.GetScore();
-                if (score > topScore)
-                {
-                    topScore = score;
-                    topPlayer = item.ID;
-                }
+                //int score = item.GetScore();
+                //if (score > topScore)
+                //{
+                //    topScore = score;
+                //    topPlayer = item.ID;
+                //}
             }
 
             if (topPlayer == -1)

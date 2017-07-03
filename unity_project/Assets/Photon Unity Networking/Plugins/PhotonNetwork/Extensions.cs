@@ -9,9 +9,11 @@
 // ----------------------------------------------------------------------------
 
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-using SupportClass = ExitGames.Client.Photon.SupportClass;
+using SupportClassPun = ExitGames.Client.Photon.SupportClass;
 
 
 /// <summary>
@@ -19,6 +21,22 @@ using SupportClass = ExitGames.Client.Photon.SupportClass;
 /// </summary>
 public static class Extensions
 {
+
+    public static Dictionary<MethodInfo, ParameterInfo[]> ParametersOfMethods = new Dictionary<MethodInfo, ParameterInfo[]>();
+    public static ParameterInfo[] GetCachedParemeters(this MethodInfo mo)
+    {
+        ParameterInfo[] result;
+        bool cached= ParametersOfMethods.TryGetValue(mo, out result);
+
+        if (!cached)
+        {
+            result =  mo.GetParameters();
+            ParametersOfMethods[mo] = result;
+        }
+
+        return result;
+    }
+
     public static PhotonView[] GetPhotonViewsInChildren(this UnityEngine.GameObject go)
     {
         return go.GetComponentsInChildren<PhotonView>(true) as PhotonView[];
@@ -32,13 +50,13 @@ public static class Extensions
     /// <summary>compares the squared magnitude of target - second to given float value</summary>
     public static bool AlmostEquals(this Vector3 target, Vector3 second, float sqrMagnitudePrecision)
     {
-        return (target - second).sqrMagnitude < sqrMagnitudePrecision;
+        return (target - second).sqrMagnitude < sqrMagnitudePrecision;  //  : inline vector methods to optimize?
     }
 
     /// <summary>compares the squared magnitude of target - second to given float value</summary>
     public static bool AlmostEquals(this Vector2 target, Vector2 second, float sqrMagnitudePrecision)
     {
-        return (target - second).sqrMagnitude < sqrMagnitudePrecision;
+        return (target - second).sqrMagnitude < sqrMagnitudePrecision;  //  : inline vector methods to optimize?
     }
 
     /// <summary>compares the angle between target and second to given float value</summary>
@@ -96,22 +114,40 @@ public static class Extensions
         }
     }
 
-    /// <summary>
-    /// Returns a string-representation of the IDictionary's content, inlcuding type-information.
-    /// Note: This might turn out a "heavy-duty" call if used frequently but it's usfuly to debug Dictionary or Hashtable content.
-    /// </summary>
+    /// <summary>Helper method for debugging of IDictionary content, inlcuding type-information. Using this is not performant.</summary>
+    /// <remarks>Should only be used for debugging as necessary.</remarks>
     /// <param name="origin">Some Dictionary or Hashtable.</param>
     /// <returns>String of the content of the IDictionary.</returns>
     public static string ToStringFull(this IDictionary origin)
     {
-        return SupportClass.DictionaryToString(origin, false);
+        return SupportClassPun.DictionaryToString(origin, false);
     }
+
+
+    /// <summary>Helper method for debugging of object[] content. Using this is not performant.</summary>
+    /// <remarks>Should only be used for debugging as necessary.</remarks>
+    /// <param name="data">Any object[].</param>
+    /// <returns>A comma-separated string containing each value's ToString().</returns>
+    public static string ToStringFull(this object[] data)
+    {
+        if (data == null) return "null";
+
+        string[] sb = new string[data.Length];
+        for (int i = 0; i < data.Length; i++)
+        {
+            object o = data[i];
+            sb[i] = (o != null) ? o.ToString() : "null";
+        }
+
+        return string.Join(", ", sb);
+    }
+
 
     /// <summary>
     /// This method copies all string-typed keys of the original into a new Hashtable.
     /// </summary>
     /// <remarks>
-    /// Does not recurse (!) into hashes that might be values in the root-hash. 
+    /// Does not recurse (!) into hashes that might be values in the root-hash.
     /// This does not modify the original.
     /// </remarks>
     /// <param name="original">The original IDictonary to get string-typed keys from.</param>
@@ -121,11 +157,11 @@ public static class Extensions
         Hashtable target = new Hashtable();
         if (original != null)
         {
-            foreach (DictionaryEntry pair in original)
+            foreach (object key in original.Keys)
             {
-                if (pair.Key is string)
+                if (key is string)
                 {
-                    target[pair.Key] = pair.Value;
+                    target[key] = original[key];
                 }
             }
         }
@@ -142,7 +178,7 @@ public static class Extensions
     public static void StripKeysWithNullValues(this IDictionary original)
     {
         object[] keys = new object[original.Count];
-        //original.Keys.CopyTo(keys, 0);
+        //original.Keys.CopyTo(keys, 0);                //  : figure out which platform didn't support this
         int i = 0;
         foreach (object k in original.Keys)
         {
@@ -193,18 +229,18 @@ public static class GameObjectExtensions
     /// <returns>Unity 3.5: active. Any newer Unity: activeInHierarchy.</returns>
     public static bool GetActive(this GameObject target)
     {
-#if UNITY_3_5
+        #if UNITY_3_5
         return target.active;
-#else
+        #else
         return target.activeInHierarchy;
-#endif
+        #endif
     }
 
-#if UNITY_3_5
+    #if UNITY_3_5
     /// <summary>Unity-version-independent setter for active and SetActive().</summary>
     public static void SetActive(this GameObject target, bool value)
     {
         target.active = value;
     }
-#endif
+    #endif
 }
