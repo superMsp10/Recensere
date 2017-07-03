@@ -28,8 +28,7 @@ public class GameManager : MonoBehaviour
     public static float speedToDamageMultiplier = 1f;
     public bool loaded = false;
     public GameObject currCam;
-
-
+    private bool Master;
 
     void Awake()
     {
@@ -114,10 +113,12 @@ public class GameManager : MonoBehaviour
     {
         players = FindObjectsOfType<player>();
         Debug.Log("Updating players for player: " + id + ", Total:" + players.Length);
+
     }
 
     public void OnConnected()
     {
+        Master = PhotonNetwork.isMasterClient;
         currLevel.OnConnected();
         loaded = true;
     }

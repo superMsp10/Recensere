@@ -360,6 +360,14 @@ public class DatabaseConnect : MonoBehaviour
         thisUI.changeUI(thisUI.connectError);
     }
 
+    public void GameMessage_HostExited()
+    {
+        error.desciption.text = "This game is over beacuse the host has exited";
+        error.title.text = "Game Over :(";
+
+        thisUI.changeUI(thisUI.connectError);
+    }
+
 
 
 

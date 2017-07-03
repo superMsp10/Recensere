@@ -24,8 +24,6 @@ public class tileDictionary : MonoBehaviour
     public GameObject JetpackFire;
     public Transform projectiles;
 
-    public Structure playerPlaceableStructure;
-
     public GameObject destroyedGrenadeProjectile;
 
 

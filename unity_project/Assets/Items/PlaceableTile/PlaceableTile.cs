@@ -12,7 +12,7 @@ public class PlaceableTile : Placeable
     public override bool buttonUP()
     {
         if (thisStructure == null)
-            thisStructure = tileDictionary.thisM.playerPlaceableStructure;
+            thisStructure = thisPlayer.spwanRoom;
 
         if (thisG == null)
             thisG = GameManager.thisM;
