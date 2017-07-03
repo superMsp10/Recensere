@@ -83,7 +83,7 @@ public class UIslot : MonoBehaviour
 
     public void clearHolding()
     {
-        Debug.Log("UI slot clear holding");
+        //Debug.Log("UI slot clear holding");
         slot.sprite = defaultSlotImage;
         holding = null;
         amount = 0;
@@ -95,7 +95,7 @@ public class UIslot : MonoBehaviour
         {
             amount = holding.amount;
 
-            Debug.Log("used with " + amount);
+            //Debug.Log("used with " + amount);
             if (amount <= 0)
             {
                 remove();
@@ -108,7 +108,7 @@ public class UIslot : MonoBehaviour
     public void remove()
     {
         holding.onRemove();
-        Debug.Log("removing");
+        //Debug.Log("removing");
     }
 
     public virtual void onDrop()
