@@ -85,13 +85,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        view.RPC("updatePlayers", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
-
-
         myPlayer = p.GetComponent<player>();
         myPlayer.spwanRoom = s;
         myPlayer.spwanPos = s.spawnPosition;
         myPlayer.playerID = playerID;
+        myPlayer.name = PhotonNetwork.player.NickName = Persistent.thisPersist.Username;
         //				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
 
         p.layer = LayerMask.NameToLayer(PlayerLayer);
@@ -102,6 +100,9 @@ public class GameManager : MonoBehaviour
         if (doObjectives)
             ObjectivesManeger.thisM.Initialize();
         NetworkEnable();
+
+        view.RPC("updatePlayers", PhotonTargets.AllBuffered, myPlayer.thisView.viewID, myPlayer.name);
+
     }
 
     int getHashInt(object o)
@@ -110,10 +111,12 @@ public class GameManager : MonoBehaviour
     }
 
     [PunRPC]
-    void updatePlayers(int id)
+    void updatePlayers(int id, string name)
     {
         players = FindObjectsOfType<player>();
         Debug.Log("Updating players for player: " + id + ", Total:" + players.Length);
+ 
+        getPlayerByViewID(id).name = "Player: " + name;
 
     }
 
@@ -131,8 +134,11 @@ public class GameManager : MonoBehaviour
                 return p;
             }
         }
+
+        Debug.Log("No player w/ viewID" + viewID);
         return null;
     }
+
 
     public void ChangeCam(GameObject c)
     {
