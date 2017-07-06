@@ -331,6 +331,7 @@ namespace UnityAnalyticsHeatmap
 
         public void SystemReset()
         {
+            //TODO
         }
 
         public void Update(bool forceUpdate = false)

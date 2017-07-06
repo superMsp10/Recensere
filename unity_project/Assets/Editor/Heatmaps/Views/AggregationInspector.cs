@@ -183,6 +183,7 @@ namespace UnityAnalyticsHeatmap
 
         public void SystemReset()
         {
+            //TODO
         }
 
         public void Fetch(AggregationHandler handler, bool localOnly)

@@ -84,9 +84,14 @@ public class playerMove : MonoBehaviour
         checkJump();
     }
 
+    long lastTime = 0;
     void FixedUpdate()
     {
         checkMovement();
+        if( lastTime-Time.time > 60)
+        {
+            UnityAnalyticsHeatmap.HeatmapEvent.Send("position", gameObject.transform.position, Time.time);
+        }
     }
 
     public void playRandomJumpingSFX()
@@ -142,6 +147,8 @@ public class playerMove : MonoBehaviour
 
     void stopJetPack()
     {
+        UnityAnalyticsHeatmap.HeatmapEvent.Send("jetpack_stop", gameObject.transform.position, Time.time);
+
         usingJetPack = false;
         rigidbod.useGravity = true;
         CancelInvoke("updateFuel");
@@ -170,6 +177,8 @@ public class playerMove : MonoBehaviour
 
     void jump()
     {
+        UnityAnalyticsHeatmap.HeatmapEvent.Send("jumped", gameObject.transform.position, Time.time);
+
         rigidbod.velocity = new Vector3(rigidbod.velocity.x * fly_speed, jumpPower, rigidbod.velocity.z * fly_speed);
         jumped = true;
         playRandomJumpingSFX();
@@ -179,6 +188,8 @@ public class playerMove : MonoBehaviour
 
     void jetPack()
     {
+        UnityAnalyticsHeatmap.HeatmapEvent.Send("jetpack_start", gameObject.transform.position, Time.time);
+
         usingJetPack = true;
         rigidbod.useGravity = false;
         jetpackUIFire.SetActive(true);
