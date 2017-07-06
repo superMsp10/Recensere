@@ -74,6 +74,11 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
     }
 
+    void OnDestroy()
+    {
+        projectilePooler.OnDestroy();
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (pickable)

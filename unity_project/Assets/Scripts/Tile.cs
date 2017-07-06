@@ -106,7 +106,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         }
         thisStructure.DestroyTile(this);
         GameManager.thisM.addDestroyed();
-        GameObject.Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     public string lastDamageBy()
@@ -232,7 +232,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
 
         health = (float)JSON.GetNumber("Health");
 
-        Attached = new List<Poolable>();
+        //Attached = new List<Poolable>();
         //orgHealth = health;
 
         if (thisRender == null)

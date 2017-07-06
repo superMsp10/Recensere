@@ -81,4 +81,22 @@ public class Pooler
         useable.Add(p.gameobject);
         p.reset(false);
     }
+
+    public void OnDestroy()
+    {
+        foreach (var item in active)
+        {
+            if (item != null)
+            {
+                Destroy.Destroy(item);
+            }
+        }
+        foreach (var item in useable)
+        {
+            if (item != null)
+            {
+                Destroy.Destroy(item);
+            }
+        }
+    }
 }
