@@ -112,28 +112,52 @@ public class Placeable : MonoBehaviour, Holdable
         }
     }
 
-    void OnTriggerStay(Collider other)
+    //void OnTriggerStay(Collider other)
+    //{
+    //    if (collided == false && selected == true)
+    //    {
+    //        collided = true;
+    //        foreach (Renderer item in thisRender)
+    //        {
+    //            item.material.color = invalid;
+    //        }
+    //    }
+
+    //}
+
+    void OnTriggerEnter(Collider other)
     {
-        if (collided == false && selected == true)
+        if (selected)
         {
             collided = true;
-            foreach (Renderer item in thisRender)
-            {
-                item.material.color = invalid;
-            }
+            validityColours(!collided);
         }
 
     }
-
     void OnTriggerExit(Collider other)
     {
-        if (selected == true)
+        if (selected)
         {
             collided = false;
-            foreach (Renderer item in thisRender)
+            validityColours(!collided);
+        }
+    }
+
+    void validityColours(bool validity)
+    {
+        foreach (Renderer item in thisRender)
+        {
+            if (validity)
             {
+
                 item.material.color = valid;
             }
+            else
+            {
+                item.material.color = invalid;
+
+            }
+
         }
     }
 
@@ -254,6 +278,8 @@ public class Placeable : MonoBehaviour, Holdable
         //Debug.Log("onSelected by Cube");
         gameObject.SetActive(true);
         selected = true;
+        collided = false;
+        validityColours(!collided);
     }
     [PunRPC]
     protected virtual void deselectedBy()

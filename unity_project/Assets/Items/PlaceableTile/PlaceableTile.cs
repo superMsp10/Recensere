@@ -26,6 +26,8 @@ public class PlaceableTile : Placeable
             t.transform.parent = thisStructure.transform;
             t.name = "Placed Tile: #" + thisStructure.editedTiles.Count;
             thisStructure.editedTiles.Add(t);
+            thisStructure.tiles.Add(t);
+
 
             JSONObject jStructure = new JSONObject();
             jStructure.Add("Name", thisStructure.name);
