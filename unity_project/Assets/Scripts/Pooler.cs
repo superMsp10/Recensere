@@ -88,14 +88,14 @@ public class Pooler
         {
             if (item != null)
             {
-                Destroy.Destroy(item);
+                PhotonNetwork.Destroy(item);
             }
         }
         foreach (var item in useable)
         {
             if (item != null)
             {
-                Destroy.Destroy(item);
+                PhotonNetwork.Destroy(item);
             }
         }
     }

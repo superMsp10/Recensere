@@ -74,11 +74,6 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
     }
 
-    void OnDestroy()
-    {
-        projectilePooler.OnDestroy();
-    }
-
     void OnCollisionEnter(Collision collision)
     {
         if (pickable)
@@ -211,7 +206,14 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
     public void onRemove()
     {
+        gameObject.SetActive(false);
+        Invoke("DestroyItem", 5f);
+    }
+
+    void DestroyItem()
+    {
         PhotonNetwork.Destroy(gameObject);
+        projectilePooler.OnDestroy();
     }
 
     public void resetPick()
