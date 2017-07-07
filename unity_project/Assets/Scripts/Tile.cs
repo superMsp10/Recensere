@@ -39,7 +39,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         thisRender = GetComponent<Renderer>();
         if (thisRender == null)
             Debug.Log("No renderer found on this object, damage color representation will not suceed");
-        if(thisStructure == null)
+        if (thisStructure == null)
             Debug.Log("No structure is attached to this object " + name + " parent " + transform.parent.name);
 
 
@@ -219,7 +219,8 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         ret.Add("Health", health);
         ret.Add("PrefabName", prefabName);
         ret.Add("Name", name);
-        ret.Add("Destroyed", false);
+        // TODO: Remove Comment 
+        ret.Add("Destroyed", (health <= 0));
 
 
         return ret;

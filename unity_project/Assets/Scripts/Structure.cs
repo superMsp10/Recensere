@@ -25,15 +25,10 @@ public class Structure : MonoBehaviour
                 t.thisStructure = this;
                 t.name = "Tile#" + tiles.Count;
             }
+            FindObjectOfType<Level>().structures.Add(this);
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void StartStructure(JSONArray tileDetails)
     {

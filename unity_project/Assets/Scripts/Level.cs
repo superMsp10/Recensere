@@ -9,9 +9,8 @@ public abstract class Level : MonoBehaviour
     public Transform items;
     public Transform StructuresTransform;
 
-
-
     public List<Structure> structures = new List<Structure>();
+
 
     public GameObject cam;
 
@@ -56,28 +55,39 @@ public abstract class Level : MonoBehaviour
         foreach (JSONValue j in JSONArray.Parse(JSON))
         {
             JSONObject structJSON = j.Obj;
-            Structure s = structures.Find(t => t.name == structJSON.GetString("Name"));
-            if (s == null)
-            {
-                s = CreateStructure(structJSON);
-                structures.Add(s);
-            }
-            s.UpdateStructure(structJSON.GetArray("Tiles"));
-            Debug.Log("Updating" + s.name);
+            StructureInit(j.Obj, structures.Find(t => t.name == structJSON.GetString("Name")));
         }
     }
 
     public virtual void InitStrucutre(JSONObject JSON)
     {
         Structure s = structures.Find(t => t.name == JSON.GetString("Name"));
+        StructureInit(JSON, s);
+    }
+
+    protected void StructureInit(JSONObject JSON, Structure s)
+    {
         if (s == null)
         {
-            s = CreateStructure(JSON);
-            structures.Add(s);
-        }
-        s.UpdateStructure(JSON.GetArray("Tiles"));
-        //Debug.Log("Updating" + s.name);
+            var insName = JSON.GetString("PrefabName");
+            if (insName != null)
+            {
 
+                Debug.Log("Instantiating");
+                s = ((GameObject)
+                          Instantiate(Resources.Load(insName), JSONObject.StringToVector3(JSON.GetString("Position")), JSONObject.StringToQuaternion(JSON.GetString("Rotation")), StructuresTransform)
+                    ).GetComponent<Structure>();
+                s.name = JSON.GetString("Name");
+            }
+            else
+            {
+                s = CreateStructure(JSON);
+            }
+        }
+
+        structures.Add(s);
+        s.UpdateStructure(JSON.GetArray("Tiles"));
+        Debug.Log("Updating" + s.name);
     }
 
     private Structure CreateStructure(JSONObject tileJSON)
@@ -89,7 +99,7 @@ public abstract class Level : MonoBehaviour
         return s;
     }
 
-    public virtual string getStrucutresInit()
+    public virtual string getStructuresInit()
     {
         JSONArray j = new JSONArray();
         foreach (Structure s in structures)
