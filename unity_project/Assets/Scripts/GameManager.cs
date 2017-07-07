@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
         PlayerStructure s = g.GetComponent<PlayerStructure>();
         if (s != null)
         {
+            s.enabled = true;
             currLevel.structures.Add(s);
             p = PhotonNetwork.Instantiate(playerInstantiate.name,
                          s.spawnPosition.position,
@@ -106,11 +107,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    int getHashInt(object o)
-    {
-        return int.Parse(o.ToString());
-    }
-
     [PunRPC]
     void updatePlayers(int id, string name)
     {
@@ -130,9 +126,8 @@ public class GameManager : MonoBehaviour
 
     public void OnPhotonPlayerDisconnected(PhotonPlayer player)
     {
-        players.Remove(getPlayerByPlayerID(player.ID));
-
-        Debug.Log("Remopving : " + player.NickName);
+        players = new List<player>(FindObjectsOfType<player>());
+        Debug.Log("Removing : " + player.NickName);
     }
 
     public void OnConnected()
@@ -268,39 +263,45 @@ public class GameManager : MonoBehaviour
 
 
     //UI------------------------------------------//
+
+    int getHashInt(object o)
+    {
+        return int.Parse(o.ToString());
+    }
+
     [PunRPC]
     public void addKills()
     {
-        PhotonNetwork.player.customProperties["Kills"] = getHashInt(PhotonNetwork.player.customProperties["Kills"]) + 1;
+        PhotonNetwork.player.CustomProperties["Kills"] = getHashInt(PhotonNetwork.player.CustomProperties["Kills"]) + 1;
     }
 
     public void addPlaced()
     {
         if (doObjectives)
-            PhotonNetwork.player.customProperties["Placed"] = getHashInt(PhotonNetwork.player.customProperties["Placed"]) + 1;
+            PhotonNetwork.player.CustomProperties["Placed"] = getHashInt(PhotonNetwork.player.CustomProperties["Placed"]) + 1;
     }
 
     public void addNewItemsPicked()
     {
         if (doObjectives)
-            PhotonNetwork.player.customProperties["NewItemsPicked"] = getHashInt(PhotonNetwork.player.customProperties["NewItemsPicked"]) + 1;
+            PhotonNetwork.player.CustomProperties["NewItemsPicked"] = getHashInt(PhotonNetwork.player.CustomProperties["NewItemsPicked"]) + 1;
     }
 
     public void addDestroyed()
     {
         if (doObjectives)
-            PhotonNetwork.player.customProperties["Destroyed"] = getHashInt(PhotonNetwork.player.customProperties["Destroyed"]) + 1;
+            PhotonNetwork.player.CustomProperties["Destroyed"] = getHashInt(PhotonNetwork.player.CustomProperties["Destroyed"]) + 1;
     }
 
     public void addDeaths()
     {
         if (doObjectives)
-            PhotonNetwork.player.customProperties["Deaths"] = getHashInt(PhotonNetwork.player.customProperties["Deaths"]) + 1;
+            PhotonNetwork.player.CustomProperties["Deaths"] = getHashInt(PhotonNetwork.player.CustomProperties["Deaths"]) + 1;
     }
 
     void updateAllProperties()
     {
-        PhotonNetwork.player.SetCustomProperties(PhotonNetwork.player.customProperties);
+        PhotonNetwork.player.SetCustomProperties(PhotonNetwork.player.CustomProperties);
     }
 
     public void endGame()
@@ -397,7 +398,7 @@ public class GameManager : MonoBehaviour
         {
             return thisTile;
         }
-        Debug.Log("Tile Request for Name: " + TileName + " does not exist");
+        Debug.Log("Tile Request for Name: " + TileName + " does not exist for structure" + StructureName);
 
         return null;
     }

@@ -73,7 +73,7 @@ public abstract class Level : MonoBehaviour
             if (insName != null)
             {
 
-                Debug.Log("Instantiating");
+                //Debug.Log("Instantiating");
                 s = ((GameObject)
                           Instantiate(Resources.Load(insName), JSONObject.StringToVector3(JSON.GetString("Position")), JSONObject.StringToQuaternion(JSON.GetString("Rotation")), StructuresTransform)
                     ).GetComponent<Structure>();
@@ -87,7 +87,7 @@ public abstract class Level : MonoBehaviour
 
         structures.Add(s);
         s.UpdateStructure(JSON.GetArray("Tiles"));
-        Debug.Log("Updating" + s.name);
+        Debug.Log("Updating " + s.name);
     }
 
     private Structure CreateStructure(JSONObject tileJSON)

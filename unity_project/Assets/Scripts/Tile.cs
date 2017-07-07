@@ -105,7 +105,8 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
             }
         }
         thisStructure.DestroyTile(this);
-        GameManager.thisM.addDestroyed();
+        if (effects)
+            GameManager.thisM.addDestroyed();
         Destroy(gameObject);
     }
 
@@ -123,7 +124,10 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         set
         {
             if (health == orgHealth)
-                thisStructure.editedTiles.Add(this);
+            {
+                if (!thisStructure.editedTiles.Contains(this))
+                    thisStructure.editedTiles.Add(this);
+            }
 
             health = value;
             thisRender.material.color = Color.Lerp(damaged, Color.white, health / orgHealth);
@@ -217,6 +221,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         ret.Add("Position", transform.position.ToString());
         ret.Add("Rotation", transform.rotation.ToString());
         ret.Add("Health", health);
+        ret.Add("OrgHealth", orgHealth);
         ret.Add("PrefabName", prefabName);
         ret.Add("Name", name);
         ret.Add("Destroyed", (health <= 0));
@@ -230,6 +235,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         transform.rotation = JSONObject.StringToQuaternion(JSON.GetString("Rotation"));
 
         health = (float)JSON.GetNumber("Health");
+        orgHealth = (float)JSON.GetNumber("OrgHealth");
 
         //Attached = new List<Poolable>();
         //orgHealth = health;

@@ -151,7 +151,7 @@ public class player : MonoBehaviour, Health
 
             if (p != null)
             {
-                if (!p.isLocal)
+                if (!p.IsLocal)
                     thisM.view.RPC("addKills", p);
             }
 

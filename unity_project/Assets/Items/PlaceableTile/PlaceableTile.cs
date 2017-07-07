@@ -24,8 +24,8 @@ public class PlaceableTile : Placeable
             Tile t = ((GameObject)Instantiate(instantiateObject, graphics.position, graphics.rotation, null)).GetComponent<Tile>();
             t.thisStructure = thisStructure;
             t.transform.parent = thisStructure.transform;
-            t.name = "Placed Tile: #" + thisStructure.tiles.Count;
-            thisStructure.tiles.Add(t);
+            t.name = "Placed Tile: #" + thisStructure.editedTiles.Count;
+            thisStructure.editedTiles.Add(t);
 
             JSONObject jStructure = new JSONObject();
             jStructure.Add("Name", thisStructure.name);
