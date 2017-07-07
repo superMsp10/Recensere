@@ -74,10 +74,13 @@ public class Structure : MonoBehaviour
             Tile tile = tiles.Find(t => t.name == tileJSON.GetString("Name"));
             if (tile == null)
             {
-                tile = CreateTile(tileJSON);
-                tiles.Add(tile);
-                tile.FromJSON(tileJSON);
-                //Debug.Log("Creating" + tile.name);
+                if (!tileJSON.GetBoolean("Destroyed"))
+                {
+                    tile = CreateTile(tileJSON);
+                    tiles.Add(tile);
+                    tile.FromJSON(tileJSON);
+                    //Debug.Log("Creating" + tile.name);
+                }
             }
             else if (tileJSON.GetBoolean("Destroyed"))
             {

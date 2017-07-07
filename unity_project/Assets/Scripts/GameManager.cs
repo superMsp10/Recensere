@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using Boomlagoon.JSON;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     //PlayerStuff------------------------------------------//
 
-    public player[] players;
+    public List<player> players;
     public GameObject playerInstantiate;
     public player myPlayer;
     public bool dead = true;
@@ -113,11 +114,25 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     void updatePlayers(int id, string name)
     {
-        players = FindObjectsOfType<player>();
-        Debug.Log("Updating players for player: " + id + ", Total:" + players.Length);
- 
-        getPlayerByViewID(id).name = "Player: " + name;
+        players = new List<player>(FindObjectsOfType<player>());
+        player p = getPlayerByViewID(id);
+        if (p != null)
+        {
+            p.name = "Player: " + name;
+            Debug.Log("Updating players for player: " + p.name + ", Total:" + players.Count);
+        }
+        else
+        {
+            Debug.Log("No player for: " + id);
 
+        }
+    }
+
+    public void OnPhotonPlayerDisconnected(PhotonPlayer player)
+    {
+        players.Remove(getPlayerByPlayerID(player.ID));
+
+        Debug.Log("Remopving : " + player.NickName);
     }
 
     public void OnConnected()
@@ -129,13 +144,28 @@ public class GameManager : MonoBehaviour
     {
         foreach (player p in players)
         {
-            if (p.GetComponent<PhotonView>().viewID == viewID)
+            if (p.thisView.viewID == viewID)
             {
                 return p;
             }
         }
 
         Debug.Log("No player w/ viewID" + viewID);
+        return null;
+    }
+
+    public player getPlayerByPlayerID(int playerID)
+    {
+
+        foreach (player p in players)
+        {
+            if (p.playerID == playerID)
+            {
+                return p;
+            }
+        }
+
+        Debug.Log("No player w/ playerID" + playerID);
         return null;
     }
 

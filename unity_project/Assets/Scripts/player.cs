@@ -161,6 +161,11 @@ public class player : MonoBehaviour, Health
 
     }
 
+    public void OnDestroy()
+    {
+        thisM.players.Remove(this);
+    }
+
     void respawn()
     {
         thisM.NetworkDisable();

@@ -219,9 +219,7 @@ public abstract class Tile : MonoBehaviour, Health, Attachable, IJSON
         ret.Add("Health", health);
         ret.Add("PrefabName", prefabName);
         ret.Add("Name", name);
-        // TODO: Remove Comment 
         ret.Add("Destroyed", (health <= 0));
-
 
         return ret;
     }
