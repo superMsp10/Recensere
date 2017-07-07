@@ -48,12 +48,12 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     void spawnSceneObject(string prefabName, Vector3 position)
     {
-        GameObject g = (GameObject)PhotonNetwork.InstantiateSceneObject(prefabName, position, Quaternion.identity, 0, null);
+        GameObject g = PhotonNetwork.InstantiateSceneObject(prefabName, position, Quaternion.identity, 0, null);
         g.SetActive(true);
     }
 
     //Player------------------------------------------//
-    public void instantiatePlayer()
+    public void spawnPlayer()
     {
 
         int playerID = PhotonNetwork.player.ID;
@@ -67,13 +67,13 @@ public class GameManager : MonoBehaviour
     {
         GameObject p;
         int playerID = PhotonNetwork.player.ID;
-        GameObject g = (GameObject)GameObject.Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), thisSpawn.transform.rotation, currLevel.StructuresTransform);
+        GameObject g = Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), thisSpawn.transform.rotation, currLevel.StructuresTransform);
         g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
 
         PlayerStructure s = g.GetComponent<PlayerStructure>();
         if (s != null)
         {
-            s.enabled = true;
+            s.isLocal = true;
             currLevel.structures.Add(s);
             p = PhotonNetwork.Instantiate(playerInstantiate.name,
                          s.spawnPosition.position,

@@ -6,6 +6,8 @@ public class PlayerStructure : Structure
 {
     public Transform spawnPosition;
     public string prefabName;
+    public bool isLocal = false;
+
 
     public override JSONObject GenerateJSON()
     {

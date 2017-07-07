@@ -141,7 +141,7 @@ public abstract class Level : MonoBehaviour
 
     public virtual void OnLoaded()
     {
-        thisM.instantiatePlayer();
+        thisM.spawnPlayer();
     }
 
     public JSONArray StructureNames()

@@ -93,7 +93,7 @@ public class EndGameLevel : Level
     [PunRPC]
     public void SpawnDefault()
     {
-        thisM.instantiatePlayer();
+        thisM.spawnPlayer();
     }
 
     [PunRPC]

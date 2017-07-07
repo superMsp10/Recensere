@@ -15,13 +15,13 @@ public class DefaultMapPlayerStructure : PlayerStructure
     public float totalTime;
     public Text objectiveText;
 
-
-
     public new void Start()
     {
         base.Start();
-        if (PhotonNetwork.connected)
+        if (PhotonNetwork.connected && isLocal)
+        {
             GameManager.thisM.view.RPC("spawnSceneObject", PhotonTargets.MasterClient, spawnItem, itemSpot.position);
+        }
     }
 
     public void closeLid()
@@ -38,7 +38,6 @@ public class DefaultMapPlayerStructure : PlayerStructure
 
     public void openLid()
     {
-
         shaft.moving = true;
         shaft.totalTime = totalTime;
         shaft.start = shaft.lookAt.localPosition;
@@ -48,9 +47,11 @@ public class DefaultMapPlayerStructure : PlayerStructure
         Invoke("stopMoving", totalTime);
     }
 
-    void stopMoving()
+    public void stopMoving()
     {
         shaft.moving = false;
     }
+
+  
 
 }
