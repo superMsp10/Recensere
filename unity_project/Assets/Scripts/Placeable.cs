@@ -112,18 +112,15 @@ public class Placeable : MonoBehaviour, Holdable
         }
     }
 
-    //void OnTriggerStay(Collider other)
-    //{
-    //    if (collided == false && selected == true)
-    //    {
-    //        collided = true;
-    //        foreach (Renderer item in thisRender)
-    //        {
-    //            item.material.color = invalid;
-    //        }
-    //    }
+    void OnTriggerStay(Collider other)
+    {
+        if (collided == false && selected == true)
+        {
+            collided = true;
+            validityColours(!collided);
+        }
 
-    //}
+    }
 
     void OnTriggerEnter(Collider other)
     {

@@ -9,7 +9,7 @@ public class fuelTile : LootTile
     private float _fuel;
     public float maxFuel;
     playerMove curr;
-    float fuelRate;
+    public float fuelRate = 1;
     //Tube FX
     public MeshRenderer tube;
     public Color tubeOrg;
@@ -43,9 +43,9 @@ public class fuelTile : LootTile
     void Start()
     {
         tube.material.color = tubeOrg;
-        fuelRate = ((DefaultMap)GameManager.thisM.currLevel).fuelRate;
         airIntake.Stop();
         fuelSpray.Stop();
+        fuel = maxFuel / 2;
     }
 
     public override void NetworkInit()
@@ -59,7 +59,6 @@ public class fuelTile : LootTile
     {
         v.RPC("syncFuel", PhotonPlayer.Find(playerId), fuel);
         //Debug.Log("Sent(Master) Fuel");
-
     }
 
 
@@ -108,13 +107,12 @@ public class fuelTile : LootTile
     {
         fuel = f;
         Debug.Log("Synced(Client) Fuel");
-
     }
 
     public override void generateLoot()
     {
-        if ((fuel + fuelRate) <= maxFuel)
-            fuel += fuelRate;
+        if ((fuel + ((DefaultMap)GameManager.thisM.currLevel).fuelRate) <= maxFuel)
+            fuel += ((DefaultMap)GameManager.thisM.currLevel).fuelRate;
         v.RPC("syncFuel", PhotonTargets.Others, _fuel);
     }
 
@@ -184,10 +182,10 @@ public class fuelTile : LootTile
 
         startUp = false;
 
-        if ((fuel + fuelRate) >= 0)
+        if ((fuel - fuelRate) >= 0)
         {
-            curr.fuel++;
-            fuel--;
+            curr.fuel += fuelRate;
+            fuel -= fuelRate;
             v.RPC("syncFuel", PhotonTargets.Others, _fuel);
         }
         else

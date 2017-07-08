@@ -9,7 +9,7 @@ public class playerMove : MonoBehaviour
     public float og_speed;
     public float speed;
     public float fly_speed;
-    public float speedLimit;
+    public float og_speedLimit, speedLimit;
     public Transform startChecks;
     public Transform[] endChecks;
     public LayerMask whatGround;
@@ -22,6 +22,8 @@ public class playerMove : MonoBehaviour
     //Jetpack
     private float _fuel;
     public float maxFuel;
+    public float fuelRate;
+
     public JetpackFuelDisplay jetPackFuelDisplay;
     public ParticleSystem airIntake;
     public ParticleSystem afterburn;
@@ -84,13 +86,14 @@ public class playerMove : MonoBehaviour
         checkJump();
     }
 
-    long lastTime = 0;
+    float lastTime = 0;
     void FixedUpdate()
     {
         checkMovement();
-        if( lastTime-Time.time > 60)
+        if (Time.time - lastTime > 30)
         {
             UnityAnalyticsHeatmap.HeatmapEvent.Send("position", gameObject.transform.position, Time.time);
+            lastTime = Time.time;
         }
     }
 
@@ -123,7 +126,10 @@ public class playerMove : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (grounded)
+                {
+                    UnityAnalyticsHeatmap.HeatmapEvent.Send("jumped", gameObject.transform.position, Time.time);
                     jump();
+                }
                 else
                     jumped = true;
             }
@@ -172,13 +178,11 @@ public class playerMove : MonoBehaviour
 
     void updateFuel()
     {
-        fuel--;
+        fuel -= fuelRate;
     }
 
     void jump()
     {
-        UnityAnalyticsHeatmap.HeatmapEvent.Send("jumped", gameObject.transform.position, Time.time);
-
         rigidbod.velocity = new Vector3(rigidbod.velocity.x * fly_speed, jumpPower, rigidbod.velocity.z * fly_speed);
         jumped = true;
         playRandomJumpingSFX();
@@ -231,10 +235,12 @@ public class playerMove : MonoBehaviour
         {
             speed = og_speed;
             jumped = false;
+            speedLimit = og_speedLimit;
         }
         else
         {
             speed = og_speed * fly_speed;
+            speedLimit = og_speedLimit / fly_speed;
         }
 
         Vector3 localV = transform.InverseTransformDirection(rigidbod.velocity);

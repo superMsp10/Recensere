@@ -43,17 +43,11 @@ public class DefaultMap : Level
         else
         {
             thisM.StartStrucutresSync();
-        }
-    }
-
-    public override void InitStrucutres(string JSON)
-    {
-        base.InitStrucutres(JSON);
-
-        Debug.Log("Updating Loot Tiles");
-        foreach (LootTile t in lootTiles)
-        {
-            t.NetworkInit();
+            Debug.Log("Updating Loot Tiles");
+            foreach (LootTile t in lootTiles)
+            {
+                t.NetworkInit();
+            }
         }
     }
 
