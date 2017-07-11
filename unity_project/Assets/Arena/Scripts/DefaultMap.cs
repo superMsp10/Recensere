@@ -43,6 +43,12 @@ public class DefaultMap : Level
         else
         {
             thisM.StartStrucutresSync();
+
+            foreach (SpawnSpot s in spawns)
+            {
+                s.NetworkInit();
+            }
+
             Debug.Log("Updating Loot Tiles");
             foreach (LootTile t in lootTiles)
             {

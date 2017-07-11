@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     {
 
         int playerID = PhotonNetwork.player.ID;
-        SpawnSpot[] spawns = FindObjectsOfType<SpawnSpot>();
+        SpawnSpot[] spawns = currLevel.spawns;
         playerSetup(spawns[playerID % spawns.Length]);
         loaded = true;
 

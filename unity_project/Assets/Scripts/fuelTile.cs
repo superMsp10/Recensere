@@ -106,7 +106,7 @@ public class fuelTile : LootTile
     public void syncFuel(float f)
     {
         fuel = f;
-        Debug.Log("Synced(Client) Fuel");
+        //Debug.Log("Synced(Client) Fuel");
     }
 
     public override void generateLoot()

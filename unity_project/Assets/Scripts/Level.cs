@@ -18,6 +18,8 @@ public abstract class Level : MonoBehaviour
     public float deathYPos;
     pauseUI pause;
 
+    public SpawnSpot[] spawns;
+
     public GameManager thisM;
 
     List<string> deathMessages = new List<string>() { "Went too <color=red>deep</color>", "You got lost in the <size=24><color=black>abyss</color></size>", "You have reached the point of no <b>return</b>",
