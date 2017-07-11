@@ -103,18 +103,19 @@ public class GameManager : MonoBehaviour
             ObjectivesManeger.thisM.Initialize();
         NetworkEnable();
 
-        view.RPC("updatePlayers", PhotonTargets.AllBuffered, myPlayer.thisView.viewID, myPlayer.name);
+        view.RPC("updatePlayers", PhotonTargets.AllBuffered, myPlayer.thisView.viewID, myPlayer.name, myPlayer.playerID);
 
     }
 
     [PunRPC]
-    void updatePlayers(int id, string name)
+    void updatePlayers(int id, string name, int playerID)
     {
         players = new List<player>(FindObjectsOfType<player>());
         player p = getPlayerByViewID(id);
         if (p != null)
         {
             p.name = "Player: " + name;
+            p.playerID = playerID;
             Debug.Log("Updating players for player: " + p.name + ", Total:" + players.Count);
         }
         else

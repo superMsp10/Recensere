@@ -36,7 +36,6 @@ public class Item_Throwable : MonoBehaviour, Holdable
     public float minimumHeldTime = 0.5f;
     public float defaultHeldTime;
     public PhotonView thisView;
-    int playerID;
     protected bool selected = false;
     bool startedHold = false;
     Renderer ren;
@@ -45,7 +44,11 @@ public class Item_Throwable : MonoBehaviour, Holdable
     {
         projectilePooler = new NetworkPooler(maxItems, projectile);
         ren = GetComponent<Renderer>();
+        if (!PhotonNetwork.isMasterClient)
+            thisView.RPC("getInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
     }
+
+
 
     //Item------------------------------------------//
     public void Update()
@@ -84,8 +87,8 @@ public class Item_Throwable : MonoBehaviour, Holdable
                 //								p = collision.collider.gameObject.GetComponent<player> ();
                 if (invManager.thisInv.addHoldable(this, _amount) <= 0)
                 {
-                    playerID = collision.collider.gameObject.GetComponent<PhotonView>().viewID;
-                    thisView.RPC("pickedUpBy", PhotonTargets.All, playerID);
+
+                    thisView.RPC("pickedUpBy", PhotonTargets.All, collision.collider.gameObject.GetComponent<player>().playerID);
                     _pickable = false;
                 }
             }
@@ -222,6 +225,28 @@ public class Item_Throwable : MonoBehaviour, Holdable
     }
 
     //RPCs------------------------------------------//
+
+    [PunRPC]
+    public void getInit(int clientPlayerID)
+    {
+        Debug.Log("getInit on" + name);
+        if (thisPlayer != null)
+        {
+            thisView.RPC("setInit", PhotonPlayer.Find(clientPlayerID), thisPlayer.playerID, selected);
+        }
+    }
+
+
+    [PunRPC]
+    public void setInit(int setPlayerID, bool _selected)
+    {
+        pickedUpBy(setPlayerID);
+        if (_selected)
+        {
+            selectedBy();
+        }
+    }
+
     [PunRPC]
     protected virtual void buttonDownBy()
     {
@@ -252,10 +277,10 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
     }
     [PunRPC]
-    protected virtual void pickedUpBy(int viewID)
+    protected virtual void pickedUpBy(int playerID)
     {
         GetComponent<Renderer>().material.color = normal;
-        thisPlayer = GameManager.thisM.getPlayerByViewID(viewID);
+        thisPlayer = GameManager.thisM.getPlayerByPlayerID(playerID);
         _pickable = false;
         r.isKinematic = true;
         gameObject.layer = LayerMask.NameToLayer(thisPlayer.handLayer);

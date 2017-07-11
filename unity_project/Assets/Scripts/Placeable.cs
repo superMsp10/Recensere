@@ -30,7 +30,6 @@ public class Placeable : MonoBehaviour, Holdable
     public PhotonView thisView;
     protected bool selected = false;
     public player thisPlayer;
-    int playerID;
     public string itemLayer;
     GameManager thisM;
     Camera thisC;
@@ -41,7 +40,11 @@ public class Placeable : MonoBehaviour, Holdable
     void Start()
     {
         thisM = GameManager.thisM;
+        if (!PhotonNetwork.isMasterClient)
+            thisView.RPC("getInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -104,8 +107,7 @@ public class Placeable : MonoBehaviour, Holdable
             {
                 if (invManager.thisInv.addHoldable(this, _amount) <= 0)
                 {
-                    playerID = collision.collider.gameObject.GetComponent<PhotonView>().viewID;
-                    thisView.RPC("pickedUpBy", PhotonTargets.All, playerID);
+                    thisView.RPC("pickedUpBy", PhotonTargets.All, collision.collider.gameObject.GetComponent<player>().playerID);
                     _pickable = false;
                 }
             }
@@ -257,6 +259,28 @@ public class Placeable : MonoBehaviour, Holdable
     }
 
     //RPCs------------------------------------------//
+
+    [PunRPC]
+    public void getInit(int clientPlayerID)
+    {
+        Debug.Log("getInit on" + name);
+        if (thisPlayer != null)
+        {
+            thisView.RPC("setInit", PhotonPlayer.Find(clientPlayerID), thisPlayer.playerID, selected);
+        }
+    }
+
+
+    [PunRPC]
+    public void setInit(int setPlayerID, bool _selected)
+    {
+        pickedUpBy(setPlayerID);
+        if (_selected)
+        {
+            selectedBy();
+        }
+    }
+
     [PunRPC]
     protected virtual void buttonDownBy()
     {
@@ -289,7 +313,7 @@ public class Placeable : MonoBehaviour, Holdable
     [PunRPC]
     protected virtual void pickedUpBy(int viewID)
     {
-        thisPlayer = GameManager.thisM.getPlayerByViewID(viewID);
+        thisPlayer = GameManager.thisM.getPlayerByPlayerID(viewID);
         _pickable = false;
         //gameObject.layer = LayerMask.NameToLayer(thisPlayer.handLayer);
         transform.parent = thisPlayer.right_hand;

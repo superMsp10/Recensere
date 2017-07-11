@@ -8,7 +8,7 @@ public class DestroyMore : Objective
     int needed = 0;
     public override void Initialize()
     {
-        org = (int)PhotonNetwork.player.customProperties["Destroyed"];
+        org = (int)PhotonNetwork.player.CustomProperties["Destroyed"];
         needed = (int)((new System.Random().NextDouble() + iteration) * 50) + 2;
     }
 
@@ -32,14 +32,14 @@ public class DestroyMore : Objective
     {
         get
         {
-            return "You destroyed " + Mathf.Abs(org - (int)PhotonNetwork.player.customProperties["Destroyed"]) + " items";
+            return "You destroyed " + Mathf.Abs(org - (int)PhotonNetwork.player.CustomProperties["Destroyed"]) + " items";
         }
     }
 
     public override bool CheckCompleted()
     {
 
-        if ((int)PhotonNetwork.player.customProperties["Destroyed"] >= (org + needed))
+        if ((int)PhotonNetwork.player.CustomProperties["Destroyed"] >= (org + needed))
         {
             return true;
         }

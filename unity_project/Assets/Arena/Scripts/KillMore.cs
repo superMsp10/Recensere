@@ -8,7 +8,7 @@ public class KillMore : Objective
     int needed = 0;
     public override void Initialize()
     {
-        org = (int)PhotonNetwork.player.customProperties["Kills"];
+        org = (int)PhotonNetwork.player.CustomProperties["Kills"];
         needed = iteration + 2;
     }
 
@@ -32,14 +32,14 @@ public class KillMore : Objective
     {
         get
         {
-            return "You got " + Mathf.Abs(org - (int)PhotonNetwork.player.customProperties["Kills"]) + " kills";
+            return "You got " + Mathf.Abs(org - (int)PhotonNetwork.player.CustomProperties["Kills"]) + " kills";
         }
     }
 
     public override bool CheckCompleted()
     {
 
-        if ((int)PhotonNetwork.player.customProperties["Kills"] >= (org + needed))
+        if ((int)PhotonNetwork.player.CustomProperties["Kills"] >= (org + needed))
         {
             return true;
         }
