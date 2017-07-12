@@ -187,7 +187,7 @@ public class DatabaseConnect : MonoBehaviour
         yield return www;
         if (www.error == null)
         {
-            bool exists = bool.Parse(www.text);
+            //bool exists = bool.Parse(www.text);
         }
         else
         {
@@ -217,9 +217,8 @@ public class DatabaseConnect : MonoBehaviour
                 wForm.AddField("username", username);
                 wForm.AddField("password", password);
 
-
-                yield return new WWW(url + "/createAccount", wForm);
                 changeToPlayMenu();
+                yield return new WWW(url + "/createAccount", wForm);
             }
             else
             {

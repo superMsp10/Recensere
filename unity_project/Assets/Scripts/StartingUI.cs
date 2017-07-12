@@ -29,8 +29,12 @@ public class StartingUI : MonoBehaviour, UIState
         {
             DatabaseConnect.thisM.createAccount(userName.text, password.text);
         }
+    }
 
 
+    public void PlayTutorial()
+    {
+       
     }
 
     public void login()
