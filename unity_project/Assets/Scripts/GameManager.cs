@@ -208,6 +208,7 @@ public class GameManager : MonoBehaviour
     {
 
         ChangeCam(currLevel.cam);
+        currLevel.playerDeath();
         myPlayer.networkDisable();
         dead = true;
         UIManager.thisM.changeUI(tileDictionary.thisM.pauseUI);

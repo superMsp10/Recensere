@@ -133,6 +133,10 @@ public abstract class Level : MonoBehaviour
     //        InvokeRepeating("generateLoot", 0, lootTime);
     //}
 
+    public virtual void playerDeath()
+    {
+
+    }
 
 
     public virtual void OnConnected()
