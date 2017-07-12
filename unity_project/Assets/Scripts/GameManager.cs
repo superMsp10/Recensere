@@ -131,7 +131,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(startGameScene);
         DatabaseConnect.thisM.GameMessage_HostExited();
         PhotonNetwork.Disconnect();
-
     }
 
 
