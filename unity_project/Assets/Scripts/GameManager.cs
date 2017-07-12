@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using Boomlagoon.JSON;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -124,6 +125,15 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    public void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    {
+        SceneManager.LoadScene(startGameScene);
+        DatabaseConnect.thisM.GameMessage_HostExited();
+        PhotonNetwork.Disconnect();
+
+    }
+
 
     public void OnPhotonPlayerDisconnected(PhotonPlayer player)
     {

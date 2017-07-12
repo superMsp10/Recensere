@@ -40,7 +40,7 @@ public class Placeable : MonoBehaviour, Holdable
     void Start()
     {
         thisM = GameManager.thisM;
-        if (!PhotonNetwork.isMasterClient)
+        if (!GameManager.thisM.loaded && !PhotonNetwork.isMasterClient)
             thisView.RPC("getInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
     }
 
@@ -263,7 +263,7 @@ public class Placeable : MonoBehaviour, Holdable
     [PunRPC]
     public void getInit(int clientPlayerID)
     {
-        Debug.Log("getInit on" + name);
+        //Debug.Log("getInit on" + name);
         if (thisPlayer != null)
         {
             thisView.RPC("setInit", PhotonPlayer.Find(clientPlayerID), thisPlayer.playerID, selected);
@@ -274,6 +274,7 @@ public class Placeable : MonoBehaviour, Holdable
     [PunRPC]
     public void setInit(int setPlayerID, bool _selected)
     {
+         Debug.Log("setInit on" + name);
         pickedUpBy(setPlayerID);
         if (_selected)
         {
