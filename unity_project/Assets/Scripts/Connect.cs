@@ -25,13 +25,13 @@ public class Connect : Photon.MonoBehaviour
         }
         else
         {
-            
+
             if (!PhotonNetwork.connected)
             {
                 PhotonNetwork.automaticallySyncScene = true;
                 PhotonNetwork.ConnectUsingSettings(Version.ToString());
             }
-          
+
 
         }
 
@@ -45,8 +45,8 @@ public class Connect : Photon.MonoBehaviour
     public void Create()
     {
         PhotonNetwork.automaticallySyncScene = true;
-        PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = (byte)maxPlayerNum }, null);
-        PhotonNetwork.LoadLevel(loadSceneName);
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = (byte)maxPlayerNum }, null);
+        PhotonNetwork.LoadLevel(GameManager.thisM.startGameScene);
 
     }
 
@@ -79,7 +79,7 @@ public class Connect : Photon.MonoBehaviour
         if (autoJoin)
         {
             PhotonNetwork.automaticallySyncScene = true;
-            PhotonNetwork.CreateRoom(null, new RoomOptions() { maxPlayers = (byte)maxPlayerNum }, null);
+            PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = (byte)maxPlayerNum }, null);
         }
 
     }

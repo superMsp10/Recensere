@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public string PlayerLayer;
     public string GhostLayer;
 
-    public string endGameScene, startGameScene;
+    public string endGameScene, startGameScene, startUIScene = "Photoshoot";
 
     //PlayerStuff------------------------------------------//
 
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
 
     public void OnMasterClientSwitched(PhotonPlayer newMasterClient)
     {
-        SceneManager.LoadScene(startGameScene);
+        SceneManager.LoadScene(startUIScene);
         DatabaseConnect.thisM.GameMessage_HostExited();
         PhotonNetwork.Disconnect();
     }

@@ -15,8 +15,6 @@ public class pauseUI : MonoBehaviour, UIState
     public float countDown = 0.01f;
     public GameObject endGameButton;
 
-    public string DisconnectScene;
-
     public void StartUI()
     {
         gameObject.SetActive(true);
@@ -57,7 +55,7 @@ public class pauseUI : MonoBehaviour, UIState
     public void Disconnect()
     {
         GameManager.thisM.NetworkDisconnect();
-        SceneManager.LoadScene(DisconnectScene);
+        SceneManager.LoadScene(GameManager.thisM.startUIScene);
     }
 
     public void button_respawn()
