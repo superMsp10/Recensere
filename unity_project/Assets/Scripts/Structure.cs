@@ -15,17 +15,18 @@ public class Structure : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
-        if (autoAddTilesOnStart)
+    
+    }
+
+    public void autoSetup()
+    {
+        Debug.Log("Auto initializing strucuture for: " + name);
+        tiles = new List<Tile>();
+        foreach (Tile t in GetComponentsInChildren<Tile>())
         {
-            Debug.Log("Auto initializing strucuture for: " + name);
-            tiles = new List<Tile>();
-            foreach (Tile t in GetComponentsInChildren<Tile>())
-            {
-                tiles.Add(t);
-                t.thisStructure = this;
-                t.name = "Tile#" + tiles.Count;
-            }
-            FindObjectOfType<Level>().structures.Add(this);
+            tiles.Add(t);
+            t.thisStructure = this;
+            t.name = "Tile#" + tiles.Count;
         }
     }
 

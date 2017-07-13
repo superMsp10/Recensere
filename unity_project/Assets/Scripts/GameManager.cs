@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public string PlayerLayer;
     public string GhostLayer;
 
-    public string endGameScene, startGameScene, startUIScene = "Photoshoot";
+    public string endGameScene, startGameScene, startUIScene = "Photoshoot", tutorialScene = "Tutorial";
 
     //PlayerStuff------------------------------------------//
 

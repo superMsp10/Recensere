@@ -5,22 +5,24 @@ using System;
 
 public abstract class Level : MonoBehaviour
 {
-    public Transform levelStart;
-    public Transform items;
-    public Transform StructuresTransform;
-
-    public List<Structure> structures = new List<Structure>();
-
-
     public GameObject cam;
-
-    public GameObject spawnStructure;
     public float deathYPos;
     pauseUI pause;
 
-    public SpawnSpot[] spawns;
 
     public GameManager thisM;
+
+    public bool autoSetup = false;
+
+    public SpawnSpot[] spawns;
+    public List<Structure> structures;
+
+    public Transform items;
+    public Transform StructuresTransform;
+
+
+
+    public GameObject spawnStructure;
 
     List<string> deathMessages = new List<string>() { "Went too <color=red>deep</color>", "You got lost in the <size=24><color=black>abyss</color></size>", "You have reached the point of no <b>return</b>",
         "<color=purple><i>Hypnic Jerk</i>, but this time its real</color>", "<color=grey>Free fall: No air resistance just gravity</color>", "Searching for new <color=green>grounds</color> to land on",
@@ -29,6 +31,15 @@ public abstract class Level : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
+        if (autoSetup)
+        {
+            structures = new List<Structure>(StructuresTransform.GetComponentsInChildren<Structure>());
+            foreach (var structure in structures)
+            {
+                structure.autoSetup();
+            }
+            spawns = FindObjectsOfType<SpawnSpot>();
+        }
         //				cam = FindObjectOfType<Camera> ().gameObject;
         thisM.currLevel = this;
         thisM.ChangeCam(cam);

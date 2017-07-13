@@ -41,5 +41,10 @@ public class PlayMenu : MonoBehaviour, UIState
         error.text = "The game is not on right now!";
     }
 
+    public void startTutorialLevel()
+    {
+        SceneManager.LoadScene(GameManager.thisM.tutorialScene);
+    }
+
 
 }

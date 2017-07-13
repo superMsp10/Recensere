@@ -19,6 +19,7 @@ public class Connect : Photon.MonoBehaviour
 
         if (offline)
         {
+            PhotonNetwork.Disconnect();
             PhotonNetwork.offlineMode = true;
             Debug.Log("Offline Mode!");
 
