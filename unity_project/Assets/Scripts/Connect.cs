@@ -16,26 +16,17 @@ public class Connect : Photon.MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         if (offline)
         {
             PhotonNetwork.Disconnect();
-            PhotonNetwork.offlineMode = true;
             Debug.Log("Offline Mode!");
-
+            PhotonNetwork.offlineMode = true;
         }
-        else
+        else if (!PhotonNetwork.connected)
         {
-
-            if (!PhotonNetwork.connected)
-            {
-                PhotonNetwork.automaticallySyncScene = true;
-                PhotonNetwork.ConnectUsingSettings(Version.ToString());
-            }
-
-
+            PhotonNetwork.automaticallySyncScene = true;
+            PhotonNetwork.ConnectUsingSettings(Version.ToString());
         }
-
     }
 
     public void FindRooms()

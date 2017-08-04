@@ -38,7 +38,7 @@ public class PlayMenu : MonoBehaviour, UIState
 
     public void UpdateUI()
     {
-        error.text = "The game is not on right now!";
+        error.text = "There are no online games available right now";
     }
 
     public void startTutorialLevel()
