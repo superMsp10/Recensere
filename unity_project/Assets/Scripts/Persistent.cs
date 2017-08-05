@@ -12,6 +12,8 @@ public class Persistent : MonoBehaviour
     public bool Dev = false;
     public GameObject connectError;
     public List<Objective> completed;
+    public bool offline = false;
+    public bool autoJoin = false;
 
 
 

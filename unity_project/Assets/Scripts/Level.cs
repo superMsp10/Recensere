@@ -9,7 +9,6 @@ public abstract class Level : MonoBehaviour
     public float deathYPos;
     pauseUI pause;
 
-
     public GameManager thisM;
 
     public bool autoSetup = false;
@@ -20,13 +19,11 @@ public abstract class Level : MonoBehaviour
     public Transform items;
     public Transform StructuresTransform;
 
-
-
     public GameObject spawnStructure;
 
     List<string> deathMessages = new List<string>() { "Went too <color=red>deep</color>", "You got lost in the <size=24><color=black>abyss</color></size>", "You have reached the point of no <b>return</b>",
         "<color=purple><i>Hypnic Jerk</i>, but this time its real</color>", "<color=grey>Free fall: No air resistance just gravity</color>", "Searching for new <color=green>grounds</color> to land on",
-        "<size=36>Cant stop the falling by \n Justin Timberlake</size>", "<color=orange>You are falling your physics class</color>" };
+        "<size=36>Cant stop the falling by \n Justin Timberlake</size>", "<color=orange>You are falling in your physics class</color>" };
 
     // Use this for initialization
     public void Start()

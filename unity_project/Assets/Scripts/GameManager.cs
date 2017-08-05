@@ -347,12 +347,16 @@ public class GameManager : MonoBehaviour
         }
         set
         {
+
             pause = value;
             if (value == true)
             {
-                foreach (MonoBehaviour m in myPlayer.networkSet)
+                if (myPlayer != null)
                 {
-                    m.enabled = false;
+                    foreach (MonoBehaviour m in myPlayer.networkSet)
+                    {
+                        m.enabled = false;
+                    }
                 }
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
@@ -361,9 +365,12 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                foreach (MonoBehaviour m in myPlayer.networkSet)
+                if (myPlayer != null)
                 {
-                    m.enabled = true;
+                    foreach (MonoBehaviour m in myPlayer.networkSet)
+                    {
+                        m.enabled = true;
+                    }
                 }
 
                 Cursor.visible = false;

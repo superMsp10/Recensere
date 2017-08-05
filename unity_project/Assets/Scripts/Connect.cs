@@ -5,18 +5,16 @@ public class Connect : Photon.MonoBehaviour
 {
 
 
-    public bool offline = false;
-    public bool autoJoin = false;
+
     private byte Version = GameManager.Version;
     bool showConnectionState = true;
     string prevConnectionState;
-    public string loadSceneName;
     public int maxPlayerNum = 20;
 
     // Use this for initialization
     void Start()
     {
-        if (offline)
+        if (Persistent.thisPersist.offline)
         {
             PhotonNetwork.Disconnect();
             Debug.Log("Offline Mode!");
@@ -39,7 +37,6 @@ public class Connect : Photon.MonoBehaviour
         PhotonNetwork.automaticallySyncScene = true;
         PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = (byte)maxPlayerNum }, null);
         PhotonNetwork.LoadLevel(GameManager.thisM.startGameScene);
-
     }
 
     void Update()
@@ -60,7 +57,7 @@ public class Connect : Photon.MonoBehaviour
         if (PhotonNetwork.networkingPeer.AvailableRegions != null)
             Debug.LogWarning("List of available regions counts " + PhotonNetwork.networkingPeer.AvailableRegions.Count + ". First: " + PhotonNetwork.networkingPeer.AvailableRegions[0] + " \t Current Region: " + PhotonNetwork.networkingPeer.CloudRegion);
         Debug.Log("OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room. Calling: PhotonNetwork.JoinRandomRoom();");
-        if (autoJoin)
+        if (Persistent.thisPersist.autoJoin)
             PhotonNetwork.JoinRandomRoom();
     }
 
@@ -68,7 +65,7 @@ public class Connect : Photon.MonoBehaviour
     {
         if (UIManager.thisM.currentUI != null)
             UIManager.thisM.currentUI.UpdateUI();
-        if (autoJoin)
+        if (Persistent.thisPersist.autoJoin)
         {
             PhotonNetwork.automaticallySyncScene = true;
             PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = (byte)maxPlayerNum }, null);
