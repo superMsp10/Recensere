@@ -19,11 +19,7 @@ public abstract class Level : MonoBehaviour
     public Transform items;
     public Transform StructuresTransform;
 
-    public GameObject spawnStructure;
-
-    List<string> deathMessages = new List<string>() { "Went too <color=red>deep</color>", "You got lost in the <size=24><color=black>abyss</color></size>", "You have reached the point of no <b>return</b>",
-        "<color=purple><i>Hypnic Jerk</i>, but this time its real</color>", "<color=grey>Free fall: No air resistance just gravity</color>", "Searching for new <color=green>grounds</color> to land on",
-        "<size=36>Cant stop the falling by \n Justin Timberlake</size>", "<color=orange>You are falling in your physics class</color>" };
+    public GameObject spawnStructure;    
 
     // Use this for initialization
     protected void Start()
@@ -51,8 +47,6 @@ public abstract class Level : MonoBehaviour
         {
             if (thisM.myPlayer.transform.position.y < deathYPos)
             {
-
-                pause.deathMessage = deathMessages[UnityEngine.Random.Range(0, deathMessages.Count)];
                 thisM.NetworkDisable();
                 StartCoroutine(pause.Respawn(8f));
             }

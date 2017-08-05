@@ -163,13 +163,12 @@ public class player : MonoBehaviour, Health
 
     public void OnDestroy()
     {
-            thisM.players.Remove(this);
+        thisM.players.Remove(this);
     }
 
     void respawn()
     {
         thisM.NetworkDisable();
-        StartCoroutine(tileDictionary.thisM.pauseUI.GetComponent<pauseUI>().Respawn(5f));
     }
 
     public string lastDamageBy()
@@ -269,19 +268,14 @@ public class player : MonoBehaviour, Health
             float dmg = Mathf.Pow(collision.relativeVelocity.magnitude, sdm);
             if (takeDmg && collision.relativeVelocity.magnitude > Sturdy)
             {
-
                 //Debug.Log("Engough Damage at Player");
                 if (takeDamage(dmg, collision.collider.name))
                 {
-                    tileDictionary.thisM.pauseUI.GetComponent<pauseUI>().deathMessage = deathMessages[UnityEngine.Random.Range(0, deathMessages.Count)];
-
                     if (collision.collider.attachedRigidbody != null)
                     {
                         collision.collider.attachedRigidbody.velocity *= sdm;
                     }
                 }
-
-
             }
         }
     }

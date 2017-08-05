@@ -80,4 +80,10 @@ public class TutorialLevel : Level
         generateStage(currentStage);
         thisM.NetworkEnable();
     }
+
+    public override void playerDeath()
+    {
+        resetStage();
+    }
+
 }

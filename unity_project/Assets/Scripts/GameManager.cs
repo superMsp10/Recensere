@@ -218,7 +218,6 @@ public class GameManager : MonoBehaviour
 
     public void NetworkDisable()
     {
-
         ChangeCam(currLevel.cam);
         currLevel.playerDeath();
         myPlayer.networkDisable();
