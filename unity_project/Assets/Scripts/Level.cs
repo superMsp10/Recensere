@@ -26,7 +26,7 @@ public abstract class Level : MonoBehaviour
         "<size=36>Cant stop the falling by \n Justin Timberlake</size>", "<color=orange>You are falling in your physics class</color>" };
 
     // Use this for initialization
-    public void Start()
+    protected void Start()
     {
         if (autoSetup)
         {

@@ -4,11 +4,25 @@ using UnityEngine.SceneManagement;
 
 public class TutorialLevel : Level
 {
-    public GameObject turorialUI;
+    public int currentStage = 0;
+    public Transform duplicate;
+    public GameObject oldStage;
     //todo: spawn player here
-    public new void Start()
+    new void Start()
     {
         base.Start();
+    }
+
+    void Update()
+    {
+        if (!thisM.dead)
+        {
+            if (thisM.myPlayer.transform.position.y < deathYPos)
+            {
+                resetStage();
+            }
+        }
+
     }
 
     public override void OnConnected()
@@ -37,6 +51,33 @@ public class TutorialLevel : Level
 
     public void StartTutorial()
     {
+        UIManager.thisM.changeUI(tileDictionary.thisM.inGameUI);
+        foreach (var item in structures)
+        {
+            item.gameObject.SetActive(false);
+        }
 
+        thisM.playerSetup((structures[currentStage] as TutorialStage).ss);
+        generateStage(currentStage);
+    }
+
+    public void generateStage(int stage)
+    {
+        if (oldStage != null)
+            Destroy(oldStage);
+        oldStage = Instantiate(structures[stage].gameObject, duplicate.position, duplicate.rotation, duplicate);
+        oldStage.SetActive(true);
+    }
+
+    public void nextStage()
+    {
+        generateStage(currentStage++);
+        thisM.NetworkEnable();
+
+    }
+    public void resetStage()
+    {
+        generateStage(currentStage);
+        thisM.NetworkEnable();
     }
 }

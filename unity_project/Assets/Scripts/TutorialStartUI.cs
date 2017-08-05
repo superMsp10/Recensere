@@ -31,9 +31,5 @@ public class TutorialStartUI : MonoBehaviour, UIState
 
         SceneManager.LoadScene(GameManager.thisM.startGameScene);
     }
-
-    public void Continue()
-    {
-        UIManager.thisM.changeUI(tileDictionary.thisM.inGameUI);
-    }
+    
 }

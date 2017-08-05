@@ -15,7 +15,8 @@ public class Structure : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
-    
+        if (autoAddTilesOnStart)
+            autoSetup();
     }
 
     public void autoSetup()

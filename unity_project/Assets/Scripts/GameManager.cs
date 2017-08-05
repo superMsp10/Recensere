@@ -66,31 +66,43 @@ public class GameManager : MonoBehaviour
 
     public void playerSetup(SpawnSpot thisSpawn)
     {
-        GameObject p;
+        GameObject p = null;
         int playerID = PhotonNetwork.player.ID;
-        GameObject g = Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), thisSpawn.transform.rotation, currLevel.StructuresTransform);
-        g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
 
-        PlayerStructure s = g.GetComponent<PlayerStructure>();
-        if (s != null)
+        if (currLevel.spawnStructure != null)
         {
-            s.isLocal = true;
-            currLevel.structures.Add(s);
-            p = PhotonNetwork.Instantiate(playerInstantiate.name,
-                         s.spawnPosition.position,
-                            s.spawnPosition.rotation, 0, null);
-            view.RPC("setStructure", PhotonTargets.Others, s.GenerateJSON().ToString());
+            GameObject g = Instantiate(currLevel.spawnStructure, thisSpawn.getSpawnPoint(), thisSpawn.transform.rotation, currLevel.StructuresTransform);
+            g.name = "PlayerSpawn: " + Persistent.thisPersist.Username + playerID;
 
+            PlayerStructure s = g.GetComponent<PlayerStructure>();
+            if (s != null)
+            {
+                s.isLocal = true;
+                currLevel.structures.Add(s);
+                p = PhotonNetwork.Instantiate(playerInstantiate.name,
+                             s.spawnPosition.position,
+                                s.spawnPosition.rotation, 0, null);
+                myPlayer = p.GetComponent<player>();
+                view.RPC("setStructure", PhotonTargets.Others, s.GenerateJSON().ToString());
+                myPlayer.spwanRoom = s;
+                myPlayer.spwanPos = s.spawnPosition;
+            }
+            else
+            {
+                Debug.Log("The currLevel spawnStructure does not have a player sturcture comp. attached");
+                return;
+            }
         }
         else
         {
-            Debug.Log("The currLevel spawnStructure does not have a player sturcture comp. attached");
-            return;
+            p = PhotonNetwork.Instantiate(playerInstantiate.name,
+                          thisSpawn.transform.position,
+                             thisSpawn.transform.rotation, 0, null);
+            myPlayer = p.GetComponent<player>();
+            myPlayer.spwanPos = thisSpawn.transform;
         }
 
-        myPlayer = p.GetComponent<player>();
-        myPlayer.spwanRoom = s;
-        myPlayer.spwanPos = s.spawnPosition;
+
         myPlayer.playerID = playerID;
         myPlayer.name = PhotonNetwork.player.NickName = Persistent.thisPersist.Username;
         //				myPlayer.transform.FindChild ("Graphics").GetComponent<Renderer> ().material.color = player.getPlayerColour (playerID);
