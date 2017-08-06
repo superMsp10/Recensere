@@ -154,7 +154,8 @@ public class GameManager : MonoBehaviour
 
     public void OnConnected()
     {
-        currLevel.OnConnected();
+        if (currLevel != null)
+            currLevel.OnConnected();
     }
 
     public player getPlayerByViewID(int viewID)

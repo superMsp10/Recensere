@@ -43,6 +43,9 @@ public class PlayMenu : MonoBehaviour, UIState
 
     public void startTutorialLevel()
     {
+        Persistent.thisPersist.offline = true;
+        Persistent.thisPersist.autoJoin = true;
+
         SceneManager.LoadScene(GameManager.thisM.tutorialScene);
     }
 

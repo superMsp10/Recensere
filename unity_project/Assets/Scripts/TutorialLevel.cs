@@ -71,9 +71,9 @@ public class TutorialLevel : Level
 
     public void nextStage()
     {
-        generateStage(currentStage++);
+        currentStage++;
+        generateStage(currentStage);
         thisM.NetworkEnable();
-
     }
     public void resetStage()
     {
