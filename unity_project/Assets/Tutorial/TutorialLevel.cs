@@ -66,7 +66,10 @@ public class TutorialLevel : Level
         if (oldStage != null)
             Destroy(oldStage);
         oldStage = Instantiate(structures[stage].gameObject, duplicate.position, duplicate.rotation, duplicate);
+        var stageComponent = oldStage.GetComponent<TutorialStage>();
+        stageComponent.StartStructure();
         oldStage.SetActive(true);
+        thisM.myPlayer.spwanPos = stageComponent.ss.transform;
     }
 
     public void nextStage()
