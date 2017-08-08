@@ -58,7 +58,8 @@ public class TutorialLevel : Level
         }
 
         thisM.playerSetup((structures[currentStage] as TutorialStage).ss);
-        generateStage(currentStage);
+        resetStage();
+
     }
 
     public void generateStage(int stage)
@@ -76,7 +77,7 @@ public class TutorialLevel : Level
     {
         currentStage++;
         generateStage(currentStage);
-        thisM.NetworkEnable();
+        thisM.NetworkEnable(); 
     }
     public void resetStage()
     {

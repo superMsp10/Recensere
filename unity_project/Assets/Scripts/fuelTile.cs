@@ -123,7 +123,14 @@ public class fuelTile : LootTile
         {
             curr = m;
             InvokeRepeating("inputFuel", fuelRate, fuelRate);
-            v.RPC("startFuelFX", PhotonTargets.All, null);
+            if (v != null)
+            {
+                v.RPC("startFuelFX", PhotonTargets.All, null);
+            }
+            else
+            {
+                startFuelFX();
+            }
 
         }
     }
@@ -158,7 +165,14 @@ public class fuelTile : LootTile
     void stopFX()
     {
         CancelInvoke();
-        v.RPC("stopFuelFX", PhotonTargets.All, null);
+        if (v != null)
+        {
+            v.RPC("stopFuelFX", PhotonTargets.All, null);
+        }
+        else
+        {
+            stopFuelFX();
+        }
     }
 
     [PunRPC]
@@ -186,7 +200,10 @@ public class fuelTile : LootTile
         {
             curr.fuel += fuelRate;
             fuel -= fuelRate;
-            v.RPC("syncFuel", PhotonTargets.Others, _fuel);
+            if (v != null)
+            {
+                v.RPC("syncFuel", PhotonTargets.Others, _fuel);
+            }
         }
         else
         {
