@@ -44,8 +44,11 @@ public class Item_Throwable : MonoBehaviour, Holdable
     {
         projectilePooler = new NetworkPooler(maxItems, projectile);
         ren = GetComponent<Renderer>();
-        if (!GameManager.thisM.loaded && !PhotonNetwork.isMasterClient)
-            thisView.RPC("getInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
+        if (thisView != null)
+        {
+            if (!GameManager.thisM.loaded && !PhotonNetwork.isMasterClient)
+                thisView.RPC("getInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
+        }
     }
 
 
@@ -87,8 +90,15 @@ public class Item_Throwable : MonoBehaviour, Holdable
                 //								p = collision.collider.gameObject.GetComponent<player> ();
                 if (invManager.thisInv.addHoldable(this, _amount) <= 0)
                 {
+                    if (thisView != null)
+                    {
+                        thisView.RPC("pickedUpBy", PhotonTargets.All, collision.collider.gameObject.GetComponent<player>().playerID);
 
-                    thisView.RPC("pickedUpBy", PhotonTargets.All, collision.collider.gameObject.GetComponent<player>().playerID);
+                    }
+                    else
+                    {
+                        pickedUpBy(collision.collider.gameObject.GetComponent<player>().playerID);
+                    }
                     _pickable = false;
                 }
             }
@@ -142,13 +152,28 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
     public bool buttonDown()
     {
-        thisView.RPC("buttonDownBy", PhotonTargets.All, null);
+        if (thisView != null)
+        {
+            thisView.RPC("buttonDownBy", PhotonTargets.All, null);
+        }
+        else
+        {
+            buttonDownBy();
+        }
+
 
         return false;
     }
     public bool buttonUP()
     {
-        thisView.RPC("buttonUpBy", PhotonTargets.All, null);
+        if (thisView != null)
+        {
+            thisView.RPC("buttonUpBy", PhotonTargets.All, null);
+        }
+        else
+        {
+            buttonUpBy();
+        }
 
 
         //Apply Force
@@ -184,16 +209,36 @@ public class Item_Throwable : MonoBehaviour, Holdable
     }
     public void onSelect()
     {
-        thisView.RPC("selectedBy", PhotonTargets.All, null);
+        if (thisView != null)
+        {
+            thisView.RPC("selectedBy", PhotonTargets.All, null);
+
+        }
+        else
+        {
+            selectedBy();
+        }
     }
     public void onDeselect()
     {
-        thisView.RPC("deselectedBy", PhotonTargets.All, null);
+        if (thisView != null)
+        {
+
+            thisView.RPC("deselectedBy", PhotonTargets.All, null);
+        }
+        else
+        {
+            deselectedBy();
+        }
     }
     public void onPickup()
     {
         //				Debug.Log ("onPickup by Cube");
-        thisView.TransferOwnership(PhotonNetwork.player.ID);
+        if (thisView != null)
+        {
+
+            thisView.TransferOwnership(PhotonNetwork.player.ID);
+        }
 
         if (!pickedBefore)
         {
@@ -203,7 +248,15 @@ public class Item_Throwable : MonoBehaviour, Holdable
     }
     public void onDrop()
     {
-        thisView.RPC("droppedBy", PhotonTargets.All, null);
+        if (thisView != null)
+        {
+
+            thisView.RPC("droppedBy", PhotonTargets.All, null);
+        }
+        else
+        {
+            droppedBy();
+        }
 
     }
 
@@ -215,7 +268,8 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
     void DestroyItem()
     {
-        PhotonNetwork.Destroy(gameObject);
+        if (thisView != null)
+            PhotonNetwork.Destroy(gameObject);
         projectilePooler.OnDestroy();
     }
 

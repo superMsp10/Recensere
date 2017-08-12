@@ -7,6 +7,9 @@ public class TutorialLevel : Level
     public int currentStage = 0;
     public Transform duplicate;
     public GameObject oldStage;
+
+    public GameObject finishUI;
+
     //todo: spawn player here
     new void Start()
     {
@@ -76,8 +79,25 @@ public class TutorialLevel : Level
     public void nextStage()
     {
         currentStage++;
-        generateStage(currentStage);
-        thisM.NetworkEnable(); 
+        if (currentStage >= structures.Count)
+        {
+
+            Destroy(oldStage);
+            foreach (var item in structures)
+            {
+                item.gameObject.SetActive(true);
+            }
+            thisM.ChangeCam(cam);
+            Destroy(thisM.myPlayer.gameObject);
+            thisM.dead = true;
+            UIManager.thisM.changeUI(finishUI);
+            currentStage = 0;
+        }
+        else
+        {
+            generateStage(currentStage);
+            thisM.NetworkEnable();
+        }
     }
     public void resetStage()
     {

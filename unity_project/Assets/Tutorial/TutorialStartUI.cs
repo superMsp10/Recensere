@@ -21,7 +21,6 @@ public class TutorialStartUI : MonoBehaviour, UIState
 
     public void UpdateUI()
     {
-        UIManager.thisM.changeUI(tileDictionary.thisM.inGameUI);
     }
 
     public void PlayOffline()
@@ -31,5 +30,7 @@ public class TutorialStartUI : MonoBehaviour, UIState
 
         SceneManager.LoadScene(GameManager.thisM.startGameScene);
     }
+
+
     
 }
