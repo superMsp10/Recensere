@@ -30,8 +30,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
     public player thisPlayer;
     public Color normal;
     public Color highlighted;
-    float timeStarted;
-    float timeEnded;
+    protected float timeStarted, timeEnded;
     public float maximumHeldTime;
     public float minimumHeldTime = 0.5f;
     public float defaultHeldTime;
@@ -167,7 +166,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
         return false;
     }
-    public bool buttonUP()
+    public virtual bool buttonUP()
     {
         if (thisView != null)
         {
@@ -210,6 +209,7 @@ public class Item_Throwable : MonoBehaviour, Holdable
 
 
     }
+
     public void onSelect()
     {
         if (thisView != null)
