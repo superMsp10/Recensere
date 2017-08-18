@@ -40,11 +40,14 @@ public class Item_Throwable : MonoBehaviour, Holdable
     bool startedHold = false;
     Renderer ren;
 
+    public Vector3 handRotation;
+
+
     void Start()
     {
         projectilePooler = new NetworkPooler(maxItems, projectile);
         ren = GetComponent<Renderer>();
-        if (thisView != null)
+        if (thisView != null && PhotonNetwork.connected)
         {
             if (!GameManager.thisM.loaded && !PhotonNetwork.isMasterClient)
                 thisView.RPC("getInit", PhotonTargets.MasterClient, PhotonNetwork.player.ID);
@@ -341,7 +344,8 @@ public class Item_Throwable : MonoBehaviour, Holdable
         gameObject.layer = LayerMask.NameToLayer(thisPlayer.handLayer);
         transform.parent = thisPlayer.right_hand;
         transform.position = thisPlayer.right_hand.position;
-        transform.rotation = thisPlayer.right_hand.rotation;
+        transform.localRotation = Quaternion.Euler(handRotation);
+
         if (!selected)
             gameObject.SetActive(false);
 

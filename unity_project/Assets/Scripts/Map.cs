@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public abstract class Map
 {
-		public static defaultArena firstMap = new defaultArena (17, new string[]{ "Grenade", "Cube (1)", "PlaceableTileItem" });
+		public static defaultArena firstMap = new defaultArena (17, new string[]{ "Grenade", "Cube (1)", "PlaceableTileItem", "LaserGun" });
 		public  int arenaSize;
 		public List<Tile> tileTypes = new List<Tile> ();
 		public List<Tile> wallTypes = new List<Tile> ();
