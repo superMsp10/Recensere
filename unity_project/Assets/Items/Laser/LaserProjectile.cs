@@ -8,7 +8,12 @@ public class LaserProjectile : MonoBehaviour, Poolable, Timer
     public PhotonView thisPV;
     public LaserGun thisPooler;
     public LineRenderer lineRenderer;
+    public float stepsDuration = 0.5f, startTime, waitTime = 1f;
 
+    private void Start()
+    {
+        transform.SetParent(tileDictionary.thisM.projectiles, true);
+    }
 
     public GameObject gameobject
     {
@@ -39,17 +44,30 @@ public class LaserProjectile : MonoBehaviour, Poolable, Timer
         gameObject.SetActive(on);
     }
 
+    protected IEnumerator step()
+    {
+
+        Debug.Log("hello");
+        while (Time.time - startTime > waitTime)
+        {
+            Debug.Log(Time.time - startTime);
+            yield return new WaitForSeconds(stepsDuration);
+        }
+        TimerComplete();
+    }
+
     public void StartTimer(float time)
     {
-        Invoke("TimerComplete", time);
-
+        startTime = Time.time;
+        waitTime = time;
+        StartCoroutine(step());
     }
 
     public void CancelTimer()
     {
-        CancelInvoke("TimerComplete");
-
+        StopAllCoroutines();
     }
+
     public void TimerComplete()
     {
         if (thisPooler != null)

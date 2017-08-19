@@ -5,9 +5,15 @@ using Boomlagoon.JSON;
 public class TestLevelUI : pauseUI
 {
     public GameObject[] cameras;
-    GameManager gm = GameManager.thisM;
+    GameManager gm;
     int currCam = 0;
-    public Holdable giveItem;
+    public GameObject test;
+
+    private void Start()
+    {
+        gm = GameManager.thisM;
+        test.transform.position = gm.myPlayer.transform.position;
+    }
 
     public void switchCamera()
     {
@@ -31,7 +37,7 @@ public class TestLevelUI : pauseUI
         //PhotonNetwork.player.customProperties["Kills"] = getHashInt(PhotonNetwork.player.customProperties["Placed"]) + 10;
         //PhotonNetwork.player.customProperties["Destroyed"] = getHashInt(PhotonNetwork.player.customProperties["Destroyed"]) + 10;
         //PhotonNetwork.player.customProperties["Deaths"] = getHashInt(PhotonNetwork.player.customProperties["Deaths"]) + 10;
-        invManager.thisInv.addHoldable(giveItem, 5);
+        //invManager.thisInv.addHoldable(giveItem, 5);
     }
 
     int getHashInt(object o)

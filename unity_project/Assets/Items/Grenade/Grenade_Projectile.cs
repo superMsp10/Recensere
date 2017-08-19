@@ -23,7 +23,6 @@ class Grenade_Projectile : Item_Throwable_Projectile
     public override void reset(bool on)
     {
         base.reset(on);
-        transform.SetParent(tileDictionary.thisM.projectiles, true);
         if (!on)
         {
             //Debug.Log("Grenade projectile enabled");

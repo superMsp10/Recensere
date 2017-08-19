@@ -16,6 +16,12 @@ public class Item_Throwable_Projectile : MonoBehaviour, Poolable, Timer
     public List<Transform> changeLayer = new List<Transform>();
 
     public bool armed = false;
+
+    private void Start()
+    {
+        transform.SetParent(tileDictionary.thisM.projectiles, true);
+    }
+
     public GameObject gameobject
     {
         get
