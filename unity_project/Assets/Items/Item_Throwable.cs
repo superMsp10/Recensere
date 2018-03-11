@@ -36,8 +36,8 @@ public class Item_Throwable : MonoBehaviour, Holdable
     public float defaultHeldTime;
     public PhotonView thisView;
     protected bool selected = false;
-    bool startedHold = false;
-    Renderer ren;
+    protected bool startedHold = false;
+    protected Renderer ren;
 
     public Vector3 handRotation;
 

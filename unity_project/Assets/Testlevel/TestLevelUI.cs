@@ -12,7 +12,7 @@ public class TestLevelUI : pauseUI
     private void Start()
     {
         gm = GameManager.thisM;
-        test.transform.position = gm.myPlayer.transform.position;
+        //test.transform.position = gm.myPlayer.transform.position;
     }
 
     public void switchCamera()

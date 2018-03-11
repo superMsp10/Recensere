@@ -9,6 +9,8 @@ public class LaserProjectile : MonoBehaviour, Poolable, Timer
     public LaserGun thisPooler;
     public LineRenderer lineRenderer;
     public float stepsDuration = 0.5f, startTime, waitTime = 1f;
+    public Color startC, endC;
+    public Renderer ren;
 
     private void Start()
     {
@@ -47,10 +49,11 @@ public class LaserProjectile : MonoBehaviour, Poolable, Timer
     protected IEnumerator step()
     {
 
-        Debug.Log("hello");
-        while (Time.time - startTime > waitTime)
+        while (Time.time - startTime < waitTime)
         {
-            Debug.Log(Time.time - startTime);
+
+
+            ren.material.SetColor("_TintColor", Color.Lerp(startC, endC, (Time.time - startTime) / waitTime));
             yield return new WaitForSeconds(stepsDuration);
         }
         TimerComplete();

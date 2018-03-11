@@ -8,8 +8,39 @@ public class LaserGun : Item_Throwable
     public float shootRange = 5f;
     public float dmg = 10f;
 
+    public new void Update()
+    {
+        if (selected)
+        {
+            if (ren == null)
+            {
+                Debug.Log("No renderer on this object", this);
+                return;
+            }
+            if (startedHold)
+            {
+                ren.material.color = Color.Lerp(normal, highlighted, (Time.time - timeStarted) / maximumHeldTime);
+                ren.material.SetColor("_EmissionColor", Color.Lerp(normal, highlighted, (Time.time - timeStarted) / maximumHeldTime));
+            }
+            else
+            {
+                ren.material.color = normal;
+                ren.material.SetColor("_EmissionColor", normal);
+
+            }
+        }
+    }
+
     public override bool buttonUP()
     {
+        float heldTime = Time.time - timeStarted;
+
+        if (heldTime <= minimumHeldTime)
+        {
+            startedHold = false;
+            return false;
+        }
+
         if (thisView != null)
         {
             thisView.RPC("buttonUpBy", PhotonTargets.All, null);
@@ -18,6 +49,7 @@ public class LaserGun : Item_Throwable
         {
             buttonUpBy();
         }
+
 
 
         //Projectile Stuff
