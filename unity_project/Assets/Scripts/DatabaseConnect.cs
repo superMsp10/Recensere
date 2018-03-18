@@ -12,8 +12,10 @@ public class DatabaseConnect : MonoBehaviour
     ErrorUI error;
 
     string username, password;
+    //TODO: Switch back to openshift server
+    private string url = "https://aqueous-tundra-86592.herokuapp.com/api";
+    //private string url = "http://localhost:8080/api";
 
-    private string url = "http://bbman-supermsp10.rhcloud.com/api";
     public GameObject myPlayMenu;
 
     void Awake()

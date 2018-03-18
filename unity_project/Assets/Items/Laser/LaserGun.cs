@@ -7,6 +7,7 @@ public class LaserGun : Item_Throwable
     public Transform laserStart;
     public float shootRange = 5f;
     public float dmg = 10f;
+    public float knockback;
 
     public new void Update()
     {
@@ -56,25 +57,24 @@ public class LaserGun : Item_Throwable
         GameObject g = projectilePooler.getObject();
         //Set Transform to this and reset Timer
         g.transform.position = laserStart.position;
-        g.GetComponent<Timer>().StartTimer(itemReset);
-
         LaserProjectile c = g.GetComponent<LaserProjectile>();
         c.thisPooler = this;
-        shoot(laserStart.position, Camera.main.transform.forward, 0, new List<Vector3>() { Vector3.zero }, c.lineRenderer);
+        c.render(shoot(laserStart.position, Camera.main.transform.forward, 0, new List<Vector3>() { laserStart.TransformPoint(Vector3.zero) }, c.lineRenderer),itemReset);
+
         return false;
     }
 
-    void shoot(Vector3 startPoint, Vector3 direction, float distanceCovered, List<Vector3> points, LineRenderer renderer)
+    List<Vector3> shoot(Vector3 startPoint, Vector3 direction, float distanceCovered, List<Vector3> points, LineRenderer renderer)
     {
         RaycastHit info;
         if (Physics.Raycast(startPoint, direction, out info, 500f))
         {
-            points.Add(renderer.transform.InverseTransformPoint(info.point));
+            points.Add(info.point);
 
             Rigidbody r = info.collider.GetComponent<Rigidbody>();
             if (r != null)
             {
-                r.AddForceAtPosition(Vector3.one * dmg, info.point, ForceMode.Impulse);
+                r.AddForceAtPosition(direction * knockback, info.point, ForceMode.Impulse);
             }
 
             Health h = info.collider.GetComponent<Health>();
@@ -90,21 +90,15 @@ public class LaserGun : Item_Throwable
             }
             else
             {
-                renderLine(points, renderer);
+                return points;
             }
 
         }
         else
         {
-            points.Add(direction * shootRange);
-            renderLine(points, renderer);
+            points.Add(renderer.transform.TransformPoint(direction * shootRange));
         }
-    }
-
-    void renderLine(List<Vector3> points, LineRenderer renderer)
-    {
-        renderer.positionCount = points.Count;
-        renderer.SetPositions(points.ToArray());
+        return points;
     }
 
 }

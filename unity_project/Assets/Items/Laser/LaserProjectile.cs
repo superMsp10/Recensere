@@ -17,6 +17,19 @@ public class LaserProjectile : MonoBehaviour, Poolable, Timer
         transform.SetParent(tileDictionary.thisM.projectiles, true);
     }
 
+    public void render(List<Vector3> points, float t)
+    {
+        thisPV.RPC("renderLine", PhotonTargets.All, points.ToArray(), t);
+    }
+
+    [PunRPC]
+    void renderLine(Vector3[] points, float time)
+    {
+        lineRenderer.positionCount = points.Length;
+        lineRenderer.SetPositions(points);
+        StartTimer(time);
+    }
+
     public GameObject gameobject
     {
         get
@@ -48,11 +61,8 @@ public class LaserProjectile : MonoBehaviour, Poolable, Timer
 
     protected IEnumerator step()
     {
-
         while (Time.time - startTime < waitTime)
         {
-
-
             ren.material.SetColor("_TintColor", Color.Lerp(startC, endC, (Time.time - startTime) / waitTime));
             yield return new WaitForSeconds(stepsDuration);
         }
